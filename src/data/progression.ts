@@ -47,9 +47,11 @@ export function isLevelUnlocked(levelId: number, scores: Scores): boolean {
   return scores[seq[i - 1]] != null;
 }
 
-/** First world the player hasn't finished — where Toki stands on the map. */
+/** First world the player hasn't finished — where Toki stands on the map.
+ * When every playable world is done, Toki stands at the last one (the frontier). */
 export function currentWorld(scores: Scores): WorldDefinition {
-  return WORLDS.find((w) => !w.comingSoon && !isWorldComplete(w, scores)) ?? WORLDS[0];
+  const playable = WORLDS.filter((w) => !w.comingSoon);
+  return playable.find((w) => !isWorldComplete(w, scores)) ?? playable[playable.length - 1] ?? WORLDS[0];
 }
 
 /** Count of completed classrooms + bosses, for skin unlocks. */

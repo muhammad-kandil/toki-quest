@@ -9,9 +9,9 @@ import { BossScreen } from './screens/BossScreen';
 import { WorldBossScreen } from './screens/WorldBossScreen';
 import { SkinPickerScreen } from './screens/SkinPickerScreen';
 import { BadgesScreen } from './screens/BadgesScreen';
-import { getLevel, getWorldBoss, BOSS, BOSS_ID } from './data/levels';
+import { getLevel, getWorldBoss, ensureWorldLoaded, BOSS, BOSS_ID } from './data/levels';
 import { WORLDS, getWorld } from './data/worlds';
-import { completedCount as countDone } from './data/progression';
+import { completedCount as countDone, currentWorld as findCurrentWorld } from './data/progression';
 import { DEFAULT_SKIN_ID } from './data/skins';
 import { LocaleProvider, detectInitialLang } from './i18n/LocaleContext';
 import type { Lang } from './i18n/types';
@@ -63,6 +63,15 @@ function App() {
       setScreen('title');
     })();
   }, []);
+
+  // Preload the world the player is currently on, so the map → world
+  // transition is instant for them (other worlds load on tap).
+  useEffect(() => {
+    if (screen !== 'title') return;
+    const w = findCurrentWorld(save.bestScores);
+    ensureWorldLoaded(w.number).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen]);
 
   const persist = async (updated: SaveData) => {
     setSave(updated);
@@ -134,7 +143,12 @@ function App() {
         bestScores={save.bestScores}
         badges={save.badges}
         skinId={save.selectedSkinId}
-        onEnterWorld={(id) => { setActiveWorld(id); setScreen('world'); }}
+        onEnterWorld={async (id) => {
+          const w = WORLDS.find((x) => x.id === id);
+          if (w) await ensureWorldLoaded(w.number);
+          setActiveWorld(id);
+          setScreen('world');
+        }}
         onOpenSkins={() => go('skins', 'map')}
         onOpenBadges={() => go('badges', 'map')}
         onBack={() => setScreen('title')}

@@ -56,7 +56,7 @@ export const BADGES: BadgeDefinition[] = [
     description: t('You restore questioning as a tool for reasoning.', 'تعيد الأسئلة أداةً للتعليل.'),
     glyph: 'brain',
     color: '#FFA000',
-    howToEarn: t('Coming with World 5 — Questioning for Thinking', 'قادم مع العالم ٥ — الأسئلة من أجل التفكير'),
+    howToEarn: t('Clean first-try run in a Questioning for Thinking classroom', 'جولة نظيفة من المحاولة الأولى في صف الأسئلة من أجل التفكير'),
   },
   {
     id: 'inclusive-coach',
@@ -64,7 +64,7 @@ export const BADGES: BadgeDefinition[] = [
     description: t('You make sure every learner is moved forward.', 'تضمن أن يتقدّم كل متعلّم.'),
     glyph: 'sprout',
     color: '#14E882',
-    howToEarn: t('Coming with World 6 — Differentiation', 'قادم مع العالم ٦ — التمايز'),
+    howToEarn: t('Clean first-try run in a Differentiation classroom', 'جولة نظيفة من المحاولة الأولى في صف التمايز'),
   },
   {
     id: 'master-dlis',
