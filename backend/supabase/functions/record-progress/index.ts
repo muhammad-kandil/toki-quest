@@ -2,7 +2,7 @@
 // Body: { initData, bestScores: {[levelId]: score}, badges: string[], lang? }
 // Verifies Telegram's HMAC on initData with the bot token, then upserts.
 // Deploy with "Verify JWT" OFF — Telegram's signature is the auth here.
-import { createClient } from "jsr:@supabase/supabase-js@2";
+import postgres from "npm:postgres@3.4.5";
 
 const ORIGIN = Deno.env.get("ALLOWED_ORIGIN") ?? "https://muhammad-kandil.github.io";
 const cors = {
@@ -61,28 +61,29 @@ Deno.serve(async (req) => {
   const badges = Array.isArray(body.badges) ? body.badges.filter((b: unknown) => typeof b === "string" && (b as string).length < 40).slice(0, 16) : [];
   const lang = body.lang === "ar" ? "ar" : body.lang === "en" ? "en" : null;
 
-  const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-  const { error: e1 } = await db.from("toki_players").upsert({
-    telegram_user_id: user.id,
-    username: user.username ?? null,
-    first_name: user.first_name ?? null,
-    last_name: user.last_name ?? null,
-    lang,
-    badges,
-    last_seen_at: new Date().toISOString(),
-  });
-  if (e1) return json(500, { error: e1.message });
-
-  for (const [level_id, score] of scores) {
-    const { data: cur } = await db.from("toki_progress").select("best_score").eq("telegram_user_id", user.id).eq("level_id", level_id).maybeSingle();
-    if (cur && cur.best_score >= score) continue;
-    const { error } = await db.from("toki_progress").upsert({
-      telegram_user_id: user.id,
-      level_id,
-      best_score: Math.round(score),
-      updated_at: new Date().toISOString(),
+  const sql = postgres(Deno.env.get("SUPABASE_DB_URL")!, { prepare: false, max: 1 });
+  try {
+    await sql.begin(async (tx) => {
+      await tx`
+        insert into public.toki_players (telegram_user_id, username, first_name, last_name, lang, badges, last_seen_at)
+        values (${user.id}, ${user.username ?? null}, ${user.first_name ?? null}, ${user.last_name ?? null}, ${lang}, ${JSON.stringify(badges)}::jsonb, now())
+        on conflict (telegram_user_id) do update set
+          username = excluded.username, first_name = excluded.first_name, last_name = excluded.last_name,
+          lang = coalesce(excluded.lang, public.toki_players.lang), badges = excluded.badges, last_seen_at = now()`;
+      for (const [level_id, score] of scores) {
+        await tx`
+          insert into public.toki_progress (telegram_user_id, level_id, best_score)
+          values (${user.id}, ${level_id}, ${Math.round(score)})
+          on conflict (telegram_user_id, level_id) do update set
+            best_score = greatest(public.toki_progress.best_score, excluded.best_score),
+            updated_at = case when excluded.best_score > public.toki_progress.best_score then now() else public.toki_progress.updated_at end`;
+      }
     });
-    if (error) return json(500, { error: error.message });
+  } catch (e) {
+    console.error("record-progress db error", e);
+    return json(500, { error: "db" });
+  } finally {
+    await sql.end({ timeout: 2 });
   }
   return json(200, { ok: true, levels: scores.length });
 });
