@@ -57,6 +57,7 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
   const [beat, setBeat] = useState<Beat>('observe');
   const [outcomes, setOutcomes] = useState<Record<string, StepOutcome>>({});
   const [selectedWrong, setSelectedWrong] = useState<string | null>(null);
+  const [selectedRight, setSelectedRight] = useState<string | null>(null);
   const [reaction, setReaction] = useState<ReactionKind>(null);
   const [reactionTrigger, setReactionTrigger] = useState(0);
   const [outcome, setOutcome] = useState<ConversationOutcome | null>(null);
@@ -73,6 +74,7 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
 
   const advance = () => {
     setSelectedWrong(null);
+    setSelectedRight(null);
     setReaction(null);
     const next = visibleBeats[beatIndex + 1];
     if (next) setBeat(next);
@@ -103,6 +105,7 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
     if (riskLevel >= 0) sfx.play('risk', { level: riskLevel });
     if (correct) {
       setSelectedWrong(null);
+      setSelectedRight(choiceId);
       setTimeout(() => sfx.play('correct'), delay);
       fireReaction('affirming');
       setTimeout(advance, 500 + delay);
@@ -139,22 +142,22 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
       {beat === 'observe' && <ObserveBeat level={level} onContinue={() => { sfx.play('tap'); advance(); }} />}
 
       {beat === 'drift' && (
-        <ChoiceBeat heading={tx(UI.identifyDrift)} step={level.steps.identifyDrift} selectedWrong={selectedWrong}
+        <ChoiceBeat heading={tx(UI.identifyDrift)} step={level.steps.identifyDrift} selectedWrong={selectedWrong} selectedRight={selectedRight}
           onChoose={(id) => handleChoice('drift', level.steps.identifyDrift, id)} recap={level.evidence} />
       )}
       {beat === 'risk' && (
-        <ChoiceBeat heading={tx(UI.assessRisk)} step={level.steps.assessRisk} selectedWrong={selectedWrong}
+        <ChoiceBeat heading={tx(UI.assessRisk)} step={level.steps.assessRisk} selectedWrong={selectedWrong} selectedRight={selectedRight}
           onChoose={(id) => handleChoice('risk', level.steps.assessRisk, id)} />
       )}
       {beat === 'coaching' && (
-        <ChoiceBeat heading={tx(UI.chooseCoaching)} step={level.steps.chooseCoaching} selectedWrong={selectedWrong}
+        <ChoiceBeat heading={tx(UI.chooseCoaching)} step={level.steps.chooseCoaching} selectedWrong={selectedWrong} selectedRight={selectedRight}
           onChoose={(id) => handleChoice('coaching', level.steps.chooseCoaching, id)} />
       )}
       {beat === 'conversation' && level.conversation && (
         <ConversationBeat conversation={level.conversation} onDone={(o) => { setOutcome(o); advance(); }} />
       )}
       {beat === 'reasoning' && level.steps.reasoning && (
-        <ChoiceBeat heading={tx(UI.whyBonus)} step={level.steps.reasoning} selectedWrong={selectedWrong}
+        <ChoiceBeat heading={tx(UI.whyBonus)} step={level.steps.reasoning} selectedWrong={selectedWrong} selectedRight={selectedRight}
           onChoose={(id) => handleChoice('reasoning', level.steps.reasoning!, id)} skippable onSkip={() => { sfx.play('tap'); advance(); }} />
       )}
       {beat === 'reveal' && (
@@ -240,13 +243,14 @@ interface ChoiceBeatProps {
   heading: string;
   step: StepDefinition;
   selectedWrong: string | null;
+  selectedRight?: string | null;
   onChoose: (id: string) => void;
   skippable?: boolean;
   onSkip?: () => void;
   recap?: LevelDefinition['evidence'];
 }
 
-function ChoiceBeat({ heading, step, selectedWrong, onChoose, skippable, onSkip, recap }: ChoiceBeatProps) {
+function ChoiceBeat({ heading, step, selectedWrong, selectedRight, onChoose, skippable, onSkip, recap }: ChoiceBeatProps) {
   const { tx } = useLocale();
   return (
     <div className="beat beat--choice">
@@ -257,7 +261,7 @@ function ChoiceBeat({ heading, step, selectedWrong, onChoose, skippable, onSkip,
         {step.options.map((opt, i) => (
           <button
             key={opt.id}
-            className={`choice-list__item ${selectedWrong === opt.id ? 'choice-list__item--wrong' : ''}`}
+            className={`choice-list__item ${selectedWrong === opt.id ? 'choice-list__item--wrong' : ''} ${selectedRight === opt.id ? 'choice-list__item--right' : ''}`}
             style={{ animationDelay: `${i * 55}ms` }}
             onClick={() => onChoose(opt.id)}
           >

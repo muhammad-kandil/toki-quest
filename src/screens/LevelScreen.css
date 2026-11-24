@@ -107,22 +107,25 @@
   font-size: var(--text-base);
   font-weight: 700;
   color: var(--color-text-on-brand);
-  background: var(--color-action-primary);
+  background: var(--lit-teal);
   border: none;
   border-radius: var(--radius-pill);
   padding: var(--space-4) var(--space-6);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--lit-teal-shadow);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
   margin-top: auto;
-  transition: transform var(--duration-fast) var(--ease-bounce), background var(--duration-fast) var(--ease-smooth);
+  transition: transform var(--duration-fast) var(--ease-bounce), box-shadow var(--duration-fast) var(--ease-smooth), filter var(--duration-fast) var(--ease-smooth);
 }
 
 .beat__cta:hover {
-  background: var(--color-action-primary-hover);
+  filter: brightness(1.04);
   transform: translateY(-2px);
 }
 
 .beat__cta:active {
-  transform: scale(0.97);
+  transform: translateY(2px) scale(0.98);
+  box-shadow: var(--lit-teal-pressed);
+  filter: brightness(0.97);
 }
 
 /* ---------- Choice list ---------- */
@@ -140,29 +143,58 @@
   font-weight: 500;
   text-align: start;
   color: var(--color-text-primary);
-  background: var(--color-bg-elevated);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FBFAFE 100%);
   border: var(--stroke-width) solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4);
+  box-shadow: var(--elev-1);
+  position: relative;
+  overflow: hidden;
   transition:
     border-color var(--duration-fast) var(--ease-smooth),
     transform var(--duration-fast) var(--ease-bounce),
+    box-shadow var(--duration-fast) var(--ease-smooth),
     background var(--duration-fast) var(--ease-smooth);
 }
 
 .choice-list__item:hover {
   border-color: var(--toki-teal);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--elev-2);
 }
 
+/* Pressed: the card sinks into the page. */
 .choice-list__item:active {
-  transform: scale(0.98);
+  transform: translateY(1px) scale(0.99);
+  box-shadow: var(--elev-pressed);
 }
 
 .choice-list__item--wrong {
   border-color: var(--risk-lethal);
-  background: #FDEFF2;
+  background: linear-gradient(180deg, #FFF4F6 0%, #FDEFF2 100%);
+  box-shadow: var(--elev-pressed);
   animation: shake 320ms var(--ease-smooth);
+}
+
+/* Right: the card lifts, turns teal, and a band of light crosses it
+   once — a short, lit confirmation rather than a checkmark. */
+.choice-list__item--right {
+  border-color: var(--toki-teal);
+  background: linear-gradient(180deg, #F2FEFB 0%, #E6FBF6 100%);
+  box-shadow: var(--elev-2), 0 0 0 3px rgba(29, 214, 187, 0.18);
+  transform: translateY(-2px);
+}
+.choice-list__item--right::after {
+  content: '';
+  position: absolute;
+  inset: -20% -40%;
+  pointer-events: none;
+  background: linear-gradient(100deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 60%);
+  animation: lit-sweep 520ms var(--ease-smooth) forwards;
+}
+@keyframes lit-sweep {
+  from { transform: translate3d(calc(var(--dir) * -70%), 0, 0); }
+  to { transform: translate3d(calc(var(--dir) * 70%), 0, 0); }
 }
 
 @keyframes shake {
@@ -464,4 +496,37 @@
   font-size: var(--text-lg);
   font-weight: 800;
   color: var(--toki-indigo);
+}
+
+/* ---------- 2.5D material pass ----------
+   Every raised surface shares one lighting rule (see tokens.css):
+   top-lit, contact shadow close, ambient shadow further. */
+.score-summary,
+.evidence__card,
+.reveal__block,
+.badge-earned,
+.boss-audit__finding,
+.wboss__scene,
+.evidence__card {
+  box-shadow: var(--elev-1);
+}
+.reveal__block {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FBFAFE 100%);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+.reveal__risk-badge {
+  box-shadow: var(--edge-light), 0 3px 8px rgba(69, 43, 116, 0.22);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+.badge-earned {
+  background: linear-gradient(180deg, #FFFBF2 0%, #FFF6E3 100%);
+  box-shadow: var(--elev-2);
+}
+.level-progress__dot--filled {
+  box-shadow: 0 0 0 2px rgba(29, 214, 187, 0.22), 0 1px 2px rgba(69, 43, 116, 0.2);
+}
+.reveal__celebrate-toki {
+  filter: drop-shadow(0 10px 14px rgba(69, 43, 116, 0.28));
 }

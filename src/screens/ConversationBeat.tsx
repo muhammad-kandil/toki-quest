@@ -66,7 +66,7 @@ export function ConversationBeat({ conversation, onDone }: {
   };
 
   return (
-    <div className="beat beat--choice convo">
+    <div className={`beat beat--choice convo convo--${conversation.stance}`}>
       <h3 className="beat__heading">{tx(UI.conversationHeading)}</h3>
       <p className="convo__setting">{tx(conversation.setting)}</p>
 

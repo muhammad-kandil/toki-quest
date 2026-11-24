@@ -99,6 +99,25 @@
 
 /* Reveal: the outcome colours the "what happened next" block. */
 .reveal__outcome { display: inline-block; margin-bottom: var(--space-2); }
+
+/* ---------- 2.5D: chat with depth ----------
+   Bubbles are cards too: top-lit, with a contact shadow. The teacher's
+   side takes a faint tint from their stance, so the room has a mood
+   before a word is read. */
+.bubble { box-shadow: var(--elev-1); }
+.bubble--teacher { background: linear-gradient(180deg, #FFFFFF 0%, var(--stance-tint, #FBFAFE) 100%); }
+.bubble--toki {
+  background: var(--lit-indigo);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.14), 0 2px 4px rgba(69, 43, 116, 0.2), 0 8px 18px rgba(69, 43, 116, 0.22);
+}
+.convo--proud     { --stance-tint: #FFF5EA; --stance-ink: #B06A00; }
+.convo--tired     { --stance-tint: #F2F0F9; --stance-ink: #6B5B8A; }
+.convo--defensive { --stance-tint: #FDF0F3; --stance-ink: #B43A5C; }
+.convo--eager     { --stance-tint: #EAFBF7; --stance-ink: #17AD96; }
+.convo .bubble--teacher .bubble__who { color: var(--stance-ink, var(--color-text-secondary)); }
+.convo__read { box-shadow: var(--elev-1); background: linear-gradient(180deg, #F2FEFB 0%, #EAFBF7 100%); }
+.convo__read-toki { filter: drop-shadow(0 3px 4px rgba(69, 43, 116, 0.2)); }
+.convo__outcome { box-shadow: var(--elev-2); }
 @media (prefers-reduced-motion: reduce) {
   .bubble, .convo__outcome { animation: none; }
 }

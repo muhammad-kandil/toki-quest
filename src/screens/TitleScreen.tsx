@@ -35,13 +35,28 @@ export function TitleScreen({ onStart, onOpenSkins, onOpenBadges, isReturningPla
       <TopBar badgesCount={isReturningPlayer ? badgesCount : undefined} onOpenBadges={isReturningPlayer ? onOpenBadges : undefined} />
 
       <div className="title-screen__stars" aria-hidden="true">
-        <span className="star star--1">★</span>
-        <span className="star star--2">★</span>
-        <span className="star star--3">★</span>
+        {/* Three depth layers: far (small, slow), mid, near (large, faster). */}
+        <div className="title-screen__layer title-screen__layer--far">
+          <span className="star star--1">★</span>
+          <span className="star star--5">✦</span>
+          <span className="star star--6">✦</span>
+        </div>
+        <div className="title-screen__layer title-screen__layer--mid">
+          <span className="star star--2">★</span>
+          <span className="star star--7">✦</span>
+        </div>
+        <div className="title-screen__layer title-screen__layer--near">
+          <span className="star star--3">★</span>
+          <span className="star star--4">✦</span>
+        </div>
+        <div className="title-screen__glow" />
       </div>
 
       <div className={`title-screen__hero ${heroSettled ? 'title-screen__hero--settled' : ''}`}>
-        <TokiAvatar src={tealHero} size={148} mood="idle" shadow={false} />
+        <div className="title-screen__float">
+          <TokiAvatar src={tealHero} size={148} mood="idle" shadow={false} />
+        </div>
+        <span className="title-screen__ground" aria-hidden="true" />
       </div>
 
       <h1 className="title-screen__title">{tx(UI.appName)}</h1>

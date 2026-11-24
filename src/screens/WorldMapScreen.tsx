@@ -108,24 +108,48 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
         <h1 className="map__title">{tx(UI.chooseWorld)}</h1>
       </header>
 
-      <div className={`map__stage ${travelTo ? 'map__stage--travelling' : ''}`}>
-        <svg className="map__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <div
+        className={`map__stage ${travelTo ? 'map__stage--travelling' : ''}`}
+        style={{ '--par': (restNode.x - 50) / 50 } as React.CSSProperties}
+      >
+        {/* Sky + far hills: the slowest parallax layer. */}
+        <svg className="map__layer map__layer--far" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#EAF7FF" />
+              <stop offset="0" stopColor="#DFF3FF" />
+              <stop offset="0.55" stopColor="#EEF8FD" />
               <stop offset="1" stopColor="#F5F3FA" />
             </linearGradient>
+            <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stopColor="#FFF4D6" stopOpacity="0.95" />
+              <stop offset="1" stopColor="#FFF4D6" stopOpacity="0" />
+            </radialGradient>
           </defs>
-          <rect width="100" height="100" fill="url(#sky)" />
-          {/* soft hills */}
-          <path d="M-5 70 C 15 60, 30 78, 50 68 S 85 60, 105 72 L 105 105 L -5 105 Z" fill="#E6F9F5" />
-          <path d="M-5 50 C 20 40, 40 55, 60 46 S 90 38, 105 48 L 105 105 L -5 105 Z" fill="#EDFCFA" opacity="0.8" />
-          <path d="M-5 28 C 20 20, 45 32, 70 24 S 95 16, 105 26 L 105 105 L -5 105 Z" fill="#F6F4F8" opacity="0.9" />
-          {/* road */}
+          <rect x="-10" width="120" height="100" fill="url(#sky)" />
+          <circle cx="78" cy="12" r="16" fill="url(#sun)" />
+          <path d="M-10 34 C 10 26, 35 38, 60 30 S 95 20, 110 30 L 110 110 L -10 110 Z" fill="#EEF0F8" />
+          <path d="M-10 44 C 15 36, 40 50, 62 42 S 92 34, 110 44 L 110 110 L -10 110 Z" fill="#E7F3F6" />
+        </svg>
+        {/* Near hills: faster parallax, warmer greens. */}
+        <svg className="map__layer map__layer--near" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#E3F8F2" />
+              <stop offset="1" stopColor="#CFEFE4" />
+            </linearGradient>
+          </defs>
+          <path d="M-10 62 C 15 54, 35 70, 55 62 S 90 54, 110 66 L 110 110 L -10 110 Z" fill="#DDF6EE" />
+          <path d="M-10 76 C 20 68, 40 84, 62 74 S 92 68, 110 78 L 110 110 L -10 110 Z" fill="url(#ground)" />
+        </svg>
+        {/* The road: a friendly path with a shadow underneath and a lit crown. */}
+        <svg className="map__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d={roadD} className="map__road-shadow" />
           <path d={roadD} className="map__road-outline" />
           <path ref={pathRef} d={roadD} className="map__road" />
+          <path d={roadD} className="map__road-light" />
           <path d={roadD} className="map__road-dash" />
         </svg>
+        <div className="map__vignette" aria-hidden="true" />
 
         {WORLDS.map((w) => {
           const st = states[w.id];
@@ -180,16 +204,50 @@ function fractionAt(path: SVGPathElement, total: number, node: { x: number; y: n
 }
 
 function SchoolGlyph({ state }: { state: WorldState }) {
-  const fill = state === 'soon' ? '#E3DEEE' : state === 'done' ? '#1DD6BB' : '#FFC2F1';
-  const roof = state === 'soon' ? '#C9C1DA' : '#452B74';
+  const soon = state === 'soon';
+  const done = state === 'done';
+  // Isometric block: a lit roof plane, a sunlit right wall, a shaded left
+  // wall, on a soft ground ellipse. Colours shift with state.
+  const left = soon ? '#D9D3E6' : done ? '#15B9A1' : '#E9A6DB';
+  const right = soon ? '#E8E3F1' : done ? '#1DD6BB' : '#FFC2F1';
+  const roofA = soon ? '#CFC7DE' : '#5A3C92';
+  const roofB = soon ? '#BDB3D1' : '#452B74';
   return (
-    <svg viewBox="0 0 48 44" width="100%" height="100%">
-      <path d="M6 20h36v20H6z" fill={fill} stroke="#452B74" strokeWidth="2.5" strokeLinejoin="round" />
-      <path d="M3 21L24 6l21 15" fill="none" stroke={roof} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <rect x="20" y="28" width="8" height="12" fill="#452B74" rx="1.5" />
-      <rect x="10" y="25" width="6" height="6" fill="#fff" stroke="#452B74" strokeWidth="2" />
-      <rect x="32" y="25" width="6" height="6" fill="#fff" stroke="#452B74" strokeWidth="2" />
-      {state === 'done' && <path d="M15 11l3.5 3.5L25 8" fill="none" stroke="#11D471" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />}
+    <svg viewBox="0 0 64 60" width="100%" height="100%">
+      <defs>
+        <linearGradient id={`roof-${state}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor={roofA} />
+          <stop offset="1" stopColor={roofB} />
+        </linearGradient>
+      </defs>
+      {/* ground contact */}
+      <ellipse cx="32" cy="54" rx="24" ry="5" fill="rgba(69,43,116,0.16)" />
+      {/* left (shaded) wall */}
+      <path d="M12 26 L32 36 L32 52 L12 42 Z" fill={left} stroke="#452B74" strokeWidth="2" strokeLinejoin="round" />
+      {/* right (lit) wall */}
+      <path d="M32 36 L52 26 L52 42 L32 52 Z" fill={right} stroke="#452B74" strokeWidth="2" strokeLinejoin="round" />
+      {/* roof plane */}
+      <path d="M12 26 L32 16 L52 26 L32 36 Z" fill={`url(#roof-${state})`} stroke="#452B74" strokeWidth="2" strokeLinejoin="round" />
+      {/* roof ridge highlight */}
+      <path d="M14 26 L32 17.5" fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="1.5" strokeLinecap="round" />
+      {/* door + windows on the lit wall, two windows on the shaded wall */}
+      <path d="M38 40.5 L44 37.5 L44 46.5 L38 49.5 Z" fill="#452B74" />
+      <path d="M46 34.5 L50 32.5 L50 36.5 L46 38.5 Z" fill="#fff" stroke="#452B74" strokeWidth="1.2" strokeLinejoin="round" />
+      <path d="M16 33 L20 35 L20 39 L16 37 Z" fill="#fff" stroke="#452B74" strokeWidth="1.2" strokeLinejoin="round" />
+      <path d="M24 37 L28 39 L28 43 L24 41 Z" fill="#fff" stroke="#452B74" strokeWidth="1.2" strokeLinejoin="round" />
+      {/* flag on the current school, tick on a finished one */}
+      {state === 'current' && (
+        <g>
+          <path d="M32 16 L32 4" stroke="#452B74" strokeWidth="1.6" strokeLinecap="round" />
+          <path d="M32.6 4.5 L41 7.5 L32.6 10.5 Z" fill="#FFA000" stroke="#452B74" strokeWidth="1.2" strokeLinejoin="round" />
+        </g>
+      )}
+      {done && (
+        <g>
+          <circle cx="32" cy="10" r="7" fill="#11D471" stroke="#452B74" strokeWidth="1.6" />
+          <path d="M28.5 10l2.4 2.4L36 8" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      )}
     </svg>
   );
 }
