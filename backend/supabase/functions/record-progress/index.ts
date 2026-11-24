@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
     await sql.begin(async (tx) => {
       await tx`
         insert into public.toki_players (telegram_user_id, username, first_name, last_name, lang, badges, last_seen_at)
-        values (${user.id}, ${user.username ?? null}, ${user.first_name ?? null}, ${user.last_name ?? null}, ${lang}, ${JSON.stringify(badges)}::jsonb, now())
+        values (${user.id}, ${user.username ?? null}, ${user.first_name ?? null}, ${user.last_name ?? null}, ${lang}, ${tx.json(badges)}, now())
         on conflict (telegram_user_id) do update set
           username = excluded.username, first_name = excluded.first_name, last_name = excluded.last_name,
           lang = coalesce(excluded.lang, public.toki_players.lang), badges = excluded.badges, last_seen_at = now()`;
