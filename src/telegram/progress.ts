@@ -7,6 +7,8 @@
  * If the URL isn't configured, the request fails, or we're not inside
  * Telegram (no signed initData), nothing happens and nothing is shown.
  */
+import { retrieveRawInitData } from '@telegram-apps/sdk-react';
+
 const URL = import.meta.env.VITE_PROGRESS_URL as string | undefined;
 
 interface ProgressPayload {
@@ -15,9 +17,26 @@ interface ProgressPayload {
   lang?: string;
 }
 
+/**
+ * The signed launch data Telegram gives the Mini App. The official
+ * telegram-web-app.js script is not loaded here, so window.Telegram is
+ * absent; the SDK reads it from the launch URL (tgWebAppData) and caches
+ * it in sessionStorage across reloads.
+ */
 function initData(): string | null {
-  const raw = (window as any).Telegram?.WebApp?.initData;
-  return typeof raw === 'string' && raw.length > 0 ? raw : null;
+  const w = (window as any).Telegram?.WebApp?.initData;
+  if (typeof w === 'string' && w.length > 0) return w;
+  try {
+    const raw = retrieveRawInitData();
+    if (typeof raw === 'string' && raw.length > 0) return raw;
+  } catch {
+    /* not inside Telegram */
+  }
+  for (const src of [window.location.hash.slice(1), window.location.search.slice(1)]) {
+    const d = new URLSearchParams(src).get('tgWebAppData');
+    if (d) return d;
+  }
+  return null;
 }
 
 export function reportProgress(payload: ProgressPayload): void {
