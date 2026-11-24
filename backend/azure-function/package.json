@@ -1,0 +1,16 @@
+{
+  "name": "toki-quest-progress-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Records Toki's Coaching Quest progress into the CX db (data_schema) after verifying Telegram initData.",
+  "main": "src/functions/*.js",
+  "scripts": {
+    "start": "func start",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.6.0",
+    "mysql2": "^3.11.0"
+  },
+  "engines": { "node": ">=20" }
+}

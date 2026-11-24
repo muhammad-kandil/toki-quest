@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { bootstrapTelegram } from './telegram/bootstrap';
 import { loadJSON, saveJSON, deleteValue } from './telegram/storage';
+import { reportProgress } from './telegram/progress';
 import { TitleScreen } from './screens/TitleScreen';
 import { WorldMapScreen } from './screens/WorldMapScreen';
 import { HubScreen } from './screens/HubScreen';
@@ -111,11 +112,9 @@ function App() {
   const handleClassroomComplete = async (result: LevelResult) => {
     const prevBest = save.bestScores[result.levelId] ?? 0;
     const newBadges = [...new Set([...save.badges, ...result.badgesEarned])];
-    await persist({
-      ...save,
-      bestScores: { ...save.bestScores, [result.levelId]: Math.max(prevBest, result.score) },
-      badges: newBadges,
-    });
+    const bestScores = { ...save.bestScores, [result.levelId]: Math.max(prevBest, result.score) };
+    await persist({ ...save, bestScores, badges: newBadges });
+    reportProgress({ bestScores, badges: newBadges, lang });
     setScreen('world');
   };
 
