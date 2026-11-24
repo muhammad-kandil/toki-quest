@@ -48,6 +48,7 @@ export function TitleScreen({ onStart, onOpenSkins, onOpenBadges, isReturningPla
       <p className="title-screen__subtitle">{tx(UI.tagline)}</p>
 
       <p className="title-screen__thesis">{tx(UI.titleBlurb)}</p>
+      {!isReturningPlayer && <p className="title-screen__promise">{tx(UI.titlePromise)}</p>}
 
       <button className="title-screen__cta" onClick={() => { sfx.play('tap'); onStart(); }}>
         {tx(isReturningPlayer ? UI.continueQuest : UI.startFirstVisit)}

@@ -15,6 +15,10 @@ export const UI = {
     'أحيانًا لا تكون أكثر الصفوف إبهارًا هي التي يحدث فيها التعلّم الأعمق.',
   ),
   startFirstVisit: t('Start Your First Visit', 'ابدأ زيارتك الأولى'),
+  titlePromise: t(
+    'A judgement game, not a quiz. Nothing is timed, nobody ranks you — and the teacher answers back.',
+    'لعبة حكم مهني لا اختبار. لا شيء مؤقّت، ولا أحد يصنّفك — والمعلّم يردّ عليك.',
+  ),
   continueQuest: t('Continue the Quest', 'واصل الرحلة'),
   customizeToki: t('Customize Toki', 'خصّص مظهر توكي'),
   badges: t('Badges', 'الشارات'),
