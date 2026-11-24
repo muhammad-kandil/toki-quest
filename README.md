@@ -1,59 +1,108 @@
-# Toki's Coaching Quest
+# Toki's Coaching Quest — Spot the Drift
 
-**Spot the Drift. Prevent the Lethal Mutation.**
-A Telegram Mini App for the Alef Pedagogy Hub.
+A Telegram Mini App for Alef Education's Pedagogy Hub. Players guide Toki, a DLIS
+(instructional coach), through classrooms that *look* excellent but have drifted
+from their learning purpose. Observe → spot the drift → assess the risk → choose
+the coaching move → restore the purpose.
 
-Full design reference: see `toki_gdd.md` (shared alongside this project).
+**Live:** https://muhammad-kandil.github.io/toki-quest/ · **Bot:** @TokiQuestBot
 
-## Status: Phase 1 — First Playable Level ✅
+## Design constraints (do not re-open)
 
-Level 1 ("The Talkative Classroom") is fully playable end-to-end:
-Observe → Identify the Drift → Assess the Risk → Choose the Coaching
-Move → optional Reasoning bonus → Reveal → scored, saved.
+- **Anti-gamification by design.** World 1's final classroom teaches that points,
+  speed and leaderboards corrupt learning. So the game never rewards speed, never
+  turns points into currency, and never shows a competitive leaderboard. Badges
+  mark *concept mastery* (clean first-try runs), not grinding.
+- **Calm-confidence register** for adult professionals. No arcade feel. Celebrations
+  are short and skippable; sound is subtle and mutable; `prefers-reduced-motion`
+  is honoured everywhere.
+- **Bilingual, always.** Every player-facing string is a `{en, ar}` pair. Nothing
+  can ship half-translated. Arabic is written in a coaching register, not a literal
+  translation. Arabic content is Claude-authored and awaits team review.
 
-- Wrong answers show a hint and let the player retry — no penalty,
-  no game-over (GDD §3: failure is a learning beat)
-- Scoring rewards correctness of judgment only — **no timer, no
-  speed bonus** anywhere in the loop (the resolved gamification
-  tension from GDD §2, made visible to the player at the reveal)
-- Badges (starting with "Drift Detective") trigger on full-correct
-  runs and persist via the same CloudStorage/localStorage layer
-  from Phase 0
-- Level content lives entirely in `src/data/levels/level1.ts` as
-  data — Levels 2–5 and the Boss slot in the same way in Phase 2/3
-  without touching the game-loop code
-
-## Running it
-
-```bash
-npm install
-npm run dev
-```
-
-## Project structure (additions since Phase 0)
+## Structure
 
 ```
 src/
+  i18n/            Text type, LocaleProvider, UI string table (EN/AR)
+  audio/           Synthesized Web Audio sound engine (no audio files) + mute
   data/
-    levelTypes.ts     Shared level data-model types (GDD §9)
-    levels/
-      level1.ts        Level 1 content
-      index.ts         Level registry/lookup
-  screens/
-    LevelScreen.tsx    The 5-beat game loop state machine
-    LevelScreen.css
-    HomeScreen.tsx     Updated: shows last result, replay/play CTA
+    levelTypes.ts  Classroom data model (five-beat loop + evidence hotspots)
+    bossTypes.ts   The Perfect Classroom (World 1 finale: six-dimension audit)
+    worldBossTypes.ts  World boss "pattern audit" (reusable by every world)
+    worlds.ts      The 8-world journey and map node positions
+    progression.ts Unlock rules derived purely from bestScores
+    badges.ts      The 7 concept-mastery badges (SVG icons)
+    skins.ts       7 Toki looks, unlocked by progress
+    levels/        World 1 (level1–5 + boss) bundled; world2–6 lazy chunks
+  screens/         Title · WorldMap · Hub (classrooms) · Level · Boss · WorldBoss ·
+                   Badges · SkinPicker
+  components/      TopBar (lang/sound/badges) · TokiAvatar (living idle) · BadgeIcon
+  telegram/        SDK bootstrap + CloudStorage with localStorage fallback & timeouts
 ```
 
-## Verified
+### Level id scheme
+World 1 = ids 1–5 + The Perfect Classroom (6). World *N* = `N*10+1 … N*10+4`
+classrooms and `N*10+5` world boss. Worlds 7 (Lethal Mutation Academy) and 8
+(The Master DLIS) are on the map but not yet authored — they need custom
+mechanics (multiple/no mutations; a multi-context school visit).
 
-Full playthrough tested end-to-end (title → home → observe → all
-four questions, including a deliberate wrong-answer path → reveal →
-home), confirming: no console errors, correct scoring math (125/125
-on an all-correct run), badge trigger, and save persistence.
+### Progression
+No "unlocked" counter. `progression.ts` derives everything from `bestScores`:
+classrooms unlock in sequence within a world; a world's boss unlocks when all its
+classrooms are done; the next world unlocks when the previous world's boss is done.
+Old saves work unchanged.
 
-## Next: Phase 2
+### Save data
+Key `toki:save` in Telegram CloudStorage (localStorage fallback):
+`{ hasPlayedBefore, bestScores, badges, selectedSkinId, lang }`.
+All cloud calls are wrapped in timeouts because iOS Telegram's CloudStorage can
+hang rather than fail.
 
-Levels 2–5 built from data, using the same `LevelDefinition` shape.
-Progression/unlock logic and a real level-select screen (currently
-Phase 1 always plays Level 1 directly).
+## Adding a world
+
+1. Author `src/data/levels/worldN.ts` (four `LevelDefinition`s, bilingual, with
+   three `evidence` hotspots each) and `worldNboss.ts` (a `WorldBossDefinition`:
+   five scenes, some deliberately healthy; then pattern / risk / coaching).
+2. Register a loader in `levels/index.ts` `WORLD_LOADERS`.
+3. In `worlds.ts`, fill `levelIds` and `bossId` and remove `comingSoon`.
+4. Playwright through it in both languages (see the `e2e` pattern in git history).
+
+## Development
+
+```
+npm ci
+npm run dev        # http://localhost:5173/toki-quest/
+npm run build      # dist/ — what CI deploys
+```
+
+CI (`.github/workflows/deploy.yml`) builds on push to `main` and deploys `dist/`
+to GitHub Pages via the Actions method (the legacy "deploy from a branch" method
+is blocked on this org). If a deploy fails with "try again later", re-run the job.
+
+### Hard-won platform notes
+- `base: '/toki-quest/'` must match the repo name exactly.
+- `crossorigin` is stripped from script tags (GitHub Pages sends no CORS headers;
+  Telegram's iOS webview then blocks the script → blank page).
+- `@vitejs/plugin-legacy` targets iOS ≥ 12: older WebKit can't parse the modern
+  syntax some dependencies ship, and fails silently.
+- No `color-mix()` in CSS (Safari < 16.2).
+- Telegram caches the Mini App aggressively; bump `?v=` on the BotFather URL to
+  force a refresh.
+
+## Status
+
+| Piece | State |
+|---|---|
+| World 1 — The Busy Classroom (5 + The Perfect Classroom) | ✅ |
+| World 2 — Assessment Under the Microscope | ✅ |
+| World 3 — Alef in Action | ✅ |
+| World 4 — Feedback That Moves Learning | ✅ |
+| World 5 — Questioning for Thinking | ✅ |
+| World 6 — Differentiation | ✅ |
+| World 7 — The Lethal Mutation Academy | planned (custom mechanic: 0–many mutations, avoid over-coaching) |
+| Final World — The Master DLIS | planned (multi-context school visit, prioritisation) |
+| Arabic/English + RTL, sound, world map, badges gallery, interactive Observe | ✅ |
+| Per-world scene art | reusing World 1 scenes; new art welcome |
+| Team review of Arabic | pending |
+| Rive-animated Toki, admin completion view | future |
