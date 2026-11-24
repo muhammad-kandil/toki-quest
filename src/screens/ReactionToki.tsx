@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import affirmingToki from '../assets/raw/toki-reaction-affirming.png';
 import thoughtfulToki from '../assets/raw/toki-reaction-thoughtful.png';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
+import { useLocale } from '../i18n/LocaleContext';
+import { UI } from '../i18n/ui';
+import type { Text } from '../i18n/types';
 import './ReactionToki.css';
 
 export type ReactionKind = 'affirming' | 'thoughtful' | 'celebrating' | null;
@@ -15,10 +18,10 @@ interface ReactionTokiProps {
   trigger: number;
 }
 
-const CONFIG: Record<Exclude<ReactionKind, null>, { image: string; label: string; holdMs: number }> = {
-  affirming: { image: affirmingToki, label: 'Nice read', holdMs: 900 },
-  thoughtful: { image: thoughtfulToki, label: 'Look again', holdMs: 1100 },
-  celebrating: { image: celebratingToki, label: 'Classroom restored!', holdMs: 1600 },
+const CONFIG: Record<Exclude<ReactionKind, null>, { image: string; label: Text; holdMs: number }> = {
+  affirming: { image: affirmingToki, label: UI.niceRead, holdMs: 900 },
+  thoughtful: { image: thoughtfulToki, label: UI.lookAgain, holdMs: 1100 },
+  celebrating: { image: celebratingToki, label: UI.restored, holdMs: 1600 },
 };
 
 /**
@@ -28,6 +31,7 @@ const CONFIG: Record<Exclude<ReactionKind, null>, { image: string; label: string
  * register for adult professional learners — not arcade celebration.
  */
 export function ReactionToki({ kind, trigger }: ReactionTokiProps) {
+  const { tx } = useLocale();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -56,7 +60,7 @@ export function ReactionToki({ kind, trigger }: ReactionTokiProps) {
   return (
     <div className={`reaction-toki ${visible ? 'reaction-toki--visible' : ''} reaction-toki--${kind}`}>
       <img src={image} alt="" />
-      <span className="reaction-toki__label">{label}</span>
+      <span className="reaction-toki__label">{tx(label)}</span>
     </div>
   );
 }

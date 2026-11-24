@@ -1,75 +1,95 @@
-import sceneImg from "../../assets/scenes/classroom-5-gamification.jpg";
+import sceneImg from '../../assets/scenes/classroom-5-gamification.jpg';
 import type { LevelDefinition } from '../levelTypes';
+import { RISK_OPTIONS } from '../levelTypes';
+import { t } from '../../i18n/types';
 
 export const LEVEL_5: LevelDefinition = {
   id: 5,
-  title: 'The Gamification Mutation',
-  theme: 'Engagement ≠ Understanding',
-  subject: 'Any Subject',
+  title: t('The Gamification Mutation', 'تحوّر التلعيب'),
+  theme: t('Engagement ≠ Understanding', 'التفاعل ≠ الفهم'),
+  subject: t('Any Subject', 'أي مادة'),
   sceneImage: sceneImg,
-  scenario:
-    'Toki enters a buzzing, competitive classroom. Students race for points, badges, and spots ' +
-    'on a leaderboard. The energy is electric — hands shoot up, everyone wants to win the next ' +
-    'round. The teacher has gamified everything, and engagement has never looked higher.',
+  scenario: t(
+    'Toki enters a buzzing, competitive classroom. Students race for points, badges, and spots on a leaderboard. The energy is electric — hands shoot up, everyone wants to win the next round. The teacher has gamified everything, and engagement has never looked higher.',
+    'يدخل توكي صفًا صاخبًا تنافسيًا. الطلاب يتسابقون على النقاط والشارات ومراكز لوحة المتصدّرين. الطاقة كهربائية — الأيدي تقفز، والجميع يريد الفوز بالجولة التالية. المعلّم حوّل كل شيء إلى لعبة، ولم تبدُ المشاركة أعلى من هذا قط.',
+  ),
+  evidence: [
+    {
+      id: 'leaderboard',
+      x: 50, y: 28,
+      label: t('The leaderboard', 'لوحة المتصدّرين'),
+      clue: t('Same three names at the top all week. Half the class hasn’t moved since Monday.', 'الأسماء الثلاثة نفسها في الصدارة طوال الأسبوع. نصف الصف لم يتحرك منذ الاثنين.'),
+    },
+    {
+      id: 'round',
+      x: 22, y: 65,
+      label: t('A round', 'جولة'),
+      clue: t('"7 × 8?" Hand up in half a second. "56!" Points. Next. Nobody is asked how.', '«٧ × ٨؟» يد مرفوعة خلال نصف ثانية. «٥٦!» نقاط. التالي. لا أحد يُسأل: كيف؟'),
+    },
+    {
+      id: 'back-row',
+      x: 80, y: 72,
+      label: t('Back row', 'الصف الخلفي'),
+      clue: t('A student stopped raising her hand two rounds ago. She was close — just slower.', 'توقفت طالبة عن رفع يدها قبل جولتين. كانت قريبة من الإجابة — لكنها أبطأ فحسب.'),
+    },
+  ],
 
   steps: {
     identifyDrift: {
-      prompt: 'Toki watches a few rounds closely. What is actually being rewarded?',
+      prompt: t('Toki watches a few rounds closely. What is actually being rewarded?', 'يراقب توكي بضع جولات بتمعّن. ما الذي يُكافَأ فعلًا؟'),
       options: [
-        { id: 'thinking', label: 'Thinking' },
-        { id: 'understanding', label: 'Understanding' },
-        { id: 'speed', label: 'Speed and performance' },
-        { id: 'persistence', label: 'Persistence' },
+        { id: 'thinking', label: t('Thinking', 'التفكير') },
+        { id: 'understanding', label: t('Understanding', 'الفهم') },
+        { id: 'speed', label: t('Speed and performance', 'السرعة والأداء') },
+        { id: 'persistence', label: t('Persistence', 'المثابرة') },
       ],
       correctId: 'speed',
-      hint: 'Watch who wins each round — is it the deepest thinker, or the fastest hand?',
+      hint: t('Watch who wins each round — is it the deepest thinker, or the fastest hand?', 'راقب من يفوز بكل جولة — هل هو الأعمق تفكيرًا، أم الأسرع يدًا؟'),
     },
     assessRisk: {
-      prompt: 'How serious is this drift?',
-      options: [
-        { id: 'minor', label: 'Minor — a small course correction' },
-        { id: 'moderate', label: 'Moderate — needs attention soon' },
-        { id: 'high', label: 'High — actively undermining the lesson' },
-        { id: 'lethal', label: 'Lethal Mutation — the practice has lost its purpose' },
-      ],
+      prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
+      options: RISK_OPTIONS,
       correctId: 'lethal',
-      hint: 'When winning has fully replaced learning as the goal, the engagement is real but pointed at the wrong target. That\u2019s a lethal mutation.',
+      hint: t('When winning has fully replaced learning as the goal, the engagement is real but pointed at the wrong target. That’s a lethal mutation.', 'عندما يحلّ الفوز تمامًا محلّ التعلّم هدفًا، تكون المشاركة حقيقية لكنها موجّهة نحو الهدف الخطأ. هذا تحوّر قاتل.'),
     },
     chooseCoaching: {
-      prompt: "What's the best coaching move?",
+      prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
-        { id: 'bigger-prizes', label: 'Add bigger prizes to raise the stakes' },
-        { id: 'reward-reasoning', label: 'Reward reasoning, explanation, reflection, and improvement — not speed alone' },
-        { id: 'remove-all', label: 'Remove all game elements immediately' },
-        { id: 'more-leaderboards', label: 'Add more leaderboards for every subject' },
+        { id: 'bigger-prizes', label: t('Add bigger prizes to raise the stakes', 'أضف جوائز أكبر لرفع الرهان') },
+        { id: 'reward-reasoning', label: t('Reward reasoning, explanation, reflection, and improvement — not speed alone', 'كافئ التعليل والشرح والتأمل والتحسّن — لا السرعة وحدها') },
+        { id: 'remove-all', label: t('Remove all game elements immediately', 'أزل جميع عناصر اللعبة فورًا') },
+        { id: 'more-leaderboards', label: t('Add more leaderboards for every subject', 'أضف لوحات متصدّرين لكل مادة') },
       ],
       correctId: 'reward-reasoning',
-      hint: 'The fix isn\u2019t to kill the game — it\u2019s to change what the game rewards.',
+      hint: t('The fix isn’t to kill the game — it’s to change what the game rewards.', 'الحل ليس إلغاء اللعبة، بل تغيير ما تكافئه اللعبة.'),
     },
     reasoning: {
-      prompt: 'Why change what\u2019s rewarded rather than remove the game?',
+      prompt: t('Why change what’s rewarded rather than remove the game?', 'لماذا نغيّر ما يُكافَأ بدلًا من إزالة اللعبة؟'),
       options: [
-        { id: 'r1', label: 'Students would be upset if the games disappeared' },
-        { id: 'r2', label: 'Engagement is valuable — the fix is to point it at reasoning and growth, so the energy serves learning instead of competing with it' },
-        { id: 'r3', label: 'Leaderboards are the best motivator available' },
-        { id: 'r4', label: 'Speed is a fair measure of ability' },
+        { id: 'r1', label: t('Students would be upset if the games disappeared', 'سيستاء الطلاب إذا اختفت الألعاب') },
+        { id: 'r2', label: t('Engagement is valuable — the fix is to point it at reasoning and growth, so the energy serves learning instead of competing with it', 'المشاركة قيّمة — والحل أن نوجّهها نحو التعليل والنمو، فتخدم الطاقةُ التعلّمَ بدل أن تنافسه') },
+        { id: 'r3', label: t('Leaderboards are the best motivator available', 'لوحات المتصدّرين أفضل محفّز متاح') },
+        { id: 'r4', label: t('Speed is a fair measure of ability', 'السرعة مقياس عادل للقدرة') },
       ],
       correctId: 'r2',
-      hint: 'Notice: this very game never scored you on speed. Why might that be?',
+      hint: t('Notice: this very game never scored you on speed. Why might that be?', 'لاحظ: هذه اللعبة نفسها لم تحتسب لك نقاطًا على السرعة قط. لماذا برأيك؟'),
       bonusPoints: 25,
     },
   },
 
   reveal: {
-    whatDrifted:
-      'Winning has become more important than learning. The competition drives engagement, ' +
-      'but it rewards speed and performance rather than thinking and understanding.',
-    whyItHappened:
-      'Points and leaderboards produce visible, immediate excitement — so the game\u2019s scoreboard ' +
-      'quietly becomes the goal, and depth of learning takes a back seat to winning.',
-    howToRestore:
-      'Keep the engagement, change the reward: recognize reasoning, explanation, reflection, and ' +
-      'improvement rather than speed. (It\u2019s why this game never once rewarded you for being fast.)',
+    whatDrifted: t(
+      'Winning has become more important than learning. The competition drives engagement, but it rewards speed and performance rather than thinking and understanding.',
+      'أصبح الفوز أهم من التعلّم. التنافس يحرّك المشاركة، لكنه يكافئ السرعة والأداء لا التفكير والفهم.',
+    ),
+    whyItHappened: t(
+      'Points and leaderboards produce visible, immediate excitement — so the game’s scoreboard quietly becomes the goal, and depth of learning takes a back seat to winning.',
+      'تُنتج النقاط ولوحات المتصدّرين حماسًا مرئيًا فوريًا، فتصبح لوحة النتائج بهدوء هي الهدف، ويتراجع عمق التعلّم أمام الفوز.',
+    ),
+    howToRestore: t(
+      'Keep the engagement, change the reward: recognize reasoning, explanation, reflection, and improvement rather than speed. (It’s why this game never once rewarded you for being fast.)',
+      'احتفظ بالمشاركة وغيّر المكافأة: قدّر التعليل والشرح والتأمل والتحسّن بدل السرعة. (لهذا لم تكافئك هذه اللعبة قط على السرعة.)',
+    ),
   },
 
   points: { drift: 25, risk: 25, coaching: 30, restore: 20, reasoningBonus: 25 },

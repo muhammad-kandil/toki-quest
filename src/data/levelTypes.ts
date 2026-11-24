@@ -2,38 +2,55 @@
  * Level data model — matches GDD §9. Levels are data, not code, so
  * content can be edited/translated/expanded without touching game
  * logic (LevelScreen.tsx and the state machine that drives it).
+ *
+ * Every player-facing string is a bilingual `Text` ({en, ar}) so a
+ * level can never ship half-translated.
  */
+import type { Text } from '../i18n/types';
+import { UI } from '../i18n/ui';
 
 export type RiskLevel = 'minor' | 'moderate' | 'high' | 'lethal';
 
 export interface ChoiceOption {
   id: string;
-  label: string;
+  label: Text;
 }
 
 export interface StepDefinition {
-  prompt: string;
+  prompt: Text;
   options: ChoiceOption[];
   correctId: string;
   /** Shown if the player picks wrong, before letting them try again. */
-  hint: string;
+  hint: Text;
 }
 
 export interface ReasoningStep extends StepDefinition {
   bonusPoints: number;
 }
 
+/**
+ * An evidence hotspot in the classroom scene: a point Toki can inspect
+ * during Observe. Each reveals one clue. Positions are % of the scene
+ * image (x from left, y from top) so they scale with the banner.
+ */
+export interface EvidenceSpot {
+  id: string;
+  x: number;
+  y: number;
+  label: Text;
+  clue: Text;
+}
+
 export interface LevelDefinition {
   id: number;
-  title: string;
-  theme: string;
-  /** Subject flavor for the hub — a classroom is always *some* subject.
-   * Purely cosmetic (door label/color); doesn't change gameplay. */
-  subject: string;
-  /** Path to the establishing-shot scene image shown at the top of the
-   * Observe beat — imported by the level file itself. */
+  title: Text;
+  theme: Text;
+  /** Subject flavor for the hub — purely cosmetic. */
+  subject: Text;
   sceneImage?: string;
-  scenario: string;
+  scenario: Text;
+  /** Optional interactive Observe: 2–4 evidence spots to inspect. */
+  evidence?: EvidenceSpot[];
   steps: {
     identifyDrift: StepDefinition;
     assessRisk: StepDefinition & { correctId: RiskLevel };
@@ -41,9 +58,9 @@ export interface LevelDefinition {
     reasoning?: ReasoningStep;
   };
   reveal: {
-    whatDrifted: string;
-    whyItHappened: string;
-    howToRestore: string;
+    whatDrifted: Text;
+    whyItHappened: Text;
+    howToRestore: Text;
   };
   points: {
     drift: number;
@@ -55,9 +72,17 @@ export interface LevelDefinition {
   badgeTriggers: string[];
 }
 
-export const RISK_META: Record<RiskLevel, { label: string; color: string }> = {
-  minor: { label: 'Minor Drift', color: 'var(--risk-minor)' },
-  moderate: { label: 'Moderate Drift', color: 'var(--risk-moderate)' },
-  high: { label: 'High Drift', color: 'var(--risk-high)' },
-  lethal: { label: 'Lethal Mutation', color: 'var(--risk-lethal)' },
+export const RISK_META: Record<RiskLevel, { label: Text; color: string }> = {
+  minor: { label: UI.riskMinor, color: 'var(--risk-minor)' },
+  moderate: { label: UI.riskModerate, color: 'var(--risk-moderate)' },
+  high: { label: UI.riskHigh, color: 'var(--risk-high)' },
+  lethal: { label: UI.riskLethal, color: 'var(--risk-lethal)' },
 };
+
+/** The four risk options are identical in every classroom — shared here. */
+export const RISK_OPTIONS: ChoiceOption[] = [
+  { id: 'minor', label: { en: 'Minor — a small course correction', ar: 'طفيف — تصحيح بسيط للمسار' } },
+  { id: 'moderate', label: { en: 'Moderate — needs attention soon', ar: 'متوسط — يحتاج إلى انتباه قريبًا' } },
+  { id: 'high', label: { en: 'High — actively undermining the lesson', ar: 'كبير — يقوّض الدرس فعليًا' } },
+  { id: 'lethal', label: { en: 'Lethal Mutation — the practice has lost its purpose', ar: 'تحوّر قاتل — فقدت الممارسة غايتها' } },
+];

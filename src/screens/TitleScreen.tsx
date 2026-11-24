@@ -1,30 +1,39 @@
 import { useEffect, useState } from 'react';
 import tealHero from '../assets/raw/toki-face-teal-hero.png';
+import { useLocale } from '../i18n/LocaleContext';
+import { UI } from '../i18n/ui';
+import { sfx } from '../audio/sfx';
+import { TopBar } from '../components/TopBar';
+import { TokiAvatar } from '../components/TokiAvatar';
 import './TitleScreen.css';
 
 interface TitleScreenProps {
   onStart: () => void;
   onOpenSkins: () => void;
+  onOpenBadges: () => void;
   isReturningPlayer: boolean;
+  badgesCount: number;
 }
 
 /**
- * The title screen. First impression = the "premium feel" bar from
- * GDD §11. Deliberately simple: one hero image, the game's real
- * thesis line (borrowed from the Pedagogy Hub's own opening post —
- * ties the game directly to the channel it lives in), one clear
- * action.
+ * The title screen. One hero, the thesis line borrowed from the
+ * Pedagogy Hub's own opening post, one clear action. Language and
+ * sound controls live in the top bar so a DLIS can switch to Arabic
+ * before reading a single line of content.
  */
-export function TitleScreen({ onStart, onOpenSkins, isReturningPlayer }: TitleScreenProps) {
+export function TitleScreen({ onStart, onOpenSkins, onOpenBadges, isReturningPlayer, badgesCount }: TitleScreenProps) {
+  const { tx } = useLocale();
   const [heroSettled, setHeroSettled] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setHeroSettled(true), 60);
-    return () => clearTimeout(t);
+    const id = setTimeout(() => setHeroSettled(true), 60);
+    return () => clearTimeout(id);
   }, []);
 
   return (
     <div className="title-screen">
+      <TopBar badgesCount={isReturningPlayer ? badgesCount : undefined} onOpenBadges={isReturningPlayer ? onOpenBadges : undefined} />
+
       <div className="title-screen__stars" aria-hidden="true">
         <span className="star star--1">★</span>
         <span className="star star--2">★</span>
@@ -32,26 +41,21 @@ export function TitleScreen({ onStart, onOpenSkins, isReturningPlayer }: TitleSc
       </div>
 
       <div className={`title-screen__hero ${heroSettled ? 'title-screen__hero--settled' : ''}`}>
-        <img src={tealHero} alt="" role="presentation" />
+        <TokiAvatar src={tealHero} size={148} mood="idle" shadow={false} />
       </div>
 
-      <h1 className="title-screen__title">
-        Toki's Coaching Quest
-      </h1>
-      <p className="title-screen__subtitle">Spot the Drift</p>
+      <h1 className="title-screen__title">{tx(UI.appName)}</h1>
+      <p className="title-screen__subtitle">{tx(UI.tagline)}</p>
 
-      <p className="title-screen__thesis">
-        Sometimes the most impressive classrooms<br />
-        are not the ones where the deepest learning is happening.
-      </p>
+      <p className="title-screen__thesis">{tx(UI.titleBlurb)}</p>
 
-      <button className="title-screen__cta" onClick={onStart}>
-        {isReturningPlayer ? 'Continue Coaching' : 'Start Your First Visit'}
+      <button className="title-screen__cta" onClick={() => { sfx.play('tap'); onStart(); }}>
+        {tx(isReturningPlayer ? UI.continueQuest : UI.startFirstVisit)}
       </button>
 
       {isReturningPlayer && (
-        <button className="title-screen__secondary" onClick={onOpenSkins}>
-          Customize Toki
+        <button className="title-screen__secondary" onClick={() => { sfx.play('tap'); onOpenSkins(); }}>
+          {tx(UI.customizeToki)}
         </button>
       )}
     </div>

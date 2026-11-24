@@ -27,8 +27,7 @@
    the scenario text below always lands on a calm, readable surface. */
 .scene-header__fade {
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   bottom: 0;
   height: 38%;
   background: linear-gradient(to bottom, rgba(245,243,250,0) 0%, var(--color-bg) 94%);
@@ -44,9 +43,11 @@
   width: 120px;
   height: 120px;
   z-index: 2;
-  transform: translateX(-220px) translateX(-50%);
+  transform: translateX(calc(var(--dir) * -220px)) translateX(-50%);
   transition: transform 700ms var(--ease-smooth);
 }
+/* Toki faces the direction of travel: the walking art faces right; mirror in RTL. */
+:root[dir='rtl'] .scene-header__toki img { transform: scaleX(-1); }
 
 .scene-header__toki--settled {
   transform: translateX(-50%);
@@ -69,3 +70,50 @@
     transform: translateX(-50%) !important;
   }
 }
+
+/* ---------- Evidence spots (interactive Observe) ---------- */
+.evidence-spot {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 3;
+  cursor: pointer;
+  animation: spot-in 420ms var(--ease-bounce) backwards;
+}
+@keyframes spot-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.evidence-spot__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid var(--toki-orange);
+  animation: spot-pulse 1.6s ease-out infinite;
+}
+@keyframes spot-pulse {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.evidence-spot__core {
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: var(--toki-orange);
+  border: 2.5px solid var(--toki-indigo);
+  box-shadow: 0 3px 6px rgba(69, 43, 116, 0.3);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-fast) var(--ease-bounce), background var(--duration-fast);
+}
+.evidence-spot:active .evidence-spot__core { transform: scale(0.85); }
+.evidence-spot--done .evidence-spot__ring { animation: none; opacity: 0; }
+.evidence-spot--done .evidence-spot__core { background: var(--toki-teal); }

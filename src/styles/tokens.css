@@ -48,6 +48,10 @@
   /* Body: clean and highly legible for adult professional reading */
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
+  /* Direction multiplier for transforms that must mirror in RTL:
+     translateX(calc(var(--dir) * 12px)) — see [dir=rtl] below. */
+  --dir: 1;
+
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -88,6 +92,28 @@
   --space-6: 32px;
   --space-7: 48px;
   --space-8: 64px;
+}
+
+/* ---------- ARABIC ----------
+   Baloo Bhaijaan 2 is the official Arabic companion of Baloo 2 — the
+   brand display voice carries over exactly. IBM Plex Sans Arabic pairs
+   with Inter for body text. */
+:root[data-lang='ar'] {
+  --font-display: 'Baloo Bhaijaan 2', 'Baloo 2', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans Arabic', 'Inter', system-ui, sans-serif;
+  letter-spacing: 0; /* Arabic never tracks */
+}
+:root[dir='rtl'] {
+  --dir: -1;
+}
+/* Tracked uppercase eyebrows don't exist in Arabic script */
+:root[data-lang='ar'] .eyebrow,
+:root[data-lang='ar'] [class*='__eyebrow'],
+:root[data-lang='ar'] [class*='__label'],
+:root[data-lang='ar'] [class*='__counter'],
+:root[data-lang='ar'] [class*='__verdict'] {
+  letter-spacing: 0 !important;
+  text-transform: none !important;
 }
 
 /* Respect reduced-motion preference (frontend-design quality floor) */

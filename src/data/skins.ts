@@ -25,13 +25,15 @@ import skinCapCheckered from '../assets/skins/skin-cap-checkered.png';
 import skinHeadwrapA from '../assets/skins/skin-headwrap-a.png';
 import skinHeadwrapB from '../assets/skins/skin-headwrap-b.png';
 
+import { t, type Text } from '../i18n/types';
+
 export interface SkinDefinition {
   id: string;
-  label: string;
+  label: Text;
   image: string;
   /** How this skin is unlocked — drives the personalization framing (GDD §5) */
   unlock: 'default' | 'level' | 'badge';
-  unlockDetail?: string;
+  unlockDetail?: Text;
   /** Classrooms completed required to unlock (0 = available from the start). */
   unlockAt: number;
 }
@@ -39,57 +41,57 @@ export interface SkinDefinition {
 export const SKINS: SkinDefinition[] = [
   {
     id: 'teal-classic',
-    label: 'Toki Classic',
+    label: t('Toki Classic', 'توكي الكلاسيكي'),
     image: skinTeal,
     unlock: 'default',
     unlockAt: 0,
   },
   {
     id: 'cap-teal',
-    label: 'Teal Cap Toki',
+    label: t('Teal Cap Toki', 'توكي بالقبعة الفيروزية'),
     image: skinCapTeal,
     unlock: 'level',
-    unlockDetail: 'Complete Level 1',
+    unlockDetail: t('Complete Level 1', 'أكمل المستوى ١'),
     unlockAt: 1,
   },
   {
     id: 'cap-orange',
-    label: 'Orange Cap Toki',
+    label: t('Orange Cap Toki', 'توكي بالقبعة البرتقالية'),
     image: skinCapOrange,
     unlock: 'level',
-    unlockDetail: 'Complete Level 2',
+    unlockDetail: t('Complete Level 2', 'أكمل المستوى ٢'),
     unlockAt: 2,
   },
   {
     id: 'basketball',
-    label: 'MVP Toki',
+    label: t('MVP Toki', 'توكي النجم'),
     image: skinBasketball,
     unlock: 'level',
-    unlockDetail: 'Complete Level 3',
+    unlockDetail: t('Complete Level 3', 'أكمل المستوى ٣'),
     unlockAt: 3,
   },
   {
     id: 'cap-checkered',
-    label: 'Checkered Cap Toki',
+    label: t('Checkered Cap Toki', 'توكي بالقبعة المربّعة'),
     image: skinCapCheckered,
     unlock: 'level',
-    unlockDetail: 'Complete Level 4',
+    unlockDetail: t('Complete Level 4', 'أكمل المستوى ٤'),
     unlockAt: 4,
   },
   {
     id: 'headwrap-a',
-    label: 'Wrapped Up Toki',
+    label: t('Wrapped Up Toki', 'توكي بالعمامة'),
     image: skinHeadwrapA,
     unlock: 'badge',
-    unlockDetail: 'Complete Level 5',
+    unlockDetail: t('Complete Level 5', 'أكمل المستوى ٥'),
     unlockAt: 5,
   },
   {
     id: 'headwrap-b',
-    label: 'Master DLIS Toki',
+    label: t('Master DLIS Toki', 'توكي خبير DLIS'),
     image: skinHeadwrapB,
     unlock: 'badge',
-    unlockDetail: 'Complete the Final Boss',
+    unlockDetail: t('Complete the Final Visit', 'أكمل الزيارة الأخيرة'),
     unlockAt: 6,
   },
 ];

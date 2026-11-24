@@ -14,57 +14,59 @@
  * fail — because the students have learned to *perform* learning.
  */
 
+import type { Text } from '../i18n/types';
+
 export interface AuditDimension {
   id: string;
   /** What the player is examining, e.g. "Learning Objectives" */
-  label: string;
+  label: Text;
   /** Short description of what Toki observes when auditing this. */
-  observation: string;
+  observation: Text;
   /** Whether this dimension is clean or hides the mutation. */
   verdict: 'clean' | 'mutation';
   /** Toki's assessment shown after the player makes their call — this
    * is the teaching moment regardless of whether they judged right. */
-  finding: string;
+  finding: Text;
   /** Shown only if the player calls this dimension wrong, before
    * letting them reconsider — same "look again" pattern as the rest
    * of the game, not a locked-out wrong answer. */
-  hint: string;
+  hint: Text;
 }
 
 export interface BossDefinition {
   id: number;
-  title: string;
-  theme: string;
-  subject: string;
+  title: Text;
+  theme: Text;
+  subject: Text;
   sceneImage?: string;
   /** The opening scenario — sets up the "flawless room" that the
    * player will instinctively distrust and search for a teacher flaw. */
-  scenario: string;
+  scenario: Text;
   /** The six dimensions the player audits, in order. Exactly one has
    * verdict 'mutation'; it should be last (student thinking). */
   dimensions: AuditDimension[];
   /** After all six are audited and the mutation found, the player makes
    * the key judgment: where does the real problem live? */
   locate: {
-    prompt: string;
-    options: { id: string; label: string }[];
+    prompt: Text;
+    options: { id: string; label: Text }[];
     correctId: string;
-    hint: string;
+    hint: Text;
   };
   /** The coaching move for a mutation in student thinking (not teacher
    * behavior) — the hardest, most subtle intervention in the game. */
   coaching: {
-    prompt: string;
-    options: { id: string; label: string }[];
+    prompt: Text;
+    options: { id: string; label: Text }[];
     correctId: string;
-    hint: string;
+    hint: Text;
   };
   reveal: {
-    whatDrifted: string;
-    whyItHappened: string;
-    howToRestore: string;
+    whatDrifted: Text;
+    whyItHappened: Text;
+    howToRestore: Text;
     /** The meta-moment — the game naming its own design (GDD §2). */
-    finalWord: string;
+    finalWord: Text;
   };
   points: {
     audit: number;      // completing the full six-dimension audit

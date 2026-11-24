@@ -2,7 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: var(--space-6) var(--space-4) var(--space-5);
+  padding: calc(var(--space-7) + env(safe-area-inset-top)) var(--space-4) var(--space-5);
+  position: relative;
   background:
     radial-gradient(ellipse at 50% 0%, rgba(29, 214, 187, 0.12), transparent 55%),
     var(--color-bg);
@@ -14,7 +15,12 @@
   justify-content: space-between;
   gap: var(--space-3);
   margin-bottom: var(--space-6);
-  text-align: left;
+  text-align: start;
+}
+.hub__meta {
+  margin: 2px 0 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
 }
 
 .hub__eyebrow {
@@ -68,7 +74,7 @@
   flex-direction: column;
   gap: var(--space-3);
   position: relative;
-  padding-left: 64px;   /* room for Toki to walk alongside */
+  padding-inline-start: 64px;   /* room for Toki to walk alongside */
 }
 
 .door {
@@ -80,7 +86,7 @@
     "num name    score";
   align-items: center;
   gap: 0 var(--space-3);
-  text-align: left;
+  text-align: start;
   background: var(--color-bg-elevated);
   border: var(--stroke-width) solid var(--color-border);
   border-radius: var(--radius-md);
@@ -95,7 +101,7 @@
 }
 
 @keyframes door-enter {
-  from { opacity: 0; transform: translateX(12px); }
+  from { opacity: 0; transform: translateX(calc(var(--dir) * 12px)); }
   to { opacity: 1; transform: translateX(0); }
 }
 
@@ -155,7 +161,7 @@
   content: '';
   position: absolute;
   top: -8px;
-  left: 1px;
+  inset-inline-start: 1px;
   width: 10px;
   height: 10px;
   border: 2px solid var(--toki-indigo);
@@ -165,7 +171,7 @@
 
 /* Door states */
 .door--available:hover {
-  transform: translateX(4px);
+  transform: translateX(calc(var(--dir) * 4px));
   border-color: var(--toki-teal);
 }
 .door--available:active { transform: scale(0.99); }
@@ -241,7 +247,7 @@
 /* ---------- Toki walking ---------- */
 .hub__toki {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 0;
   width: 52px;
   height: 52px;
@@ -255,7 +261,9 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transform-origin: 50% 90%;
 }
+.hub__toki--idle img { animation: toki-breathe 3.4s ease-in-out infinite; }
 
 /* The "walk" — a gentle bob while moving, to imply steps without
    true frame animation (honest about static art). */
@@ -284,11 +292,11 @@
   }
   40% {
     opacity: 0.7;
-    transform: translateY(calc(var(--target-index, 0) * 76px + 14px)) translateX(6px);
+    transform: translateY(calc(var(--target-index, 0) * 76px + 14px)) translateX(calc(var(--dir) * 6px));
   }
   100% {
     opacity: 0;
-    transform: translateY(calc(var(--target-index, 0) * 76px + 14px)) translateX(10px);
+    transform: translateY(calc(var(--target-index, 0) * 76px + 14px)) translateX(calc(var(--dir) * 10px));
   }
 }
 
@@ -305,5 +313,5 @@
 
 @media (max-width: 360px) {
   .door__name { font-size: var(--text-sm); }
-  .hub__corridor { padding-left: 52px; }
+  .hub__corridor { padding-inline-start: 52px; }
 }

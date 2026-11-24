@@ -4,6 +4,10 @@ import type { LevelResult } from './LevelScreen';
 import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
+import { useLocale } from '../i18n/LocaleContext';
+import { UI, fmt } from '../i18n/ui';
+import { sfx } from '../audio/sfx';
+import { useEffect } from 'react';
 import './LevelScreen.css';
 import './BossScreen.css';
 
@@ -27,6 +31,7 @@ type AuditCall = 'clean' | 'mutation';
  * twist land as earned insight rather than a scripted reveal.
  */
 export function BossScreen({ boss, onComplete }: BossScreenProps) {
+  const { tx } = useLocale();
   const [phase, setPhase] = useState<Phase>('intro');
   const [auditIndex, setAuditIndex] = useState(0);
   const [auditWrongCall, setAuditWrongCall] = useState<AuditCall | null>(null);
@@ -57,12 +62,15 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
     if (correct) {
       setAuditWrongCall(null);
       setAuditFindingShown(true);
+      sfx.play(currentDimension.verdict === 'mutation' ? 'lethal' : 'correct');
     } else {
       setAuditWrongCall(call);
+      sfx.play('lookAgain');
     }
   };
 
   const nextDimension = () => {
+    sfx.play('tap');
     setAuditFindingShown(false);
     setAuditWrongCall(null);
     if (isLastDimension) {
@@ -77,6 +85,7 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
     setLocateAttempts((n) => n + 1);
     if (correct) {
       setLocateWrong(null);
+      sfx.play('correct');
       fireReaction('affirming');
       setTimeout(() => {
         setReaction(null);
@@ -84,6 +93,7 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
       }, 600);
     } else {
       setLocateWrong(choiceId);
+      sfx.play('lookAgain');
       fireReaction('thoughtful');
     }
   };
@@ -93,6 +103,7 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
     setCoachingAttempts((n) => n + 1);
     if (correct) {
       setCoachingWrong(null);
+      sfx.play('correct');
       fireReaction('affirming');
       setTimeout(() => {
         setReaction(null);
@@ -100,11 +111,20 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
       }, 600);
     } else {
       setCoachingWrong(choiceId);
+      sfx.play('lookAgain');
       fireReaction('thoughtful');
     }
   };
 
+  useEffect(() => {
+    if (phase === 'reveal') {
+      sfx.play('world');
+      setTimeout(() => sfx.play('badge'), 1100);
+    }
+  }, [phase]);
+
   const finish = () => {
+    sfx.play('tap');
     const locateCredit = locateAttempts === 1 ? 1 : locateAttempts === 2 ? 0.6 : 0.3;
     const coachingCredit = coachingAttempts === 1 ? 1 : coachingAttempts === 2 ? 0.6 : 0.3;
     let score = boss.points.audit;
@@ -127,13 +147,13 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
       {phase === 'intro' && (
         <div className="beat beat--observe">
           {boss.sceneImage && (
-            <SceneHeader image={boss.sceneImage} alt="The Perfect Classroom" />
+            <SceneHeader image={boss.sceneImage} alt={tx(boss.title)} />
           )}
-          <p className="beat__eyebrow boss__eyebrow">Final Visit · {boss.theme}</p>
-          <h2 className="beat__title">{boss.title}</h2>
-          <p className="beat__scenario">{boss.scenario}</p>
-          <button className="beat__cta" onClick={() => setPhase('audit')}>
-            Begin the Audit
+          <p className="beat__eyebrow boss__eyebrow">{tx(UI.finalVisit)} · {tx(boss.theme)}</p>
+          <h2 className="beat__title">{tx(boss.title)}</h2>
+          <p className="beat__scenario">{tx(boss.scenario)}</p>
+          <button className="beat__cta" onClick={() => { sfx.play('tap'); setPhase('audit'); }}>
+            {tx(UI.beginAudit)}
           </button>
         </div>
       )}
@@ -154,31 +174,31 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
           </div>
 
           <p className="boss-audit__counter">
-            Dimension {auditIndex + 1} of {boss.dimensions.length}
+            {fmt(tx(UI.dimensionOf), { n: auditIndex + 1, total: boss.dimensions.length })}
           </p>
-          <h3 className="beat__heading">{currentDimension.label}</h3>
-          <p className="beat__scenario boss-audit__observation">{currentDimension.observation}</p>
+          <h3 className="beat__heading">{tx(currentDimension.label)}</h3>
+          <p className="beat__scenario boss-audit__observation">{tx(currentDimension.observation)}</p>
 
           {!auditFindingShown ? (
             <>
-              <p className="boss-audit__question">Your call: does this dimension check out?</p>
+              <p className="boss-audit__question">{tx(UI.yourCall)}</p>
               <div className="boss-audit__call-buttons">
                 <button
                   className={`boss-audit__call boss-audit__call--clean ${auditWrongCall === 'clean' ? 'boss-audit__call--wrong' : ''}`}
                   onClick={() => makeAuditCall('clean')}
                 >
-                  It checks out
+                  {tx(UI.checksOut)}
                 </button>
                 <button
                   className={`boss-audit__call boss-audit__call--mutation ${auditWrongCall === 'mutation' ? 'boss-audit__call--wrong' : ''}`}
                   onClick={() => makeAuditCall('mutation')}
                 >
-                  The drift is here
+                  {tx(UI.driftHere)}
                 </button>
               </div>
               {auditWrongCall && (
                 <p className="beat__hint">
-                  <span className="hint-mark">?</span> {currentDimension.hint}
+                  <span className="hint-mark">?</span> {tx(currentDimension.hint)}
                 </p>
               )}
             </>
@@ -192,12 +212,12 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
                 }`}
               >
                 <span className="boss-audit__verdict">
-                  {currentDimension.verdict === 'mutation' ? 'The mutation' : 'Confirmed clean'}
+                  {tx(currentDimension.verdict === 'mutation' ? UI.theMutation : UI.confirmedClean)}
                 </span>
-                <p>{currentDimension.finding}</p>
+                <p>{tx(currentDimension.finding)}</p>
               </div>
               <button className="beat__cta" onClick={nextDimension}>
-                {isLastDimension ? 'Make the call' : 'Next dimension'}
+                {tx(isLastDimension ? UI.makeTheCall : UI.nextDimension)}
               </button>
             </>
           )}
@@ -206,8 +226,8 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
 
       {phase === 'locate' && (
         <div className="beat beat--choice">
-          <h3 className="beat__heading">Locate the Mutation</h3>
-          <p className="beat__prompt">{boss.locate.prompt}</p>
+          <h3 className="beat__heading">{tx(UI.locateMutation)}</h3>
+          <p className="beat__prompt">{tx(boss.locate.prompt)}</p>
           <div className="choice-list">
             {boss.locate.options.map((opt) => (
               <button
@@ -215,18 +235,18 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
                 className={`choice-list__item ${locateWrong === opt.id ? 'choice-list__item--wrong' : ''}`}
                 onClick={() => handleLocate(opt.id)}
               >
-                {opt.label}
+                {tx(opt.label)}
               </button>
             ))}
           </div>
-          {locateWrong && <p className="beat__hint"><span className="hint-mark">?</span> {boss.locate.hint}</p>}
+          {locateWrong && <p className="beat__hint"><span className="hint-mark">?</span> {tx(boss.locate.hint)}</p>}
         </div>
       )}
 
       {phase === 'coaching' && (
         <div className="beat beat--choice">
-          <h3 className="beat__heading">The Hardest Coaching Move</h3>
-          <p className="beat__prompt">{boss.coaching.prompt}</p>
+          <h3 className="beat__heading">{tx(UI.hardestMove)}</h3>
+          <p className="beat__prompt">{tx(boss.coaching.prompt)}</p>
           <div className="choice-list">
             {boss.coaching.options.map((opt) => (
               <button
@@ -234,39 +254,39 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
                 className={`choice-list__item ${coachingWrong === opt.id ? 'choice-list__item--wrong' : ''}`}
                 onClick={() => handleCoaching(opt.id)}
               >
-                {opt.label}
+                {tx(opt.label)}
               </button>
             ))}
           </div>
-          {coachingWrong && <p className="beat__hint"><span className="hint-mark">?</span> {boss.coaching.hint}</p>}
+          {coachingWrong && <p className="beat__hint"><span className="hint-mark">?</span> {tx(boss.coaching.hint)}</p>}
         </div>
       )}
 
       {phase === 'reveal' && (
         <div className="beat beat--reveal">
           <img src={celebratingToki} alt="" className="reveal__celebrate-toki" />
-          <span className="reveal__risk-badge boss__master-badge">Master DLIS</span>
-          <h3 className="beat__heading">The Perfect Classroom, revealed</h3>
+          <span className="reveal__risk-badge boss__master-badge">{tx(UI.masterDlis)}</span>
+          <h3 className="beat__heading">{tx(UI.perfectRevealed)}</h3>
 
           <div className="reveal__block">
-            <p className="reveal__label">What drifted</p>
-            <p className="reveal__text">{boss.reveal.whatDrifted}</p>
+            <p className="reveal__label">{tx(UI.whatDrifted)}</p>
+            <p className="reveal__text">{tx(boss.reveal.whatDrifted)}</p>
           </div>
           <div className="reveal__block">
-            <p className="reveal__label">Why it happened</p>
-            <p className="reveal__text">{boss.reveal.whyItHappened}</p>
+            <p className="reveal__label">{tx(UI.whyItHappened)}</p>
+            <p className="reveal__text">{tx(boss.reveal.whyItHappened)}</p>
           </div>
           <div className="reveal__block">
-            <p className="reveal__label">How to restore it</p>
-            <p className="reveal__text">{boss.reveal.howToRestore}</p>
+            <p className="reveal__label">{tx(UI.howToRestore)}</p>
+            <p className="reveal__text">{tx(boss.reveal.howToRestore)}</p>
           </div>
 
           <div className="boss__final-word">
-            <p>{boss.reveal.finalWord}</p>
+            <p>{tx(boss.reveal.finalWord)}</p>
           </div>
 
           <button className="beat__cta" onClick={finish}>
-            Complete the Quest
+            {tx(UI.completeQuest)}
           </button>
         </div>
       )}
