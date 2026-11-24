@@ -29,10 +29,10 @@ export const WORLD_4_BOSS: WorldBossDefinition = {
     {
       id: 'grade-3',
       place: t('Grade 3 Writing', 'الصف الثالث، كتابة'),
-      observation: t('Marking is light — one highlighted sentence and a question in the margin. But the lesson opens with ten minutes of "answer your question in your book," and the teacher reads three answers aloud.', 'التصحيح خفيف — جملة واحدة مظلّلة وسؤال في الهامش. لكن الدرس يبدأ بعشر دقائق من «أجب عن سؤالك في دفترك»، وتقرأ المعلّمة ثلاث إجابات بصوت مرتفع.'),
+      observation: t('The books have not been marked in eight days and the audit has flagged the class. When they come back there is one highlighted sentence and a question in the margin — no grade, no comment bank code. The lesson opens with "answer your question in your book"; three children read their answers aloud and the class argues about one of them.', 'لم تُصحَّح الدفاتر منذ ثمانية أيام وقد أشّر التدقيق على الصف. حين تعود يوجد جملة واحدة مظلّلة وسؤال في الهامش — لا درجة ولا رمز من بنك التعليقات. يبدأ الدرس بـ«أجب عن سؤالك في دفترك»؛ يقرأ ثلاثة أطفال إجاباتهم بصوت مرتفع ويتجادل الصف حول إحداها.'),
       fitsPattern: false,
-      finding: t('Light feedback, heavy use. This teacher would fail the audit’s "detail" standard and is the healthiest room in the school.', 'تغذية راجعة خفيفة، استخدام كثيف. سترسب هذه المعلّمة في معيار «التفصيل» بالتدقيق، وهي أسلم غرفة في المدرسة.'),
-      hint: t('Ignore the amount of ink. What do students do with it?', 'تجاهل كمية الحبر. ماذا يفعل الطلاب بها؟'),
+      finding: t('Late, light, and flagged — and the healthiest room in the school. One question per child, ten minutes to answer it, and an argument about writing. The audit will mark her down; the next piece of work will be better.', 'متأخرة وخفيفة ومؤشَّر عليها — وأسلم غرفة في المدرسة. سؤال واحد لكل طفل، وعشر دقائق للإجابة عنه، وجدال حول الكتابة. سيخفّض التدقيق درجتها؛ وسيكون العمل التالي أفضل.'),
+      hint: t('Eight days and no grade is what the audit sees. What do the children do in the first ten minutes?', 'ثمانية أيام وبلا درجة هو ما يراه التدقيق. ماذا يفعل الأطفال في الدقائق العشر الأولى؟'),
     },
     {
       id: 'award',
@@ -45,10 +45,10 @@ export const WORLD_4_BOSS: WorldBossDefinition = {
     {
       id: 'grade-9',
       place: t('Grade 9 Math', 'الصف التاسع، رياضيات'),
-      observation: t('Feedback on Monday’s test: a worked solution for every question, stapled to each paper. Tuesday’s lesson: a new topic. The stapled solutions are still stapled on Friday.', 'التغذية الراجعة على اختبار الاثنين: حل مفصّل لكل سؤال، مدبّس بكل ورقة. درس الثلاثاء: موضوع جديد. الحلول المدبّسة ما زالت مدبّسة يوم الجمعة.'),
+      observation: t('The department’s model for feedback: Monday’s test returned Tuesday with a personalised cover sheet — score, three targets, a worked solution for every question the student got wrong, and a QR code to a video. Students file it in their folders. Tuesday’s lesson is a new topic; on Friday the cover sheets are still folded along the same crease.', 'نموذج القسم للتغذية الراجعة: اختبار الاثنين يُعاد الثلاثاء مع ورقة غلاف شخصية — الدرجة، ثلاثة أهداف، حل مفصّل لكل سؤال أخطأ فيه الطالب، ورمز QR لفيديو. يحفظها الطلاب في ملفاتهم. درس الثلاثاء موضوع جديد؛ ويوم الجمعة ما زالت أوراق الغلاف مطوية على الثنية نفسها.'),
       fitsPattern: true,
-      finding: t('Complete, correct, and never opened. Feedback as a document rather than an event.', 'كاملة وصحيحة ولم تُفتح قط. تغذية راجعة بوصفها وثيقة لا حدثًا.'),
-      hint: t('The staples are the evidence.', 'الدبابيس هي الدليل.'),
+      finding: t('The best feedback document in the school, and nobody has unfolded it. Three targets with no lesson to pursue them in; a worked solution with no question to re-attempt. Feedback as a document rather than an event.', 'أفضل وثيقة تغذية راجعة في المدرسة، ولم يفتحها أحد. ثلاثة أهداف بلا درس لمتابعتها؛ وحل مفصّل بلا سؤال يُعاد. تغذية راجعة بوصفها وثيقة لا حدثًا.'),
+      hint: t('Everything about the cover sheet is good. Ask what Tuesday’s lesson asked students to do with it.', 'كل شيء في ورقة الغلاف جيد. اسأل ماذا طلب درس الثلاثاء من الطلاب أن يفعلوا بها.'),
     },
     {
       id: 'peer',
@@ -62,13 +62,13 @@ export const WORLD_4_BOSS: WorldBossDefinition = {
   namePattern: {
     prompt: t('Three scenes fit; two break the mould. Name the pattern.', 'ثلاثة مشاهد تطابق؛ واثنان يكسران القالب. سمِّ النمط.'),
     options: [
-      { id: 'not-enough', label: t('Teachers don’t give enough feedback', 'لا يقدّم المعلّمون تغذية راجعة كافية') },
-      { id: 'routine', label: t('Feedback has become a routine the school measures by its presence — not by whether students act on it', 'أصبحت التغذية الراجعة روتينًا تقيسه المدرسة بوجوده — لا بما إذا كان الطلاب يعملون به') },
-      { id: 'quality', label: t('The feedback is low quality', 'التغذية الراجعة منخفضة الجودة') },
-      { id: 'students', label: t('Students don’t care about feedback', 'لا يهتم الطلاب بالتغذية الراجعة') },
+      { id: 'timing', label: t('Feedback arrives too late — by the time it is read the class has moved on', 'تصل التغذية الراجعة متأخرة — وحين تُقرأ يكون الصف قد انتقل') },
+      { id: 'volume', label: t('Teachers give more feedback than students can process, so most of it is ignored', 'يقدّم المعلّمون تغذية راجعة أكثر مما يستوعبه الطلاب، فيُهمل معظمها') },
+      { id: 'ownership', label: t('Feedback is done to students rather than by them — the healthy rooms used peers', 'تُفعَل التغذية الراجعة للطلاب لا بأيديهم — استخدمت الغرف السليمة الأقران') },
+      { id: 'routine', label: t('The school measures feedback by its presence, not by whether students act on it', 'تقيس المدرسة التغذية الراجعة بوجودها، لا بما إذا كان الطلاب يعملون بها') },
     ],
     correctId: 'routine',
-    hint: t('The two healthy rooms gave less feedback than the others. What did they have more of?', 'قدّمت الغرفتان السليمتان تغذية راجعة أقل من غيرهما. ما الذي كان لديهما أكثر؟'),
+    hint: t('Grade 9’s feedback was on time and the Grade 3 teacher’s was eight days late. Grade 11 used peers; Grade 3 used the teacher. So neither timing, volume nor who gives it is the pattern. What do the audit, the award and the folded cover sheets have in common?', 'كانت تغذية الصف التاسع الراجعة في موعدها وتغذية معلّمة الصف الثالث متأخرة ثمانية أيام. استخدم الصف الحادي عشر الأقران؛ واستخدم الصف الثالث المعلّمة. إذًا ليس التوقيت ولا الحجم ولا مَن يقدّمها هو النمط. ما المشترك بين التدقيق والجائزة وأوراق الغلاف المطوية؟'),
   },
   assessRisk: {
     prompt: t('Across the school, how serious is this pattern?', 'على مستوى المدرسة، ما مدى خطورة هذا النمط؟'),
@@ -78,13 +78,13 @@ export const WORLD_4_BOSS: WorldBossDefinition = {
   coaching: {
     prompt: t('The policy, the audit, and the award all exist. What is the one move with the greatest impact?', 'السياسة والتدقيق والجائزة موجودة كلها. ما الخطوة الواحدة ذات الأثر الأكبر؟'),
     options: [
-      { id: 'more-training', label: t('Train staff to write better comments', 'درّب الهيئة على كتابة تعليقات أفضل') },
-      { id: 'rewrite-audit', label: t('Rewrite the audit’s one question: not "is there feedback?" but "show me the next piece of work — is it better because of it?"', 'أعد كتابة سؤال التدقيق الوحيد: ليس «هل توجد تغذية راجعة؟» بل «أرني العمل التالي — هل هو أفضل بسببها؟»') },
-      { id: 'cancel-award', label: t('Cancel the feedback award', 'ألغِ جائزة التغذية الراجعة') },
-      { id: 'peer-everywhere', label: t('Mandate peer assessment in every subject', 'افرض التقييم بين الأقران في كل مادة') },
+      { id: 'rewrite-audit', label: t('Rewrite the audit’s question: "show me the next piece of work — is it better because of the feedback?"', 'أعد كتابة سؤال التدقيق: «أرني العمل التالي — هل هو أفضل بسبب التغذية الراجعة؟»') },
+      { id: 'dirt-time', label: t('Add a policy line: every piece of written feedback is followed by ten minutes of class time to act on it', 'أضف سطرًا للسياسة: كل تغذية راجعة مكتوبة يتبعها عشر دقائق من وقت الصف للعمل بها') },
+      { id: 'award', label: t('Re-point the award: give it to the class whose work improved most, not the most thorough marking', 'أعد توجيه الجائزة: امنحها للصف الذي تحسّن عمله أكثر، لا لأدقّ تصحيح') },
+      { id: 'model', label: t('Make Grade 3 and Grade 11 the model and have every department observe them this term', 'اجعل الصفين الثالث والحادي عشر النموذج ودع كل قسم يراقبهما هذا الفصل') },
     ],
     correctId: 'rewrite-audit',
-    hint: t('What the audit asks, the school becomes. Change the question.', 'ما يسأله التدقيق تصبحه المدرسة. غيّر السؤال.'),
+    hint: t('The ten-minute rule is good and the audit would still only check that it exists. The award reaches one class a term. Observations change the willing. Which move changes what every teacher is checked against, twelve books at a time?', 'قاعدة الدقائق العشر جيدة وسيكتفي التدقيق بالتحقق من وجودها. الجائزة تصل إلى صف واحد كل فصل. والملاحظات تغيّر الراغبين. أي خطوة تغيّر ما يُحاسَب عليه كل معلّم، اثني عشر دفترًا في كل مرة؟'),
   },
   reveal: {
     whatDrifted: t(

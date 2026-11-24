@@ -31,26 +31,26 @@ export const WORLD_3_BOSS: WorldBossDefinition = {
     {
       id: 'grade-5',
       place: t('Grade 5 Math', 'الصف الخامس، رياضيات'),
-      observation: t('Devices out, but the teacher has paused the lesson at a question most students got wrong. She works it on the board, students retry on the device, and the live view goes from red to mostly green.', 'الأجهزة مفتوحة، لكن المعلّمة أوقفت الدرس عند سؤال أخطأ فيه معظم الطلاب. تحلّه على السبورة، ويعيد الطلاب المحاولة على الجهاز، ويتحوّل العرض المباشر من الأحمر إلى الأخضر غالبًا.'),
+      observation: t('Devices half-closed, the Alef lesson stopped at question 6 with twenty minutes left. Completion for this class will fall below 80% today. The teacher is at the board with a different example, arguing with three students about why their answer is wrong; the rest are shouting corrections. Then everyone retries on the device.', 'الأجهزة نصف مغلقة، ودرس ألف متوقف عند السؤال ٦ وقد بقيت عشرون دقيقة. سينخفض إنجاز هذا الصف اليوم دون ٨٠٪. المعلّمة عند السبورة بمثال مختلف، تجادل ثلاثة طلاب في سبب خطأ إجابتهم؛ والبقية يصيحون بالتصحيحات. ثم يعيد الجميع المحاولة على الجهاز.'),
       fitsPattern: false,
-      finding: t('Purposeful. The platform showed her a misconception and she taught to it, in the moment. This is what the tool is for.', 'هادف. أظهرت لها المنصة مفهومًا خاطئًا فدرّسته في اللحظة. هذا ما وُجدت الأداة من أجله.'),
-      hint: t('Did the data change what the teacher did in the next two minutes?', 'هل غيّرت البيانات ما فعلته المعلّمة في الدقيقتين التاليتين؟'),
+      finding: t('Loud, unfinished, and the healthiest room on the tour. The platform showed her a misconception and she stopped the lesson to teach to it. Today’s completion number will be the lowest in the school — and the most honest.', 'صاخب وغير مكتمل وأسلم غرفة في الجولة. أظهرت لها المنصة فهمًا خاطئًا فأوقفت الدرس لتدرّسه. سيكون رقم الإنجاز اليوم الأدنى في المدرسة — والأصدق.'),
+      hint: t('Noise and an unfinished lesson are what the tour would notice. Ask what the live view showed her, and what she did in the next two minutes.', 'الضجيج والدرس غير المكتمل هما ما ستلاحظه الجولة. اسأل ماذا أظهر لها العرض المباشر، وماذا فعلت في الدقيقتين التاليتين.'),
     },
     {
       id: 'grade-8',
       place: t('Grade 8 Science', 'الصف الثامن، علوم'),
-      observation: t('Every student is on the same lesson, at the same point, in silence. Three have finished and are waiting. Two have been on question 4 for nine minutes. The teacher is entering completion into a spreadsheet.', 'كل الطلاب على الدرس نفسه، عند النقطة نفسها، في صمت. انتهى ثلاثة وينتظرون. اثنان على السؤال ٤ منذ تسع دقائق. المعلّم يُدخل الإنجاز في جدول.'),
+      observation: t('The calmest room in the school and the principal’s favourite. Every student on the lesson, headphones on, 100% completion by the bell three days running. The teacher circulates with a tablet showing the live view and nods at green cells. Two students have been on question 4 for nine minutes; their cells are still white.', 'أهدأ غرفة في المدرسة والمفضّلة لدى المدير. كل الطلاب في الدرس، بسماعات الرأس، وإنجاز ١٠٠٪ قبل الجرس ثلاثة أيام متتالية. يتجوّل المعلّم بجهاز لوحي يعرض العرض المباشر ويومئ للخانات الخضراء. طالبان على السؤال ٤ منذ تسع دقائق؛ وخانتاهما ما زالتا بيضاوين.'),
       fitsPattern: true,
       finding: t('Digital compliance: everyone present, nobody taught. The device replaced the teacher instead of informing him.', 'امتثال رقمي: الجميع حاضر ولا أحد يُدرَّس. حلّ الجهاز محل المعلّم بدل أن يُعلمه.'),
-      hint: t('Nine minutes on one question. Who noticed?', 'تسع دقائق على سؤال واحد. من لاحظ؟'),
+      hint: t('The live view is open and the teacher is circulating — that is what the Grade 5 teacher did too. What did each of them do when a cell was not green?', 'العرض المباشر مفتوح والمعلّم يتجوّل — هذا ما فعلته معلّمة الصف الخامس أيضًا. ماذا فعل كل منهما حين لم تكن الخانة خضراء؟'),
     },
     {
       id: 'writing',
       place: t('Grade 10 English', 'الصف العاشر، إنجليزية'),
-      observation: t('Students draft an argument by hand, then ask the AI to attack it. They revise. Then each student reads one sentence aloud and says what the AI got wrong about their point.', 'يكتب الطلاب حجّة بخط اليد، ثم يطلبون من الذكاء الاصطناعي مهاجمتها. يراجعون. ثم يقرأ كل طالب جملة بصوت مرتفع ويقول ما أخطأ فيه الذكاء الاصطناعي بشأن فكرته.'),
+      observation: t('Every screen shows an AI chat, and the teacher is encouraging it: "Ask it to tear your argument apart." Half the paragraphs on screen were written by the tool. Toki reads one student’s notebook: a hand-drafted argument from the start of the lesson, now covered in crossings-out, and a line at the bottom — "the AI is wrong about my second point because…".', 'تعرض كل الشاشات محادثة مع الذكاء الاصطناعي، والمعلّمة تشجّع ذلك: «اطلبوا منه أن يمزّق حجّتكم.» نصف الفقرات على الشاشات كتبتها الأداة. يقرأ توكي دفتر طالبة: حجّة مكتوبة بخط اليد من بداية الدرس، مغطاة الآن بالشطب، وسطر في الأسفل — «الذكاء الاصطناعي مخطئ في نقطتي الثانية لأن…».'),
       fitsPattern: false,
-      finding: t('Not the pattern. The thinking stays with the student at both ends; the AI is a sparring partner, not a ghostwriter.', 'ليس النمط. يبقى التفكير مع الطالب في الطرفين؛ الذكاء الاصطناعي شريك تدريب لا كاتب خفي.'),
-      hint: t('Who owns the argument at the end of the lesson?', 'من يمتلك الحجّة في نهاية الدرس؟'),
+      finding: t('It looks like the AI classroom from World 3 and it is the opposite. The argument was the student’s before the tool saw it and is still hers after; the tool is a sparring partner, and the crossings-out are the learning.', 'يبدو كصف الذكاء الاصطناعي في العالم الثالث وهو عكسه تمامًا. كانت الحجّة للطالبة قبل أن تراها الأداة وما زالت لها بعدها؛ الأداة شريك تدريب، والشطب هو التعلّم.'),
+      hint: t('The screens show the tool. The notebook shows the sequence. Who had the argument first, and who has it at the end?', 'تُظهر الشاشات الأداة. ويُظهر الدفتر التسلسل. من كانت لديه الحجّة أولًا، ومن يملكها في النهاية؟'),
     },
     {
       id: 'data-meeting',
@@ -64,13 +64,13 @@ export const WORLD_3_BOSS: WorldBossDefinition = {
   namePattern: {
     prompt: t('Three scenes fit the pattern; two are what the platform is for. Name the pattern.', 'ثلاثة مشاهد تطابق النمط؛ واثنان هما ما وُجدت المنصة من أجله. سمِّ النمط.'),
     options: [
-      { id: 'too-much-tech', label: t('Too much screen time', 'وقت شاشة مفرط') },
-      { id: 'compliance', label: t('Digital compliance — technology is visible and completion is high, but learning evidence isn’t being used', 'امتثال رقمي — التقنية مرئية والإنجاز مرتفع، لكن أدلة التعلّم لا تُستخدم') },
-      { id: 'training', label: t('Teachers don’t know the platform well enough', 'لا يعرف المعلّمون المنصة جيدًا بما يكفي') },
-      { id: 'ai', label: t('AI is being misused', 'يُساء استخدام الذكاء الاصطناعي') },
+      { id: 'monitoring', label: t('Teachers monitor the platform but do not intervene when it shows a problem', 'يراقب المعلّمون المنصة لكنهم لا يتدخلون حين تُظهر مشكلة') },
+      { id: 'pace', label: t('The platform sets one pace for every student and the fast and the stuck are both invisible', 'تضع المنصة إيقاعًا واحدًا لكل طالب فيختفي السريع والعالق معًا') },
+      { id: 'compliance', label: t('Technology is visible and completion is high, but learning evidence is not being used', 'التقنية مرئية والإنجاز مرتفع، لكن أدلة التعلّم لا تُستخدم') },
+      { id: 'identity', label: t('The school’s reputation depends on a number teachers cannot afford to lower', 'تعتمد سمعة المدرسة على رقم لا يستطيع المعلّمون خفضه') },
     ],
     correctId: 'compliance',
-    hint: t('The Grade 5 teacher had the same screen time and the same platform. What did she do differently?', 'كان لدى معلّمة الصف الخامس وقت الشاشة نفسه والمنصة نفسها. ما الذي فعلته بشكل مختلف؟'),
+    hint: t('Monitoring without intervening is Grade 8 alone; the pace problem is one room; the reputation is the cause, not the pattern. What do the tour, Grade 8 and the data meeting all do with the evidence they have?', 'المراقبة دون تدخل هي الصف الثامن وحده؛ ومشكلة الإيقاع غرفة واحدة؛ والسمعة هي السبب لا النمط. ماذا تفعل الجولة والصف الثامن واجتماع البيانات جميعًا بالدليل الذي بين أيديهم؟'),
   },
   assessRisk: {
     prompt: t('Across the school, how serious is this pattern?', 'على مستوى المدرسة، ما مدى خطورة هذا النمط؟'),
@@ -80,13 +80,13 @@ export const WORLD_3_BOSS: WorldBossDefinition = {
   coaching: {
     prompt: t('The school is proud and the number is public. What is the one move with the greatest impact?', 'المدرسة فخورة والرقم معلن. ما الخطوة الواحدة ذات الأثر الأكبر؟'),
     options: [
-      { id: 'cap', label: t('Cap device time per lesson', 'حدّد سقفًا لوقت الأجهزة في كل درس') },
-      { id: 'second-number', label: t('Put a second number beside completion everywhere it appears — the lesson-check score — and make the data meeting open three student attempts before it looks at any percentage', 'ضع رقمًا ثانيًا بجانب الإنجاز أينما ظهر — درجة اختبار الدرس — واجعل اجتماع البيانات يفتح ثلاث محاولات طلاب قبل أن ينظر إلى أي نسبة') },
-      { id: 'workshop', label: t('Run an Alef refresher workshop for all staff', 'نظّم ورشة تنشيطية عن ألف لكل الهيئة') },
-      { id: 'tour', label: t('Stop the visitor tours until completion is explained properly', 'أوقف جولات الزوار حتى يُشرح الإنجاز بشكل صحيح') },
+      { id: 'model', label: t('Make the Grade 5 teacher’s "stop and reteach" the expected routine across the school whenever a cell goes red', 'اجعل «التوقف وإعادة التدريس» لدى معلّمة الصف الخامس الروتين المتوقع في المدرسة حين تحمرّ خانة') },
+      { id: 'target', label: t('Change the completion target from 97% to 85% so teachers have room to stop and teach', 'غيّر هدف الإنجاز من ٩٧٪ إلى ٨٥٪ ليجد المعلّمون مجالًا للتوقف والتدريس') },
+      { id: 'coach', label: t('Coach the Grade 8 teacher and the heads of department on reading the live view', 'درّب معلّم الصف الثامن ورؤساء الأقسام على قراءة العرض المباشر') },
+      { id: 'second-number', label: t('Lesson-check score beside completion everywhere it appears; three attempts opened before any percentage', 'ضع درجة اختبار الدرس بجانب الإنجاز أينما ظهر، وافتح ثلاث محاولات قبل أي نسبة') },
     ],
     correctId: 'second-number',
-    hint: t('You can’t remove the number the school is proud of. What can you put next to it?', 'لا يمكنك إزالة الرقم الذي تفخر به المدرسة. ما الذي يمكنك وضعه بجانبه؟'),
+    hint: t('A lower target is still a completion target. A new routine and better reading of the live view both depend on teachers choosing to act. Which move changes what the school counts as success — on the tour, in Grade 8 and in the meeting at once?', 'الهدف الأدنى ما زال هدف إنجاز. الروتين الجديد وقراءة أفضل للعرض المباشر كلاهما يعتمد على اختيار المعلّمين أن يتصرّفوا. أي خطوة تغيّر ما تعدّه المدرسة نجاحًا — في الجولة والصف الثامن والاجتماع دفعة واحدة؟'),
   },
   reveal: {
     whatDrifted: t(

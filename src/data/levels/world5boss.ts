@@ -26,18 +26,18 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
     {
       id: 'grade-6',
       place: t('Grade 6 History', 'الصف السادس، تاريخ'),
-      observation: t('Only four questions in the whole lesson. Each one is written on the board, everyone writes an answer, pairs compare, then three students are chosen. The observer’s tally would read "4 — low."', 'أربعة أسئلة فقط في الدرس كله. يُكتب كل سؤال على السبورة، يكتب الجميع إجابة، يتقارن الثنائيات، ثم يُختار ثلاثة طلاب. سيقرأ إحصاء الملاحظ «٤ — منخفض».'),
+      observation: t('Four questions in fifty minutes, long silences after each, and the teacher sitting down while students write. Twice she says "I’m not telling you — argue it out" and leaves a pair disagreeing. The last observation form on file reads "Questioning: 2/5 — needs more pace and variety."', 'أربعة أسئلة في خمسين دقيقة، وصمت طويل بعد كل منها، والمعلّمة جالسة بينما يكتب الطلاب. تقول مرتين «لن أخبركم — تجادلوا» وتترك ثنائيًا مختلفَين. يقول آخر نموذج ملاحظة في الملف «طرح الأسئلة: ٢/٥ — يحتاج مزيدًا من الإيقاع والتنوّع».'),
       fitsPattern: false,
-      finding: t('Four questions, twenty-eight thinkers. This room fails the tally and passes the only test that matters.', 'أربعة أسئلة، ثمانية وعشرون مفكّرًا. ترسب هذه الغرفة في الإحصاء وتنجح في الاختبار الوحيد الذي يهم.'),
-      hint: t('Count the thinkers, not the questions.', 'عدّ المفكّرين لا الأسئلة.'),
+      finding: t('Four questions, twenty-eight thinkers, a 2/5 on file. The silences are the thinking; the sitting down is the restraint. This room fails the tally and passes the only test that matters.', 'أربعة أسئلة، ثمانية وعشرون مفكّرًا، و٢/٥ في الملف. الصمت هو التفكير؛ والجلوس هو ضبط النفس. ترسب هذه الغرفة في الإحصاء وتنجح في الاختبار الوحيد الذي يهم.'),
+      hint: t('The silences and the sitting down are what the form scored. What were the twenty-eight students doing during them?', 'الصمت والجلوس هما ما قيّمه النموذج. ماذا كان الطلاب الثمانية والعشرون يفعلون أثناءهما؟'),
     },
     {
       id: 'grade-2',
       place: t('Grade 2 Phonics', 'الصف الثاني، صوتيات'),
-      observation: t('Forty-one questions in twenty minutes — the observer is thrilled. Every one is a one-word recall, answered by whoever shouts first. The same six voices, over and over.', 'واحد وأربعون سؤالًا في عشرين دقيقة — الملاحظ مبتهج. كل سؤال تذكّر من كلمة واحدة، يجيب عنه من يصرخ أولًا. الأصوات الستة نفسها، مرارًا وتكرارًا.'),
+      observation: t('The lesson the school films for new teachers. Forty-one questions in twenty minutes, every child’s eyes on the teacher, hands shooting up, a pace that never flags, "excellent!" after every answer. Toki writes down the answers: forty-one single words. He writes down the voices: six.', 'الدرس الذي تصوّره المدرسة للمعلّمين الجدد. واحد وأربعون سؤالًا في عشرين دقيقة، عيون كل طفل على المعلّمة، أيدٍ تنطلق إلى الأعلى، إيقاع لا يتراجع، «ممتاز!» بعد كل إجابة. يدوّن توكي الإجابات: واحد وأربعون كلمة مفردة. يدوّن الأصوات: ستة.'),
       fitsPattern: true,
       finding: t('Maximum questioning, minimum thinking. The rubric’s ideal lesson is the world’s clearest drift.', 'أقصى قدر من الأسئلة، أدنى قدر من التفكير. الدرس المثالي بحسب المعيار هو أوضح انحراف في هذا العالم.'),
-      hint: t('Forty-one questions. How many required a second of thought?', 'واحد وأربعون سؤالًا. كم منها تطلّب ثانية من التفكير؟'),
+      hint: t('Everything the rubric can see is here. Read Toki’s two lists instead: how many words per answer, and how many voices.', 'كل ما يستطيع المعيار رؤيته موجود هنا. اقرأ قائمتَي توكي بدل ذلك: كم كلمة في كل إجابة، وكم صوتًا.'),
     },
     {
       id: 'dept',
@@ -59,13 +59,13 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
   namePattern: {
     prompt: t('Three scenes fit; two don’t. Name the pattern.', 'ثلاثة مشاهد تطابق؛ واثنان لا. سمِّ النمط.'),
     options: [
-      { id: 'too-few', label: t('Teachers don’t ask enough questions', 'لا يطرح المعلّمون أسئلة كافية') },
-      { id: 'counted', label: t('Questioning is measured by how often it happens, so it has drifted toward quantity and speed — and away from student thinking', 'يُقاس طرح الأسئلة بتكراره، فانحرف نحو الكمّ والسرعة — وبعيدًا عن تفكير الطلاب') },
-      { id: 'stems', label: t('The question stems are too hard', 'جذور الأسئلة صعبة جدًا') },
-      { id: 'shy', label: t('Students are too shy to answer', 'الطلاب خجولون جدًا عن الإجابة') },
+      { id: 'counted', label: t('Questioning is measured by how often it happens, so it drifts toward quantity and speed', 'يُقاس طرح الأسئلة بتكراره، فانحرف نحو الكمّ والسرعة') },
+      { id: 'recall', label: t('Teachers default to recall questions because higher-order ones are harder to write and mark', 'يميل المعلّمون إلى أسئلة التذكّر لأن أسئلة المستوى الأعلى أصعب في الكتابة') },
+      { id: 'participation', label: t('A few confident students answer everything and the rest have learned to wait', 'يجيب قلّة من الطلاب الواثقين عن كل شيء وتعلّم الباقون الانتظار') },
+      { id: 'wait', label: t('Nobody waits — questions are answered before most students have heard them', 'لا أحد ينتظر — تُجاب الأسئلة قبل أن يسمعها معظم الطلاب') },
     ],
     correctId: 'counted',
-    hint: t('The two healthy rooms would score lowest on the rubric. What does the rubric reward?', 'ستحصل الغرفتان السليمتان على أدنى درجة في المعيار. ما الذي يكافئه المعيار؟'),
+    hint: t('Six voices, no wait time and recall questions are all true of Grade 2 — and all three are symptoms. The rubric, the stem-bank quota and the filmed lesson share a cause. What is being counted?', 'ستة أصوات، وبلا وقت انتظار، وأسئلة تذكّر — كلها صحيحة في الصف الثاني، وكلها أعراض. يتشارك المعيار وحصة بنك الجذور والدرس المصوَّر سببًا واحدًا. ما الذي يُعدّ؟'),
   },
   assessRisk: {
     prompt: t('Across the school, how serious is this pattern?', 'على مستوى المدرسة، ما مدى خطورة هذا النمط؟'),
@@ -75,13 +75,13 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
   coaching: {
     prompt: t('The rubric, the stem bank, and the vision statement all say "questioning." What is the one move with the greatest impact?', 'المعيار وبنك الجذور وبيان الرؤية تقول كلها «طرح الأسئلة». ما الخطوة الواحدة ذات الأثر الأكبر؟'),
     options: [
-      { id: 'cap', label: t('Cap questions at ten per lesson', 'حدّد سقفًا للأسئلة بعشرة في كل درس') },
-      { id: 'rubric', label: t('Replace the two rubric rows with two different ones: "wait time ≥ 3 seconds" and "proportion of students who produced an answer" — then re-observe the Grade 2 and Grade 6 rooms', 'استبدل صفّي المعيار بصفّين مختلفين: «وقت الانتظار ≥ ٣ ثوانٍ» و«نسبة الطلاب الذين أنتجوا إجابة» — ثم أعد ملاحظة الصفين الثاني والسادس') },
-      { id: 'training', label: t('Run a questioning workshop for all staff', 'نظّم ورشة عن طرح الأسئلة لكل الهيئة') },
-      { id: 'stems', label: t('Expand the stem bank to a hundred', 'وسّع بنك الجذور إلى مئة') },
+      { id: 'film', label: t('Re-film the model lesson in Grade 6 and Grade 11 and retire the Grade 2 video', 'أعد تصوير الدرس النموذجي في الصفين السادس والحادي عشر واسحب فيديو الصف الثاني') },
+      { id: 'quota', label: t('Replace the stem-bank quota with a rule: every question is followed by thirty seconds of writing', 'استبدل حصة بنك الجذور بقاعدة: كل سؤال يتبعه ثلاثون ثانية من الكتابة') },
+      { id: 'rubric', label: t('Rubric rows become "wait time ≥ 3 seconds" and "proportion of students who produced an answer"', 'استبدل صفّي المعيار بـ«وقت الانتظار ≥ ٣ ثوانٍ» و«نسبة الطلاب الذين أنتجوا إجابة»') },
+      { id: 'coach', label: t('Pair every teacher with a peer to observe each other for thinkers, not questions, this term', 'اقرن كل معلّم بزميل ليلاحظ كلٌّ منهما الآخر بحثًا عن المفكّرين لا الأسئلة، هذا الفصل') },
     ],
     correctId: 'rubric',
-    hint: t('Teachers are being shaped by what gets written down about them. Change what gets written down.', 'يتشكّل المعلّمون بما يُكتب عنهم. غيّر ما يُكتب.'),
+    hint: t('The new video shows a better lesson; the writing rule is a better quota; peer observation builds the habit in the willing. All three leave the form that scored Grade 6 a 2/5 untouched. Which move changes that form?', 'الفيديو الجديد يُظهر درسًا أفضل؛ وقاعدة الكتابة حصة أفضل؛ وملاحظة الأقران تبني العادة لدى الراغبين. الثلاثة تترك النموذج الذي أعطى الصف السادس ٢/٥ كما هو. أي خطوة تغيّر ذلك النموذج؟'),
   },
   reveal: {
     whatDrifted: t(
