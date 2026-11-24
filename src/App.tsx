@@ -7,9 +7,11 @@ import { HubScreen } from './screens/HubScreen';
 import { LevelScreen, type LevelResult } from './screens/LevelScreen';
 import { BossScreen } from './screens/BossScreen';
 import { WorldBossScreen } from './screens/WorldBossScreen';
+import { AcademyScreen } from './screens/AcademyScreen';
+import { SchoolVisitScreen } from './screens/SchoolVisitScreen';
 import { SkinPickerScreen } from './screens/SkinPickerScreen';
 import { BadgesScreen } from './screens/BadgesScreen';
-import { getLevel, getWorldBoss, ensureWorldLoaded, BOSS, BOSS_ID } from './data/levels';
+import { getLevel, getWorldBoss, getAcademyLevel, getSchoolVisit, ensureWorldLoaded, BOSS, BOSS_ID } from './data/levels';
 import { WORLDS, getWorld } from './data/worlds';
 import { completedCount as countDone, currentWorld as findCurrentWorld } from './data/progression';
 import { DEFAULT_SKIN_ID } from './data/skins';
@@ -34,7 +36,7 @@ const DEFAULT_SAVE: SaveData = {
   selectedSkinId: DEFAULT_SKIN_ID,
 };
 
-type Screen = 'loading' | 'title' | 'map' | 'world' | 'classroom' | 'boss' | 'worldboss' | 'skins' | 'badges';
+type Screen = 'loading' | 'title' | 'map' | 'world' | 'classroom' | 'boss' | 'worldboss' | 'academy' | 'visit' | 'skins' | 'badges';
 
 function App() {
   const [screen, setScreen] = useState<Screen>('loading');
@@ -101,6 +103,8 @@ function App() {
     setActiveLevel(id);
     if (id === BOSS_ID) setScreen('boss');
     else if (getWorldBoss(id)) setScreen('worldboss');
+    else if (getAcademyLevel(id)) setScreen('academy');
+    else if (getSchoolVisit(id)) setScreen('visit');
     else setScreen('classroom');
   };
 
@@ -186,6 +190,14 @@ function App() {
     const wb = getWorldBoss(activeLevel);
     content = wb ? <WorldBossScreen boss={wb} heldBadges={save.badges} onComplete={handleClassroomComplete} /> : null;
     if (!wb) setTimeout(() => setScreen('world'), 0);
+  } else if (screen === 'academy') {
+    const a = getAcademyLevel(activeLevel);
+    content = a ? <AcademyScreen level={a} heldBadges={save.badges} onComplete={handleClassroomComplete} /> : null;
+    if (!a) setTimeout(() => setScreen('world'), 0);
+  } else if (screen === 'visit') {
+    const v = getSchoolVisit(activeLevel);
+    content = v ? <SchoolVisitScreen visit={v} heldBadges={save.badges} onComplete={handleClassroomComplete} /> : null;
+    if (!v) setTimeout(() => setScreen('world'), 0);
   } else if (screen === 'classroom') {
     const level = getLevel(activeLevel);
     content = level ? (

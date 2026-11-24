@@ -165,7 +165,9 @@ function LevelProgress({ current, total }: { current: number; total: number }) {
  * only once all have been examined does Toki have "seen enough" to
  * make a call. Reading becomes looking.
  */
-function ObserveBeat({ level, onContinue }: { level: LevelDefinition; onContinue: () => void }) {
+export type ObservableScene = Pick<LevelDefinition, 'title' | 'theme' | 'scenario' | 'sceneImage' | 'evidence'>;
+
+export function ObserveBeat({ level, onContinue, ctaLabel }: { level: ObservableScene; onContinue: () => void; ctaLabel?: string }) {
   const { tx } = useLocale();
   const spots = level.evidence ?? [];
   const [inspected, setInspected] = useState<Set<string>>(new Set());
@@ -211,7 +213,7 @@ function ObserveBeat({ level, onContinue }: { level: LevelDefinition; onContinue
       )}
 
       <button className={`beat__cta ${allDone ? '' : 'beat__cta--waiting'}`} onClick={onContinue} disabled={!allDone}>
-        {allDone ? tx(UI.lookCloser) : `${inspected.size}/${spots.length}`}
+        {allDone ? (ctaLabel ?? tx(UI.lookCloser)) : `${inspected.size}/${spots.length}`}
       </button>
       {allDone && spots.length > 0 && <p className="evidence__ready">{tx(UI.inspectedAll)}</p>}
     </div>

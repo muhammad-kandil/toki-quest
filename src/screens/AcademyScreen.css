@@ -1,0 +1,90 @@
+/* World 7 — the Academy. Findings are tickable; the filed diagnosis
+   colours each one by what it really was. */
+.finding {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.finding__box {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 6px;
+  border: 2px solid var(--color-border);
+  background: var(--color-bg);
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
+  transition: background var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth), transform var(--duration-fast) var(--ease-bounce);
+}
+.finding--on {
+  border-color: var(--toki-indigo);
+  background: #F3EFFB;
+}
+.finding--on .finding__box {
+  background: var(--toki-indigo);
+  border-color: var(--toki-indigo);
+  transform: scale(1.08);
+}
+.finding__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.finding__label { font-weight: 600; }
+.finding__note {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  animation: finding-in 360ms var(--ease-smooth);
+}
+.finding__note strong { font-weight: 800; }
+
+/* After filing: the truth, colour-coded. */
+.finding--mutation,
+.finding--mutation:disabled {
+  border-color: var(--risk-lethal);
+  background: #FDEFF2;
+  opacity: 1;
+}
+.finding--mutation .finding__box {
+  background: var(--risk-lethal);
+  border-color: var(--risk-lethal);
+}
+.finding--mutation .finding__note strong { color: var(--risk-lethal); }
+.finding--healthy,
+.finding--healthy:disabled {
+  border-color: var(--toki-teal);
+  background: #EAFBF7;
+  opacity: 1;
+}
+.finding--healthy .finding__box {
+  background: var(--toki-teal);
+  border-color: var(--toki-teal);
+}
+.finding--healthy .finding__note strong { color: var(--toki-teal-shadow); }
+.finding--healthy.finding--on .finding__box::after,
+.finding--healthy .finding__box { color: white; }
+
+.academy__err { display: flex; flex-direction: column; gap: var(--space-2); align-items: center; }
+.academy__err .beat__hint { margin-top: var(--space-2); }
+.hint-mark--over { background: var(--risk-lethal); }
+
+.beat__cta--none {
+  background: var(--color-bg-elevated);
+  color: var(--toki-indigo);
+  border: 2px solid var(--toki-indigo);
+}
+.academy__verdict {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--toki-indigo);
+  max-width: 380px;
+  margin: 0 0 var(--space-4);
+  line-height: 1.4;
+}

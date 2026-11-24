@@ -5,11 +5,11 @@ import { BOSS_ID } from './levels';
  * World structure (v2 spec): the quest is a journey across worlds, each
  * a cluster of classrooms with a world challenge at the end.
  *
- * Phase 0 ships World 1 fully playable — it holds the original five
- * classrooms and The Perfect Classroom finale. Worlds 2–7 and the
- * Final World are on the map as the road ahead; their content arrives
- * world by world. Keeping them visible is deliberate: DLISs see the
- * whole journey, not a dead end after World 1.
+ * All eight worlds are authored. World 1 holds the original five
+ * classrooms and The Perfect Classroom finale; Worlds 2–6 are four
+ * classrooms plus a pattern-audit boss; World 7 is the Academy (0–many
+ * findings per room); the Final World is a single whole-school visit.
+ * `comingSoon` is kept for future expansion worlds.
  */
 export interface WorldDefinition {
   id: string;
@@ -102,10 +102,10 @@ export const WORLDS: WorldDefinition[] = [
     title: t('The Lethal Mutation Academy', 'أكاديمية التحوّرات القاتلة'),
     theme: t('Can You Spot the Invisible Drift?', 'هل تستطيع رصد الانحراف الخفي؟'),
     coreIdea: t('Balanced professional judgement — including knowing when nothing is wrong.', 'حكم مهني متوازن — بما في ذلك معرفة متى لا يوجد خطأ.'),
-    levelIds: [],
+    levelIds: [71, 72, 73, 74],
+    bossId: 75,
     badgeId: 'mutation-hunter',
     node: { x: 78, y: 18 },
-    comingSoon: true,
   },
   {
     id: 'master-dlis',
@@ -114,9 +114,9 @@ export const WORLDS: WorldDefinition[] = [
     theme: t('From Observation to Coaching Judgement', 'من الملاحظة إلى الحكم التدريبي'),
     coreIdea: t('Decide which issue matters most, and where coaching has the greatest impact.', 'قرّر أي قضية هي الأهم، وأين يكون للتدريب أكبر أثر.'),
     levelIds: [],
+    bossId: 85,
     badgeId: 'master-dlis',
     node: { x: 50, y: 7 },
-    comingSoon: true,
   },
 ];
 

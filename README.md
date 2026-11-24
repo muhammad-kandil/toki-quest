@@ -30,22 +30,24 @@ src/
     levelTypes.ts  Classroom data model (five-beat loop + evidence hotspots)
     bossTypes.ts   The Perfect Classroom (World 1 finale: six-dimension audit)
     worldBossTypes.ts  World boss "pattern audit" (reusable by every world)
+    academyTypes.ts    World 7: 0–many findings per room, over-coaching penalised
+    schoolVisitTypes.ts Final World: evidence dossiers, impact calls, prioritisation
     worlds.ts      The 8-world journey and map node positions
     progression.ts Unlock rules derived purely from bestScores
     badges.ts      The 7 concept-mastery badges (SVG icons)
     skins.ts       7 Toki looks, unlocked by progress
-    levels/        World 1 (level1–5 + boss) bundled; world2–6 lazy chunks
+    levels/        World 1 (level1–5 + boss) bundled; world2–8 lazy chunks
   screens/         Title · WorldMap · Hub (classrooms) · Level · Boss · WorldBoss ·
-                   Badges · SkinPicker
+                   Academy (W7) · SchoolVisit (Final) · Badges · SkinPicker
   components/      TopBar (lang/sound/badges) · TokiAvatar (living idle) · BadgeIcon
   telegram/        SDK bootstrap + CloudStorage with localStorage fallback & timeouts
 ```
 
 ### Level id scheme
 World 1 = ids 1–5 + The Perfect Classroom (6). World *N* = `N*10+1 … N*10+4`
-classrooms and `N*10+5` world boss. Worlds 7 (Lethal Mutation Academy) and 8
-(The Master DLIS) are on the map but not yet authored — they need custom
-mechanics (multiple/no mutations; a multi-context school visit).
+classrooms and `N*10+5` world boss. World 7's classrooms (71–74) are
+`AcademyLevelDefinition`s (tick 0–many findings; ticking a healthy practice is
+over-coaching). The Final World is a single `SchoolVisitDefinition` (85).
 
 ### Progression
 No "unlocked" counter. `progression.ts` derives everything from `bestScores`:
@@ -100,8 +102,8 @@ is blocked on this org). If a deploy fails with "try again later", re-run the jo
 | World 4 — Feedback That Moves Learning | ✅ |
 | World 5 — Questioning for Thinking | ✅ |
 | World 6 — Differentiation | ✅ |
-| World 7 — The Lethal Mutation Academy | planned (custom mechanic: 0–many mutations, avoid over-coaching) |
-| Final World — The Master DLIS | planned (multi-context school visit, prioritisation) |
+| World 7 — The Lethal Mutation Academy (4 diagnosis classrooms + The Invisible Mutation) | ✅ |
+| Final World — The Master DLIS (The School Visit: 6 contexts, prioritisation, final mission) | ✅ |
 | Arabic/English + RTL, sound, world map, badges gallery, interactive Observe | ✅ |
 | Per-world scene art | reusing World 1 scenes; new art welcome |
 | Team review of Arabic | pending |

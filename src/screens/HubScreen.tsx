@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getLevel, getWorldBoss, BOSS, BOSS_ID } from '../data/levels';
+import { getCardInfo, getSchoolVisit, BOSS, BOSS_ID } from '../data/levels';
 import type { WorldDefinition } from '../data/worlds';
 import { isLevelUnlocked } from '../data/progression';
 import { getSkinById } from '../data/skins';
@@ -37,13 +37,14 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
   const bossCard = (() => {
     if (!world.bossId) return [];
     if (world.bossId === BOSS_ID) return [{ id: BOSS_ID, subject: BOSS.subject, title: BOSS.title, isBoss: true }];
-    const wb = getWorldBoss(world.bossId);
-    return wb ? [{ id: wb.id, subject: wb.subject, title: wb.title, isBoss: true }] : [];
+    const wb = getCardInfo(world.bossId);
+    return wb ? [{ id: world.bossId, subject: wb.subject, title: wb.title, isBoss: true }] : [];
   })();
   const cards = [
-    ...world.levelIds.map((id) => getLevel(id)!).map((l) => ({ id: l.id, subject: l.subject, title: l.title, isBoss: false })),
+    ...world.levelIds.map((id) => ({ id, info: getCardInfo(id) })).filter((c) => c.info).map((c) => ({ id: c.id, subject: c.info!.subject, title: c.info!.title, isBoss: false })),
     ...bossCard,
   ];
+  const isFinalVisit = !!world.bossId && !!getSchoolVisit(world.bossId);
 
   const doorState = (id: number): DoorState => {
     if (bestScores[id] != null) return 'completed';
@@ -116,7 +117,7 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
       </div>
 
       <p className="hub__hint">
-        {tx(bossDone ? UI.hintAllDone : bossUnlocked ? UI.hintBossReady : UI.hintUnlockNext)}
+        {tx(bossDone ? (isFinalVisit ? UI.hintQuestDone : UI.hintAllDone) : isFinalVisit ? UI.hintFinalVisit : bossUnlocked ? UI.hintBossReady : UI.hintUnlockNext)}
       </p>
 
       <div className={`hub__wipe ${phase === 'opening' ? 'hub__wipe--active' : ''}`} aria-hidden="true" />

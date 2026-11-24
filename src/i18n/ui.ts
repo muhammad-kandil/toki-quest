@@ -30,10 +30,15 @@ export const UI = {
     'الزيارة الأخيرة بانتظارك. عندما تكون مستعدًا، ادخل الصف المثالي.',
   ),
   hintAllDone: t(
-    'You’ve completed the Quest. Revisit any classroom to sharpen your score.',
-    'لقد أكملت الرحلة. يمكنك إعادة زيارة أي صف لتحسين نتيجتك.',
+    'World complete. Revisit any classroom to sharpen your score.',
+    'اكتمل العالم. يمكنك إعادة زيارة أي صف لتحسين نتيجتك.',
+  ),
+  hintQuestDone: t(
+    'You’ve completed the Quest. Every door in the school stays open.',
+    'لقد أكملت الرحلة. تبقى كل أبواب المدرسة مفتوحة.',
   ),
   locked: t('locked', 'مقفل'),
+  hintFinalVisit: t('One door. The whole school is behind it.', 'باب واحد. المدرسة كلها خلفه.'),
   finalVisit: t('The Final Visit', 'الزيارة الأخيرة'),
   worldBoss: t('World Challenge', 'تحدّي العالم'),
   levelsDone: t('classrooms visited', 'صفوف تمت زيارتها'),
