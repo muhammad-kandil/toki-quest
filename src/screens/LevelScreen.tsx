@@ -7,6 +7,7 @@ import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
+import { EvidenceRecap } from '../components/EvidenceRecap';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import type { Text } from '../i18n/types';
@@ -127,7 +128,7 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
 
       {beat === 'drift' && (
         <ChoiceBeat heading={tx(UI.identifyDrift)} step={level.steps.identifyDrift} selectedWrong={selectedWrong}
-          onChoose={(id) => handleChoice('drift', level.steps.identifyDrift, id)} />
+          onChoose={(id) => handleChoice('drift', level.steps.identifyDrift, id)} recap={level.evidence} />
       )}
       {beat === 'risk' && (
         <ChoiceBeat heading={tx(UI.assessRisk)} step={level.steps.assessRisk} selectedWrong={selectedWrong}
@@ -227,14 +228,16 @@ interface ChoiceBeatProps {
   onChoose: (id: string) => void;
   skippable?: boolean;
   onSkip?: () => void;
+  recap?: LevelDefinition['evidence'];
 }
 
-function ChoiceBeat({ heading, step, selectedWrong, onChoose, skippable, onSkip }: ChoiceBeatProps) {
+function ChoiceBeat({ heading, step, selectedWrong, onChoose, skippable, onSkip, recap }: ChoiceBeatProps) {
   const { tx } = useLocale();
   return (
     <div className="beat beat--choice">
       <h3 className="beat__heading">{heading}</h3>
       <p className="beat__prompt">{tx(step.prompt)}</p>
+      <EvidenceRecap spots={recap} />
       <div className="choice-list">
         {step.options.map((opt, i) => (
           <button

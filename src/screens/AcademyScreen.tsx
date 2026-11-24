@@ -6,6 +6,7 @@ import type { LevelResult } from './LevelScreen';
 import { ObserveBeat } from './LevelScreen';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
+import { EvidenceRecap } from '../components/EvidenceRecap';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
@@ -147,6 +148,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
         <div className="beat beat--choice">
           <h3 className="beat__heading">{tx(S.diagnose)}</h3>
           <p className="beat__prompt">{tx(level.diagnosis.prompt)}</p>
+          {!filed && <EvidenceRecap spots={level.evidence} />}
           <div className="choice-list findings">
             {findings.map((f, i) => {
               const on = selected.has(f.id);

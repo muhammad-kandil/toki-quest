@@ -44,7 +44,12 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const states = useMemo(() => Object.fromEntries(WORLDS.map((w) => [w.id, worldState(w)])), [bestScores]);
   const currentWorld = findCurrent(bestScores);
-  const restNode = tokiPos ?? { x: currentWorld.node.x + 11, y: currentWorld.node.y - 1 };
+  // Toki rests beside the current school — on the left when the school
+  // is near the right edge, and never so high that his head leaves the map.
+  const restNode = tokiPos ?? {
+    x: currentWorld.node.x > 60 ? currentWorld.node.x - 11 : currentWorld.node.x + 11,
+    y: Math.max(currentWorld.node.y - 1, 12),
+  };
 
   // The road: a Catmull-Rom spline through every node (converted to
   // cubic beziers), so it winds naturally instead of hair-pinning.

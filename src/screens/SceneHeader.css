@@ -74,8 +74,8 @@
 /* ---------- Evidence spots (interactive Observe) ---------- */
 .evidence-spot {
   position: absolute;
-  width: 34px;
-  height: 34px;
+  width: 44px;  /* comfortable thumb target */
+  height: 44px;
   transform: translate(-50%, -50%);
   background: none;
   border: none;
@@ -101,11 +101,12 @@
 }
 .evidence-spot__core {
   position: absolute;
-  inset: 7px;
+  inset: 9px;
   border-radius: 50%;
   background: var(--toki-orange);
   border: 2.5px solid var(--toki-indigo);
-  box-shadow: 0 3px 6px rgba(69, 43, 116, 0.3);
+  /* white halo so the marker reads against busy classroom art */
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.95), 0 3px 8px rgba(69, 43, 116, 0.35);
   color: #fff;
   font-weight: 800;
   font-size: 12px;
