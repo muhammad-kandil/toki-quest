@@ -7,6 +7,8 @@ import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
+import tokiHero from '../assets/raw/toki-face-teal-hero.png';
+import { TokiAvatar } from '../components/TokiAvatar';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import { t, type Text } from '../i18n/types';
@@ -40,6 +42,8 @@ const S = {
   final: t('Final World', 'العالم الأخير'),
   begin: t('Begin the Visit', 'ابدأ الزيارة'),
   schoolHint: t('Six doors. Open each one, read the evidence, and make the impact call.', 'ستة أبواب. افتح كل باب، واقرأ الدليل، واتّخذ قرار الأثر.'),
+  tokiSchoolLine: t('Start anywhere. The order is yours — the judgement comes at the end.', 'ابدأ من أي باب. الترتيب لك — والحكم يأتي في النهاية.'),
+  tokiSchoolDone: t('Every door is open now. Where would one coach, in one term, change the most?', 'كل الأبواب مفتوحة الآن. أين يغيّر مدرّب واحد، في فصل واحد، أكثر ما يمكن؟'),
   visited: t('{n} of {total} visited', 'تمت زيارة {n} من {total}'),
   readyToDecide: t('Toki has seen the whole school. Time to decide.', 'رأى توكي المدرسة كلها. حان وقت القرار.'),
   decide: t('Decide Where to Coach', 'قرّر أين تدرّب'),
@@ -164,6 +168,10 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
         <div className="beat beat--choice">
           <h3 className="beat__heading">{tx(visit.title)}</h3>
           <p className="beat__prompt">{allDone ? tx(S.readyToDecide) : tx(S.schoolHint)}</p>
+          <div className="visit__toki">
+            <TokiAvatar src={tokiHero} size={64} mood={allDone ? 'happy' : 'idle'} />
+            <p className="visit__toki-line">{tx(allDone ? S.tokiSchoolDone : S.tokiSchoolLine)}</p>
+          </div>
           <p className="boss-audit__counter">{fmt(tx(S.visited), { n: doneCount, total: visit.contexts.length })}</p>
           <div className="school">
             {visit.contexts.map((c, i) => {

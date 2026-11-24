@@ -104,7 +104,12 @@ is blocked on this org). If a deploy fails with "try again later", re-run the jo
 | World 6 — Differentiation | ✅ |
 | World 7 — The Lethal Mutation Academy (4 diagnosis classrooms + The Invisible Mutation) | ✅ |
 | Final World — The Master DLIS (The School Visit: 6 contexts, prioritisation, final mission) | ✅ |
-| Arabic/English + RTL, sound, world map, badges gallery, interactive Observe | ✅ |
+| Arabic/English + RTL, world map, badges gallery, interactive Observe + evidence recap | ✅ |
+| Coaching conversation — the teacher answers back; the outcome gates the badge (`docs/design/GAME_DESIGN_V3.md`) | ✅ Worlds 1 & 7 · Worlds 2–6 to author |
+| Soundscape — world bed, 16 cues, mixer (`docs/design/SOUND.md`) | ✅ |
+| Admin progress store — Supabase, Telegram-signed (`backend/`) | ✅ |
+| Difficulty pass, Worlds 2–6 (near-miss distractors) | in progress |
+| Product brief · game design v3 · director's cut | `docs/` |
 | Per-world scene art | reusing World 1 scenes; new art welcome |
 | Team review of Arabic | pending |
-| Rive-animated Toki, admin completion view | future |
+| Return visits · contradicting evidence · Rive-animated Toki | next |

@@ -82,6 +82,16 @@
   margin: 0 0 var(--space-7) 0;
 }
 
+/* Director's note: the contract, stated once, on the first visit only. */
+.title-screen__promise {
+  max-width: 300px;
+  margin: calc(-1 * var(--space-5)) 0 var(--space-6) 0;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--toki-teal-shadow);
+  font-weight: 600;
+}
+
 .title-screen__cta {
   font-family: var(--font-display);
   font-size: var(--text-lg);

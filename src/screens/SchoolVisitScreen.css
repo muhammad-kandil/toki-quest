@@ -144,3 +144,26 @@
 @media (prefers-reduced-motion: reduce) {
   .visit__line { opacity: 1; transform: none; transition: none; }
 }
+
+/* Director's note: Toki stands in the corridor with one line — the six-door screen was bare. */
+.visit__toki {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 380px;
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-elevated);
+  border: var(--stroke-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: start;
+}
+.visit__toki .toki-avatar { flex: 0 0 auto; }
+.visit__toki-line {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  font-style: italic;
+}
