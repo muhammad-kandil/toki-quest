@@ -1,0 +1,64 @@
+/*
+  Calm-confidence register (design research): quick, dignified pop-in,
+  no bounce-fest, no confetti. A small nod, not a party.
+  Positioned near the TOP of the screen, clear of the answer options
+  below, so it never covers tappable content.
+*/
+.reaction-toki {
+  position: fixed;
+  top: 7%;
+  left: 50%;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -8px) scale(0.9);
+  transition:
+    opacity 200ms var(--ease-smooth),
+    transform 200ms var(--ease-smooth);
+}
+
+.reaction-toki--visible {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.reaction-toki img {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  filter: drop-shadow(var(--shadow-md));
+}
+
+.reaction-toki__label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.reaction-toki--affirming .reaction-toki__label {
+  background: var(--toki-teal-shadow);
+}
+
+.reaction-toki--thoughtful .reaction-toki__label {
+  background: var(--toki-orange);
+}
+
+.reaction-toki--celebrating .reaction-toki__label {
+  background: var(--toki-green);
+}
+
+/* Respect reduced motion: skip the pop transform, keep the fade only */
+@media (prefers-reduced-motion: reduce) {
+  .reaction-toki {
+    transition: opacity 220ms linear;
+    transform: translate(-50%, 0) scale(1) !important;
+  }
+}

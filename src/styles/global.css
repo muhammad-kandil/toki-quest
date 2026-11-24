@@ -1,0 +1,55 @@
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  /* Prevent iOS bounce/rubber-banding from breaking the Mini App frame */
+  overscroll-behavior: none;
+}
+
+/* The app is designed for a phone-width viewport. On wider screens
+   (desktop preview, stakeholder demos), keep it a centered column
+   rather than stretching everything full-width. */
+#root {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--color-bg);
+  box-shadow: 0 0 60px rgba(69, 43, 116, 0.06);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+  color: var(--toki-indigo);
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+/* Visible keyboard focus everywhere (quality floor) */
+:focus-visible {
+  outline: 3px solid var(--toki-orange);
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
