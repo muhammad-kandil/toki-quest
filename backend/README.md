@@ -1,5 +1,18 @@
 # Toki's Coaching Quest — progress store (admin-only)
 
+> **Live setup (Nov 2026): Supabase.** Project `toki-quest` in the
+> "Alef Amplitude" org (Free plan, Europe). Tables + views from
+> `supabase/schema.sql`; Edge Function `record-progress` from
+> `supabase/functions/record-progress/index.ts` (Verify JWT: off); repo
+> variable `PROGRESS_URL` = `https://pebnwvwagmokhsfymhzh.supabase.co/functions/v1/record-progress`.
+> One secret must be set in the dashboard (Edge Functions → Secrets):
+> `TELEGRAM_BOT_TOKEN`. Admin view: SQL Editor → `select * from v_toki_admin`.
+>
+> The Azure Function + CX db variant below is built and tested but parked:
+> the Alef account has no Azure subscription to host the Function. The CX db
+> schema (`data_schema.toki_*`) already exists; a nightly sync from Supabase
+> into it is a 20-line Python job when wanted.
+
 The game keeps each player's save in Telegram CloudStorage. This folder adds a
 **copy for the DLIS team**: who has completed what, so tasks can be assigned to
 the most active coaches. It is not a leaderboard and the game never reads it.
