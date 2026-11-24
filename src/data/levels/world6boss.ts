@@ -26,18 +26,18 @@ export const WORLD_6_BOSS: WorldBossDefinition = {
     {
       id: 'kg',
       place: t('Kindergarten', 'رياض الأطفال'),
-      observation: t('No tiers, no colours. One task — build the tallest tower that stands. The teacher moves between children asking different questions of each: "why did it fall?", "can you make it taller with fewer blocks?", "show Sara how you did the base."', 'لا مستويات ولا ألوان. مهمة واحدة — ابنِ أطول برج يصمد. تتنقل المعلّمة بين الأطفال وتسأل كل واحد سؤالًا مختلفًا: «لماذا سقط؟»، «هل تستطيع جعله أطول بمكعبات أقل؟»، «أرِ سارة كيف صنعت القاعدة.»'),
+      observation: t('The plan says "no differentiation this session" and the support box is struck through. One task for everyone — build the tallest tower that stands — and no groups, no TA, towers collapsing, two children in tears. The teacher never sits down; at each child she asks something different: "why did it fall?", "taller with fewer blocks?", "show Sara your base."', 'تقول الخطة «لا تمايز في هذه الجلسة» وخانة الدعم مشطوبة. مهمة واحدة للجميع — ابنِ أطول برج يصمد — ولا مجموعات ولا مساعد، أبراج تنهار، وطفلان يبكيان. لا تجلس المعلّمة أبدًا؛ وعند كل طفل تسأل شيئًا مختلفًا: «لماذا سقط؟»، «أطول بمكعبات أقل؟»، «أرِ سارة قاعدتك.»'),
       fitsPattern: false,
-      finding: t('No visible differentiation, and the most responsive teaching of the day. Same task; a different question for every child.', 'لا تمايز مرئيًا، وأكثر تدريس استجابةً في اليوم. المهمة نفسها؛ وسؤال مختلف لكل طفل.'),
-      hint: t('Where is the differentiation here — in the task, or in the teacher?', 'أين التمايز هنا — في المهمة، أم في المعلّمة؟'),
+      finding: t('"No differentiation" on the plan, tears on the carpet — and the most responsive teaching of the day. Same task; a different question for every child, including the two who cried. The struck-through box is honest: she does it with her mouth, not her paperwork.', '«لا تمايز» في الخطة، ودموع على السجادة — وأكثر تدريس استجابةً في اليوم. المهمة نفسها؛ وسؤال مختلف لكل طفل، بمن فيهم الطفلان اللذان بكيا. الخانة المشطوبة صادقة: تفعله بفمها لا بأوراقها.'),
+      hint: t('The struck-through box and the tears are what an audit would log. Count how many different questions she asked, and to whom.', 'الخانة المشطوبة والدموع هما ما سيسجّله التدقيق. عُدّ كم سؤالًا مختلفًا طرحت، ولمن.'),
     },
     {
       id: 'grade-5',
       place: t('Grade 5 Math', 'الصف الخامس، رياضيات'),
-      observation: t('Three worksheets, three tables, textbook differentiation. The student Toki follows is on "support" for fractions — and was the strongest in the room at geometry last week. Nobody re-sorted.', 'ثلاث أوراق عمل، ثلاث طاولات، تمايز نموذجي. الطالبة التي يتابعها توكي في مستوى «الدعم» للكسور — وكانت الأقوى في الغرفة في الهندسة الأسبوع الماضي. لم يُعِد أحد الفرز.'),
+      observation: t('The lesson the head uses as the model: three worksheets, three tables, a TA with the support group, every box on the plan filled with real content. The student Toki follows is on "support" for fractions. Last week’s geometry test is in her book: highest in the room. She has sat at the support table since September.', 'الدرس الذي يستخدمه المدير نموذجًا: ثلاث أوراق عمل، ثلاث طاولات، مساعد مع مجموعة الدعم، وكل خانة في الخطة مملوءة بمحتوى حقيقي. الطالبة التي يتابعها توكي في مستوى «الدعم» للكسور. اختبار الهندسة الأسبوع الماضي في دفترها: الأعلى في الغرفة. تجلس على طاولة الدعم منذ سبتمبر.'),
       fitsPattern: true,
       finding: t('The structure is perfect and the placement is stale. She is being differentiated for a version of herself from a different topic.', 'البنية مثالية والتصنيف قديم. تُمايَز لنسخة منها من موضوع مختلف.'),
-      hint: t('Is she on the right sheet for *this* topic?', 'هل هي على الورقة الصحيحة لـ*هذا* الموضوع؟'),
+      hint: t('Every structure is present and well made. Open her book: what does last week’s test say about where she should sit this week?', 'كل بنية حاضرة ومتقنة. افتح دفترها: ماذا يقول اختبار الأسبوع الماضي عن المكان الذي ينبغي أن تجلس فيه هذا الأسبوع؟'),
     },
     {
       id: 'ta',
@@ -59,13 +59,13 @@ export const WORLD_6_BOSS: WorldBossDefinition = {
   namePattern: {
     prompt: t('Three scenes fit; two don’t. Name the pattern.', 'ثلاثة مشاهد تطابق؛ واثنان لا. سمِّ النمط.'),
     options: [
-      { id: 'not-enough', label: t('Teachers don’t differentiate enough', 'لا يمايز المعلّمون بما يكفي') },
-      { id: 'structure', label: t('Differentiation has become a visible structure — tiers, colours, boxes — rather than a response to what each learner needs now', 'أصبح التمايز بنية مرئية — مستويات وألوان وخانات — لا استجابة لما يحتاجه كل متعلّم الآن') },
-      { id: 'support', label: t('The support group gets too much attention', 'تحصل مجموعة الدعم على اهتمام زائد') },
-      { id: 'planning', label: t('The planning template is badly designed', 'نموذج التخطيط سيّئ التصميم') },
+      { id: 'stale', label: t('Groups and tiers are set once and never revisited, so they go stale', 'تُحدَّد المجموعات والمستويات مرة واحدة ولا يُعاد النظر فيها، فتتقادم') },
+      { id: 'structure', label: t('Differentiation became something a lesson has, not a response to what each learner needs now', 'أصبح التمايز بنية مرئية لا استجابة لما يحتاجه كل متعلّم الآن') },
+      { id: 'quantity', label: t('Differentiation is done by quantity — fewer questions, more questions — never by the kind of task', 'يُجرى التمايز بالكمية — أسئلة أقل، أسئلة أكثر — لا بالنوع') },
+      { id: 'support-only', label: t('Support is treated as the whole of differentiation, and the top group is forgotten', 'يُعامَل الدعم على أنه التمايز كله، وتُنسى المجموعة العليا') },
     ],
     correctId: 'structure',
-    hint: t('The two healthy rooms had no tiers and an empty extension box. What did they have instead?', 'لم يكن في الغرفتين السليمتين مستويات، وكانت خانة الإثراء فارغة. ماذا كان لديهما بدلًا من ذلك؟'),
+    hint: t('Stale groups is Grade 5; quantity is the template; the forgotten top group is the TA timetable. Each is one scene. What do the three scenes do that the Kindergarten and Grade 9 rooms do not?', 'المجموعات المتقادمة هي الصف الخامس؛ والكمية هي النموذج؛ والمجموعة العليا المنسية هي جدول المساعد. كل منها مشهد واحد. ماذا تفعل المشاهد الثلاثة ولا تفعله غرفتا الروضة والصف التاسع؟'),
   },
   assessRisk: {
     prompt: t('Across the school, how serious is this pattern?', 'على مستوى المدرسة، ما مدى خطورة هذا النمط؟'),
@@ -75,13 +75,13 @@ export const WORLD_6_BOSS: WorldBossDefinition = {
   coaching: {
     prompt: t('The policy, the template, and the timetable all enforce the structure. What is the one move with the greatest impact?', 'السياسة والنموذج والجدول تفرض البنية كلها. ما الخطوة الواحدة ذات الأثر الأكبر؟'),
     options: [
-      { id: 'four-tiers', label: t('Add a fourth tier for the highest attainers', 'أضف مستوى رابعًا لأعلى المحصّلين') },
-      { id: 'question', label: t('Replace the three boxes on the template with one question — "what does each group not yet have, and what will move them?" — and move the TA to a different group each week', 'استبدل الخانات الثلاث في النموذج بسؤال واحد — «ما الذي لا تملكه كل مجموعة بعد، وما الذي سيحرّكها؟» — وانقل المساعد إلى مجموعة مختلفة كل أسبوع') },
-      { id: 'abolish', label: t('Abolish ability grouping school-wide', 'ألغِ التجميع بحسب القدرة على مستوى المدرسة') },
-      { id: 'showcase', label: t('Film the Kindergarten and Grade 9 lessons for training', 'صوّر درسي رياض الأطفال والصف التاسع للتدريب') },
+      { id: 'regroup-policy', label: t('Make it policy that every group is re-set from evidence at the start of each topic', 'اجعل من السياسة أن تُعاد كل مجموعة من الأدلة في بداية كل موضوع') },
+      { id: 'ta-rota', label: t('Rotate the TA across all groups on a weekly rota', 'ناوب المساعد على كل المجموعات في جدول أسبوعي') },
+      { id: 'question', label: t('One question replaces the template’s three boxes: "what does each group lack, and what will move them?"', 'استبدل الخانات الثلاث في النموذج بسؤال واحد — «ما الذي لا تملكه كل مجموعة بعد، وما الذي سيحرّكها؟»') },
+      { id: 'model', label: t('Make the Grade 9 lesson the model and have every department plan and teach one lesson like it this term', 'اجعل درس الصف التاسع النموذج ودع كل قسم يخطط درسًا مثله هذا الفصل') },
     ],
     correctId: 'question',
-    hint: t('The template produced thirty-one identical answers. What would produce thirty-one different ones?', 'أنتج النموذج واحدًا وثلاثين إجابة متطابقة. ما الذي سينتج واحدًا وثلاثين إجابة مختلفة؟'),
+    hint: t('Re-setting groups fixes Grade 5; the rota fixes the timetable; one model lesson a term reaches each teacher once. Thirty-one plans gave the same answer because the template asked the same question. Which move changes the question?', 'إعادة المجموعات تصلح الصف الخامس؛ والمناوبة تصلح الجدول؛ ودرس نموذجي واحد في الفصل يصل إلى كل معلّم مرة. أعطت واحد وثلاثون خطة الإجابة نفسها لأن النموذج طرح السؤال نفسه. أي خطوة تغيّر السؤال؟'),
   },
   reveal: {
     whatDrifted: t(
