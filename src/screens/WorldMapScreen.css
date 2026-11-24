@@ -220,3 +220,9 @@
   .map__node { width: 84px; }
   .map__label { font-size: 10px; }
 }
+
+/* Exists but not reached yet: the road ahead, dimmed but legible. */
+.map__node--locked { cursor: not-allowed; }
+.map__node--locked .map__school { opacity: 0.6; filter: grayscale(0.4) drop-shadow(0 4px 6px rgba(69,43,116,0.15)); }
+.map__node--locked .map__label { color: var(--color-text-secondary); }
+.map__node--done .map__label { border: 2px solid var(--toki-teal); }

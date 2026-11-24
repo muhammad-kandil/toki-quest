@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { WORLDS, type WorldDefinition } from '../data/worlds';
 import { getSkinById } from '../data/skins';
+import { isWorldComplete, isWorldUnlocked, currentWorld as findCurrent } from '../data/progression';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
@@ -35,14 +36,14 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
 
   const worldState = (w: WorldDefinition): WorldState => {
     if (w.comingSoon) return 'soon';
-    const all = [...w.levelIds, ...(w.bossId ? [w.bossId] : [])];
-    const done = all.every((id) => bestScores[id] != null);
-    if (done) return 'done';
-    return 'current';
+    if (isWorldComplete(w, bestScores)) return 'done';
+    if (isWorldUnlocked(w, bestScores)) return 'current';
+    return 'locked';
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const states = useMemo(() => Object.fromEntries(WORLDS.map((w) => [w.id, worldState(w)])), [bestScores]);
-  const currentWorld = WORLDS.find((w) => states[w.id] === 'current') ?? WORLDS[0];
+  const currentWorld = findCurrent(bestScores);
   const restNode = tokiPos ?? { x: currentWorld.node.x + 11, y: currentWorld.node.y - 1 };
 
   // The road: a Catmull-Rom spline through every node (converted to

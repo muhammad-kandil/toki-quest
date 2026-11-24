@@ -47,10 +47,10 @@ export const WORLDS: WorldDefinition[] = [
     title: t('Assessment Under the Microscope', 'التقييم تحت المجهر'),
     theme: t('When Assessment Stops Informing Learning', 'عندما يتوقف التقييم عن توجيه التعلّم'),
     coreIdea: t('Assessment should shape instruction, not simply measure it.', 'ينبغي للتقييم أن يشكّل التدريس، لا أن يقيسه فحسب.'),
-    levelIds: [],
+    levelIds: [21, 22, 23, 24],
+    bossId: 25,
     badgeId: 'coaching-specialist',
     node: { x: 50, y: 74 },
-    comingSoon: true,
   },
   {
     id: 'alef-in-action',

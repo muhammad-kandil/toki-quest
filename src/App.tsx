@@ -6,10 +6,12 @@ import { WorldMapScreen } from './screens/WorldMapScreen';
 import { HubScreen } from './screens/HubScreen';
 import { LevelScreen, type LevelResult } from './screens/LevelScreen';
 import { BossScreen } from './screens/BossScreen';
+import { WorldBossScreen } from './screens/WorldBossScreen';
 import { SkinPickerScreen } from './screens/SkinPickerScreen';
 import { BadgesScreen } from './screens/BadgesScreen';
-import { getLevel, TOTAL_LEVELS, BOSS, BOSS_ID } from './data/levels';
+import { getLevel, getWorldBoss, BOSS, BOSS_ID } from './data/levels';
 import { WORLDS, getWorld } from './data/worlds';
+import { completedCount as countDone } from './data/progression';
 import { DEFAULT_SKIN_ID } from './data/skins';
 import { LocaleProvider, detectInitialLang } from './i18n/LocaleContext';
 import type { Lang } from './i18n/types';
@@ -32,7 +34,7 @@ const DEFAULT_SAVE: SaveData = {
   selectedSkinId: DEFAULT_SKIN_ID,
 };
 
-type Screen = 'loading' | 'title' | 'map' | 'world' | 'classroom' | 'boss' | 'skins' | 'badges';
+type Screen = 'loading' | 'title' | 'map' | 'world' | 'classroom' | 'boss' | 'worldboss' | 'skins' | 'badges';
 
 function App() {
   const [screen, setScreen] = useState<Screen>('loading');
@@ -88,18 +90,16 @@ function App() {
 
   const handleEnterClassroom = (id: number) => {
     setActiveLevel(id);
-    setScreen(id === BOSS_ID ? 'boss' : 'classroom');
+    if (id === BOSS_ID) setScreen('boss');
+    else if (getWorldBoss(id)) setScreen('worldboss');
+    else setScreen('classroom');
   };
 
   const handleClassroomComplete = async (result: LevelResult) => {
     const prevBest = save.bestScores[result.levelId] ?? 0;
     const newBadges = [...new Set([...save.badges, ...result.badgesEarned])];
-    let newUnlocked = save.unlockedLevel;
-    if (result.levelId < TOTAL_LEVELS) newUnlocked = Math.max(newUnlocked, result.levelId + 1);
-    else if (result.levelId === TOTAL_LEVELS) newUnlocked = Math.max(newUnlocked, BOSS_ID);
     await persist({
       ...save,
-      unlockedLevel: newUnlocked,
       bestScores: { ...save.bestScores, [result.levelId]: Math.max(prevBest, result.score) },
       badges: newBadges,
     });
@@ -112,9 +112,7 @@ function App() {
     setScreen('title');
   };
 
-  const completedCount =
-    Object.keys(save.bestScores).filter((id) => Number(id) <= TOTAL_LEVELS).length +
-    (save.bestScores[BOSS_ID] != null ? 1 : 0);
+  const completedCount = countDone(save.bestScores);
 
   let content: React.ReactNode = null;
 
@@ -147,7 +145,6 @@ function App() {
     content = (
       <HubScreen
         world={world}
-        unlockedLevel={save.unlockedLevel}
         bestScores={save.bestScores}
         skinId={save.selectedSkinId}
         badgesCount={save.badges.length}
@@ -171,6 +168,10 @@ function App() {
     content = <BadgesScreen earned={save.badges} onBack={() => setScreen(returnTo)} />;
   } else if (screen === 'boss') {
     content = <BossScreen boss={BOSS} onComplete={handleClassroomComplete} />;
+  } else if (screen === 'worldboss') {
+    const wb = getWorldBoss(activeLevel);
+    content = wb ? <WorldBossScreen boss={wb} heldBadges={save.badges} onComplete={handleClassroomComplete} /> : null;
+    if (!wb) setTimeout(() => setScreen('world'), 0);
   } else if (screen === 'classroom') {
     const level = getLevel(activeLevel);
     content = level ? (

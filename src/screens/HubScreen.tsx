@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { getLevel, BOSS } from '../data/levels';
+import { getLevel, getWorldBoss, BOSS, BOSS_ID } from '../data/levels';
 import type { WorldDefinition } from '../data/worlds';
+import { isLevelUnlocked } from '../data/progression';
 import { getSkinById } from '../data/skins';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI } from '../i18n/ui';
@@ -10,7 +11,6 @@ import './HubScreen.css';
 
 interface HubScreenProps {
   world: WorldDefinition;
-  unlockedLevel: number;
   bestScores: Record<number, number>;
   skinId: string;
   badgesCount: number;
@@ -28,20 +28,26 @@ type TransitionPhase = 'idle' | 'walking' | 'hiding' | 'opening';
  * stands beside the cards; tapping one walks Toki to it, ducks behind
  * its edge, then a clean wipe carries the player into the room.
  */
-export function HubScreen({ world, unlockedLevel, bestScores, skinId, badgesCount, onEnterClassroom, onOpenSkins, onOpenBadges, onBack }: HubScreenProps) {
+export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClassroom, onOpenSkins, onOpenBadges, onBack }: HubScreenProps) {
   const { tx } = useLocale();
   const [walkingTo, setWalkingTo] = useState<number | null>(null);
   const [phase, setPhase] = useState<TransitionPhase>('idle');
   const skin = getSkinById(skinId);
 
+  const bossCard = (() => {
+    if (!world.bossId) return [];
+    if (world.bossId === BOSS_ID) return [{ id: BOSS_ID, subject: BOSS.subject, title: BOSS.title, isBoss: true }];
+    const wb = getWorldBoss(world.bossId);
+    return wb ? [{ id: wb.id, subject: wb.subject, title: wb.title, isBoss: true }] : [];
+  })();
   const cards = [
     ...world.levelIds.map((id) => getLevel(id)!).map((l) => ({ id: l.id, subject: l.subject, title: l.title, isBoss: false })),
-    ...(world.bossId ? [{ id: world.bossId, subject: BOSS.subject, title: BOSS.title, isBoss: true }] : []),
+    ...bossCard,
   ];
 
   const doorState = (id: number): DoorState => {
     if (bestScores[id] != null) return 'completed';
-    if (id <= unlockedLevel) return 'available';
+    if (isLevelUnlocked(id, bestScores)) return 'available';
     return 'locked';
   };
 
@@ -61,7 +67,7 @@ export function HubScreen({ world, unlockedLevel, bestScores, skinId, badgesCoun
     }, 750);
   };
 
-  const bossUnlocked = !!world.bossId && unlockedLevel >= world.bossId;
+  const bossUnlocked = !!world.bossId && isLevelUnlocked(world.bossId, bestScores);
   const bossDone = !!world.bossId && bestScores[world.bossId] != null;
   const doneCount = cards.filter((c) => bestScores[c.id] != null).length;
 
