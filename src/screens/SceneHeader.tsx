@@ -31,9 +31,16 @@ export function SceneHeader({ image, alt, evidence, inspected, onInspect }: Scen
     return () => { clearTimeout(a); clearTimeout(b); };
   }, []);
 
+  const allFound = !!evidence && evidence.length > 0 && !!inspected && inspected.size >= evidence.length;
+
   return (
-    <div className="scene-header">
-      <img src={image} alt={alt} className="scene-header__image" />
+    <div className={`scene-header ${walkedIn ? 'scene-header--settled' : ''} ${allFound ? 'scene-header--complete' : ''}`}>
+      {/* Background plane: drifts slightly behind Toki for depth. */}
+      <div className="scene-header__plane" aria-hidden="true">
+        <img src={image} alt={alt} className="scene-header__image" />
+      </div>
+      <div className="scene-header__vignette" aria-hidden="true" />
+      <div className="scene-header__sweep" aria-hidden="true" />
       <div className="scene-header__fade" aria-hidden="true" />
       <div className={`scene-header__toki ${walkedIn ? 'scene-header__toki--settled' : ''}`}>
         <img src={tokiWalking} alt="" />

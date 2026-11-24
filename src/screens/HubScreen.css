@@ -5,9 +5,23 @@
   padding: calc(var(--space-7) + env(safe-area-inset-top)) var(--space-4) var(--space-5);
   position: relative;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(29, 214, 187, 0.12), transparent 55%),
-    var(--color-bg);
+    radial-gradient(ellipse at 50% 0%, rgba(29, 214, 187, 0.14), transparent 55%),
+    linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg) 62%, #ECE8F4 100%);
 }
+/* Corridor floor: a faint perspective grid behind the doors, so the
+   cards stand in a space rather than on a flat list. */
+.hub__corridor::before {
+  content: '';
+  position: absolute;
+  inset: -8px 0 0 0;
+  background:
+    repeating-linear-gradient(180deg, rgba(69, 43, 116, 0.045) 0 1px, transparent 1px 76px);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  z-index: 0;
+}
+.hub__corridor > * { position: relative; z-index: 1; }
+.hub__customize { box-shadow: var(--elev-1); }
 
 .hub__header {
   display: flex;
@@ -87,18 +101,47 @@
   align-items: center;
   gap: 0 var(--space-3);
   text-align: start;
-  background: var(--color-bg-elevated);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FBFAFE 100%);
   border: var(--stroke-width) solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--elev-1);
+  overflow: hidden;
+  transform-style: preserve-3d;
   transition:
     transform var(--duration-fast) var(--ease-bounce),
+    box-shadow var(--duration-fast) var(--ease-smooth),
     border-color var(--duration-fast) var(--ease-smooth),
     opacity var(--duration-base) var(--ease-smooth);
   animation: door-enter var(--duration-base) var(--ease-smooth) backwards;
   animation-delay: calc(var(--door-index) * 60ms);
 }
+/* Lit top edge: a thin band of light along the card's upper rim. */
+.door::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+/* The door leaf: a panel hinged on the inline-start edge that swings
+   open on entry. Invisible until the door is chosen. */
+.door::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.55), rgba(29, 214, 187, 0.18));
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+}
+:root[dir='rtl'] .door::after { transform-origin: 100% 50%; }
+/* Keep the lit band under the card's content, the leaf above it. */
+.door::before { z-index: 0; }
+.door::after { z-index: 2; }
+.door > * { position: relative; z-index: 1; }
 
 @keyframes door-enter {
   from { opacity: 0; transform: translateX(calc(var(--dir) * 12px)); }
@@ -171,35 +214,57 @@
 
 /* Door states */
 .door--available:hover {
-  transform: translateX(calc(var(--dir) * 4px));
+  transform: translateX(calc(var(--dir) * 4px)) translateY(-2px);
   border-color: var(--toki-teal);
+  box-shadow: var(--elev-2);
 }
-.door--available:active { transform: scale(0.99); }
+.door--available:active {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: var(--elev-pressed);
+}
 
 .door--completed {
   border-color: var(--toki-teal);
-  background: #F1FDFB;
+  background: linear-gradient(180deg, #F6FEFC 0%, #EDFBF8 100%);
 }
 .door--completed .door__number { background: var(--toki-teal-shadow); }
 
 .door--locked {
   opacity: 0.55;
   cursor: not-allowed;
-  box-shadow: none;
+  box-shadow: var(--edge-dark);
 }
 .door--locked .door__number { background: var(--color-border); }
 
 .door--target {
   border-color: var(--toki-orange);
   transform: scale(1.02);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--elev-2);
 }
 
-/* Brief highlight the instant the door "opens," just before the wipe
-   covers the screen — quick and clean, not a lingering effect. */
+/* The door "opens": the card tilts away on a hinge and the leaf swings
+   across it, just before the wipe covers the screen. Perspective is on
+   the card itself so no ancestor needs to change. */
 .door--opening {
   border-color: var(--toki-teal);
   background: var(--toki-teal);
+  transform: perspective(700px) rotateY(calc(var(--dir) * -9deg)) scale(1.02);
+  transition: transform 420ms var(--ease-smooth), background var(--duration-fast) var(--ease-smooth);
+}
+.door--opening::after {
+  animation: door-leaf 420ms var(--ease-smooth) forwards;
+}
+@keyframes door-leaf {
+  0% { transform: scaleX(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0.9; }
+}
+.door__number {
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), 0 2px 4px rgba(69, 43, 116, 0.18);
+}
+@media (prefers-reduced-motion: reduce) {
+  .door--opening { transform: none; }
+  .door--opening::after { animation: none; opacity: 0.9; transform: scaleX(1); }
 }
 
 /* The Final Boss card — visually set apart from the five classrooms

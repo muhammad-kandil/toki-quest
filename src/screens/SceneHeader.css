@@ -23,6 +23,58 @@
   display: block;
 }
 
+/* ---------- 2.5D: parallax plane ----------
+   The room sits on a plane slightly behind Toki. It starts a touch
+   zoomed and eases back as Toki walks in (camera settling), then
+   drifts very slowly so the room breathes. Transform only. */
+.scene-header__plane {
+  position: absolute;
+  inset: 0;
+  transform: scale(1.10) translate3d(calc(var(--dir) * 6px), 0, 0);
+  transition: transform 1100ms var(--ease-smooth);
+  will-change: transform;
+}
+.scene-header--settled .scene-header__plane {
+  transform: scale(1.04) translate3d(0, 0, 0);
+  animation: scene-drift 14s ease-in-out 1.1s infinite alternate;
+}
+@keyframes scene-drift {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to { transform: scale(1.06) translate3d(calc(var(--dir) * -5px), -3px, 0); }
+}
+
+/* Lens vignette: darkens the corners a touch so the room has depth and
+   the evidence markers read as the bright points. */
+.scene-header__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, rgba(69, 43, 116, 0) 48%, rgba(69, 43, 116, 0.22) 100%);
+}
+
+/* Light sweep: fires once when the last piece of evidence is found —
+   Toki has "seen enough", and the room is lit. */
+.scene-header__sweep {
+  position: absolute;
+  inset: -20% -40%;
+  pointer-events: none;
+  background: linear-gradient(100deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 60%);
+  transform: translate3d(calc(var(--dir) * -70%), 0, 0);
+  opacity: 0;
+}
+.scene-header--complete .scene-header__sweep {
+  animation: scene-sweep 900ms var(--ease-smooth) forwards;
+}
+@keyframes scene-sweep {
+  0% { opacity: 0; transform: translate3d(calc(var(--dir) * -70%), 0, 0); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(calc(var(--dir) * 70%), 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-header__plane, .scene-header--settled .scene-header__plane { transform: scale(1.02); animation: none; transition: none; }
+  .scene-header--complete .scene-header__sweep { animation: none; }
+}
+
 /* Soft fade from the illustration into the app's background color, so
    the scenario text below always lands on a calm, readable surface. */
 .scene-header__fade {

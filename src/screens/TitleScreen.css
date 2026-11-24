@@ -19,15 +19,50 @@
   pointer-events: none;
 }
 
+/* ---------- 2.5D: parallax star field ----------
+   Three layers drift on different periods and amplitudes; the near
+   layer moves most, so the sky reads as deep rather than flat. */
+.title-screen__layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.title-screen__layer--far  { animation: layer-drift 26s ease-in-out infinite alternate; --amp: 4px; }
+.title-screen__layer--mid  { animation: layer-drift 18s ease-in-out infinite alternate; --amp: 9px; }
+.title-screen__layer--near { animation: layer-drift 12s ease-in-out infinite alternate; --amp: 16px; }
+@keyframes layer-drift {
+  from { transform: translate3d(calc(var(--amp) * -1), 0, 0); }
+  to   { transform: translate3d(var(--amp), calc(var(--amp) * -0.4), 0); }
+}
+.title-screen__glow {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 320px;
+  height: 320px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(29, 214, 187, 0.22) 0%, rgba(29, 214, 187, 0) 65%);
+  animation: glow-breathe 6s ease-in-out infinite;
+}
+@keyframes glow-breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+  50% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+}
+
 .star {
   position: absolute;
   color: var(--toki-orange-soft);
   opacity: 0.6;
   animation: twinkle 2.6s ease-in-out infinite;
 }
-.star--1 { top: 12%; left: 15%; font-size: 1.1rem; animation-delay: 0s; }
-.star--2 { top: 22%; right: 12%; font-size: 0.8rem; animation-delay: 0.8s; }
-.star--3 { bottom: 30%; left: 10%; font-size: 0.9rem; animation-delay: 1.5s; }
+.star--1 { top: 12%; left: 15%; font-size: 0.8rem; animation-delay: 0s; }
+.star--2 { top: 22%; right: 12%; font-size: 1rem; animation-delay: 0.8s; }
+.star--3 { bottom: 30%; left: 10%; font-size: 1.25rem; animation-delay: 1.5s; }
+.star--4 { top: 16%; right: 24%; font-size: 1.1rem; color: var(--toki-teal); animation-delay: 2.1s; }
+.star--5 { top: 34%; left: 6%; font-size: 0.6rem; animation-delay: 1.1s; }
+.star--6 { bottom: 22%; right: 8%; font-size: 0.65rem; color: var(--toki-teal); animation-delay: 0.4s; }
+.star--7 { bottom: 38%; right: 20%; font-size: 0.8rem; animation-delay: 1.9s; }
 
 @keyframes twinkle {
   0%, 100% { opacity: 0.3; transform: scale(0.9); }
@@ -35,20 +70,48 @@
 }
 
 .title-screen__hero {
+  position: relative;
   width: 148px;
   height: 148px;
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
   opacity: 0;
   transform: translateY(18px) scale(0.92);
   transition:
     opacity var(--duration-slow) var(--ease-smooth),
     transform var(--duration-slow) var(--ease-bounce);
-  filter: drop-shadow(var(--shadow-lg));
 }
 
 .title-screen__hero--settled {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* Toki floats; his ground shadow breathes the opposite way, which is
+   what sells the height. Both transform/opacity only. */
+.title-screen__float {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 14px 16px rgba(69, 43, 116, 0.22));
+  animation: hero-float 4.2s ease-in-out infinite;
+}
+.title-screen__ground {
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  width: 96px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(69, 43, 116, 0.26) 0%, rgba(69, 43, 116, 0) 70%);
+  transform: translateX(-50%);
+  animation: ground-breathe 4.2s ease-in-out infinite;
+}
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+@keyframes ground-breathe {
+  0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 1; }
+  50% { transform: translateX(-50%) scaleX(0.82); opacity: 0.6; }
 }
 
 .title-screen__hero img {
@@ -97,24 +160,30 @@
   font-size: var(--text-lg);
   font-weight: 700;
   color: var(--color-text-on-brand);
-  background: var(--color-action-primary);
+  background: var(--lit-teal);
   border: none;
   border-radius: var(--radius-pill);
   padding: var(--space-4) var(--space-7);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--lit-teal-shadow);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+  position: relative;
+  z-index: 1;
   transition:
     transform var(--duration-fast) var(--ease-bounce),
-    background var(--duration-fast) var(--ease-smooth);
+    box-shadow var(--duration-fast) var(--ease-smooth),
+    filter var(--duration-fast) var(--ease-smooth);
 }
 
 .title-screen__cta:hover {
-  background: var(--color-action-primary-hover);
+  filter: brightness(1.04);
   transform: translateY(-2px);
 }
 
 .title-screen__cta:active {
-  transform: translateY(0) scale(0.97);
+  transform: translateY(2px) scale(0.98);
+  box-shadow: var(--lit-teal-pressed);
 }
+.title-screen__title, .title-screen__subtitle, .title-screen__thesis { position: relative; z-index: 1; }
 
 .title-screen__secondary {
   margin-top: var(--space-4);
