@@ -46,7 +46,7 @@ export function SceneHeader({ image, alt, evidence, inspected, onInspect }: Scen
             key={spot.id}
             className={`evidence-spot ${done ? 'evidence-spot--done' : ''}`}
             style={{ left: `${spot.x}%`, top: `${spot.y}%`, animationDelay: `${i * 120}ms` }}
-            onClick={() => { sfx.play('tap'); onInspect?.(spot.id); }}
+            onClick={() => { sfx.play('discover'); onInspect?.(spot.id); }}
             aria-label={tx(spot.label)}
           >
             <span className="evidence-spot__ring" aria-hidden="true" />

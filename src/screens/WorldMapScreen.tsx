@@ -73,7 +73,7 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
       sfx.play('lookAgain');
       return;
     }
-    sfx.play('tap');
+    sfx.play('travel');
     setTravelTo(w.id);
     // Walk Toki along the road from the current node to the target.
     const path = pathRef.current;

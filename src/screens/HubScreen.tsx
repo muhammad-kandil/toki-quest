@@ -60,8 +60,10 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
     const steps = setInterval(() => sfx.play('step'), 170);
     setTimeout(() => {
       clearInterval(steps);
+      sfx.play('door');
       setPhase('hiding');
       setTimeout(() => {
+        sfx.play('wipe');
         setPhase('opening');
         setTimeout(() => onEnterClassroom(id), 420);
       }, 500);

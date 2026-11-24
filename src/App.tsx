@@ -17,6 +17,7 @@ import { WORLDS, getWorld } from './data/worlds';
 import { completedCount as countDone, currentWorld as findCurrentWorld } from './data/progression';
 import { DEFAULT_SKIN_ID } from './data/skins';
 import { LocaleProvider, detectInitialLang } from './i18n/LocaleContext';
+import { sfx } from './audio/sfx';
 import type { Lang } from './i18n/types';
 
 interface SaveData {
@@ -75,6 +76,15 @@ function App() {
     ensureWorldLoaded(w.number).catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screen]);
+
+  // The world bed plays on the map and in the hub, keyed to the world the
+  // player is on; classrooms are quiet so the evidence has the room.
+  useEffect(() => {
+    if (screen === 'map') sfx.music(sfx.moodFor(findCurrentWorld(save.bestScores).number));
+    else if (screen === 'world') sfx.music(sfx.moodFor(getWorld(activeWorld)?.number ?? 1));
+    else sfx.music(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen, activeWorld]);
 
   const persist = async (updated: SaveData) => {
     setSave(updated);

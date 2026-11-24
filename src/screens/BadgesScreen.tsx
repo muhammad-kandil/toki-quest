@@ -2,6 +2,7 @@ import { BADGES } from '../data/badges';
 import { BadgeIcon } from '../components/BadgeIcon';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI } from '../i18n/ui';
+import { useEffect } from 'react';
 import { sfx } from '../audio/sfx';
 import './BadgesScreen.css';
 
@@ -13,6 +14,7 @@ import './BadgesScreen.css';
 export function BadgesScreen({ earned, onBack }: { earned: string[]; onBack: () => void }) {
   const { tx } = useLocale();
   const count = BADGES.filter((b) => earned.includes(b.id)).length;
+  useEffect(() => { if (count > 0) sfx.play('gallery'); }, [count]);
 
   return (
     <div className="badges">

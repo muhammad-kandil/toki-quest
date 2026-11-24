@@ -99,6 +99,10 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
 
   const choose = (key: 'risk' | 'coaching', id: string, correctId: string, next: Phase) => {
     setAttempts((a) => ({ ...a, [key]: (a[key] ?? 0) + 1 }));
+    if (key === 'risk') {
+      const lvl = ['minor', 'moderate', 'high', 'lethal'].indexOf(id);
+      if (lvl >= 0) sfx.play('risk', { level: lvl });
+    }
     if (id === correctId) {
       setWrongChoice(null);
       sfx.play('correct');

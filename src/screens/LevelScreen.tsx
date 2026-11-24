@@ -48,6 +48,7 @@ function creditFor(attemptsToCorrect: number | null): number {
 }
 
 const BEAT_ORDER: Beat[] = ['observe', 'drift', 'risk', 'coaching', 'reasoning', 'reveal'];
+const RISK_ORDER: RiskLevel[] = ['minor', 'moderate', 'high', 'lethal'];
 
 export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps) {
   const { tx } = useLocale();
@@ -92,14 +93,18 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
   const handleChoice = (stepKey: string, step: StepDefinition, choiceId: string) => {
     const correct = choiceId === step.correctId;
     recordOutcome(stepKey, correct);
+    // Risk picks get a pitch cue first (falls with severity), then the verdict.
+    const riskLevel = stepKey === 'risk' ? RISK_ORDER.indexOf(choiceId as RiskLevel) : -1;
+    const delay = riskLevel >= 0 ? 160 : 0;
+    if (riskLevel >= 0) sfx.play('risk', { level: riskLevel });
     if (correct) {
       setSelectedWrong(null);
-      sfx.play('correct');
+      setTimeout(() => sfx.play('correct'), delay);
       fireReaction('affirming');
-      setTimeout(advance, 500);
+      setTimeout(advance, 500 + delay);
     } else {
       setSelectedWrong(choiceId);
-      sfx.play('lookAgain');
+      setTimeout(() => sfx.play('lookAgain'), delay);
       fireReaction('thoughtful');
     }
   };
@@ -181,7 +186,7 @@ export function ObserveBeat({ level, onContinue, ctaLabel }: { level: Observable
   };
 
   useEffect(() => {
-    if (spots.length && inspected.size === spots.length) sfx.play('reveal');
+    if (spots.length && inspected.size === spots.length) sfx.play('evidenceAll');
   }, [inspected.size, spots.length]);
 
   const clue = spots.find((s) => s.id === activeClue);
