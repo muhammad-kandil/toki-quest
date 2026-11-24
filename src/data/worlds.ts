@@ -58,10 +58,10 @@ export const WORLDS: WorldDefinition[] = [
     title: t('Alef in Action', 'ألف في الميدان'),
     theme: t('Using Technology With Purpose', 'استخدام التقنية بغاية'),
     coreIdea: t('Technology should amplify thinking, not replace it.', 'ينبغي للتقنية أن تضخّم التفكير لا أن تحلّ محله.'),
-    levelIds: [],
+    levelIds: [31, 32, 33, 34],
+    bossId: 35,
     badgeId: 'purpose-protector',
     node: { x: 80, y: 62 },
-    comingSoon: true,
   },
   {
     id: 'feedback',

@@ -8,6 +8,8 @@ import { LEVEL_5 } from './level5';
 import { BOSS } from './boss';
 import { WORLD_2_LEVELS } from './world2';
 import { WORLD_2_BOSS } from './world2boss';
+import { WORLD_3_LEVELS } from './world3';
+import { WORLD_3_BOSS } from './world3boss';
 
 /**
  * Central level registry. Standard classrooms share the LevelDefinition
@@ -23,10 +25,12 @@ export const LEVELS: Record<number, LevelDefinition> = {
   4: LEVEL_4,
   5: LEVEL_5,
   ...Object.fromEntries(WORLD_2_LEVELS.map((l) => [l.id, l])),
+  ...Object.fromEntries(WORLD_3_LEVELS.map((l) => [l.id, l])),
 };
 
 export const WORLD_BOSSES: Record<number, WorldBossDefinition> = {
   [WORLD_2_BOSS.id]: WORLD_2_BOSS,
+  [WORLD_3_BOSS.id]: WORLD_3_BOSS,
 };
 
 export function getLevel(id: number): LevelDefinition | undefined {
