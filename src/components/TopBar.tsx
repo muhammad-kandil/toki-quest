@@ -35,7 +35,7 @@ export function TopBar({ onBack, badgesCount, onOpenBadges }: {
           </button>
         )}
         <button
-          className={`topbar__btn ${on ? '' : 'topbar__btn--muted'}`}
+          className={`topbar__btn topbar__btn--sound ${on ? '' : 'topbar__btn--muted'}`}
           onClick={toggle}
           aria-label={tx(on ? UI.soundOn : UI.soundOff)}
           title={tx(on ? UI.soundOn : UI.soundOff)}

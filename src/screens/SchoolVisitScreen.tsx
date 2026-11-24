@@ -137,7 +137,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
 
   useEffect(() => {
     if (phase !== 'reveal') return;
-    sfx.play('world');
+    sfx.play('quest');
     const timers = visit.finalMessage.map((_, i) => setTimeout(() => setLines(i + 1), 900 + i * 1400));
     if (result().badgesEarned.some((b) => !heldBadges.includes(b))) timers.push(setTimeout(() => sfx.play('badge'), 900 + visit.finalMessage.length * 1400));
     return () => { timers.forEach(clearTimeout); };
