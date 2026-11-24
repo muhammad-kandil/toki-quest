@@ -15,8 +15,9 @@ import sceneActivity from '../../assets/scenes/classroom-2-activity.jpg';
 import sceneAssess from '../../assets/scenes/classroom-4-assessment.jpg';
 import type { AcademyLevelDefinition } from '../academyTypes';
 import { t } from '../../i18n/types';
+import { CONVO_71, CONVO_72, CONVO_73, CONVO_74 } from './conversations7';
 
-const POINTS = { diagnosis: 50, risk: 20, coaching: 30 };
+const POINTS = { diagnosis: 50, risk: 20, coaching: 30, conversation: 25 };
 
 /** 71 — one subtle mutation inside a classroom that has everything. */
 export const LEVEL_71: AcademyLevelDefinition = {
@@ -64,6 +65,7 @@ export const LEVEL_71: AcademyLevelDefinition = {
     correctId: 'evidence',
     hint: t('High-quality implementation is judged by its impact on learning. Which move puts the nine out of twenty-four on the table?', 'يُحكم على التنفيذ عالي الجودة بأثره على التعلّم. أي خطوة تضع «تسعة من أربعة وعشرين» على الطاولة؟'),
   },
+  conversation: CONVO_71,
   reveal: {
     verdict: t('One finding. Everything else was healthy — and saying so is part of the diagnosis.', 'نتيجة واحدة. كل ما عداها كان سليمًا — وقول ذلك جزء من التشخيص.'),
     whatDrifted: t('The school learned to evaluate teaching by its ingredients. Routines, engagement, technology, assessment — all present, all ticked. Learning became the one ingredient nobody weighed.', 'تعلّمت المدرسة تقييم التدريس بمكوّناته. روتين، مشاركة، تقنية، تقييم — كلها حاضرة، كلها مؤشَّر عليها. وأصبح التعلّم المكوّن الوحيد الذي لم يزنه أحد.'),
@@ -120,6 +122,7 @@ export const LEVEL_72: AcademyLevelDefinition = {
     correctId: 'affirm',
     hint: t('Three of these moves would make a strong lesson look more like the rubric and learn less. The coaching move here is protection, not change.', 'ثلاث من هذه الخطوات ستجعل درسًا قويًا يبدو أشبه بالمعيار ويتعلّم أقل. الخطوة التدريبية هنا هي الحماية، لا التغيير.'),
   },
+  conversation: CONVO_72,
   reveal: {
     verdict: t('No findings. The hardest diagnosis to file — and the one that earns a teacher’s trust for the next five visits.', 'لا نتائج. أصعب تشخيص يُسجَّل — وهو ما يكسب ثقة المعلّمة للزيارات الخمس التالية.'),
     whatDrifted: t('Nothing in the classroom. What drifted was the observer: a rubric that mistakes visible activity for learning, and quiet for its absence.', 'لا شيء في الصف. ما انحرف هو المراقب: معيار يخلط بين النشاط المرئي والتعلّم، وبين الهدوء وغيابه.'),
@@ -176,6 +179,7 @@ export const LEVEL_73: AcademyLevelDefinition = {
     correctId: 'one',
     hint: t('Three findings handed over at once become zero changes. Which single change would most increase how many students think tomorrow?', 'ثلاث نتائج تُسلَّم دفعة واحدة تصبح صفر تغييرات. أي تغيير واحد سيزيد أكثر عدد الطلاب الذين يفكّرون غدًا؟'),
   },
+  conversation: CONVO_73,
   reveal: {
     verdict: t('Three findings, two healthy practices protected, one priority chosen. That is a diagnosis, not a list.', 'ثلاث نتائج، ممارستان سليمتان محميّتان، أولوية واحدة مختارة. هذا تشخيص، لا قائمة.'),
     whatDrifted: t('The lesson was built to be watched. Questioning became performance, the platform became a prize, and the exit ticket asked about feelings because feelings are always good news.', 'بُني الدرس ليُشاهَد. أصبحت الأسئلة أداءً، والمنصة جائزة، وسألت بطاقة الخروج عن المشاعر لأن المشاعر دائمًا خبر جيد.'),
@@ -232,6 +236,7 @@ export const LEVEL_74: AcademyLevelDefinition = {
     correctId: 'light',
     hint: t('A full cycle for a one-line fix tells a strong teacher the DLIS cannot tell big from small. Silence tells her nothing. What is proportionate?', 'دورة كاملة لإصلاح من سطر واحد تخبر معلّمة قوية أن المشرف لا يميّز الكبير من الصغير. الصمت لا يخبرها شيئًا. ما المتناسب؟'),
   },
+  conversation: CONVO_74,
   reveal: {
     verdict: t('One small finding, one small move. Proportion is what separates a coach from an inspector.', 'نتيجة صغيرة واحدة، خطوة صغيرة واحدة. التناسب هو ما يفصل المدرّب عن المفتّش.'),
     whatDrifted: t('Success criteria became an opening ritual. Everything they were meant to anchor still happened — students just couldn’t name it.', 'أصبحت معايير النجاح طقسًا افتتاحيًا. كل ما كان يُفترض أن ترسّخه حدث — لكن الطلاب لم يستطيعوا تسميته.'),

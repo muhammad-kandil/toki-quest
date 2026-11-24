@@ -1,5 +1,6 @@
 import type { Text } from '../i18n/types';
 import type { ChoiceOption, EvidenceSpot, RiskLevel } from './levelTypes';
+import type { ConversationDefinition } from './conversationTypes';
 
 /**
  * WORLD 7 — The Lethal Mutation Academy.
@@ -57,6 +58,8 @@ export interface AcademyLevelDefinition {
     correctId: string;
     hint: Text;
   };
+  /** The conversation that delivers the move. Optional; see LevelDefinition. */
+  conversation?: ConversationDefinition;
   reveal: {
     /** One line: the balanced professional judgement. */
     verdict: Text;
@@ -64,6 +67,6 @@ export interface AcademyLevelDefinition {
     whyItHappened: Text;
     howToRestore: Text;
   };
-  points: { diagnosis: number; risk: number; coaching: number };
+  points: { diagnosis: number; risk: number; coaching: number; conversation?: number };
   badgeTriggers: string[];
 }

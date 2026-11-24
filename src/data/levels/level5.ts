@@ -2,6 +2,7 @@ import sceneImg from '../../assets/scenes/classroom-5-gamification.jpg';
 import type { LevelDefinition } from '../levelTypes';
 import { RISK_OPTIONS } from '../levelTypes';
 import { t } from '../../i18n/types';
+import { CONVO_5 } from './conversations1';
 
 export const LEVEL_5: LevelDefinition = {
   id: 5,
@@ -55,10 +56,10 @@ export const LEVEL_5: LevelDefinition = {
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
-        { id: 'bigger-prizes', label: t('Add bigger prizes to raise the stakes', 'أضف جوائز أكبر لرفع الرهان') },
+        { id: 'bigger-prizes', label: t('Mix in team rounds so the stronger students carry the weaker ones', 'أدخل جولات جماعية ليحمل الطلاب الأقوى الأضعف') },
         { id: 'reward-reasoning', label: t('Reward reasoning, explanation, reflection, and improvement — not speed alone', 'كافئ التعليل والشرح والتأمل والتحسّن — لا السرعة وحدها') },
-        { id: 'remove-all', label: t('Remove all game elements immediately', 'أزل جميع عناصر اللعبة فورًا') },
-        { id: 'more-leaderboards', label: t('Add more leaderboards for every subject', 'أضف لوحات متصدّرين لكل مادة') },
+        { id: 'remove-all', label: t('Keep the games but take the leaderboard off the screen', 'احتفظ بالألعاب لكن أزل لوحة المتصدّرين عن الشاشة') },
+        { id: 'more-leaderboards', label: t('Give slower students extra time on the buzzer so the game is fairer', 'امنح الطلاب الأبطأ وقتًا إضافيًا على الجرس ليكون اللعب أعدل') },
       ],
       correctId: 'reward-reasoning',
       hint: t('The fix isn’t to kill the game — it’s to change what the game rewards.', 'الحل ليس إلغاء اللعبة، بل تغيير ما تكافئه اللعبة.'),
@@ -66,10 +67,10 @@ export const LEVEL_5: LevelDefinition = {
     reasoning: {
       prompt: t('Why change what’s rewarded rather than remove the game?', 'لماذا نغيّر ما يُكافَأ بدلًا من إزالة اللعبة؟'),
       options: [
-        { id: 'r1', label: t('Students would be upset if the games disappeared', 'سيستاء الطلاب إذا اختفت الألعاب') },
+        { id: 'r1', label: t('Removing the games would damage the relationship the teacher has built', 'إزالة الألعاب ستضرّ بالعلاقة التي بناها المعلّم') },
         { id: 'r2', label: t('Engagement is valuable — the fix is to point it at reasoning and growth, so the energy serves learning instead of competing with it', 'المشاركة قيّمة — والحل أن نوجّهها نحو التعليل والنمو، فتخدم الطاقةُ التعلّمَ بدل أن تنافسه') },
-        { id: 'r3', label: t('Leaderboards are the best motivator available', 'لوحات المتصدّرين أفضل محفّز متاح') },
-        { id: 'r4', label: t('Speed is a fair measure of ability', 'السرعة مقياس عادل للقدرة') },
+        { id: 'r3', label: t('Competition raises effort, so the games should stay as they are', 'المنافسة ترفع الجهد، فينبغي أن تبقى الألعاب كما هي') },
+        { id: 'r4', label: t('Quick recall is a real skill and deserves to be rewarded too', 'الاستدعاء السريع مهارة حقيقية وتستحق المكافأة أيضًا') },
       ],
       correctId: 'r2',
       hint: t('Notice: this very game never scored you on speed. Why might that be?', 'لاحظ: هذه اللعبة نفسها لم تحتسب لك نقاطًا على السرعة قط. لماذا برأيك؟'),
@@ -77,6 +78,7 @@ export const LEVEL_5: LevelDefinition = {
     },
   },
 
+  conversation: CONVO_5,
   reveal: {
     whatDrifted: t(
       'Winning has become more important than learning. The competition drives engagement, but it rewards speed and performance rather than thinking and understanding.',

@@ -7,6 +7,8 @@ import { ObserveBeat } from './LevelScreen';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
 import { EvidenceRecap } from '../components/EvidenceRecap';
+import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
+import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTypes';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
@@ -16,7 +18,7 @@ import './LevelScreen.css';
 import './BossScreen.css';
 import './AcademyScreen.css';
 
-type Phase = 'observe' | 'diagnose' | 'risk' | 'coaching' | 'reveal';
+type Phase = 'observe' | 'diagnose' | 'risk' | 'coaching' | 'conversation' | 'reveal';
 
 const CREDIT: Record<number, number> = { 1: 1, 2: 0.6, 3: 0.3 };
 const credit = (n: number) => (n <= 0 ? 0 : CREDIT[n] ?? 0.15);
@@ -65,9 +67,12 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
   const [attempts, setAttempts] = useState<Record<string, number>>({});
   const [reaction, setReaction] = useState<ReactionKind>(null);
   const [trigger, setTrigger] = useState(0);
+  const [outcome, setOutcome] = useState<ConversationOutcome | null>(null);
   const fire = (k: ReactionKind) => { setReaction(k); setTrigger((n) => n + 1); };
 
   const findings = level.diagnosis.findings;
+  const hasConversation = !!level.conversation;
+  const convoPoints = level.points.conversation ?? 0;
   const truth = new Set(findings.filter((f) => f.present).map((f) => f.id));
 
   const toggle = (id: string) => {
@@ -115,8 +120,9 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
     const d = credit(attempts.diagnosis ?? 0);
     const r = credit(attempts.risk ?? 0);
     const c = credit(attempts.coaching ?? 0);
-    const score = Math.round(level.points.diagnosis * d) + Math.round(level.points.risk * r) + Math.round(level.points.coaching * c);
-    const clean = d === 1 && r === 1 && c === 1;
+    const v = hasConversation ? (outcome ? OUTCOME_CREDIT[outcome] : 0) : 1;
+    const score = Math.round(level.points.diagnosis * d) + Math.round(level.points.risk * r) + Math.round(level.points.coaching * c) + Math.round(convoPoints * v);
+    const clean = d === 1 && r === 1 && c === 1 && v === 1;
     return { levelId: level.id, score, reasoningBonusEarned: false, badgesEarned: clean ? level.badgeTriggers : [] };
   };
 
@@ -131,7 +137,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
   const riskId = level.assessRisk.correctId;
   const riskLabel: Text = riskId === 'none' ? S.noDriftBadge : RISK_META[riskId as RiskLevel].label;
   const riskColor = riskId === 'none' ? 'var(--toki-green)' : RISK_META[riskId as RiskLevel].color;
-  const phases: Phase[] = ['observe', 'diagnose', 'risk', 'coaching', 'reveal'];
+  const phases: Phase[] = (['observe', 'diagnose', 'risk', 'coaching', 'conversation', 'reveal'] as Phase[]).filter((p) => p !== 'conversation' || hasConversation);
 
   return (
     <div className="level-screen academy">
@@ -211,7 +217,10 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
       )}
       {phase === 'coaching' && (
         <ChoiceStep heading={tx(UI.chooseCoaching)} prompt={tx(level.coaching.prompt)} options={level.coaching.options}
-          wrong={wrongChoice} hint={tx(level.coaching.hint)} onPick={(id) => choose('coaching', id, level.coaching.correctId, 'reveal')} />
+          wrong={wrongChoice} hint={tx(level.coaching.hint)} onPick={(id) => choose('coaching', id, level.coaching.correctId, hasConversation ? 'conversation' : 'reveal')} />
+      )}
+      {phase === 'conversation' && level.conversation && (
+        <ConversationBeat conversation={level.conversation} onDone={(o) => { setOutcome(o); setPhase('reveal'); }} />
       )}
 
       {phase === 'reveal' && (() => {
@@ -230,6 +239,13 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
             <p className="academy__verdict">{tx(level.reveal.verdict)}</p>
             <div className="reveal__block"><p className="reveal__label">{tx(UI.whatDrifted)}</p><p className="reveal__text">{tx(level.reveal.whatDrifted)}</p></div>
             <div className="reveal__block"><p className="reveal__label">{tx(UI.whyItHappened)}</p><p className="reveal__text">{tx(level.reveal.whyItHappened)}</p></div>
+            {level.conversation && outcome && (
+              <div className="reveal__block">
+                <p className="reveal__label">{tx(UI.whatHappenedNext)}</p>
+                <span className="reveal__risk-badge reveal__outcome" style={{ background: outcome === 'restored' ? 'var(--toki-teal)' : outcome === 'partial' ? 'var(--toki-orange-soft)' : 'var(--risk-lethal)' }}>{tx(OUTCOME_LABEL[outcome])}</span>
+                <p className="reveal__text">{tx(level.conversation.outcomes[outcome])}</p>
+              </div>
+            )}
             <div className="reveal__block"><p className="reveal__label">{tx(UI.howToRestore)}</p><p className="reveal__text">{tx(level.reveal.howToRestore)}</p></div>
             <div className="score-summary">
               <p className="score-summary__note">{tx(UI.scoreNote)}</p>
@@ -247,6 +263,15 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
                   </div>
                 );
               })}
+              {level.conversation && (
+                <div className="score-summary__row">
+                  <span className="score-summary__label">
+                    <span className={`status-mark ${outcome === 'restored' ? 'status-mark--full' : outcome === 'partial' ? 'status-mark--partial' : 'status-mark--none'}`}>{outcome === 'restored' ? '✓' : outcome === 'partial' ? '~' : '–'}</span>
+                    {tx(UI.conversationRow)} <em className="score-summary__attempt">({outcome ? tx(OUTCOME_LABEL[outcome]) : '—'})</em>
+                  </span>
+                  <span>+{Math.round(convoPoints * (outcome ? OUTCOME_CREDIT[outcome] : 0))}</span>
+                </div>
+              )}
             </div>
             {newBadges.length > 0 && (
               <div className="badge-earned">

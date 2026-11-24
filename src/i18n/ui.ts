@@ -79,6 +79,22 @@ export const UI = {
   badgeEarned: t('Badge earned', 'حصلت على شارة'),
   points: t('pts', 'نقطة'),
 
+  // ---- Coaching conversation ----
+  conversationHeading: t('The Conversation', 'المحادثة'),
+  tokiRead: t('Toki’s read', 'قراءة توكي'),
+  tokiSays: t('What does Toki say?', 'ماذا يقول توكي؟'),
+  teacherReplies: t('Continue', 'متابعة'),
+  stanceDefensive: t('defensive', 'في موقف دفاعي'),
+  stanceTired: t('tired', 'مُرهَق'),
+  stanceProud: t('proud', 'فخور'),
+  stanceEager: t('eager', 'متحمّس'),
+  outcomeRestored: t('Practice restored', 'عادت الممارسة إلى غايتها'),
+  outcomePartial: t('Partly restored', 'عادت جزئيًا'),
+  outcomeUnchanged: t('Nothing changed', 'لم يتغيّر شيء'),
+  outcomeClosed: t('The teacher has stopped listening.', 'توقّف المعلّم عن الإصغاء.'),
+  conversationRow: t('Conversation', 'المحادثة'),
+  whatHappenedNext: t('What happened next', 'ما حدث بعد ذلك'),
+
   // ---- Risk labels ----
   riskMinor: t('Minor Drift', 'انحراف طفيف'),
   riskModerate: t('Moderate Drift', 'انحراف متوسط'),

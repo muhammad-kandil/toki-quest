@@ -2,6 +2,7 @@ import sceneImg from '../../assets/scenes/classroom-4-assessment.jpg';
 import type { LevelDefinition } from '../levelTypes';
 import { RISK_OPTIONS } from '../levelTypes';
 import { t } from '../../i18n/types';
+import { CONVO_4 } from './conversations1';
 
 export const LEVEL_4: LevelDefinition = {
   id: 4,
@@ -55,10 +56,10 @@ export const LEVEL_4: LevelDefinition = {
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
-        { id: 'more-quizzes', label: t('Add more frequent quizzes for richer data', 'أضف اختبارات أكثر تكرارًا لبيانات أغنى') },
+        { id: 'more-quizzes', label: t('Replace the weekly quizzes with one richer diagnostic per unit', 'استبدل الاختبارات الأسبوعية باختبار تشخيصي أغنى لكل وحدة') },
         { id: 'use-evidence', label: t('Use the evidence to reteach, regroup, intervene, and adjust', 'استخدم الأدلة لإعادة التدريس وإعادة التجميع والتدخّل والتعديل') },
-        { id: 'automate', label: t('Automate the gradebook to save time', 'أتمتة سجلّ الدرجات لتوفير الوقت') },
-        { id: 'share-scores', label: t('Share scores with students to motivate them', 'شارك الدرجات مع الطلاب لتحفيزهم') },
+        { id: 'automate', label: t('Build a dashboard so the data is easier to see at a glance', 'ابنِ لوحة بيانات لتسهيل رؤية البيانات بنظرة واحدة') },
+        { id: 'share-scores', label: t('Have students track their own scores and set targets', 'اجعل الطلاب يتابعون درجاتهم ويضعون أهدافًا') },
       ],
       correctId: 'use-evidence',
       hint: t('The data already exists. The missing step is what happens next in the teaching.', 'البيانات موجودة بالفعل. الخطوة الغائبة هي ما يحدث بعدها في التدريس.'),
@@ -66,10 +67,10 @@ export const LEVEL_4: LevelDefinition = {
     reasoning: {
       prompt: t('Why is acting on the evidence the key move?', 'لماذا العمل بالأدلة هو الخطوة الأساسية؟'),
       options: [
-        { id: 'r1', label: t('It justifies the time spent assessing', 'يبرّر الوقت المستغرق في التقييم') },
+        { id: 'r1', label: t('It gives the teacher a more accurate picture of each student', 'يمنح المعلّم صورة أدق عن كل طالب') },
         { id: 'r2', label: t('Assessment only improves learning when it changes instruction — data that never alters teaching is measurement, not feedback', 'لا يحسّن التقييم التعلّم إلا عندما يغيّر التدريس — والبيانات التي لا تغيّر التدريس أبدًا قياسٌ لا تغذية راجعة') },
-        { id: 'r3', label: t('It produces cleaner records for reporting', 'ينتج سجلات أنظف للتقارير') },
-        { id: 'r4', label: t('It keeps students used to taking tests', 'يُبقي الطلاب معتادين على الاختبارات') },
+        { id: 'r3', label: t('It makes students more accountable for their own progress', 'يجعل الطلاب أكثر مسؤولية عن تقدّمهم') },
+        { id: 'r4', label: t('It surfaces the misconceptions earlier in the unit', 'يكشف المفاهيم الخاطئة في وقت أبكر من الوحدة') },
       ],
       correctId: 'r2',
       hint: t('What is the difference between measuring learning and improving it?', 'ما الفرق بين قياس التعلّم وتحسينه؟'),
@@ -77,6 +78,7 @@ export const LEVEL_4: LevelDefinition = {
     },
   },
 
+  conversation: CONVO_4,
   reveal: {
     whatDrifted: t(
       'Assessment has become an end rather than a tool. A great deal is measured, but the evidence rarely changes what happens next in the classroom.',
