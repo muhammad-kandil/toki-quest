@@ -67,6 +67,8 @@ export const UI = {
   whyItHappened: t('Why it happened', 'لماذا حدث ذلك'),
   howRestored: t('How Toki restored it', 'كيف أعاده توكي إلى مساره'),
   howToRestore: t('How to restore it', 'كيف نعيده إلى مساره'),
+  howItCouldHaveGone: t('How it could have gone', 'كيف كان يمكن أن يسير الأمر'),
+  visited: t('Visited', 'تمت الزيارة'),
   scoreNote: t(
     'Full points for a right call on the first try. Each guess after that still counts for something — but a clean first-try run is what earns the badge.',
     'النقاط كاملة عند الإجابة الصحيحة من المحاولة الأولى. المحاولات التالية تُحتسب جزئيًا، لكن الشارة لا تُمنح إلا لجولة نظيفة من المحاولة الأولى.',

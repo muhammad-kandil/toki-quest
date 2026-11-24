@@ -313,7 +313,7 @@ function RevealBeat({ level, outcomes, result, heldBadges, outcome, onFinish }: 
           <p className="reveal__text">{tx(level.conversation.outcomes[outcome])}</p>
         </div>
       ) : null}
-      <RevealBlock label={level.conversation ? UI.howToRestore : UI.howRestored} text={level.reveal.howToRestore} />
+      <RevealBlock label={level.conversation ? (outcome === 'restored' ? UI.howToRestore : UI.howItCouldHaveGone) : UI.howRestored} text={level.reveal.howToRestore} />
 
       <ScoreSummary level={level} outcomes={outcomes} outcome={outcome} />
 

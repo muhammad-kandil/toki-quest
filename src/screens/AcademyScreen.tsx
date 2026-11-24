@@ -250,7 +250,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
                 <p className="reveal__text">{tx(level.conversation.outcomes[outcome])}</p>
               </div>
             )}
-            <div className="reveal__block"><p className="reveal__label">{tx(UI.howToRestore)}</p><p className="reveal__text">{tx(level.reveal.howToRestore)}</p></div>
+            <div className="reveal__block"><p className="reveal__label">{tx(level.conversation && outcome && outcome !== 'restored' ? UI.howItCouldHaveGone : UI.howToRestore)}</p><p className="reveal__text">{tx(level.reveal.howToRestore)}</p></div>
             <div className="score-summary">
               <p className="score-summary__note">{tx(UI.scoreNote)}</p>
               {rows.map((row) => {

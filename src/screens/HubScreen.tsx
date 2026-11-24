@@ -104,7 +104,7 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
               <span className="door__number">{card.isBoss ? '★' : i + 1}</span>
               <span className="door__subject">{tx(card.subject)}</span>
               <span className="door__name">{tx(card.title)}</span>
-              {state === 'completed' && <span className="door__score">★ {bestScores[card.id]}</span>}
+              {state === 'completed' && <span className="door__score door__score--done" aria-label={tx(UI.visited)}>✓</span>}
               {state === 'locked' && <span className="door__lock" aria-hidden="true" />}
             </button>
           );
