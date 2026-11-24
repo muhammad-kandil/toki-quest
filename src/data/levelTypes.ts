@@ -8,6 +8,7 @@
  */
 import type { Text } from '../i18n/types';
 import { UI } from '../i18n/ui';
+import type { ConversationDefinition } from './conversationTypes';
 
 export type RiskLevel = 'minor' | 'moderate' | 'high' | 'lethal';
 
@@ -57,6 +58,14 @@ export interface LevelDefinition {
     chooseCoaching: StepDefinition;
     reasoning?: ReasoningStep;
   };
+  /**
+   * Optional: the conversation with the teacher after the coaching move
+   * is chosen. When present, the `restore` points are earned through it
+   * (restored = all, partial = half, unchanged = none) and a clean run
+   * requires the practice to be restored. Without it, `restore` is
+   * granted on reaching the reveal, as before.
+   */
+  conversation?: ConversationDefinition;
   reveal: {
     whatDrifted: Text;
     whyItHappened: Text;

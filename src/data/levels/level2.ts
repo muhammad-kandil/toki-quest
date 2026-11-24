@@ -2,6 +2,7 @@ import sceneImg from '../../assets/scenes/classroom-2-activity.jpg';
 import type { LevelDefinition } from '../levelTypes';
 import { RISK_OPTIONS } from '../levelTypes';
 import { t } from '../../i18n/types';
+import { CONVO_2 } from './conversations1';
 
 export const LEVEL_2: LevelDefinition = {
   id: 2,
@@ -55,10 +56,10 @@ export const LEVEL_2: LevelDefinition = {
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
-        { id: 'fewer', label: t('Cut the number of stations to slow the pace', 'قلّل عدد المحطات لإبطاء الإيقاع') },
+        { id: 'fewer', label: t('Keep the stations but add a two-minute reflection card at the end of each', 'احتفظ بالمحطات لكن أضف بطاقة تأمل لدقيقتين في نهاية كل منها') },
         { id: 'reconnect', label: t('Reconnect every activity to a clear learning objective', 'اربط كل نشاط من جديد بهدف تعلّم واضح') },
-        { id: 'timer', label: t('Add timers so students move faster', 'أضف مؤقّتات ليتحرك الطلاب أسرع') },
-        { id: 'reward', label: t('Reward the students who finish the most stations', 'كافئ الطلاب الذين يُنهون أكبر عدد من المحطات') },
+        { id: 'timer', label: t('Pair the stations so students teach the next group what they found', 'ازدوج المحطات ليعلّم الطلاب المجموعة التالية ما وجدوه') },
+        { id: 'reward', label: t('Add a short quiz after the rotation to check what stuck', 'أضف اختبارًا قصيرًا بعد الدورة للتحقق مما رسخ') },
       ],
       correctId: 'reconnect',
       hint: t('The problem isn’t the number of activities — it’s that they’ve become unmoored from a purpose.', 'المشكلة ليست في عدد الأنشطة، بل في انفصالها عن الغاية.'),
@@ -66,10 +67,10 @@ export const LEVEL_2: LevelDefinition = {
     reasoning: {
       prompt: t('Why is reconnecting to objectives the right move?', 'لماذا إعادة الربط بالأهداف هي الخطوة الصحيحة؟'),
       options: [
-        { id: 'r1', label: t('It makes the classroom calmer and easier to manage', 'تجعل الصف أهدأ وأسهل في الإدارة') },
+        { id: 'r1', label: t('It gives students time to consolidate before moving on', 'تمنح الطلاب وقتًا للترسيخ قبل الانتقال') },
         { id: 'r2', label: t('An activity only earns its place if it advances a specific learning goal — otherwise it’s motion without progress', 'لا يستحق النشاط مكانه إلا إذا دفع هدف تعلّم محددًا — وإلا فهو حركة بلا تقدّم') },
-        { id: 'r3', label: t('It lets the teacher fit in even more stations', 'تتيح للمعلّم إضافة محطات أكثر') },
-        { id: 'r4', label: t('It helps students finish faster', 'تساعد الطلاب على الإنهاء أسرع') },
+        { id: 'r3', label: t('It makes the teacher’s planning more rigorous and auditable', 'تجعل تخطيط المعلّم أكثر صرامة وقابلية للتدقيق') },
+        { id: 'r4', label: t('It turns the activity into assessable evidence for the gradebook', 'تحوّل النشاط إلى دليل قابل للتقييم لسجلّ الدرجات') },
       ],
       correctId: 'r2',
       hint: t('What distinguishes a meaningful activity from a busy one?', 'ما الذي يميّز النشاط الهادف عن النشاط المشغول؟'),
@@ -77,6 +78,7 @@ export const LEVEL_2: LevelDefinition = {
     },
   },
 
+  conversation: CONVO_2,
   reveal: {
     whatDrifted: t(
       'The lesson is full of motion, but "getting through the activities" has replaced "reaching the learning goal." Busyness is being mistaken for progress.',

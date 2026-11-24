@@ -8,13 +8,15 @@ import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
 import { EvidenceRecap } from '../components/EvidenceRecap';
+import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
+import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTypes';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import type { Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
 import './LevelScreen.css';
 
-type Beat = 'observe' | 'drift' | 'risk' | 'coaching' | 'reasoning' | 'reveal';
+type Beat = 'observe' | 'drift' | 'risk' | 'coaching' | 'conversation' | 'reasoning' | 'reveal';
 
 interface LevelScreenProps {
   level: LevelDefinition;
@@ -47,7 +49,7 @@ function creditFor(attemptsToCorrect: number | null): number {
   return CREDIT_BY_ATTEMPT[attemptsToCorrect] ?? CREDIT_FLOOR;
 }
 
-const BEAT_ORDER: Beat[] = ['observe', 'drift', 'risk', 'coaching', 'reasoning', 'reveal'];
+const BEAT_ORDER: Beat[] = ['observe', 'drift', 'risk', 'coaching', 'conversation', 'reasoning', 'reveal'];
 const RISK_ORDER: RiskLevel[] = ['minor', 'moderate', 'high', 'lethal'];
 
 export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps) {
@@ -57,6 +59,7 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
   const [selectedWrong, setSelectedWrong] = useState<string | null>(null);
   const [reaction, setReaction] = useState<ReactionKind>(null);
   const [reactionTrigger, setReactionTrigger] = useState(0);
+  const [outcome, setOutcome] = useState<ConversationOutcome | null>(null);
 
   const fireReaction = (kind: ReactionKind) => {
     setReaction(kind);
@@ -64,7 +67,8 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
   };
 
   const hasReasoning = !!level.steps.reasoning;
-  const visibleBeats = hasReasoning ? BEAT_ORDER : BEAT_ORDER.filter((b) => b !== 'reasoning');
+  const hasConversation = !!level.conversation;
+  const visibleBeats = BEAT_ORDER.filter((b) => (b !== 'reasoning' || hasReasoning) && (b !== 'conversation' || hasConversation));
   const beatIndex = visibleBeats.indexOf(beat);
 
   const advance = () => {
@@ -114,13 +118,16 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
     const riskCredit = creditFor(outcomes['risk']?.attemptsToCorrect ?? null);
     const coachingCredit = creditFor(outcomes['coaching']?.attemptsToCorrect ?? null);
     const reasoningCredit = creditFor(outcomes['reasoning']?.attemptsToCorrect ?? null);
+    // The conversation decides whether the practice was actually restored.
+    // Without one (older worlds), reaching the reveal restores it.
+    const restoreCredit = hasConversation ? (outcome ? OUTCOME_CREDIT[outcome] : 0) : 1;
     let score = 0;
     score += Math.round(level.points.drift * driftCredit);
     score += Math.round(level.points.risk * riskCredit);
     score += Math.round(level.points.coaching * coachingCredit);
-    score += level.points.restore;
+    score += Math.round(level.points.restore * restoreCredit);
     if (level.points.reasoningBonus) score += Math.round(level.points.reasoningBonus * reasoningCredit);
-    const cleanRun = driftCredit === 1 && riskCredit === 1 && coachingCredit === 1;
+    const cleanRun = driftCredit === 1 && riskCredit === 1 && coachingCredit === 1 && restoreCredit === 1;
     return { levelId: level.id, score, reasoningBonusEarned: reasoningCredit > 0, badgesEarned: cleanRun ? level.badgeTriggers : [] };
   };
 
@@ -143,12 +150,15 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
         <ChoiceBeat heading={tx(UI.chooseCoaching)} step={level.steps.chooseCoaching} selectedWrong={selectedWrong}
           onChoose={(id) => handleChoice('coaching', level.steps.chooseCoaching, id)} />
       )}
+      {beat === 'conversation' && level.conversation && (
+        <ConversationBeat conversation={level.conversation} onDone={(o) => { setOutcome(o); advance(); }} />
+      )}
       {beat === 'reasoning' && level.steps.reasoning && (
         <ChoiceBeat heading={tx(UI.whyBonus)} step={level.steps.reasoning} selectedWrong={selectedWrong}
           onChoose={(id) => handleChoice('reasoning', level.steps.reasoning!, id)} skippable onSkip={() => { sfx.play('tap'); advance(); }} />
       )}
       {beat === 'reveal' && (
-        <RevealBeat level={level} outcomes={outcomes} result={computeResult()} heldBadges={heldBadges}
+        <RevealBeat level={level} outcomes={outcomes} result={computeResult()} heldBadges={heldBadges} outcome={outcome}
           onFinish={() => { sfx.play('tap'); onComplete(computeResult()); }} />
       )}
     </div>
@@ -265,11 +275,12 @@ function ChoiceBeat({ heading, step, selectedWrong, onChoose, skippable, onSkip,
   );
 }
 
-function RevealBeat({ level, outcomes, result, heldBadges, onFinish }: {
+function RevealBeat({ level, outcomes, result, heldBadges, outcome, onFinish }: {
   level: LevelDefinition;
   outcomes: Record<string, StepOutcome>;
   result: LevelResult;
   heldBadges: string[];
+  outcome: ConversationOutcome | null;
   onFinish: () => void;
 }) {
   const { tx } = useLocale();
@@ -291,9 +302,16 @@ function RevealBeat({ level, outcomes, result, heldBadges, onFinish }: {
 
       <RevealBlock label={UI.whatDrifted} text={level.reveal.whatDrifted} />
       <RevealBlock label={UI.whyItHappened} text={level.reveal.whyItHappened} />
-      <RevealBlock label={UI.howRestored} text={level.reveal.howToRestore} />
+      {level.conversation && outcome ? (
+        <div className="reveal__block">
+          <p className="reveal__label">{tx(UI.whatHappenedNext)}</p>
+          <span className={`reveal__risk-badge reveal__outcome convo__outcome--${outcome}`} style={{ background: outcome === 'restored' ? 'var(--toki-teal)' : outcome === 'partial' ? 'var(--toki-orange-soft)' : 'var(--risk-lethal)' }}>{tx(OUTCOME_LABEL[outcome])}</span>
+          <p className="reveal__text">{tx(level.conversation.outcomes[outcome])}</p>
+        </div>
+      ) : null}
+      <RevealBlock label={level.conversation ? UI.howToRestore : UI.howRestored} text={level.reveal.howToRestore} />
 
-      <ScoreSummary level={level} outcomes={outcomes} />
+      <ScoreSummary level={level} outcomes={outcomes} outcome={outcome} />
 
       {newBadges.length > 0 && (
         <div className="badge-earned">
@@ -328,7 +346,7 @@ function RevealBlock({ label, text }: { label: Text; text: Text }) {
   );
 }
 
-function ScoreSummary({ level, outcomes }: { level: LevelDefinition; outcomes: Record<string, StepOutcome> }) {
+function ScoreSummary({ level, outcomes, outcome }: { level: LevelDefinition; outcomes: Record<string, StepOutcome>; outcome: ConversationOutcome | null }) {
   const { tx } = useLocale();
   const rows = [
     { label: UI.driftIdentified, key: 'drift', points: level.points.drift },
@@ -336,6 +354,7 @@ function ScoreSummary({ level, outcomes }: { level: LevelDefinition; outcomes: R
     { label: UI.coachingMove, key: 'coaching', points: level.points.coaching },
   ];
   if (level.points.reasoningBonus) rows.push({ label: UI.reasoningBonus, key: 'reasoning', points: level.points.reasoningBonus });
+  const convoCredit = outcome ? OUTCOME_CREDIT[outcome] : 0;
 
   return (
     <div className="score-summary">
@@ -356,6 +375,16 @@ function ScoreSummary({ level, outcomes }: { level: LevelDefinition; outcomes: R
           </div>
         );
       })}
+      {level.conversation && (
+        <div className="score-summary__row">
+          <span className="score-summary__label">
+            <StatusMark credit={convoCredit} />
+            {tx(UI.conversationRow)}
+            <em className="score-summary__attempt">({outcome ? tx(OUTCOME_LABEL[outcome]) : '—'})</em>
+          </span>
+          <span>+{Math.round(level.points.restore * convoCredit)}</span>
+        </div>
+      )}
     </div>
   );
 }

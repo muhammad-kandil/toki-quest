@@ -2,6 +2,7 @@ import sceneImg from '../../assets/scenes/classroom-1-talkative.jpg';
 import type { LevelDefinition } from '../levelTypes';
 import { RISK_OPTIONS } from '../levelTypes';
 import { t } from '../../i18n/types';
+import { CONVO_1 } from './conversations1';
 
 export const LEVEL_1: LevelDefinition = {
   id: 1,
@@ -55,10 +56,10 @@ export const LEVEL_1: LevelDefinition = {
     chooseCoaching: {
       prompt: t("What's the best coaching move for this teacher?", 'ما أفضل خطوة تدريبية مع هذا المعلّم؟'),
       options: [
-        { id: 'stop-talk', label: t('Ask the teacher to reduce group talk time', 'اطلب من المعلّم تقليل وقت الحوار الجماعي') },
+        { id: 'stop-talk', label: t('Suggest a short silent-writing step before each discussion so students arrive with a view', 'اقترح خطوة كتابة صامتة قصيرة قبل كل نقاش ليأتي الطلاب برأي') },
         { id: 'add-prompts', label: t('Help the teacher add prompts requiring evidence and justification', 'ساعد المعلّم على إضافة أسئلة تتطلب أدلة وتعليلًا') },
-        { id: 'more-groups', label: t('Suggest smaller groups for more airtime per student', 'اقترح مجموعات أصغر لمنح كل طالب وقتًا أطول للحديث') },
-        { id: 'silent-work', label: t('Recommend switching to independent silent work', 'أوصِ بالتحوّل إلى العمل الفردي الصامت') },
+        { id: 'more-groups', label: t('Suggest assigning discussion roles — leader, recorder, challenger — so every voice is heard', 'اقترح توزيع أدوار النقاش — قائد، مدوّن، معارض — ليُسمع كل صوت') },
+        { id: 'silent-work', label: t('Recommend ending each discussion with a whole-class share-out of the best ideas', 'أوصِ بإنهاء كل نقاش بمشاركة أفضل الأفكار مع الصف كله') },
       ],
       correctId: 'add-prompts',
       hint: t('The goal isn’t less talk — it’s deeper talk. What would push students toward reasoning?', 'الهدف ليس حوارًا أقل، بل حوارًا أعمق. ما الذي يدفع الطلاب نحو التعليل؟'),
@@ -66,10 +67,10 @@ export const LEVEL_1: LevelDefinition = {
     reasoning: {
       prompt: t('Why is this the right coaching move?', 'لماذا هذه هي الخطوة التدريبية الصحيحة؟'),
       options: [
-        { id: 'r1', label: t('It keeps the room quiet and easier to manage', 'تبقي الصف هادئًا وأسهل في الإدارة') },
+        { id: 'r1', label: t('It gives students thinking time before they speak, which raises the quality of the first answer', 'تمنح الطلاب وقتًا للتفكير قبل الحديث، فترفع جودة الإجابة الأولى') },
         { id: 'r2', label: t('It redirects existing engagement toward evidence-based reasoning, without losing the energy', 'توجّه المشاركة القائمة نحو التعليل المبني على الأدلة دون فقدان الحماس') },
-        { id: 'r3', label: t('It gives the teacher more control over who speaks', 'تمنح المعلّم تحكّمًا أكبر فيمن يتحدث') },
-        { id: 'r4', label: t('It makes the lesson faster to complete', 'تجعل إنهاء الدرس أسرع') },
+        { id: 'r3', label: t('It makes participation more equal, so the quiet students contribute too', 'تجعل المشاركة أكثر عدلًا، فيسهم الطلاب الهادئون أيضًا') },
+        { id: 'r4', label: t('It gives the teacher a clear structure to assess each discussion against', 'تمنح المعلّم بنية واضحة يقيّم كل نقاش على أساسها') },
       ],
       correctId: 'r2',
       hint: t('Think about what we’re trying to preserve, not just what we’re trying to fix.', 'فكّر فيما نحاول الحفاظ عليه، لا فيما نحاول إصلاحه فحسب.'),
@@ -77,6 +78,7 @@ export const LEVEL_1: LevelDefinition = {
     },
   },
 
+  conversation: CONVO_1,
   reveal: {
     whatDrifted: t(
       'The classroom has plenty of participation, but the talk is opinion-sharing, not reasoning. Students are engaged with each other — not yet engaged with evidence.',

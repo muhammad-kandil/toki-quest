@@ -2,6 +2,7 @@ import sceneImg from '../../assets/scenes/classroom-3-output.jpg';
 import type { LevelDefinition } from '../levelTypes';
 import { RISK_OPTIONS } from '../levelTypes';
 import { t } from '../../i18n/types';
+import { CONVO_3 } from './conversations1';
 
 export const LEVEL_3: LevelDefinition = {
   id: 3,
@@ -55,10 +56,10 @@ export const LEVEL_3: LevelDefinition = {
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
-        { id: 'grade-looks', label: t('Grade the projects on visual quality', 'قيّم المشاريع بناءً على الجودة البصرية') },
+        { id: 'grade-looks', label: t('Add a written reflection sheet students complete after the project', 'أضف ورقة تأمل مكتوبة يملؤها الطلاب بعد المشروع') },
         { id: 'embed', label: t('Embed explanation, reasoning, and application into the task', 'ضمّن الشرح والتعليل والتطبيق في المهمة نفسها') },
-        { id: 'more-projects', label: t('Assign more projects for practice', 'كلّف الطلاب بمشاريع أكثر للتدريب') },
-        { id: 'display', label: t('Display the best work to motivate others', 'اعرض أفضل الأعمال لتحفيز الآخرين') },
+        { id: 'more-projects', label: t('Have students present their projects to the class at the end', 'اجعل الطلاب يعرضون مشاريعهم على الصف في النهاية') },
+        { id: 'display', label: t('Use a rubric with a clear criterion for scientific accuracy', 'استخدم معيار تقييم ببند واضح للدقة العلمية') },
       ],
       correctId: 'embed',
       hint: t('How could the task itself force students to reveal their thinking, not just their craft?', 'كيف يمكن للمهمة نفسها أن تدفع الطلاب إلى إظهار تفكيرهم، لا مهارتهم اليدوية فقط؟'),
@@ -66,10 +67,10 @@ export const LEVEL_3: LevelDefinition = {
     reasoning: {
       prompt: t('Why embed explanation and reasoning into the task?', 'لماذا نضمّن الشرح والتعليل في المهمة؟'),
       options: [
-        { id: 'r1', label: t('It makes projects look more professional', 'يجعل المشاريع تبدو أكثر احترافية') },
+        { id: 'r1', label: t('It raises the academic standard of the final products', 'يرفع المستوى الأكاديمي للمنتجات النهائية') },
         { id: 'r2', label: t('A polished product can hide a shaky understanding — requiring explanation makes the thinking visible and assessable', 'قد يُخفي المنتج المتقن فهمًا هشًّا — واشتراط الشرح يجعل التفكير مرئيًا وقابلًا للتقييم') },
-        { id: 'r3', label: t('It gives students more to display on the walls', 'يمنح الطلاب مزيدًا ليعرضوه على الجدران') },
-        { id: 'r4', label: t('It keeps faster students busy for longer', 'يُبقي الطلاب الأسرع مشغولين لوقت أطول') },
+        { id: 'r3', label: t('It gives students practice at writing scientifically', 'يمنح الطلاب تدريبًا على الكتابة العلمية') },
+        { id: 'r4', label: t('It makes the project fairer to grade across students', 'يجعل تقييم المشروع أكثر عدلًا بين الطلاب') },
       ],
       correctId: 'r2',
       hint: t('What is the product a proxy for — and how do we check the real thing?', 'ما الذي ينوب عنه المنتج — وكيف نتحقق من الشيء الحقيقي؟'),
@@ -77,6 +78,7 @@ export const LEVEL_3: LevelDefinition = {
     },
   },
 
+  conversation: CONVO_3,
   reveal: {
     whatDrifted: t(
       'The quality of the product is being read as evidence of understanding. But a beautiful poster can be produced with very little grasp of the underlying idea.',
