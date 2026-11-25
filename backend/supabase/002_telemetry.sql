@@ -20,7 +20,9 @@ language sql immutable as $$
     (a->>'contexts')::int, (a->>'locate')::int)
 $$;
 
-create or replace view public.v_toki_levels as
+-- Column order changes, so the view must be dropped (CREATE OR REPLACE can't reorder columns).
+drop view if exists public.v_toki_levels;
+create view public.v_toki_levels as
 select
   level_id,
   count(*)                                   as players_completed,
