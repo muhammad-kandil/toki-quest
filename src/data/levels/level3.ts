@@ -70,10 +70,10 @@ export const LEVEL_3: LevelDefinition = {
     reasoning: {
       prompt: t('Why embed explanation and reasoning into the task?', 'لماذا نضمّن الشرح والتعليل في المهمة؟'),
       options: [
-        { id: 'r1', label: t('It raises the academic standard of the final products', 'يرفع المستوى الأكاديمي للمنتجات النهائية') },
-        { id: 'r2', label: t('A polished product can hide a shaky understanding — requiring explanation makes the thinking visible and assessable', 'قد يُخفي المنتج المتقن فهمًا هشًّا — واشتراط الشرح يجعل التفكير مرئيًا وقابلًا للتقييم') },
-        { id: 'r3', label: t('It gives students practice at writing scientifically', 'يمنح الطلاب تدريبًا على الكتابة العلمية') },
-        { id: 'r4', label: t('It makes the project fairer to grade across students', 'يجعل تقييم المشروع أكثر عدلًا بين الطلاب') },
+        { id: 'r1', label: t('It raises the academic standard of the final products on the wall', 'يرفع المستوى الأكاديمي للمنتجات النهائية على الجدار') },
+        { id: 'r3', label: t('It gives students regular practice at writing like scientists', 'يمنح الطلاب تدريبًا منتظمًا على الكتابة كالعلماء') },
+        { id: 'r4', label: t('It makes the project fairer to grade across the whole class', 'يجعل تقييم المشروع أكثر عدلًا على مستوى الصف كله') },
+        { id: 'r2', label: t('A polished product can hide a shaky understanding; explaining exposes it', 'قد يُخفي المنتج المتقن فهمًا هشًّا؛ والشرح يكشفه') },
       ],
       correctId: 'r2',
       hint: t('Hold the poster and the artist’s answer side by side. What does one show that the other hides?', 'ضع الملصق وإجابة صاحبة العمل جنبًا إلى جنب. ما الذي يُظهره أحدهما ويخفيه الآخر؟'),

@@ -43,9 +43,9 @@ const CONVO_61: ConversationDefinition = {
   },
 };
 
-/** 62 — One Pace for Everyone. Mr. Nasser, who found the timer after a year of chaos and will not let go of it. */
+/** 62 — One Pace for Everyone. Mr. Sultan, who found the timer after a year of chaos and will not let go of it. */
 const CONVO_62: ConversationDefinition = {
-  teacherName: t('Mr. Nasser', 'الأستاذ ناصر'),
+  teacherName: t('Mr. Sultan', 'الأستاذ سلطان'),
   stance: 'tired',
   setting: t('The timer is still on the board, reset to 8:00. He sits down for the first time in the lesson.', 'المؤقّت ما زال على السبورة، مضبوطًا على ٨:٠٠. يجلس للمرة الأولى في الحصة.'),
   read: t('Last year this class was the one nobody wanted. The timer is how he got it back. Anything that sounds like losing the structure sounds like losing the class.', 'في العام الماضي كان هذا الصف هو الذي لا يريده أحد. المؤقّت هو ما أعاده إليه. أي شيء يبدو كخسارة البنية يبدو كخسارة الصف.'),
@@ -55,20 +55,20 @@ const CONVO_62: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('I heard about September. The structure is why I could watch one desk for forty minutes. Can I tell you about that desk? Two students, same timer.', 'سمعت عن سبتمبر. البنية هي السبب في أنني استطعت مراقبة طاولة واحدة أربعين دقيقة. هل أخبرك عن تلك الطاولة؟ طالبان، المؤقّت نفسه.'), reply: t('Which desk. …Fahad and Ali. Fahad finishes in three minutes and Ali never finishes anything. I know. I see them.', 'أي طاولة. …فهد وعلي. فهد ينهي في ثلاث دقائق وعلي لا ينهي شيئًا أبدًا. أعرف. أراهما.') },
         { id: 'b', effect: 'neutral', label: t('The calm in this room is an achievement. Whatever you did since September, it worked.', 'الهدوء في هذه الغرفة إنجاز. مهما فعلت منذ سبتمبر، فقد نجح.'), reply: t('It worked. I would like to keep it working.', 'نجح. وأودّ أن أبقيه ناجحًا.') },
-        { id: 'c', effect: 'closes', label: t('The schedule is fine. The students are not. One is bored and one is lost, and the timer cannot see either of them.', 'الجدول بخير. الطلاب ليسوا كذلك. أحدهما يشعر بالملل والآخر ضائع، والمؤقّت لا يرى أيًّا منهما.'), reply: t('The timer cannot see. I can see. I saw thirty students throwing chairs last year. Which would you like?', 'المؤقّت لا يرى. أنا أرى. رأيت ثلاثين طالبًا يرمون الكراسي العام الماضي. أيهما تفضّل؟') },
+        { id: 'c', effect: 'closes', label: t('The schedule is fine. The students are not. One is bored and one is lost, and the timer cannot see either of them.', 'الجدول بخير. الطلاب ليسوا كذلك. أحدهما يشعر بالملل والآخر ضائع، والمؤقّت لا يرى أيًّا منهما.'), reply: t('The timer cannot see. I can see. I saw this class with no timer last year. Which would you prefer?', 'المؤقّت لا يرى. أنا أرى. رأيت هذا الصف بلا مؤقّت العام الماضي. أيهما تفضّل؟') },
       ],
     },
     {
       teacherLine: t('If I let them go at their own pace it is September again by Thursday. The timer is the only thing holding this.', 'إن تركتهم يسيرون بإيقاعهم الخاص، فسيعود سبتمبر بحلول الخميس. المؤقّت هو الشيء الوحيد الذي يمسك هذا.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('Keep the steps and the timer. Two changes: each step gets a "finished? do this" line for Fahad, and you press next when most of the room is done, not when the clock says. You are still in charge; the clock is not.', 'احتفظ بالخطوات والمؤقّت. تغييران: كل خطوة تحصل على سطر «انتهيت؟ افعل هذا» لفهد، وتضغط التالي حين ينتهي معظم الصف، لا حين يقول المؤقّت. ما زلت أنت المسؤول؛ لا الساعة.'), reply: t('I press next. Not the clock. …That is what I did in September, before the timer. It was the chairs that were the problem, not the pressing.', 'أنا أضغط التالي. لا الساعة. …هذا ما فعلته في سبتمبر، قبل المؤقّت. كانت الكراسي هي المشكلة، لا الضغط.') },
+        { id: 'a', effect: 'opens', label: t('Keep the steps and the timer. Two changes: each step gets a "finished? do this" line for Fahad, and you press next when most of the room is done, not when the clock says. You are still in charge; the clock is not.', 'احتفظ بالخطوات والمؤقّت. تغييران: كل خطوة تحصل على سطر «انتهيت؟ افعل هذا» لفهد، وتضغط التالي حين ينتهي معظم الصف، لا حين يقول المؤقّت. ما زلت أنت المسؤول؛ لا الساعة.'), reply: t('I press next. Not the clock. …That is what I did in September, before the timer. It was losing the room that was the problem, not the pressing.', 'أنا أضغط التالي. لا الساعة. …هذا ما فعلته في سبتمبر، قبل المؤقّت. كان فقدان الصف هو المشكلة، لا الضغط.') },
         { id: 'b', effect: 'neutral', label: t('Keep the timer. Maybe set each step from last week’s average instead of a flat eight.', 'احتفظ بالمؤقّت. ربما اضبط كل خطوة من متوسط الأسبوع الماضي بدلًا من ثمانٍ ثابتة.'), reply: t('I have the data. I can average it. Seven and a half, probably.', 'لديّ البيانات. أستطيع حساب المتوسط. سبع ونصف، على الأرجح.') },
         { id: 'c', effect: 'closes', label: t('Pair Fahad with Ali. Fahad has five spare minutes every step and Ali needs exactly that.', 'ضع فهد مع علي. لدى فهد خمس دقائق فائضة في كل خطوة وعلي يحتاج إليها تمامًا.'), reply: t('So Fahad becomes the teacher and Ali becomes his problem. That is the September I am trying not to have.', 'يعني يصبح فهد المعلّم ويصبح علي مشكلته. هذا هو سبتمبر الذي أحاول ألا أعيشه.') },
       ],
     },
   ],
   outcomes: {
-    restored: t('The timer still runs; he presses next when the room says so. Fahad has a "finished?" line on every step. Ali finished step 3 for the first time on Tuesday and nobody threw a chair.', 'ما زال المؤقّت يعمل؛ يضغط التالي حين يقول الصف ذلك. لدى فهد سطر «انتهيت؟» في كل خطوة. أنهى علي الخطوة ٣ للمرة الأولى يوم الثلاثاء ولم يرمِ أحد كرسيًا.'),
+    restored: t('The timer still runs; he presses next when the room says so. Fahad has a "finished?" line on every step. Ali finished step 3 for the first time on Tuesday and the room stayed calm.', 'ما زال المؤقّت يعمل؛ يضغط التالي حين يقول الصف ذلك. لدى فهد سطر «انتهيت؟» في كل خطوة. أنهى علي الخطوة ٣ للمرة الأولى يوم الثلاثاء وبقي الصف هادئًا.'),
     partial: t('Seven and a half minutes a step now, from the average. Fahad waits four and a half. Ali is still halfway through step 2 at the bell.', 'سبع دقائق ونصف لكل خطوة الآن، من المتوسط. ينتظر فهد أربع دقائق ونصفًا. علي ما زال في منتصف الخطوة ٢ عند الجرس.'),
     unchanged: t('Eight minutes, every step, every lesson. He has stopped looking up at the room at all; he looks at the door, in case the coach is in it.', 'ثماني دقائق، كل خطوة، كل حصة. توقف عن النظر إلى الصف تمامًا؛ ينظر إلى الباب، في حال كان المدرّب فيه.'),
   },
@@ -105,9 +105,9 @@ const CONVO_63: ConversationDefinition = {
   },
 };
 
-/** 64 — Help for Some. Mr. Hamad gives everything to the table that needs him most, and has nothing left. */
+/** 64 — Help for Some. Mr. Obaid gives everything to the table that needs him most, and has nothing left. */
 const CONVO_64: ConversationDefinition = {
-  teacherName: t('Mr. Hamad', 'الأستاذ حمد'),
+  teacherName: t('Mr. Obaid', 'الأستاذ عبيد'),
   stance: 'tired',
   setting: t('Still at the support table after the bell, a last worked example on scrap paper for one student who stayed.', 'ما زال على طاولة الدعم بعد الجرس، ومثال أخير على ورقة مسوّدة لطالب واحد بقي.'),
   read: t('Forty minutes a lesson at one table is where the progress is, and he has nothing left when it ends. He will hear "the others" as "do more".', 'أربعون دقيقة في كل حصة على طاولة واحدة هي حيث يحدث التقدّم، ولا يتبقى له شيء حين ينتهي. سيسمع «الآخرون» على أنها «افعل المزيد».'),
@@ -393,8 +393,8 @@ export const LEVEL_64: LevelDefinition = {
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
-      correctId: 'lethal',
-      hint: t('Half the class finished in twelve minutes and did the task again, neatly. Since October. Inside a practice everyone praises. Who has been lost here, and for how long?', 'أنهى نصف الصف في اثنتي عشرة دقيقة وأعاد المهمة، بترتيب. منذ أكتوبر. داخل ممارسة يمدحها الجميع. مَن ضاع هنا، ومنذ متى؟'),
+      correctId: 'high',
+      hint: t('Half the class finished in twelve minutes and did the task again, neatly. Since October. The groups still exist for a reason and the support table is learning. Who is being under-served here — and is the practice itself still doing its job?', 'أنهى نصف الصف في اثنتي عشرة دقيقة وأعاد المهمة، بترتيب. منذ أكتوبر. المجموعات ما زالت موجودة لسبب، وطاولة الدعم تتعلّم. مَن الذي لا يُخدَم هنا كما ينبغي — وهل الممارسة نفسها ما زالت تؤدي عملها؟'),
     },
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),

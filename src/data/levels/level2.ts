@@ -70,10 +70,10 @@ export const LEVEL_2: LevelDefinition = {
     reasoning: {
       prompt: t('Why is reconnecting to objectives the right move?', 'لماذا إعادة الربط بالأهداف هي الخطوة الصحيحة؟'),
       options: [
-        { id: 'r1', label: t('It gives students time to consolidate before moving on', 'تمنح الطلاب وقتًا للترسيخ قبل الانتقال') },
-        { id: 'r2', label: t('An activity only earns its place if it advances a specific learning goal — otherwise it’s motion without progress', 'لا يستحق النشاط مكانه إلا إذا دفع هدف تعلّم محددًا — وإلا فهو حركة بلا تقدّم') },
-        { id: 'r3', label: t('It makes the teacher’s planning more rigorous and auditable', 'تجعل تخطيط المعلّم أكثر صرامة وقابلية للتدقيق') },
-        { id: 'r4', label: t('It turns the activity into assessable evidence for the gradebook', 'تحوّل النشاط إلى دليل قابل للتقييم لسجلّ الدرجات') },
+        { id: 'r1', label: t('It gives students time to consolidate each idea before the next one', 'تمنح الطلاب وقتًا لترسيخ كل فكرة قبل التالية') },
+        { id: 'r3', label: t('It makes the teacher’s planning more rigorous and easier to audit', 'تجعل تخطيط المعلّم أكثر صرامة وأسهل تدقيقًا') },
+        { id: 'r2', label: t('An activity only earns its place if it moves a specific learning goal', 'لا يستحق النشاط مكانه إلا إذا حرّك هدف تعلّم محددًا') },
+        { id: 'r4', label: t('It turns each activity into evidence the gradebook can record', 'تحوّل كل نشاط إلى دليل يمكن لسجلّ الدرجات تسجيله') },
       ],
       correctId: 'r2',
       hint: t('Go back to the objective and the tracker together. What do they both measure — and what does neither of them ask?', 'ارجع إلى الهدف ولوحة الإنجاز معًا. ما الذي يقيسه كلاهما — وما الذي لا يسأل عنه أيّ منهما؟'),

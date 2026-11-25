@@ -71,9 +71,9 @@ export const LEVEL_5: LevelDefinition = {
       prompt: t('Why change what’s rewarded rather than remove the game?', 'لماذا نغيّر ما يُكافَأ بدلًا من إزالة اللعبة؟'),
       options: [
         { id: 'r1', label: t('Removing the games would damage the relationship the teacher has built', 'إزالة الألعاب ستضرّ بالعلاقة التي بناها المعلّم') },
-        { id: 'r2', label: t('Engagement is valuable — the fix is to point it at reasoning and growth, so the energy serves learning instead of competing with it', 'التفاعل قيّم — والحل أن نوجّهه نحو التعليل والنمو، فتخدم الطاقةُ التعلّمَ بدل أن تنافسه') },
-        { id: 'r3', label: t('Competition raises effort, so the games should stay as they are', 'المنافسة ترفع الجهد، فينبغي أن تبقى الألعاب كما هي') },
-        { id: 'r4', label: t('Quick recall is a real skill and deserves to be rewarded too', 'الاستدعاء السريع مهارة حقيقية وتستحق المكافأة أيضًا') },
+        { id: 'r3', label: t('Competition raises effort, so the games should stay exactly as they are', 'المنافسة ترفع الجهد، فينبغي أن تبقى الألعاب كما هي تمامًا') },
+        { id: 'r2', label: t('The energy is real; pointed at reasoning it serves learning instead of racing it', 'الطاقة حقيقية؛ وإذا وُجّهت نحو التعليل خدمت التعلّم بدل أن تسابقه') },
+        { id: 'r4', label: t('Quick recall is a real skill and deserves to be rewarded in its own right', 'الاستدعاء السريع مهارة حقيقية وتستحق المكافأة بحد ذاتها') },
       ],
       correctId: 'r2',
       hint: t('The leaderboard hasn’t moved for half the class since Monday. Which reason explains both that, and why the energy in the room is still worth keeping?', 'لم تتحرك لوحة المتصدّرين لنصف الصف منذ الاثنين. أي سبب يفسّر ذلك، ويفسّر أيضًا لماذا تستحق الطاقة في الغرفة أن نحافظ عليها؟'),

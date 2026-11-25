@@ -42,7 +42,7 @@ export const SCHOOL_VISIT: SchoolVisitDefinition = {
       ],
       impact: {
         correctId: 'drifted',
-        hint: t('82% on the lesson quizzes, 54% a week later. Where did the 28 points go — and what happened in the lesson after the platform?', '٨٢٪ في اختبارات الدروس، و٥٤٪ بعد أسبوع. أين ذهبت النقاط الـ٢٨ — وماذا حدث في الدرس بعد المنصة؟'),
+        hint: t('82% on the Alef lesson quizzes. 54% on the end-of-unit checkpoint a week later. Same content, different test — where did 28 points go?', '٨٢٪ في اختبارات دروس «ألف». و٥٤٪ في تقويم نهاية الوحدة بعد أسبوع. المحتوى نفسه، والاختبار مختلف — أين ذهبت النقاط الـ٢٨؟'),
         finding: t('Alef is run, then ignored. The platform produces data the teacher never reads and completion the leaders celebrate. Two lessons happen in parallel and neither learns from the other.', 'تُشغَّل «ألف» ثم تُتجاهل. تنتج المنصة بيانات لا يقرؤها المعلّم وإكمالًا يحتفل به القادة. يحدث درسان بالتوازي ولا يتعلّم أحدهما من الآخر.'),
       },
     },
@@ -102,7 +102,7 @@ export const SCHOOL_VISIT: SchoolVisitDefinition = {
       evidence: [
         { kind: 'observation', title: t('Observation', 'ملاحظة'), body: t('Five learning centres rotate on a ten-minute timer. Children are busy, cheerful and compliant. The bell moves them whether or not they have finished.', 'خمسة مراكز تعلّم تتناوب على مؤقّت عشر دقائق. الأطفال مشغولون ومرحون ومنضبطون. ينقلهم الجرس سواء أنهوا أم لا.') },
         { kind: 'planning', title: t('Teacher planning', 'تخطيط المعلّمة'), body: t('The same five centres every week this term. The plan lists activities; it does not say what any child should be able to do by Thursday.', 'المراكز الخمسة نفسها كل أسبوع هذا الفصل. تسرد الخطة الأنشطة؛ ولا تقول ما ينبغي أن يستطيع أي طفل فعله بحلول الخميس.') },
-        { kind: 'studentWork', title: t('Learning records', 'سجلات التعلّم'), body: t('Photos of happy children at each centre. No note of what any child can now do that they could not in September.', 'صور لأطفال سعداء في كل مركز. لا ملاحظة عمّا يستطيع أي طفل فعله الآن ولم يستطعه في سبتمبر.') },
+        { kind: 'studentWork', title: t('Learning records', 'سجلات التعلّم'), body: t('Photos of happy children at each centre. The September baseline sheet is in the folder; nothing has been added to it since.', 'صور لأطفال سعداء في كل مركز. ورقة التقييم الأساسي لشهر سبتمبر في الملف؛ ولم يُضَف إليها شيء منذ ذلك الحين.') },
       ],
       impact: {
         correctId: 'unverified',
@@ -130,7 +130,7 @@ export const SCHOOL_VISIT: SchoolVisitDefinition = {
   prioritise: {
     prompt: t('Six contexts, one coach, one term. Where should Toki’s coaching go first — where will it change the most?', 'ستة سياقات، مدرّب واحد، فصل واحد. أين ينبغي أن يذهب تدريب توكي أولًا — أين سيغيّر أكثر؟'),
     correctId: 'leadership',
-    hint: t('Ask: which issue, if it changed, would change the others? Coaching Mathematics fixes one room until the next usage report. Coaching Science fixes nothing. What is upstream of all of them?', 'اسأل: أي قضية، لو تغيّرت، ستغيّر الأخريات؟ تدريب الرياضيات يصلح غرفة واحدة حتى تقرير الاستخدام التالي. تدريب العلوم لا يصلح شيئًا. ما الذي يقع عند منبع كل ذلك؟'),
+    hint: t('Go back to the data meeting: who was congratulated, who was asked to explain, and what was never mentioned? Now look at where Mathematics learned to behave that way.', 'عُد إلى اجتماع البيانات: مَن هُنّئ، ومَن طُلب منه التفسير، وما الذي لم يُذكر قط؟ انظر الآن إلى أين تعلّمت الرياضيات أن تتصرّف بهذه الطريقة.'),
     rationale: t('The leadership team is not the biggest problem in the building — Mathematics is. But Mathematics is doing exactly what leadership rewards. Change what the school measures and asks about, and Mathematics, English and Kindergarten start to move on their own. Coach the room that teaches the other rooms how to behave.', 'فريق القيادة ليس أكبر مشكلة في المبنى — الرياضيات هي. لكن الرياضيات تفعل تمامًا ما تكافئه القيادة. غيّر ما تقيسه المدرسة وتسأل عنه، فتبدأ الرياضيات والإنجليزية والروضة بالتحرك من تلقاء نفسها. درّب الغرفة التي تعلّم الغرف الأخرى كيف تتصرّف.'),
   },
   finalMission: {

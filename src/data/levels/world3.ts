@@ -43,7 +43,7 @@ const CONVO_31: ConversationDefinition = {
     },
   ],
   outcomes: {
-    restored: t('He opens the check column first now. The 100% slipped to 94% and the check average climbed to 63%. The next slide at the staff meeting had both numbers on it, and his name under both.', 'يفتح عمود الاختبار أولًا الآن. انزلقت المئة إلى ٩٤٪ وارتفع متوسط الاختبار إلى ٦٣٪. الشريحة التالية في اجتماع المعلّمين كان عليها الرقمان، واسمه تحتهما.'),
+    restored: t('He opens the check column first now. The 100% slipped to 97% and the check average climbed to 63%. The next slide at the staff meeting had both numbers on it, and his name under both.', 'يفتح عمود الاختبار أولًا الآن. انزلقت المئة إلى ٩٧٪ وارتفع متوسط الاختبار إلى ٦٣٪. الشريحة التالية في اجتماع المعلّمين كان عليها الرقمان، واسمه تحتهما.'),
     partial: t('He glances at the check scores. The completion column still comes first, the videos are still skipped, and 41% is still the number nobody puts on a slide.', 'يلقي نظرة على درجات الاختبار. عمود الإنجاز ما زال أولًا، والفيديوهات ما زالت تُتخطّى، و٤١٪ ما زال الرقم الذي لا يضعه أحد على شريحة.'),
     unchanged: t('Still 100%, and still 41%. He sends Toki the completion report every Thursday without a message attached.', 'ما زالت مئة بالمئة، وما زالت ٤١٪. يرسل تقرير الإنجاز إلى توكي كل خميس دون أي رسالة مرفقة.'),
   },
@@ -389,7 +389,7 @@ export const LEVEL_34: LevelDefinition = {
     identifyDrift: {
       prompt: t('The answers are excellent. What should Toki verify?', 'الإجابات ممتازة. ما الذي ينبغي أن يتحقق منه توكي؟'),
       options: [
-        { id: 'policy', label: t('Whether the school’s AI policy allows this use in writing tasks', 'هل تسمح سياسة المدرسة للذكاء الاصطناعي بهذا الاستخدام في مهام الكتابة') },
+        { id: 'policy', label: t('Whether the task breaks the school’s AI policy', 'هل تخالف المهمة سياسة المدرسة للذكاء الاصطناعي') },
         { id: 'process', label: t('Whether the student planned and drafted before using the tool', 'هل خطّطت الطالبة وكتبت مسودة قبل استخدام الأداة') },
         { id: 'ownership', label: t('Whether the student can explain and defend her own paragraph', 'هل تستطيع الطالبة شرح فقرتها والدفاع عنها') },
         { id: 'level', label: t('Whether the vocabulary is appropriate to the student’s level', 'هل المفردات مناسبة لمستوى الطالبة') },

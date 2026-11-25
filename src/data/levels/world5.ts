@@ -248,7 +248,7 @@ export const LEVEL_52: LevelDefinition = {
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
-        { id: 'cold-call', label: t('Cold-call by name from a list, so the three cannot answer unless called', 'نادِ بالاسم من قائمة، فلا يجيب الثلاثة إلا إذا نودوا') },
+        { id: 'cold-call', label: t('Cold-call from a fixed list in the order students are seated', 'نادِ بالاسم من قائمة ثابتة بترتيب جلوس الطلاب') },
         { id: 'wait', label: t('Wait five seconds after each question before taking any hand', 'انتظر خمس ثوانٍ بعد كل سؤال قبل أخذ أي يد') },
         { id: 'think-first', label: t('Everyone thinks first: thirty seconds to write, turn-and-talk, then the teacher chooses who shares', 'الجميع يفكّر قبل أن يتحدث أحد: ثلاثون ثانية للكتابة، حديث مع الزميل، ثم يختار المعلّم') },
         { id: 'roles', label: t('Give the three a role — summariser, challenger, note-taker — so their energy serves the discussion', 'أعطِ الثلاثة دورًا — ملخّص، محاور — لتخدم طاقتهم النقاش') },
@@ -372,7 +372,7 @@ export const LEVEL_54: LevelDefinition = {
   sceneImage: sceneAssess,
   scenario: t(
     'The teacher asks a good question and immediately calls on the first hand. Every time. The first hand is usually one of four students, and usually right, so the lesson looks responsive and sharp. Toki watches the hands that go up a second too late.',
-    'تطرح المعلّمة سؤالًا جيدًا وتختار فورًا أول يد مرفوعة. في كل مرة. اليد الأولى عادةً لأحد أربعة طلاب، وعادةً صحيحة، فيبدو الدرس متجاوبًا وحادًا. يراقب توكي الأيدي التي ترتفع متأخرة ثانية واحدة.',
+    'يطرح المعلّم سؤالًا جيدًا ويختار فورًا أول يد مرفوعة. في كل مرة. اليد الأولى عادةً لأحد أربعة طلاب، وعادةً صحيحة، فيبدو الدرس متجاوبًا وحادًا. يراقب توكي الأيدي التي ترتفع متأخرة ثانية واحدة.',
   ),
   evidence: [
     { id: 'hands', x: 26, y: 62, label: t('The hands', 'الأيدي'), clue: t('Toki counts: question, 0.8 seconds, name called. Nine hands were on their way up.', 'يعدّ توكي: سؤال، ٠٫٨ ثانية، نداء باسم. كانت تسع أيدٍ في طريقها إلى الارتفاع.') },
@@ -394,16 +394,16 @@ export const LEVEL_54: LevelDefinition = {
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
-      correctId: 'lethal',
-      hint: t('The late-hand clue: he had the answer, and his hand stayed down for the rest of the lesson. What is a question teaching him and the other eight about questions?', 'دليل اليد المتأخرة: كانت لديه الإجابة، وبقيت يده منخفضة بقية الحصة. ماذا يعلّمه السؤال هو والثمانية الآخرين عن الأسئلة؟'),
+      correctId: 'high',
+      hint: t('The questions are still good and still reach nine students who want to answer. The late-hand clue: he had the answer, and lost by one second. Is the practice working against its purpose, or one second away from it?', 'الأسئلة ما زالت جيدة وما زالت تصل إلى تسعة طلاب يريدون الإجابة. دليل اليد المتأخرة: كانت لديه الإجابة، وخسر بثانية واحدة. هل تعمل الممارسة ضد غايتها، أم أنها على بُعد ثانية واحدة منها؟'),
     },
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
         { id: 'rotate', label: t('Keep a tally and never take the same hand twice in a row', 'احتفظ بإحصاء ولا تأخذ اليد نفسها مرتين متتاليتين') },
         { id: 'wait', label: t('Three silent seconds after every question before any name — counted on fingers until habitual', 'ثلاث ثوانٍ من الصمت بعد كل سؤال قبل أي اسم، تُعدّ على الأصابع حتى تصبح عادة') },
-        { id: 'no-hands', label: t('No hands: the teacher chooses who answers, from anywhere in the room, after the question', 'بلا أيدٍ: المعلّمة تختار من يجيب، من أي مكان في الغرفة') },
-        { id: 'whiteboards', label: t('Every student writes on a mini whiteboard and all the boards go up together on a signal', 'يكتب كل طالب على سبورة صغيرة وترتفع كل السبورات معًا') },
+        { id: 'no-hands', label: t('No hands: the teacher chooses who answers, from anywhere in the room, after the question', 'بلا أيدٍ: المعلّم يختار من يجيب، من أي مكان في الغرفة') },
+        { id: 'whiteboards', label: t('Order a class set of mini whiteboards and start using them next term', 'اطلب طقمًا من السبورات الصغيرة للصف وابدأ استخدامها الفصل القادم') },
       ],
       correctId: 'wait',
       hint: t('Rotating and no-hands change who is chosen; whiteboards change how everyone answers. Each of them still fires the instant the question ends. Read the late-hand clue: he lost by one second. Which move is about that one second?', 'التناوب وعدم رفع الأيدي يغيّران مَن يُختار؛ والسبورات الصغيرة تغيّر كيف يجيب الجميع. الثلاثة جميعها ما زالت تنطلق لحظة انتهاء السؤال. اقرأ دليل اليد المتأخرة: خسر بثانية واحدة. أي خطوة تتعلق بتلك الثانية الواحدة؟'),
@@ -414,7 +414,7 @@ export const LEVEL_54: LevelDefinition = {
         { id: 'r1', label: t('Three seconds is long enough for the deeper answer to form and short enough to keep', 'ثلاث ثوانٍ تكفي لتتشكّل الإجابة الأعمق وتقصر بما يكفي للاستمرار') },
         { id: 'r2', label: t('A question only does its job if it reaches the whole class before anyone answers it', 'لا يؤدي السؤال وظيفته إلا إذا وصل إلى الصف كله قبل أن يجيب عنه أحد') },
         { id: 'r3', label: t('After a pause, the first hand is no longer always the same four', 'بعد التوقف، لا تعود اليد الأولى دائمًا للأربعة أنفسهم') },
-        { id: 'r4', label: t('A habit the teacher counts on her fingers survives an observer leaving the room', 'عادة تعدّها المعلّمة على أصابعها تصمد بعد مغادرة المراقب الغرفة') },
+        { id: 'r4', label: t('A habit the teacher counts on his fingers survives an observer leaving the room', 'عادة يعدّها المعلّم على أصابعه تصمد بعد مغادرة المراقب الغرفة') },
       ],
       correctId: 'r2',
       hint: t('Nine hands on their way up, one name already called. Who was the question actually for?', 'تسع أيدٍ في طريقها إلى الارتفاع، واسم واحد نودي بالفعل. لمن كان السؤال في الحقيقة؟'),
@@ -429,7 +429,7 @@ export const LEVEL_54: LevelDefinition = {
     ),
     whyItHappened: t(
       'A fast answer keeps the lesson crisp and the teacher never has to sit in silence. Silence feels like a lesson stalling — so the first hand always wins.',
-      'تُبقي الإجابة السريعة الدرس حادًا ولا تضطر المعلّمة أبدًا إلى الجلوس في صمت. يبدو الصمت كأن الدرس يتعثّر — فتفوز اليد الأولى دائمًا.',
+      'تُبقي الإجابة السريعة الدرس حادًا ولا يضطر المعلّم أبدًا إلى الجلوس في صمت. يبدو الصمت كأن الدرس يتعثّر — فتفوز اليد الأولى دائمًا.',
     ),
     howToRestore: t(
       'Wait time gives all students space to think, not only the fastest students. Three seconds — then choose, rather than take, who answers.',

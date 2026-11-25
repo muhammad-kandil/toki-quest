@@ -76,12 +76,12 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
     prompt: t('The rubric, the stem bank, and the vision statement all say "questioning." What is the one move with the greatest impact?', 'السلّم وبنك الجذور وبيان الرؤية تقول كلها «طرح الأسئلة». ما الخطوة الواحدة ذات الأثر الأكبر؟'),
     options: [
       { id: 'film', label: t('Re-film the model lesson in Grade 6 and Grade 11 and retire the Grade 2 video', 'أعد تصوير الدرس النموذجي في الصفين السادس والحادي عشر واسحب فيديو الصف الثاني') },
-      { id: 'quota', label: t('Replace the stem-bank quota with a rule: every question is followed by thirty seconds of writing', 'استبدل حصة بنك الجذور بقاعدة: كل سؤال يتبعه ثلاثون ثانية من الكتابة') },
+      { id: 'quota', label: t('Raise the stem-bank quota to twelve questions per lesson and add a wait-time column to the tally', 'ارفع حصة بنك الجذور إلى اثني عشر سؤالًا في الدرس وأضف عمودًا لوقت الانتظار في الإحصاء') },
       { id: 'rubric', label: t('Rubric rows become "wait time ≥ 3 seconds" and "proportion of students who produced an answer"', 'استبدل صفّي السلّم بـ«وقت الانتظار ≥ ٣ ثوانٍ» و«نسبة الطلاب الذين أنتجوا إجابة»') },
       { id: 'coach', label: t('Pair every teacher with a peer to observe each other for thinkers, not questions, this term', 'اقرن كل معلّم بزميل ليلاحظ كلٌّ منهما الآخر بحثًا عن المفكّرين لا الأسئلة، هذا الفصل') },
     ],
     correctId: 'rubric',
-    hint: t('The new video shows a better lesson; the writing rule is a better quota; peer observation builds the habit in the willing. All three leave the form that scored Grade 6 a 2/5 untouched. Which move changes that form?', 'الفيديو الجديد يُظهر درسًا أفضل؛ وقاعدة الكتابة حصة أفضل؛ وملاحظة الأقران تبني العادة لدى الراغبين. الثلاثة تترك النموذج الذي أعطى الصف السادس ٢/٥ كما هو. أي خطوة تغيّر ذلك النموذج؟'),
+    hint: t('Three of these change what teachers do. Only one changes what observers reward.', 'ثلاث من هذه تغيّر ما يفعله المعلّمون. واحدة فقط تغيّر ما يكافئه المراقبون.'),
   },
   reveal: {
     whatDrifted: t(
