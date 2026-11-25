@@ -127,7 +127,12 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
     const v = hasConversation ? (outcome ? OUTCOME_CREDIT[outcome] : 0) : 1;
     const score = Math.round(level.points.diagnosis * d) + Math.round(level.points.risk * r) + Math.round(level.points.coaching * c) + Math.round(convoPoints * v);
     const clean = d === 1 && r === 1 && c === 1 && v === 1;
-    return { levelId: level.id, score, reasoningBonusEarned: false, badgesEarned: clean ? level.badgeTriggers : [] };
+    const att: Record<string, number> = {};
+    for (const k of ['diagnosis', 'risk', 'coaching']) if ((attempts[k] ?? 0) > 0) att[k] = attempts[k];
+    return {
+      levelId: level.id, score, reasoningBonusEarned: false, badgesEarned: clean ? level.badgeTriggers : [],
+      attempts: att, ...(hasConversation && outcome ? { outcome } : {}),
+    };
   };
 
   useEffect(() => {
@@ -158,7 +163,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
         <div className="beat beat--choice">
           <h3 className="beat__heading">{tx(S.diagnose)}</h3>
           <p className="beat__prompt">{tx(level.diagnosis.prompt)}</p>
-          {!filed && <EvidenceRecap spots={level.evidence} />}
+          {!filed && <EvidenceRecap spots={level.evidence} open={!!diagErr} highlightId={diagErr ? level.diagnosis.hintSpotId ?? null : null} />}
           <div className="choice-list findings">
             {findings.map((f, i) => {
               const on = selected.has(f.id);
@@ -217,11 +222,13 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
 
       {phase === 'risk' && (
         <ChoiceStep heading={tx(UI.assessRisk)} prompt={tx(level.assessRisk.prompt)} options={ACADEMY_RISK_OPTIONS}
-          wrong={wrongChoice} hint={tx(level.assessRisk.hint)} onPick={(id) => choose('risk', id, level.assessRisk.correctId, 'coaching')} />
+          wrong={wrongChoice} hint={tx(level.assessRisk.hint)} onPick={(id) => choose('risk', id, level.assessRisk.correctId, 'coaching')}
+          recap={level.evidence} hintSpotId={level.assessRisk.hintSpotId} />
       )}
       {phase === 'coaching' && (
         <ChoiceStep heading={tx(UI.chooseCoaching)} prompt={tx(level.coaching.prompt)} options={level.coaching.options}
-          wrong={wrongChoice} hint={tx(level.coaching.hint)} onPick={(id) => choose('coaching', id, level.coaching.correctId, hasConversation ? 'conversation' : 'reveal')} />
+          wrong={wrongChoice} hint={tx(level.coaching.hint)} onPick={(id) => choose('coaching', id, level.coaching.correctId, hasConversation ? 'conversation' : 'reveal')}
+          recap={level.evidence} hintSpotId={level.coaching.hintSpotId} />
       )}
       {phase === 'conversation' && level.conversation && (
         <ConversationBeat conversation={level.conversation} onDone={(o) => { setOutcome(o); setPhase('reveal'); }} />
@@ -294,14 +301,17 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
   );
 }
 
-function ChoiceStep({ heading, prompt, options, wrong, hint, onPick }: {
+function ChoiceStep({ heading, prompt, options, wrong, hint, onPick, recap, hintSpotId }: {
   heading: string; prompt: string; options: ChoiceOption[]; wrong: string | null; hint: string; onPick: (id: string) => void;
+  recap?: AcademyLevelDefinition['evidence']; hintSpotId?: string;
 }) {
   const { tx } = useLocale();
+  const hintSpot = wrong && hintSpotId ? recap?.find((s) => s.id === hintSpotId) ?? null : null;
   return (
     <div className="beat beat--choice">
       <h3 className="beat__heading">{heading}</h3>
       <p className="beat__prompt">{prompt}</p>
+      <EvidenceRecap spots={recap} open={!!wrong} highlightId={hintSpot?.id ?? null} />
       <div className="choice-list">
         {options.map((o, i) => (
           <button key={o.id} className={`choice-list__item ${wrong === o.id ? 'choice-list__item--wrong' : ''}`} style={{ animationDelay: `${i * 55}ms` }} onClick={() => onPick(o.id)}>
@@ -309,7 +319,12 @@ function ChoiceStep({ heading, prompt, options, wrong, hint, onPick }: {
           </button>
         ))}
       </div>
-      {wrong && <p className="beat__hint"><span className="hint-mark">?</span> {hint}</p>}
+      {wrong && (
+        <p className="beat__hint">
+          <span className="hint-mark">?</span> {hint}
+          {hintSpot && <span className="hint-spot">→ {tx(hintSpot.label)}</span>}
+        </p>
+      )}
     </div>
   );
 }

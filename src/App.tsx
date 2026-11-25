@@ -28,6 +28,10 @@ interface SaveData {
   selectedSkinId: string;
   /** Player's chosen language; undefined = not chosen yet (auto-detect). */
   lang?: Lang;
+  /** Per level: attempts-to-correct per step, from the best-scoring run. */
+  attempts?: Record<number, Record<string, number>>;
+  /** Per level: how the coaching conversation ended, from the best-scoring run. */
+  outcomes?: Record<number, 'restored' | 'partial' | 'unchanged'>;
 }
 
 const DEFAULT_SAVE: SaveData = {
@@ -123,8 +127,16 @@ function App() {
     const prevBest = save.bestScores[result.levelId] ?? 0;
     const newBadges = [...new Set([...save.badges, ...result.badgesEarned])];
     const bestScores = { ...save.bestScores, [result.levelId]: Math.max(prevBest, result.score) };
-    await persist({ ...save, bestScores, badges: newBadges });
-    reportProgress({ bestScores, badges: newBadges, lang });
+    // Telemetry follows the best-scoring run (first run always records).
+    const improved = result.score > prevBest || save.bestScores[result.levelId] == null;
+    const attempts = { ...(save.attempts ?? {}) };
+    const outcomes = { ...(save.outcomes ?? {}) };
+    if (improved) {
+      if (result.attempts) attempts[result.levelId] = result.attempts;
+      if (result.outcome) outcomes[result.levelId] = result.outcome;
+    }
+    await persist({ ...save, bestScores, badges: newBadges, attempts, outcomes });
+    reportProgress({ bestScores, badges: newBadges, lang, attempts, outcomes });
     setScreen('world');
   };
 

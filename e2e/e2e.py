@@ -1,5 +1,7 @@
 import sys
 from playwright.sync_api import sync_playwright
+import os
+PORT=os.environ.get('PORT','5400')
 
 def convo_any(pg):
     """Walk a conversation beat if present (pick option 0 each turn)."""
@@ -20,7 +22,7 @@ def run(lang):
         errs=[]; failed=[]
         pg.on('pageerror',lambda e:errs.append(str(e)))
         pg.on('response',lambda r:failed.append((r.url.split('/')[-1],r.status)) if r.status>=400 else None)
-        pg.goto('http://127.0.0.1:5400/toki-quest/',wait_until='networkidle'); pg.wait_for_timeout(900)
+        pg.goto(f'http://127.0.0.1:{PORT}/toki-quest/',wait_until='networkidle'); pg.wait_for_timeout(900)
         if lang=='ar' and pg.evaluate("document.documentElement.lang")!='ar':
             pg.click('.topbar__lang'); pg.wait_for_timeout(300)
         print(f'[{lang}] html lang/dir:', pg.evaluate("[document.documentElement.lang, document.documentElement.dir]"))
@@ -46,9 +48,8 @@ def run(lang):
         # Level 1 correct answers: thinking-quality, minor, add-prompts, r2
         def pick(idx):
             pg.locator('.choice-list__item').nth(idx).click(); pg.wait_for_timeout(750)
-        pick(1); pick(0); pick(1)
+        pick(1); pick(0); pick(1); pick(1)  # drift, risk, coaching, reasoning (reasoning now precedes the conversation)
         print(f'[{lang}] conversation:', convo_any(pg))
-        pick(1)
         pg.wait_for_timeout(600)
         print(f'[{lang}] reveal shown:', pg.locator('.beat--reveal').count()==1, 'badge earned card:', pg.locator('.badge-earned').count())
         pg.screenshot(path=f'{S}/{lang}-7-reveal.png', full_page=True)

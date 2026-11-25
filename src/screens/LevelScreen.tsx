@@ -30,6 +30,15 @@ export interface LevelResult {
   score: number;
   reasoningBonusEarned: boolean;
   badgesEarned: string[];
+  /**
+   * Attempts-to-correct per step (1 = first try). Steps never solved
+   * (or skipped) are absent. Keys per screen: classroom drift/risk/
+   * coaching/reasoning; academy diagnosis/risk/coaching; world boss
+   * scenes/pattern/risk/coaching; school visit contexts/priority/mission.
+   */
+  attempts?: Record<string, number>;
+  /** How the coaching conversation ended, when the level has one. */
+  outcome?: ConversationOutcome;
 }
 
 interface StepOutcome {
@@ -49,7 +58,10 @@ function creditFor(attemptsToCorrect: number | null): number {
   return CREDIT_BY_ATTEMPT[attemptsToCorrect] ?? CREDIT_FLOOR;
 }
 
-const BEAT_ORDER: Beat[] = ['observe', 'drift', 'risk', 'coaching', 'conversation', 'reasoning', 'reveal'];
+/** Justify the move first ("why is this the right move?"), then say it
+ * to a person. The reasoning is the thinking; the conversation is the
+ * delivery — and a teacher may still reject a well-reasoned move. */
+const BEAT_ORDER: Beat[] = ['observe', 'drift', 'risk', 'coaching', 'reasoning', 'conversation', 'reveal'];
 const RISK_ORDER: RiskLevel[] = ['minor', 'moderate', 'high', 'lethal'];
 
 export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps) {
@@ -131,7 +143,19 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
     score += Math.round(level.points.restore * restoreCredit);
     if (level.points.reasoningBonus) score += Math.round(level.points.reasoningBonus * reasoningCredit);
     const cleanRun = driftCredit === 1 && riskCredit === 1 && coachingCredit === 1 && restoreCredit === 1;
-    return { levelId: level.id, score, reasoningBonusEarned: reasoningCredit > 0, badgesEarned: cleanRun ? level.badgeTriggers : [] };
+    const attempts: Record<string, number> = {};
+    for (const key of ['drift', 'risk', 'coaching', 'reasoning']) {
+      const a = outcomes[key]?.attemptsToCorrect;
+      if (a != null) attempts[key] = a;
+    }
+    return {
+      levelId: level.id,
+      score,
+      reasoningBonusEarned: reasoningCredit > 0,
+      badgesEarned: cleanRun ? level.badgeTriggers : [],
+      attempts,
+      ...(hasConversation && outcome ? { outcome } : {}),
+    };
   };
 
   return (
@@ -147,18 +171,18 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
       )}
       {beat === 'risk' && (
         <ChoiceBeat heading={tx(UI.assessRisk)} step={level.steps.assessRisk} selectedWrong={selectedWrong} selectedRight={selectedRight}
-          onChoose={(id) => handleChoice('risk', level.steps.assessRisk, id)} />
+          onChoose={(id) => handleChoice('risk', level.steps.assessRisk, id)} recap={level.evidence} />
       )}
       {beat === 'coaching' && (
         <ChoiceBeat heading={tx(UI.chooseCoaching)} step={level.steps.chooseCoaching} selectedWrong={selectedWrong} selectedRight={selectedRight}
-          onChoose={(id) => handleChoice('coaching', level.steps.chooseCoaching, id)} />
+          onChoose={(id) => handleChoice('coaching', level.steps.chooseCoaching, id)} recap={level.evidence} />
+      )}
+      {beat === 'reasoning' && level.steps.reasoning && (
+        <ChoiceBeat heading={tx(hasConversation ? UI.whyThisMove : UI.whyBonus)} step={level.steps.reasoning} selectedWrong={selectedWrong} selectedRight={selectedRight}
+          onChoose={(id) => handleChoice('reasoning', level.steps.reasoning!, id)} skippable onSkip={() => { sfx.play('tap'); advance(); }} recap={level.evidence} />
       )}
       {beat === 'conversation' && level.conversation && (
         <ConversationBeat conversation={level.conversation} onDone={(o) => { setOutcome(o); advance(); }} />
-      )}
-      {beat === 'reasoning' && level.steps.reasoning && (
-        <ChoiceBeat heading={tx(UI.whyBonus)} step={level.steps.reasoning} selectedWrong={selectedWrong} selectedRight={selectedRight}
-          onChoose={(id) => handleChoice('reasoning', level.steps.reasoning!, id)} skippable onSkip={() => { sfx.play('tap'); advance(); }} />
       )}
       {beat === 'reveal' && (
         <RevealBeat level={level} outcomes={outcomes} result={computeResult()} heldBadges={heldBadges} outcome={outcome}
@@ -252,11 +276,15 @@ interface ChoiceBeatProps {
 
 function ChoiceBeat({ heading, step, selectedWrong, selectedRight, onChoose, skippable, onSkip, recap }: ChoiceBeatProps) {
   const { tx } = useLocale();
+  // After a miss, the notebook opens itself and points at the clue the
+  // hint is about — the hint is a question, the evidence is the answer.
+  const missed = !!selectedWrong;
+  const hintSpot = missed && step.hintSpotId ? recap?.find((s) => s.id === step.hintSpotId) ?? null : null;
   return (
     <div className="beat beat--choice">
       <h3 className="beat__heading">{heading}</h3>
       <p className="beat__prompt">{tx(step.prompt)}</p>
-      <EvidenceRecap spots={recap} />
+      <EvidenceRecap spots={recap} open={missed} highlightId={hintSpot?.id ?? null} />
       <div className="choice-list">
         {step.options.map((opt, i) => (
           <button
@@ -270,7 +298,10 @@ function ChoiceBeat({ heading, step, selectedWrong, selectedRight, onChoose, ski
         ))}
       </div>
       {selectedWrong && (
-        <p className="beat__hint"><span className="hint-mark">?</span> {tx(step.hint)}</p>
+        <p className="beat__hint">
+          <span className="hint-mark">?</span> {tx(step.hint)}
+          {hintSpot && <span className="hint-spot">→ {tx(hintSpot.label)}</span>}
+        </p>
       )}
       {skippable && (
         <button className="beat__skip" onClick={onSkip}>{tx(UI.skipBonus)}</button>

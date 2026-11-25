@@ -1,5 +1,6 @@
 // Supabase Edge Function: POST /functions/v1/record-progress
-// Body: { initData, bestScores: {[levelId]: score}, badges: string[], lang? }
+// Body: { initData, bestScores: {[levelId]: score}, badges: string[], lang?,
+//         attempts?: {[levelId]: {[step]: n}}, outcomes?: {[levelId]: 'restored'|'partial'|'unchanged'} }
 // Verifies Telegram's HMAC on initData with the bot token, then upserts.
 // Deploy with "Verify JWT" OFF — Telegram's signature is the auth here.
 import postgres from "npm:postgres@3.4.5";
@@ -61,6 +62,24 @@ Deno.serve(async (req) => {
   const badges = Array.isArray(body.badges) ? body.badges.filter((b: unknown) => typeof b === "string" && (b as string).length < 40).slice(0, 16) : [];
   const lang = body.lang === "ar" ? "ar" : body.lang === "en" ? "en" : null;
 
+  // Telemetry (optional, validated shape; unknown keys ignored).
+  const OUTCOMES = new Set(["restored", "partial", "unchanged"]);
+  const STEP = /^[a-z]{3,12}$/;
+  const attemptsFor = (levelId: number): Record<string, number> | null => {
+    const raw = body.attempts?.[levelId] ?? body.attempts?.[String(levelId)];
+    if (!raw || typeof raw !== "object") return null;
+    const out: Record<string, number> = {};
+    for (const [k, v] of Object.entries(raw)) {
+      const n = Number(v);
+      if (STEP.test(k) && Number.isInteger(n) && n >= 1 && n <= 20) out[k] = n;
+    }
+    return Object.keys(out).length ? out : null;
+  };
+  const outcomeFor = (levelId: number): string | null => {
+    const o = body.outcomes?.[levelId] ?? body.outcomes?.[String(levelId)];
+    return typeof o === "string" && OUTCOMES.has(o) ? o : null;
+  };
+
   const sql = postgres(Deno.env.get("SUPABASE_DB_URL")!, { prepare: false, max: 1 });
   try {
     await sql.begin(async (tx) => {
@@ -71,10 +90,18 @@ Deno.serve(async (req) => {
           username = excluded.username, first_name = excluded.first_name, last_name = excluded.last_name,
           lang = coalesce(excluded.lang, public.toki_players.lang), badges = excluded.badges, last_seen_at = now()`;
       for (const [level_id, score] of scores) {
+        const att = attemptsFor(level_id);
+        const outcome = outcomeFor(level_id);
+        // attempts/outcome follow the best run: replaced when the score
+        // improves, filled in when missing, otherwise kept.
         await tx`
-          insert into public.toki_progress (telegram_user_id, level_id, best_score)
-          values (${user.id}, ${level_id}, ${Math.round(score)})
+          insert into public.toki_progress (telegram_user_id, level_id, best_score, attempts, outcome)
+          values (${user.id}, ${level_id}, ${Math.round(score)}, ${att ? tx.json(att) : null}, ${outcome})
           on conflict (telegram_user_id, level_id) do update set
+            attempts = case when excluded.best_score > public.toki_progress.best_score or public.toki_progress.attempts is null
+                            then coalesce(excluded.attempts, public.toki_progress.attempts) else public.toki_progress.attempts end,
+            outcome  = case when excluded.best_score > public.toki_progress.best_score or public.toki_progress.outcome is null
+                            then coalesce(excluded.outcome, public.toki_progress.outcome) else public.toki_progress.outcome end,
             best_score = greatest(public.toki_progress.best_score, excluded.best_score),
             updated_at = case when excluded.best_score > public.toki_progress.best_score then now() else public.toki_progress.updated_at end`;
       }

@@ -56,6 +56,7 @@ export const UI = {
   assessRisk: t('Assess the Risk', 'قيّم درجة الخطورة'),
   chooseCoaching: t('Choose the Coaching Move', 'اختر الخطوة التدريبية'),
   whyBonus: t('Why? (optional bonus)', 'لماذا؟ (نقاط إضافية اختيارية)'),
+  whyThisMove: t('Why is this the right move?', 'لماذا هذه هي الخطوة الصحيحة؟'),
   skipBonus: t('Skip bonus question', 'تخطّ السؤال الإضافي'),
   lookAgain: t('Look again', 'انظر مجددًا'),
   niceRead: t('Nice read', 'قراءة موفّقة'),

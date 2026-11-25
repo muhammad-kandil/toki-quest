@@ -59,3 +59,26 @@
 }
 [data-lang='ar'] .recap__label { text-transform: none; letter-spacing: 0; }
 .recap__clue { font-size: var(--text-sm); line-height: 1.5; color: var(--color-text-primary); }
+
+/* The clue a hint points at. */
+.recap__item--hot {
+  border-inline-start-color: var(--toki-indigo);
+  background: #F3EFFB;
+  animation: recap-hot 700ms var(--ease-smooth);
+}
+.recap__look {
+  margin-inline-start: var(--space-2);
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  background: var(--toki-indigo);
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+[data-lang='ar'] .recap__look { letter-spacing: 0; }
+@keyframes recap-hot {
+  0% { transform: translateX(calc(var(--dir) * -4px)); }
+  50% { transform: translateX(calc(var(--dir) * 3px)); }
+  100% { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .recap__item--hot { animation: none; } }
