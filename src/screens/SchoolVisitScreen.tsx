@@ -10,6 +10,7 @@ import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import tokiHero from '../assets/raw/toki-face-teal-hero.png';
 import { TokiAvatar } from '../components/TokiAvatar';
 import { useLocale } from '../i18n/LocaleContext';
+import { useVoice } from '../audio/useVoice';
 import { UI, fmt } from '../i18n/ui';
 import { t, type Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
@@ -73,6 +74,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
   onComplete: (r: LevelResult) => void;
 }) {
   const { tx } = useLocale();
+  const voiceCtl = useVoice();
   const [phase, setPhase] = useState<Phase>('intro');
   const [activeId, setActiveId] = useState<string | null>(null);
   const [calls, setCalls] = useState<Record<string, { firstTry: boolean; done: boolean }>>({});
@@ -140,6 +142,14 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
     for (const k of ['priority', 'mission']) if ((attempts[k] ?? 0) > 0) att[k] = attempts[k];
     return { levelId: visit.id, score, reasoningBonusEarned: false, badgesEarned: clean ? visit.badgeTriggers : [], attempts: att };
   };
+
+  // Read aloud: the closing message, line by line, as it is revealed.
+  useEffect(() => {
+    if (phase === 'intro') voiceCtl.speak(tx(visit.scenario), 'narrator');
+    if (phase === 'reveal') voiceCtl.speakSequence([{ text: tx(visit.finalResponse) }, ...visit.finalMessage.map((l) => ({ text: tx(l) }))]);
+    return () => voiceCtl.cancel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
 
   useEffect(() => {
     if (phase !== 'reveal') return;

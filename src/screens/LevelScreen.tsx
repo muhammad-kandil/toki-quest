@@ -12,6 +12,7 @@ import { BeatIcon } from '../components/PeopleGlyphs';
 import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
 import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTypes';
 import { useLocale } from '../i18n/LocaleContext';
+import { useVoice } from '../audio/useVoice';
 import { UI, fmt } from '../i18n/ui';
 import type { Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
@@ -228,6 +229,7 @@ export type ObservableScene = Pick<LevelDefinition, 'title' | 'theme' | 'scenari
 
 export function ObserveBeat({ level, onContinue, ctaLabel }: { level: ObservableScene; onContinue: () => void; ctaLabel?: string }) {
   const { tx } = useLocale();
+  const voiceCtl = useVoice();
   const spots = level.evidence ?? [];
   const [inspected, setInspected] = useState<Set<string>>(new Set());
   const [activeClue, setActiveClue] = useState<string | null>(null);
@@ -241,6 +243,13 @@ export function ObserveBeat({ level, onContinue, ctaLabel }: { level: Observable
   useEffect(() => {
     if (spots.length && inspected.size === spots.length) sfx.play('evidenceAll');
   }, [inspected.size, spots.length]);
+
+  // Read aloud: the scenario, once, as the room opens; stop when we leave.
+  useEffect(() => {
+    voiceCtl.speak(tx(level.scenario), 'narrator');
+    return () => voiceCtl.cancel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const clue = spots.find((s) => s.id === activeClue);
 
@@ -335,6 +344,7 @@ function RevealBeat({ level, outcomes, result, heldBadges, outcome, onFinish }: 
   onFinish: () => void;
 }) {
   const { tx } = useLocale();
+  const voiceCtl = useVoice();
   const riskId = level.steps.assessRisk.correctId as RiskLevel;
   const riskMeta = RISK_META[riskId];
   const newBadges = result.badgesEarned.filter((b) => !heldBadges.includes(b));
@@ -342,6 +352,9 @@ function RevealBeat({ level, outcomes, result, heldBadges, outcome, onFinish }: 
   useEffect(() => {
     sfx.play(riskId === 'lethal' ? 'lethal' : 'reveal');
     if (newBadges.length) setTimeout(() => sfx.play('badge'), 900);
+    // Read aloud: the verdict and the first block.
+    voiceCtl.speak(`${tx(riskMeta.label)}. ${tx(level.reveal.whatDrifted)}`, 'narrator');
+    return () => voiceCtl.cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

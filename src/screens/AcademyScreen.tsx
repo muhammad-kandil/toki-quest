@@ -12,6 +12,7 @@ import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
 import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTypes';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
+import { useVoice } from '../audio/useVoice';
 import { UI, fmt } from '../i18n/ui';
 import { t, type Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
@@ -64,6 +65,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
   onComplete: (r: LevelResult) => void;
 }) {
   const { tx } = useLocale();
+  const voiceCtl = useVoice();
   const [phase, setPhase] = useState<Phase>('observe');
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [filed, setFiled] = useState(false);
@@ -142,10 +144,12 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
 
   useEffect(() => {
     if (phase === 'reveal') {
+      voiceCtl.speak(`${tx(riskLabel)}. ${tx(level.reveal.verdict)}`, 'narrator');
       sfx.play(level.assessRisk.correctId === 'lethal' ? 'lethal' : 'reveal');
       if (result().badgesEarned.some((b) => !heldBadges.includes(b))) setTimeout(() => sfx.play('badge'), 900);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => voiceCtl.cancel();
   }, [phase]);
 
   const riskId = level.assessRisk.correctId;

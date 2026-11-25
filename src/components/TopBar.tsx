@@ -2,6 +2,8 @@ import { useLocale } from '../i18n/LocaleContext';
 import { LANG_META } from '../i18n/types';
 import { UI } from '../i18n/ui';
 import { useSound } from '../audio/useSound';
+import { useVoice } from '../audio/useVoice';
+import './VoiceToggle.css';
 import './TopBar.css';
 
 /**
@@ -16,6 +18,7 @@ export function TopBar({ onBack, badgesCount, onOpenBadges }: {
 }) {
   const { lang, setLang, tx } = useLocale();
   const { on, toggle, play } = useSound();
+  const voiceCtl = useVoice();
   const other = lang === 'en' ? 'ar' : 'en';
 
   return (
@@ -42,6 +45,17 @@ export function TopBar({ onBack, badgesCount, onOpenBadges }: {
         >
           <SoundGlyph on={on} />
         </button>
+        {voiceCtl.available && (
+          <button
+            className={`topbar__btn topbar__btn--voice ${voiceCtl.on && on ? 'topbar__btn--voice-on' : 'topbar__btn--muted'}`}
+            onClick={() => { play('tap'); voiceCtl.toggle(); }}
+            aria-label={tx(voiceCtl.on ? UI.voiceOn : UI.voiceOff)}
+            aria-pressed={voiceCtl.on}
+            title={tx(voiceCtl.on ? UI.voiceOn : UI.voiceOff)}
+          >
+            <VoiceGlyph on={voiceCtl.on && on} />
+          </button>
+        )}
         <button
           className="topbar__btn topbar__btn--text topbar__lang"
           onClick={() => { play('tap'); setLang(other); }}
@@ -65,6 +79,24 @@ function SoundGlyph({ on }: { on: boolean }) {
         </>
       ) : (
         <path d="M17 9l5 6M22 9l-5 6" />
+      )}
+    </svg>
+  );
+}
+
+/** A speaking face with sound waves — "read aloud". */
+function VoiceGlyph({ on }: { on: boolean }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="9" r="4" />
+      <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+      {on ? (
+        <>
+          <path d="M17.5 8.5a3.5 3.5 0 0 1 0 5" className="voice-wave voice-wave--1" />
+          <path d="M20 6a7 7 0 0 1 0 10" className="voice-wave voice-wave--2" />
+        </>
+      ) : (
+        <path d="M17 9l5 5M22 9l-5 5" />
       )}
     </svg>
   );

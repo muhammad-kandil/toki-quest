@@ -151,6 +151,8 @@ export const UI = {
 
   // ---- Sound ----
   sound: t('Sound', 'الصوت'),
+  voiceOn: t('Read aloud: on', 'القراءة بصوت عالٍ: مفعّلة'),
+  voiceOff: t('Read aloud: off', 'القراءة بصوت عالٍ: متوقفة'),
   soundOn: t('Sound on', 'الصوت مفعّل'),
   soundOff: t('Sound off', 'الصوت متوقف'),
 
