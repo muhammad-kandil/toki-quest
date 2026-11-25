@@ -105,11 +105,12 @@ is blocked on this org). If a deploy fails with "try again later", re-run the jo
 | World 7 — The Lethal Mutation Academy (4 diagnosis classrooms + The Invisible Mutation) | ✅ |
 | Final World — The Master DLIS (The School Visit: 6 contexts, prioritisation, final mission) | ✅ |
 | Arabic/English + RTL, world map, badges gallery, interactive Observe + evidence recap | ✅ |
-| Coaching conversation — the teacher answers back; the outcome gates the badge (`docs/design/GAME_DESIGN_V3.md`) | ✅ Worlds 1 & 7 · Worlds 2–6 to author |
-| Soundscape — world bed, 16 cues, mixer (`docs/design/SOUND.md`) | ✅ |
-| Admin progress store — Supabase, Telegram-signed (`backend/`) | ✅ |
-| Difficulty pass, Worlds 2–6 (near-miss distractors) | in progress |
-| Product brief · game design v3 · director's cut | `docs/` |
-| Per-world scene art | reusing World 1 scenes; new art welcome |
-| Team review of Arabic | pending |
-| Return visits · contradicting evidence · Rive-animated Toki | next |
+| Coaching conversation — the teacher answers back in all 31 classrooms; reasoning comes before it; the outcome gates the badge (`docs/design/GAME_DESIGN_V3.md`) | ✅ |
+| Clue-pointing hints + evidence notebook that opens on a miss | ✅ |
+| Soundscape — world bed, 16 cues, mixer (`docs/design/SOUND.md`) · Read-aloud voice, opt-in (`docs/design/VOICE.md`) | ✅ |
+| 2.5D art pass · people/object evidence markers · beat strip (`docs/design/ART_DIRECTION.md`) | ✅ |
+| Admin progress store — Supabase, Telegram-signed; per-step attempts + conversation outcome; `v_toki_levels.first_try_rate` (`backend/`) | ✅ |
+| Difficulty pass, Worlds 2–6 · coach-panel validation · Arabic native-reader pass (`docs/content/`) | ✅ · panel edits being applied |
+| Product brief · game design v3 · director's cuts 1 & 2 | `docs/` |
+| Pilot (3 DLISs, Worlds 1–3 + 7, iPhone + Android) | **next — see `docs/design/DIRECTORS_CUT_2.md`** |
+| Per-world scene art · Rive-animated Toki · return visits · contradicting evidence | after the pilot |

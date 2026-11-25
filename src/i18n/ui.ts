@@ -71,8 +71,8 @@ export const UI = {
   howItCouldHaveGone: t('How it could have gone', 'كيف كان يمكن أن يسير الأمر'),
   visited: t('Visited', 'تمت الزيارة'),
   scoreNote: t(
-    'Full points for a right call on the first try. Each guess after that still counts for something — but a clean first-try run is what earns the badge.',
-    'النقاط كاملة عند الإجابة الصحيحة من المحاولة الأولى. المحاولات التالية تُحتسب جزئيًا، لكن الشارة لا تُمنح إلا لجولة نظيفة من المحاولة الأولى.',
+    'Full points for a right call on the first try. Each guess after that still counts for something — but the badge needs a clean first-try run and a teacher who changed something.',
+    'النقاط كاملة عند الإجابة الصحيحة من المحاولة الأولى. المحاولات التالية تُحتسب جزئيًا، لكن الشارة تحتاج جولة نظيفة من المحاولة الأولى ومعلّمًا غيّر شيئًا بالفعل.',
   ),
   driftIdentified: t('Drift identified', 'تحديد الانحراف'),
   riskAssessed: t('Risk assessed', 'تقييم الخطورة'),
@@ -143,8 +143,8 @@ export const UI = {
   // ---- Badges gallery ----
   yourBadges: t('Your Badges', 'شاراتك'),
   badgesHint: t(
-    'Earned with a clean first-try run — they mark real diagnostic skill, not speed.',
-    'تُكتسب بجولة نظيفة من المحاولة الأولى — فهي تعكس مهارة تشخيص حقيقية، لا السرعة.',
+    'Earned with a clean first-try run and a teacher who changed something — they mark judgement delivered, not speed.',
+    'تُكتسب بجولة نظيفة من المحاولة الأولى ومعلّم غيّر شيئًا بالفعل — فهي تعكس حكمًا وُضع موضع التنفيذ، لا السرعة.',
   ),
   badgeLocked: t('Not yet earned', 'لم تُكتسب بعد'),
   earnedOn: t('Earned', 'مكتسبة'),
