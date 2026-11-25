@@ -8,8 +8,133 @@ import sceneOut from '../../assets/scenes/classroom-3-output.jpg';
 import sceneAssess from '../../assets/scenes/classroom-4-assessment.jpg';
 import sceneAct from '../../assets/scenes/classroom-2-activity.jpg';
 import type { LevelDefinition } from '../levelTypes';
+import type { ConversationDefinition } from '../conversationTypes';
 import { RISK_OPTIONS } from '../levelTypes';
 import { t } from '../../i18n/types';
+
+/** 41 — Well Done! Ms. Latifa, proud of a happy room. */
+const CONVO_41: ConversationDefinition = {
+  teacherName: t('Ms. Latifa', 'الأستاذة لطيفة'),
+  stance: 'proud',
+  setting: t('Tidy-up time. Twenty drawings dry on a line and she is pinning up one more.', 'وقت الترتيب. عشرون رسمة تجفّ على الحبل وهي تعلّق واحدة أخرى.'),
+  read: t('Children run to her in the corridor. The warmth is not a technique; it is who she is, and the room works because of it.', 'يركض الأطفال إليها في الممر. الدفء ليس أسلوبًا؛ إنه هي، والغرفة تعمل بفضله.'),
+  turns: [
+    {
+      teacherLine: t('They are so little. If I start picking at their work, half of them stop trying. You saw how happy they were.', 'إنهم صغار جدًا. إن بدأت بانتقاد أعمالهم، يتوقف نصفهم عن المحاولة. رأيت كم كانوا سعداء.'),
+      options: [
+        { id: 'a', effect: 'opens', label: t('I did. And the boy with the house drawing kept looking at you after "beautiful". What do you think he wanted to know?', 'رأيت. والولد صاحب رسمة البيت ظل ينظر إليك بعد «جميلة». ما الذي تظنين أنه أراد معرفته؟'), reply: t('Which part. He always asks which part. I usually say "all of it".', 'أي جزء. دائمًا يسأل أي جزء. وأنا عادة أقول «كلها».') },
+        { id: 'b', effect: 'neutral', label: t('You are right to protect that. The confidence in this room is the foundation for everything else.', 'أنتِ على حق في حماية ذلك. الثقة في هذه الغرفة أساس كل ما عداها.'), reply: t('Thank you. Some people think kindergarten is just colouring.', 'شكرًا. بعض الناس يظنون أن الروضة مجرد تلوين.') },
+        { id: 'c', effect: 'closes', label: t('Twenty-three "well dones" in ten minutes told them nothing. Praise without information is empty.', 'ثلاث وعشرون «أحسنت» في عشر دقائق لم تخبرهم شيئًا. المدح بلا معلومة فارغ.'), reply: t('Empty. Come back when they cry because nobody said anything kind.', 'فارغ. عُد حين يبكون لأن أحدًا لم يقل كلمة لطيفة.') },
+      ],
+    },
+    {
+      teacherLine: t('So I should say "well done" less?', 'إذًا أقول «أحسنت» أقل؟'),
+      options: [
+        { id: 'a', effect: 'opens', label: t('Say it, then add one thing. "Beautiful — the way you coloured inside the roof. Try that on the door." Same warmth, and now he knows.', 'قوليها، ثم أضيفي شيئًا واحدًا. «جميلة — الطريقة التي لوّنت بها داخل السقف. جرّبها على الباب.» الدفء نفسه، والآن يعرف.'), reply: t('"Try that on the door." That is one more sentence. I could do that with every child.', '«جرّبها على الباب.» هذه جملة واحدة أخرى. أستطيع فعلها مع كل طفل.') },
+        { id: 'b', effect: 'neutral', label: t('Keep the praise; maybe balance it with a little more effort language — "you kept going".', 'احتفظي بالمدح؛ وربما وازنيه بمزيد من لغة الجهد — «واصلت المحاولة».'), reply: t('I do say that. I will say it more.', 'أقول ذلك فعلًا. سأقولها أكثر.') },
+        { id: 'c', effect: 'closes', label: t('Use a feedback frame on every piece of work — two stars and a wish. I can send the template.', 'استخدمي إطارًا للتغذية الراجعة على كل عمل — نجمتان وأمنية. أستطيع إرسال النموذج.'), reply: t('A template. For four-year-olds. Send it, I will laminate it.', 'نموذج. لأطفال في الرابعة. أرسله، سأغلّفه.') },
+      ],
+    },
+  ],
+  outcomes: {
+    restored: t('"Beautiful — and the roof is your neatest colouring yet. Try the door." The praise is still everywhere; each piece now carries a next step.', '«جميلة — والسقف أرتب تلوين لك حتى الآن. جرّب الباب.» المدح ما زال في كل مكان؛ وكل عبارة منه تحمل الآن خطوة تالية.'),
+    partial: t('More "you kept going" now. The boy with the house still does not know which part was beautiful.', 'المزيد من «واصلت المحاولة» الآن. ولد البيت ما زال لا يعرف أي جزء كان جميلًا.'),
+    unchanged: t('The template is laminated, on the wall, unused. "Well done!" twenty-three times, said a little more carefully when Toki is in the room.', 'النموذج مغلّف، على الجدار، غير مستخدم. «أحسنت!» ثلاثًا وعشرين مرة، تُقال بحذر أكبر قليلًا حين يكون توكي في الغرفة.'),
+  },
+};
+
+/** 42 — Teacher Does All the Talking. Mr. Tariq, the best explainer in the building. */
+const CONVO_42: ConversationDefinition = {
+  teacherName: t('Mr. Tariq', 'الأستاذ طارق'),
+  stance: 'proud',
+  setting: t('The lab bench after the bell. He is still holding the work he used for the feedback.', 'طاولة المختبر بعد الجرس. ما زال يحمل العمل الذي استخدمه للتغذية الراجعة.'),
+  read: t('Fifteen years in. His feedback is a small lecture because lectures are what he does best, and this one was good.', 'خمسة عشر عامًا في المهنة. تغذيته الراجعة محاضرة صغيرة لأن المحاضرات هي ما يجيده، وهذه كانت جيدة.'),
+  turns: [
+    {
+      teacherLine: t('Six points, all things they actually got wrong. I do not sugar-coat it. They know exactly where they stand.', 'ست نقاط، كلها أشياء أخطؤوا فيها فعلًا. لا أجمّل الأمر. يعرفون تمامًا أين يقفون.'),
+      options: [
+        { id: 'a', effect: 'opens', label: t('They do — I wrote all six down myself. Then you said "next task" and the folders closed. What were you hoping they would do with the six?', 'يعرفون — كتبت الست بنفسي. ثم قلت «المهمة التالية» وأُغلقت الملفات. ما الذي كنت تأمل أن يفعلوه بالست؟'), reply: t('Use them. On the next one. Which is a different task, so… no, they could not, could they.', 'يستخدمونها. في التالية. وهي مهمة مختلفة، إذًا… لا، لم يستطيعوا، أليس كذلك.') },
+        { id: 'b', effect: 'neutral', label: t('It was expert feedback. I learned something about the practical myself, listening to it.', 'كانت تغذية راجعة خبيرة. تعلّمت أنا نفسي شيئًا عن التجربة وأنا أستمع.'), reply: t('Most coaches do not follow the chemistry. Good.', 'معظم المدرّبين لا يتابعون الكيمياء. جيد.') },
+        { id: 'c', effect: 'closes', label: t('Feedback nobody acts on is a speech, not feedback. The research on this is clear.', 'التغذية الراجعة التي لا يعمل بها أحد خطبة، لا تغذية راجعة. البحوث في هذا واضحة.'), reply: t('A speech. Fifteen years of speeches, apparently. Send me the research; I will file it.', 'خطبة. خمسة عشر عامًا من الخطب، على ما يبدو. أرسل لي البحوث؛ سأحفظها في الملف.') },
+      ],
+    },
+    {
+      teacherLine: t('So I give them time to fix it. Six points, twenty-six students — that is the whole lesson gone.', 'إذًا أعطيهم وقتًا لإصلاحه. ست نقاط، ستة وعشرون طالبًا — هذا الدرس كله ضاع.'),
+      options: [
+        { id: 'a', effect: 'opens', label: t('One point, not six. "Fix the units in your table — five minutes." Same feedback, but it ends in their hands, not in the folder.', 'نقطة واحدة، لا ست. «صحّحوا الوحدات في جدولكم — خمس دقائق.» التغذية الراجعة نفسها، لكنها تنتهي في أيديهم لا في الملف.'), reply: t('Five minutes, one thing. I could put the other five on the board for the ones who finish.', 'خمس دقائق، شيء واحد. أستطيع وضع الخمس الأخرى على السبورة لمن ينتهي.') },
+        { id: 'b', effect: 'neutral', label: t('Maybe have them note the points down so they carry over to the next practical.', 'ربما اجعلهم يدوّنون النقاط لتُنقل إلى التجربة التالية.'), reply: t('They have notebooks. I will tell them to use them.', 'لديهم دفاتر. سأقول لهم أن يستخدموها.') },
+        { id: 'c', effect: 'closes', label: t('It is a priority question. Learning matters more than finishing the scheme of work.', 'إنها مسألة أولويات. التعلّم أهم من إنهاء خطة المنهج.'), reply: t('Tell the head of science that in June. I will give you her email.', 'قل ذلك لرئيسة قسم العلوم في يونيو. سأعطيك بريدها.') },
+      ],
+    },
+  ],
+  outcomes: {
+    restored: t('Feedback is one point and five minutes of green pen before the folder closes. The student who said "be more careful" now says "the units".', 'التغذية الراجعة نقطة واحدة وخمس دقائق بالقلم الأخضر قبل أن يُغلق الملف. الطالب الذي قال «أكون أكثر حذرًا» يقول الآن «الوحدات».'),
+    partial: t('Students write the six points in their notebooks. The notebooks go in the bag. The next practical has the same six.', 'يكتب الطلاب النقاط الست في دفاترهم. تذهب الدفاتر إلى الحقيبة. التجربة التالية فيها النقاط الست نفسها.'),
+    unchanged: t('The research is filed. The feedback is still six points and four minutes, delivered now with a glance at the door.', 'البحوث في الملف. التغذية الراجعة ما زالت ست نقاط وأربع دقائق، تُلقى الآن مع نظرة نحو الباب.'),
+  },
+};
+
+/** 43 — Written Comments. Ms. Reem, marking every weekend and running on empty. */
+const CONVO_43: ConversationDefinition = {
+  teacherName: t('Ms. Reem', 'الأستاذة ريم'),
+  stance: 'tired',
+  setting: t('Sunday, first period. The marked essays are on her desk, and so is the next set, unmarked.', 'الأحد، الحصة الأولى. المقالات المصحَّحة على مكتبها، وبجانبها المجموعة التالية، غير مصحَّحة.'),
+  read: t('Eleven comments per essay, every weekend, for twenty-six students. She is not defending the practice; she is carrying it.', 'أحد عشر تعليقًا لكل مقال، كل عطلة، لستة وعشرين طالبًا. هي لا تدافع عن الممارسة؛ هي تحملها.'),
+  turns: [
+    {
+      teacherLine: t('I know what you are going to say. Too many comments. But if I write less, they say I do not care.', 'أعرف ما ستقوله. تعليقات كثيرة جدًا. لكن إن كتبت أقل، يقولون إنني لا أهتم.'),
+      options: [
+        { id: 'a', effect: 'opens', label: t('I was not going to say that. I watched Hamad get his essay back: grade, back page, grade again, bag. How many of the eleven did he read?', 'لم أكن سأقول ذلك. راقبت حمد وهو يستلم مقاله: الدرجة، الصفحة الأخيرة، الدرجة مرة أخرى، الحقيبة. كم من الأحد عشر قرأ؟'), reply: t('None. He never does. None of them do, really. I write them anyway.', 'ولا واحدًا. لا يقرأ أبدًا. لا أحد منهم يقرأ، في الحقيقة. أكتبها على أي حال.') },
+        { id: 'b', effect: 'neutral', label: t('Nobody could say you do not care. That marking is the most thorough I have seen this year.', 'لا أحد يستطيع القول إنك لا تهتمين. هذا التصحيح الأكثر شمولًا الذي رأيته هذا العام.'), reply: t('Thorough. Yes. It takes my whole Saturday.', 'شامل. نعم. يستهلك سبتي كله.') },
+        { id: 'c', effect: 'closes', label: t('Eleven comments is more than anyone can take in. Research says three at most.', 'أحد عشر تعليقًا أكثر مما يستطيع أحد استيعابه. تقول البحوث ثلاثة على الأكثر.'), reply: t('Three. So I spend my Saturday writing three. And when parents ask why the margin is empty?', 'ثلاثة. إذًا أقضي سبتي أكتب ثلاثة. وحين يسأل الأهل لماذا الهامش فارغ؟') },
+      ],
+    },
+    {
+      teacherLine: t('Then what is the point of any of it? I could write the grade and go home.', 'إذًا ما الفائدة من أي منها؟ أستطيع كتابة الدرجة والعودة إلى البيت.'),
+      options: [
+        { id: 'a', effect: 'opens', label: t('What if Monday opened with "fix the one thing in your margin" before anyone sees a grade? Three comments, twenty minutes, and your Saturday back.', 'ماذا لو بدأ الاثنين بـ«أصلحوا الشيء الواحد في هامشكم» قبل أن يرى أحد درجة؟ ثلاثة تعليقات، عشرون دقيقة، وسبتك يعود إليك.'), reply: t('Before the grade. They would actually have to read it. …My Saturday back.', 'قبل الدرجة. سيضطرون فعلًا إلى قراءته. …سبتي يعود إليّ.') },
+        { id: 'b', effect: 'neutral', label: t('The point is the thinking you do while marking — it shapes the next lesson even if they never read it.', 'الفائدة هي التفكير الذي تقومين به أثناء التصحيح — يشكّل الدرس التالي حتى لو لم يقرؤوه.'), reply: t('I suppose. It would be nice if it shaped them, too.', 'ربما. سيكون لطيفًا لو شكّلهم هم أيضًا.') },
+        { id: 'c', effect: 'closes', label: t('With the next essay due Friday, the comments cannot land anyway. The planning has to change first.', 'مع موعد المقال التالي يوم الجمعة، لا يمكن للتعليقات أن تصل على أي حال. التخطيط يجب أن يتغير أولًا.'), reply: t('The planning. Which I did. On Sunday. After the marking.', 'التخطيط. الذي أنجزته. يوم الأحد. بعد التصحيح.') },
+      ],
+    },
+  ],
+  outcomes: {
+    restored: t('Three comments. Monday opens with twenty minutes of revision and no grade on the page. Hamad read his margin because it was the only way to find out what he got.', 'ثلاثة تعليقات. يبدأ الاثنين بعشرين دقيقة من المراجعة ولا درجة على الصفحة. قرأ حمد هامشه لأنها كانت الطريقة الوحيدة ليعرف ما حصل عليه.'),
+    partial: t('Still eleven comments, still Saturday. She says the marking helps her plan. The margins are still unread.', 'ما زالت أحد عشر تعليقًا، وما زال السبت. تقول إن التصحيح يساعدها على التخطيط. الهوامش ما زالت غير مقروءة.'),
+    unchanged: t('The essays come back Friday with eleven comments. The next one is due the Friday after. She did not answer Toki about a follow-up.', 'تعود المقالات يوم الجمعة بأحد عشر تعليقًا. التالية مطلوبة الجمعة التي بعدها. لم تردّ على توكي بشأن المتابعة.'),
+  },
+};
+
+/** 44 — Correcting Without Improving. Mr. Faisal follows the policy to the letter and expects credit for it. */
+const CONVO_44: ConversationDefinition = {
+  teacherName: t('Mr. Faisal', 'الأستاذ فيصل'),
+  stance: 'defensive',
+  setting: t('His desk, the department feedback policy pinned above it. A pile of books, green pen in every one.', 'مكتبه، وسياسة التغذية الراجعة للقسم معلّقة فوقه. كومة دفاتر، قلم أخضر في كل واحد.'),
+  read: t('The last coach praised these books. He expects this one to do the same, and he has the policy ready in case it does not.', 'المدرّب السابق أشاد بهذه الدفاتر. يتوقع من هذا المدرّب أن يفعل مثله، والسياسة جاهزة في حال لم يفعل.'),
+  turns: [
+    {
+      teacherLine: t('Green pen corrections after every task. Every student, every time. That is the policy and these books prove it.', 'تصحيحات بالقلم الأخضر بعد كل مهمة. كل طالب، كل مرة. هذه هي السياسة وهذه الدفاتر تثبت ذلك.'),
+      options: [
+        { id: 'a', effect: 'opens', label: t('They do — I have never seen it followed this consistently. May I show you one thing? Page 12, page 19, page 27: the same sign error, in green, three times.', 'تثبت ذلك — لم أرَ السياسة تُتَّبع بهذا الاتساق قط. هل أريك شيئًا واحدًا؟ الصفحة ١٢، الصفحة ١٩، الصفحة ٢٧: خطأ الإشارة نفسه، بالأخضر، ثلاث مرات.'), reply: t('…Three times. He corrected it three times. Where is he getting it from?', '…ثلاث مرات. صحّحه ثلاث مرات. من أين يأتي به؟') },
+        { id: 'b', effect: 'neutral', label: t('The books are immaculate. If every department followed policy like this, my job would be easy.', 'الدفاتر لا تشوبها شائبة. لو اتبع كل قسم السياسة هكذا، لكان عملي سهلًا.'), reply: t('Tell the head of maths. She thinks I am slow on the scheme.', 'قل ذلك لرئيسة قسم الرياضيات. تظن أنني بطيء في خطة المنهج.') },
+        { id: 'c', effect: 'closes', label: t('The policy is being followed and it is not working. Copying the right answer is not learning.', 'السياسة تُتَّبع وهي لا تعمل. نسخ الإجابة الصحيحة ليس تعلّمًا.'), reply: t('Not working. So the policy is wrong, or I am? Because I did not write it.', 'لا تعمل. إذًا السياسة خاطئة، أم أنا؟ لأنني لم أكتبها.') },
+      ],
+    },
+    {
+      teacherLine: t('If the policy says correct it, they correct it. What do you want, a different policy?', 'إن كانت السياسة تقول صحّحوه، فهم يصحّحونه. ماذا تريد، سياسة مختلفة؟'),
+      options: [
+        { id: 'a', effect: 'opens', label: t('Same policy, one line added in green: "I was wrong because…", then a fresh question. The books stay the model; the error stops coming back.', 'السياسة نفسها، وسطر واحد يُضاف بالأخضر: «كنت مخطئًا لأن…»، ثم سؤال جديد. تبقى الدفاتر النموذج؛ ويتوقف الخطأ عن العودة.'), reply: t('"Because." One line. That is still a correction, technically. Nobody could say it is not.', '«لأن.» سطر واحد. هذا ما زال تصحيحًا، من الناحية الفنية. لا أحد يستطيع القول إنه ليس كذلك.') },
+        { id: 'b', effect: 'neutral', label: t('Keep doing exactly this. Maybe reteach sign rules once to the whole class.', 'استمرّ في فعل هذا تمامًا. ربما أعد تدريس قواعد الإشارة مرة للصف كله.'), reply: t('I taught it in September. I can teach it again if you want it on the plan.', 'درّستها في سبتمبر. أستطيع تدريسها مجددًا إن أردتها على الخطة.') },
+        { id: 'c', effect: 'closes', label: t('I want students to understand, not to perform the policy. That is the difference between compliance and learning.', 'أريد الطلاب أن يفهموا، لا أن يؤدّوا السياسة. هذا هو الفرق بين الامتثال والتعلّم.'), reply: t('Compliance. Put that in your report. "Mr. Faisal complies."', 'امتثال. ضعها في تقريرك. «الأستاذ فيصل يمتثل.»') },
+      ],
+    },
+  ],
+  outcomes: {
+    restored: t('Every green correction now has a "because" and a new question beneath it. The sign error appeared once more in week two, then not again. The books are still the department model.', 'كل تصحيح أخضر الآن يحمل «لأن» وسؤالًا جديدًا تحته. ظهر خطأ الإشارة مرة أخرى في الأسبوع الثاني، ثم لم يعد. الدفاتر ما زالت نموذج القسم.'),
+    partial: t('Sign rules were retaught in a Tuesday starter. The green pen still copies the board. Page 34 has the error again.', 'أُعيد تدريس قواعد الإشارة في بداية درس الثلاثاء. القلم الأخضر ما زال ينسخ السبورة. الصفحة ٣٤ فيها الخطأ مجددًا.'),
+    unchanged: t('The books are perfect. The policy is followed. He asked the head of department whether coaching visits are optional.', 'الدفاتر مثالية. السياسة متَّبعة. سأل رئيسة القسم عمّا إذا كانت زيارات التدريب اختيارية.'),
+  },
+};
 
 export const LEVEL_41: LevelDefinition = {
   id: 41,
@@ -36,13 +161,13 @@ export const LEVEL_41: LevelDefinition = {
         { id: 'guides', label: t('Whether any child could say what to do differently next', 'هل يستطيع أي طفل أن يقول ما سيفعله بشكل مختلف بعد ذلك') },
       ],
       correctId: 'guides',
-      hint: t('The wrong answer on the board is one clue, but the drawing was praised and it was good. Twenty-three pieces of praise, zero of information — which option counts the zero?', 'الإجابة الخاطئة على السبورة دليل واحد، لكن الرسمة مُدحت وكانت جيدة. ثلاث وعشرون عبارة مدح، صفر معلومة — أي خيار يعدّ الصفر؟'),
+      hint: t('Look at the drawing clue: the child beams and does not know what to try. If every one of the 23 pieces of praise had been sincere and fair, would that have changed?', 'انظر إلى دليل الرسمة: يبتسم الطفل ولا يعرف ما يجرّبه. لو كانت كل عبارات المدح الثلاث والعشرون صادقة وعادلة، هل كان ذلك سيتغير؟'),
     },
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
       correctId: 'minor',
-      hint: t('The warmth is real and valuable — it just needs information added to it. This is the gentlest drift in the world: easy to fix, costly to ignore.', 'الدفء حقيقي وقيّم — يحتاج فقط إلى إضافة معلومة. هذا ألطف انحراف في هذا العالم: سهل الإصلاح، مكلف التجاهل.'),
+      hint: t('Go back to Toki’s tally: 23 and 0. Is anything in this room actively harming the children, or is something simply absent from a room that works?', 'عُد إلى إحصاء توكي: ٢٣ و٠. هل يوجد في هذه الغرفة ما يؤذي الأطفال فعليًا، أم أن شيئًا ما غائب فقط عن غرفة تعمل؟'),
     },
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
@@ -53,7 +178,7 @@ export const LEVEL_41: LevelDefinition = {
         { id: 'peer', label: t('Have children say one specific thing they liked about each other’s work', 'دع الأطفال يقولون شيئًا محددًا واحدًا أعجبهم في عمل بعضهم') },
       ],
       correctId: 'praise-plus',
-      hint: t('Correcting the board fixes one of the three clues. Effort praise is still praise. Peer comments move the job to the children. Which move changes the 23 sentences the teacher already says?', 'تصحيح السبورة يعالج دليلًا واحدًا من ثلاثة. مدح الجهد ما زال مدحًا. تعليقات الأقران تنقل المهمة إلى الأطفال. أي خطوة تغيّر الجمل الثلاث والعشرين التي تقولها المعلّمة أصلًا؟'),
+      hint: t('Three of these moves change who speaks or what gets corrected. Read the drawing clue once more: what did the boy need to hear right after "beautiful"?', 'ثلاث من هذه الخطوات تغيّر مَن يتحدث أو ما يُصحَّح. اقرأ دليل الرسمة مرة أخرى: ما الذي كان الولد بحاجة إلى سماعه مباشرة بعد «جميلة»؟'),
     },
     reasoning: {
       prompt: t('Why add to the praise rather than reduce it?', 'لماذا نضيف إلى المدح بدل تقليله؟'),
@@ -64,10 +189,11 @@ export const LEVEL_41: LevelDefinition = {
         { id: 'r2', label: t('One specific detail turns a warm moment into a learning moment', 'تفصيل محدد واحد يحوّل اللحظة الدافئة إلى لحظة تعلّم') },
       ],
       correctId: 'r2',
-      hint: t('What did the boy with the drawing walk away knowing?', 'بماذا عرف الطفل صاحب الرسمة حين غادر؟'),
+      hint: t('The drawing clue: he beams, and does not know which part. What was the missing ingredient in that moment — less warmth, or something added to it?', 'دليل الرسمة: يبتسم، ولا يعرف أي جزء. ما المكوّن الناقص في تلك اللحظة — دفء أقل، أم شيء يُضاف إليه؟'),
       bonusPoints: 25,
     },
   },
+  conversation: CONVO_41,
   reveal: {
     whatDrifted: t(
       'Encouragement has replaced feedback. The children feel good and learn nothing from the comment itself about what to keep or change.',
@@ -111,13 +237,13 @@ export const LEVEL_42: LevelDefinition = {
         { id: 'priority', label: t('Whether the teacher signals which of the six points matters most', 'هل يشير المعلّم إلى أي النقاط الست هي الأهم') },
       ],
       correctId: 'action',
-      hint: t('Notes and a priority would make the six points easier to carry. Look at the second clue: "Okay — next task", and the folder closes. Which option looks at that moment?', 'التدوين والأولوية سيجعلان النقاط الست أسهل حملًا. انظر إلى الدليل الثاني: «حسنًا — المهمة التالية»، ويُغلق الملف. أي خيار ينظر إلى تلك اللحظة؟'),
+      hint: t('The second clue: "Okay — next task", and the flawed work goes in the folder untouched. Which option is asking about that moment rather than about the six points?', 'الدليل الثاني: «حسنًا — المهمة التالية»، ويذهب العمل المعيب إلى الملف دون أن يُمَس. أي خيار يسأل عن تلك اللحظة لا عن النقاط الست؟'),
     },
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
       correctId: 'moderate',
-      hint: t('The content of the feedback is strong — the delivery just never reaches the work. That’s a gap to close soon, not a practice that has lost its purpose.', 'محتوى التغذية الراجعة قوي — لكن التقديم لا يصل أبدًا إلى العمل. فجوة تُغلق قريبًا، لا ممارسة فقدت غايتها.'),
+      hint: t('The feedback clue says all six points were correct and expert. The student clue says "be more careful". Is the practice itself broken, or is one step missing from it?', 'يقول دليل التغذية الراجعة إن النقاط الست كلها صحيحة وخبيرة. ويقول دليل الطالب «أكون أكثر حذرًا». هل الممارسة نفسها معطّلة، أم أن خطوة واحدة ناقصة منها؟'),
     },
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
@@ -128,7 +254,7 @@ export const LEVEL_42: LevelDefinition = {
         { id: 'act', label: t('End every feedback with five minutes in which students revise one thing in the work just done', 'أنهِ كل تغذية راجعة بخمس دقائق يراجع فيها الطلاب شيئًا واحدًا في العمل الذي أنجزوه للتو') },
       ],
       correctId: 'act',
-      hint: t('Fewer points, written points, a model — all better feedback. The student said "be more careful" because nothing happened to his work. Which move touches the work?', 'نقاط أقل، نقاط مكتوبة، نموذج — كلها تغذية راجعة أفضل. قال الطالب «أن أكون أكثر حرصًا» لأن شيئًا لم يحدث لعمله. أي خطوة تمسّ العمل؟'),
+      hint: t('Three of these improve how the six points are said or shown. Look at "when it ends": the folder closes. Which move changes what happens to the work in the folder?', 'ثلاث من هذه تحسّن طريقة قول النقاط الست أو عرضها. انظر إلى «حين تنتهي»: يُغلق الملف. أي خطوة تغيّر ما يحدث للعمل في الملف؟'),
     },
     reasoning: {
       prompt: t('Why five minutes of revision rather than a clearer handout?', 'لماذا خمس دقائق مراجعة بدل ورقة أوضح؟'),
@@ -139,10 +265,11 @@ export const LEVEL_42: LevelDefinition = {
         { id: 'r4', label: t('The revised work hands the teacher evidence that the feedback actually landed', 'العمل المراجَع يعطي المعلّم دليلًا على أن التغذية الراجعة وصلت') },
       ],
       correctId: 'r2',
-      hint: t('Where does feedback become learning — in the ear, or in the hand?', 'أين تصبح التغذية الراجعة تعلّمًا — في الأذن أم في اليد؟'),
+      hint: t('The student said "be more careful" after four minutes of expert feedback. What did he not get to do between hearing it and "next task"?', 'قال الطالب «أكون أكثر حذرًا» بعد أربع دقائق من تغذية راجعة خبيرة. ما الذي لم تُتَح له فرصة فعله بين سماعها و«المهمة التالية»؟'),
       bonusPoints: 25,
     },
   },
+  conversation: CONVO_42,
   reveal: {
     whatDrifted: t(
       'Feedback has become a performance by the teacher rather than an action by the student. Expert advice is delivered, received, and filed.',
@@ -186,13 +313,13 @@ export const LEVEL_43: LevelDefinition = {
         { id: 'cost', label: t('Whether the weekend marking is sustainable for the teacher', 'هل تصحيح عطلة الأسبوع قابل للاستمرار بالنسبة إلى المعلّمة') },
       ],
       correctId: 'use',
-      hint: t('Eleven is too many and the cost is real — but even three perfect comments die on an essay nobody returns to. The third clue says "due Friday — new topic". Which option follows it?', 'أحد عشر كثير والكلفة حقيقية — لكن حتى ثلاثة تعليقات مثالية تموت على مقال لا يعود إليه أحد. يقول الدليل الثالث «موعدها الجمعة — موضوع جديد». أي خيار يتبعه؟'),
+      hint: t('Follow the third clue: "due Friday — on a new topic". Even if the eleven comments were three perfect ones, what would happen to them by Friday?', 'اتبع الدليل الثالث: «مطلوب الجمعة — في موضوع جديد». حتى لو كانت التعليقات الأحد عشر ثلاثة تعليقات مثالية، ماذا سيحدث لها بحلول الجمعة؟'),
     },
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
       correctId: 'high',
-      hint: t('The teacher’s most expensive effort is producing almost nothing — and it’s burning her out. That’s a serious drift for the students and the teacher both.', 'أغلى جهد تبذله المعلّمة لا يُنتج شيئًا تقريبًا — وهو يستنزفها. انحراف خطير للطلاب والمعلّمة معًا.'),
+      hint: t('The margin clue: hours of weekend work. The student clue: the margin is never read. Who is paying for this practice, and what are they getting back?', 'دليل الهامش: ساعات من عمل العطلة. دليل الطالب: الهامش لا يُقرأ أبدًا. مَن يدفع ثمن هذه الممارسة، وماذا يحصل في المقابل؟'),
     },
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
@@ -203,7 +330,7 @@ export const LEVEL_43: LevelDefinition = {
         { id: 'codes', label: t('Replace written comments with marking codes keyed to a class sheet', 'استبدلي التعليقات المكتوبة برموز تصحيح مرتبطة بورقة للصف') },
       ],
       correctId: 'revise',
-      hint: t('Three comments are better than eleven, and holding the grade back makes the margin get read — but read is not the same as used. Which move puts the essay back in the student’s hands?', 'ثلاثة تعليقات أفضل من أحد عشر، وحجب الدرجة يجعل الهامش يُقرأ — لكن القراءة ليست الاستخدام. أي خطوة تعيد المقال إلى يد الطالب؟'),
+      hint: t('Two of these make the margin shorter or get it read. Look at the "next essay" clue again: new topic, Friday. Which move gives this essay a second life before that?', 'اثنتان من هذه تجعلان الهامش أقصر أو تجعلانه يُقرأ. انظر إلى دليل «المقال التالي» مجددًا: موضوع جديد، الجمعة. أي خطوة تمنح هذا المقال حياة ثانية قبل ذلك؟'),
     },
     reasoning: {
       prompt: t('Why does the revision lesson matter more than the comments themselves?', 'لماذا يهمّ درس المراجعة أكثر من التعليقات نفسها؟'),
@@ -214,10 +341,11 @@ export const LEVEL_43: LevelDefinition = {
         { id: 'r4', label: t('Students who revise one essay write the next one better', 'الطلاب الذين يراجعون مقالًا يكتبون التالي أفضل') },
       ],
       correctId: 'r2',
-      hint: t('What happens to a comment nobody acts on?', 'ما مصير تعليق لا يعمل به أحد؟'),
+      hint: t('The student flipped to the grade and put the essay away. Where, in the week that followed, could any comment have changed his writing?', 'قلّب الطالب إلى الدرجة ووضع المقال جانبًا. أين، في الأسبوع الذي تلا، كان يمكن لأي تعليق أن يغيّر كتابته؟'),
       bonusPoints: 25,
     },
   },
+  conversation: CONVO_43,
   reveal: {
     whatDrifted: t(
       'Writing the feedback has become the whole practice. The comments are excellent and unread, because nothing in the week asks the student to use them.',
@@ -261,13 +389,13 @@ export const LEVEL_44: LevelDefinition = {
         { id: 'timing', label: t('Whether corrections happen the same day or a week later', 'هل يحدث التصحيح في اليوم نفسه أم بعد أسبوع') },
       ],
       correctId: 'transfer',
-      hint: t('Working, source and timing would all improve the correction. The second clue is the one to follow: the same sign error, five times, three weeks. Which option asks about the sixth time?', 'الخطوات والمصدر والتوقيت كلها ستحسّن التصحيح. الدليل الثاني هو ما ينبغي تتبّعه: خطأ الإشارة نفسه، خمس مرات، ثلاثة أسابيع. أي خيار يسأل عن المرة السادسة؟'),
+      hint: t('Working, source and timing are all about this correction. Read the "three weeks" clue: the same sign error, five times. Which option asks about the sixth time?', 'طريقة الحل والمصدر والتوقيت كلها عن هذا التصحيح. اقرأ دليل «ثلاثة أسابيع»: خطأ الإشارة نفسه، خمس مرات. أي خيار يسأل عن المرة السادسة؟'),
     },
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
       correctId: 'lethal',
-      hint: t('The practice is followed perfectly and produces no learning at all — the most dangerous kind of drift, because the books say everything is fine.', 'تُتّبع الممارسة بإتقان ولا تُنتج أي تعلّم على الإطلاق — أخطر أنواع الانحراف، لأن الدفاتر تقول إن كل شيء على ما يرام.'),
+      hint: t('The green pen clue: the correction is perfect every time. The "ask a student" clue: "I don’t know. I fixed it though." If the books look like a model and the error never leaves, what has the practice become?', 'دليل القلم الأخضر: التصحيح مثالي في كل مرة. دليل «اسأل طالبًا»: «لا أعرف. لكنني أصلحته.» إن كانت الدفاتر تبدو نموذجًا والخطأ لا يغادر أبدًا، فماذا أصبحت الممارسة؟'),
     },
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
@@ -278,7 +406,7 @@ export const LEVEL_44: LevelDefinition = {
         { id: 'track', label: t('Keep a tally of each student’s repeated errors and target them in the next day’s starter', 'احتفظ بإحصاء لأخطاء كل طالب المتكررة واستهدفها في نشاط البداية') },
       ],
       correctId: 'why-then-new',
-      hint: t('Full working can still be copied from the board. Reteaching and tallies act on the error from outside the student. "I don’t know — I fixed it though." Which move makes the student do the knowing?', 'خطوات الحل كاملة يمكن نسخها من السبورة أيضًا. إعادة التدريس والإحصاء يتعاملان مع الخطأ من خارج الطالب. «لا أعرف — لكنني أصلحتها.» أي خطوة تجعل الطالب هو من يعرف؟'),
+      hint: t('Full working can still be copied from the board. Reteaching and tallies come from the teacher. Read "I don’t know — I fixed it though" once more: which move puts the knowing on the student’s side of the desk?', 'يمكن نسخ طريقة الحل الكاملة من السبورة أيضًا. إعادة التدريس والإحصاء تأتيان من المعلّم. اقرأ «لا أعرف — لكنني أصلحته» مرة أخرى: أي خطوة تضع المعرفة في جانب الطالب من المكتب؟'),
     },
     reasoning: {
       prompt: t('Why "explain, then a new one" instead of a better correction?', 'لماذا «اشرح، ثم سؤال جديد» بدل تصحيح أفضل؟'),
@@ -289,10 +417,11 @@ export const LEVEL_44: LevelDefinition = {
         { id: 'r4', label: t('Copying the answer gives the student nothing to think about', 'نسخ الإجابة لا يعطي الطالب شيئًا يفكّر فيه') },
       ],
       correctId: 'r2',
-      hint: t('"I fixed it though." What was fixed — the answer, or the understanding?', '«لكنني أصلحتها.» ما الذي أُصلح — الإجابة أم الفهم؟'),
+      hint: t('Five green corrections, one sign error still alive. What did each correction fix — the mark on the page, or the idea that produced it?', 'خمسة تصحيحات خضراء، وخطأ إشارة واحد ما زال حيًا. ما الذي أصلحه كل تصحيح — العلامة على الصفحة، أم الفكرة التي أنتجتها؟'),
       bonusPoints: 25,
     },
   },
+  conversation: CONVO_44,
   reveal: {
     whatDrifted: t(
       'Correction has become transcription. The right answer is recorded; the wrong idea that produced it is untouched, so it produces it again next week.',
