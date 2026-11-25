@@ -83,7 +83,7 @@ export const BOSS: BossDefinition = {
       { id: 'more-rigor', label: t('Tell the teacher to add more rigorous tasks', 'اطلب من المعلّم إضافة مهام أكثر صرامة') },
       { id: 'surface-thinking', label: t('Help the teacher surface and probe how students actually think — not just what they produce', 'ساعد المعلّم على إظهار طريقة تفكير الطلاب فعلًا وسبرها — لا ما ينتجونه فقط') },
       { id: 'harder-tests', label: t('Recommend harder assessments to catch the gap', 'أوصِ بتقييمات أصعب لكشف الفجوة') },
-      { id: 'nothing', label: t('Nothing — the room is excellent, leave it alone', 'لا شيء — الصف ممتاز، اتركه كما هو') },
+      { id: 'nothing', label: t('Ask the teacher to display the learning objective more prominently', 'اطلب من المعلّم عرض هدف التعلّم بشكل أوضح على السبورة') },
     ],
     correctId: 'surface-thinking',
     hint: t('You can’t fix student thinking by changing teacher behavior that’s already excellent. You have to make the thinking itself visible — so the performance of learning and real learning stop looking the same.', 'لا يمكنك إصلاح تفكير الطلاب بتغيير سلوك معلّم ممتاز أصلًا. عليك أن تجعل التفكير نفسه مرئيًا — حتى لا يعود تمثيل التعلّم والتعلّم الحقيقي يبدوان متطابقين.'),

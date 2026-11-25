@@ -82,7 +82,7 @@ export const CONVO_3: ConversationDefinition = {
       teacherLine: t('The principal brought the ministry visitors straight here. They photographed everything.', 'أحضر المدير زوّار الوزارة إلى هنا مباشرة. صوّروا كل شيء.'),
       options: [
         { id: 'a', effect: 'opens', label: t('I can see why. Pick one for me — the volcano, say — and tell me what Sara would say if I asked her why it erupts.', 'أفهم لماذا. اختاري لي واحدًا — البركان مثلًا — وأخبريني ماذا ستقول سارة لو سألتها لماذا يثور.'), reply: t('Sara would… she’d tell you about the baking soda. Whether she’d get to pressure, I’m not sure.', 'سارة… ستحدّثك عن صودا الخبز. أما إن كانت ستصل إلى الضغط، فلست متأكدة.') },
-        { id: 'b', effect: 'neutral', label: t('They deserve to be photographed. The creativity here is a real strength.', 'تستحق التصوير. الإبداع هنا نقطة قوة حقيقية.'), reply: t('They work so hard on them. Weeks, some of them.', 'يعملون عليها بجد. أسابيع، بعضهم.') },
+        { id: 'b', effect: 'neutral', label: t('The display is lovely. Can I hear one student explain their panel without reading it?', 'المعرض جميل. هل يمكنني أن أسمع طالبًا واحدًا يشرح لوحته دون أن يقرأها؟'), reply: t('They work so hard on them. Weeks, some of them.', 'يعملون عليها بجد. أسابيع، بعضهم.') },
         { id: 'c', effect: 'closes', label: t('They look wonderful, but a display isn’t evidence of learning. We need to assess understanding, not products.', 'تبدو رائعة، لكن العرض ليس دليلًا على التعلّم. علينا تقييم الفهم لا المنتجات.'), reply: t('So the visitors were impressed by nothing. Good to know.', 'يعني الزوّار أُعجبوا بلا شيء. جميل أن أعرف.') },
       ],
     },

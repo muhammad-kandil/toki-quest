@@ -24,7 +24,7 @@ const CONVO_41: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('I did. And the boy with the house drawing kept looking at you after "beautiful". What do you think he wanted to know?', 'رأيت. والولد صاحب رسمة البيت ظل ينظر إليك بعد «جميلة». ما الذي تظنين أنه أراد معرفته؟'), reply: t('Which part. He always asks which part. I usually say "all of it".', 'أي جزء. دائمًا يسأل أي جزء. وأنا عادة أقول «كلها».') },
         { id: 'b', effect: 'neutral', label: t('You are right to protect that. The confidence in this room is the foundation for everything else.', 'أنتِ على حق في حماية ذلك. الثقة في هذه الغرفة أساس كل ما عداها.'), reply: t('Thank you. Some people think kindergarten is just colouring.', 'شكرًا. بعض الناس يظنون أن الروضة مجرد تلوين.') },
-        { id: 'c', effect: 'closes', label: t('Twenty-three "well dones" in ten minutes told them nothing. Praise without information is empty.', 'ثلاث وعشرون «أحسنت» في عشر دقائق لم تخبرهم شيئًا. المدح بلا معلومة فارغ.'), reply: t('Empty. Come back when they cry because nobody said anything kind.', 'فارغ. عُد حين يبكون لأن أحدًا لم يقل كلمة لطيفة.') },
+        { id: 'c', effect: 'closes', label: t('Twenty-three "well dones" in ten minutes. What did any of them tell a child to do next?', 'ثلاث وعشرون «أحسنت» في عشر دقائق. ماذا قالت أيٌّ منها لطفل عمّا يفعله بعد ذلك؟'), reply: t('To keep going. Which they did. Did you want me to stop saying it?', 'أن يكمل. وهذا ما فعلوه. هل تريدني أن أتوقف عن قولها؟') },
       ],
     },
     {
@@ -43,9 +43,9 @@ const CONVO_41: ConversationDefinition = {
   },
 };
 
-/** 42 — Teacher Does All the Talking. Mr. Tariq, the best explainer in the building. */
+/** 42 — Teacher Does All the Talking. Mr. Majid, the best explainer in the building. */
 const CONVO_42: ConversationDefinition = {
-  teacherName: t('Mr. Tariq', 'الأستاذ طارق'),
+  teacherName: t('Mr. Majid', 'الأستاذ ماجد'),
   stance: 'proud',
   setting: t('The lab bench after the bell. He is still holding the work he used for the feedback.', 'طاولة المختبر بعد الجرس. ما زال يحمل العمل الذي استخدمه للتغذية الراجعة.'),
   read: t('Fifteen years in. His feedback is a small lecture because lectures are what he does best, and this one was good.', 'خمسة عشر عامًا في المهنة. تغذيته الراجعة محاضرة صغيرة لأن المحاضرات هي ما يجيده، وهذه كانت جيدة.'),
@@ -74,9 +74,9 @@ const CONVO_42: ConversationDefinition = {
   },
 };
 
-/** 43 — Written Comments. Ms. Reem, marking every weekend and running on empty. */
+/** 43 — Written Comments. Ms. Alya, marking every weekend and running on empty. */
 const CONVO_43: ConversationDefinition = {
-  teacherName: t('Ms. Reem', 'الأستاذة ريم'),
+  teacherName: t('Ms. Alya', 'الأستاذة علياء'),
   stance: 'tired',
   setting: t('Sunday, first period. The marked essays are on her desk, and so is the next set, unmarked.', 'الأحد، الحصة الأولى. المقالات المصحَّحة على مكتبها، وبجانبها المجموعة التالية، غير مصحَّحة.'),
   read: t('Eleven comments per essay, every weekend, for twenty-six students. She is not defending the practice; she is carrying it.', 'أحد عشر تعليقًا لكل مقال، كل عطلة، لستة وعشرين طالبًا. هي لا تدافع عن الممارسة؛ هي تحملها.'),
@@ -326,7 +326,7 @@ export const LEVEL_43: LevelDefinition = {
       options: [
         { id: 'three', label: t('Three comments instead of eleven, each naming one change to make', 'ثلاثة تعليقات بدل أحد عشر، يسمّي كل منها تغييرًا واحدًا') },
         { id: 'revise', label: t('Three comments, and the next lesson opens with students revising the essay against them', 'ثلاثة تعليقات، ويُفتتح الدرس التالي بمراجعة الطلاب هذه المقالة على ضوئها') },
-        { id: 'grade-later', label: t('Return the comments first and the grade a week later, so the margin actually gets read', 'أعد التعليقات أولًا والدرجة بعد أسبوع، ليُقرأ الهامش') },
+        { id: 'grade-later', label: t('Return the grade first and the written comments a week later, once marks are settled', 'أعد الدرجة أولًا والتعليقات المكتوبة بعد أسبوع، بعد أن تستقر الدرجات') },
         { id: 'codes', label: t('Replace written comments with marking codes keyed to a class sheet', 'استبدل التعليقات المكتوبة برموز تصحيح مرتبطة بورقة للصف') },
       ],
       correctId: 'revise',
@@ -403,7 +403,7 @@ export const LEVEL_44: LevelDefinition = {
         { id: 'working', label: t('Require full working in green, not just the final answer', 'اشترط خطوات الحل كاملة بالأخضر، لا الإجابة النهائية فقط') },
         { id: 'reteach', label: t('Reteach sign rules to the whole class before the next correction', 'أعد تدريس قواعد الإشارة للصف كله قبل التصحيح التالي') },
         { id: 'why-then-new', label: t('Replace "copy the right answer" with "explain why yours was wrong, then solve a new one"', 'استبدل «انسخ الإجابة الصحيحة» بـ«اشرح لماذا كانت إجابتك خاطئة، ثم حلّ سؤالًا جديدًا»') },
-        { id: 'track', label: t('Keep a tally of each student’s repeated errors and target them in the next day’s starter', 'احتفظ بإحصاء لأخطاء كل طالب المتكررة واستهدفها في نشاط البداية') },
+        { id: 'track', label: t('Ask the teacher to keep a tally of which students read their comments', 'اطلب من المعلّم أن يحتفظ بإحصاء لمن يقرأ تعليقاته من الطلاب') },
       ],
       correctId: 'why-then-new',
       hint: t('Full working can still be copied from the board. Reteaching and tallies come from the teacher. Read "I don’t know — I fixed it though" once more: which move puts the knowing on the student’s side of the desk?', 'يمكن نسخ طريقة الحل الكاملة من السبورة أيضًا. إعادة التدريس والإحصاء تأتيان من المعلّم. اقرأ «لا أعرف — لكنني أصلحته» مرة أخرى: أي خطوة تضع المعرفة في جانب الطالب من المكتب؟'),

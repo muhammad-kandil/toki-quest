@@ -70,10 +70,10 @@ export const LEVEL_4: LevelDefinition = {
     reasoning: {
       prompt: t('Why is acting on the evidence the key move?', 'لماذا العمل بالأدلة هو الخطوة الأساسية؟'),
       options: [
-        { id: 'r1', label: t('It gives the teacher a more accurate picture of each student', 'يمنح المعلّم صورة أدق عن كل طالب') },
-        { id: 'r2', label: t('Assessment only improves learning when it changes instruction — data that never alters teaching is measurement, not feedback', 'لا يحسّن التقييم التعلّم إلا عندما يغيّر التدريس — والبيانات التي لا تغيّر التدريس أبدًا قياسٌ لا تغذية راجعة') },
-        { id: 'r3', label: t('It makes students more accountable for their own progress', 'يجعل الطلاب أكثر مسؤولية عن تقدّمهم') },
-        { id: 'r4', label: t('It surfaces the misconceptions earlier in the unit', 'يكشف المفاهيم الخاطئة في وقت أبكر من الوحدة') },
+        { id: 'r2', label: t('Assessment only improves learning when it changes what is taught next', 'لا يحسّن التقييم التعلّم إلا حين يغيّر ما يُدرَّس بعده') },
+        { id: 'r1', label: t('It gives the teacher a far more accurate picture of each student', 'يمنح المعلّم صورة أدق بكثير عن كل طالب') },
+        { id: 'r3', label: t('It makes students more accountable for their own progress each week', 'يجعل الطلاب أكثر مسؤولية عن تقدّمهم كل أسبوع') },
+        { id: 'r4', label: t('It surfaces the misconceptions earlier in the unit, before the test', 'يكشف المفاهيم الخاطئة في وقت أبكر من الوحدة، قبل الاختبار') },
       ],
       correctId: 'r2',
       hint: t('Compare the gradebook with the planner once more. Which reason explains why one is full and the other is unchanged?', 'قارن سجلّ الدرجات بمخطّط الدروس مرة أخرى. أي سبب يفسّر لماذا أحدهما ممتلئ والآخر لم يتغيّر؟'),

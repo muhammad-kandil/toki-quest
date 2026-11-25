@@ -98,8 +98,8 @@ export const WORLD_3_BOSS: WorldBossDefinition = {
       'الإنجاز فوري وقابل للمقارنة ومُطرٍ. ينتقل بسهولة إلى القادة والزوار. أما اختبار الدرس فأبطأ وأقل لطفًا — فبُني النموذج على الرقم الأسهل.',
     ),
     howToRestore: t(
-      'Distinguish purposeful digital learning from digital compliance by changing what the system looks at: every completion figure travels with its check score, and every data conversation starts inside a student’s attempt. The Grade 5 and Grade 10 rooms show the school it already knows how.',
-      'ميّز التعلّم الرقمي الهادف من الامتثال الرقمي بتغيير ما ينظر إليه النظام: كل رقم إنجاز يسافر مع درجة اختباره، وكل حديث عن البيانات يبدأ من داخل محاولة طالب. يُري صفا الخامس والعاشر المدرسةَ أنها تعرف الطريقة أصلًا.',
+      'Distinguish purposeful digital learning from digital compliance by changing what the system looks at: every completion figure travels with its check score, and every data conversation starts inside a student’s attempt. The Grade 5 and Grade 10 rooms show the school it already knows how. A lower target for the wrong number is still the wrong number.',
+      'ميّز التعلّم الرقمي الهادف من الامتثال الرقمي بتغيير ما ينظر إليه النظام: كل رقم إنجاز يسافر مع درجة اختباره، وكل حديث عن البيانات يبدأ من داخل محاولة طالب. يُري صفا الخامس والعاشر المدرسةَ أنها تعرف الطريقة أصلًا. وهدف أدنى للرقم الخطأ يبقى الرقم الخطأ.',
     ),
     finalWord: t(
       'Two of the five rooms were doing it right, with the same tools and the same dashboards. The technology was never the drift. What people were asked to look at was.',

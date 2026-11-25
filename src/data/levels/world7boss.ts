@@ -72,12 +72,12 @@ export const WORLD_7_BOSS: WorldBossDefinition = {
       { id: 'tech', label: t('Technology is over-used', 'التقنية مُفرَط في استخدامها') },
     ],
     correctId: 'purpose',
-    hint: t('The two healthy scenes both broke a rule. The three mutated scenes all kept one. What does that tell you the pattern is about?', 'خالف المشهدان السليمان قاعدة. وحافظت المشاهد الثلاثة المتحوّرة على واحدة. ماذا يخبرك ذلك عن النمط؟'),
+    hint: t('Put the Grade 7 objective and the Grade 4 messy lesson side by side. One followed every rule and one broke the plan. Which of them did what the practice was for?', 'ضع هدف الصف السابع والدرس الفوضوي للصف الرابع جنبًا إلى جنب. أحدهما اتبع كل القواعد والآخر خالف الخطة. أيّهما فعل ما كانت الممارسة من أجله؟'),
   },
   assessRisk: {
     prompt: t('How serious is a mutation that nobody can see?', 'ما مدى خطورة تحوّر لا يراه أحد؟'),
     correctId: 'lethal',
-    hint: t('Three practices that look perfect and do nothing, copied school-wide and praised. This is the definition the whole quest has been building toward.', 'ثلاث ممارسات تبدو مثالية ولا تفعل شيئًا، منسوخة على مستوى المدرسة ومُمتدَحة. هذا هو التعريف الذي كانت الرحلة كلها تبني نحوه.'),
+    hint: t('Go back to the data meeting: the same action as last week, for months, and nobody has noticed. If no one can see a drift, how long does it get to run — and how far does it travel?', 'عُد إلى اجتماع البيانات: الإجراء نفسه كالأسبوع الماضي، منذ أشهر، ولم يلاحظ أحد. إن لم يستطع أحد رؤية الانحراف، فكم من الوقت يُترك ليستمر — وإلى أي مدى ينتشر؟'),
   },
   coaching: {
     prompt: t('The leadership team asks Toki for his recommendation. What is the systemic move?', 'يطلب فريق القيادة من توكي توصيته. ما الخطوة المنهجية؟'),

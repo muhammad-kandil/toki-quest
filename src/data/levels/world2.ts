@@ -83,7 +83,7 @@ const CONVO_22: ConversationDefinition = {
   outcomes: {
     restored: t('The circle became a sentence; the number moved to the markbook. Mondays open with ten minutes on one paragraph. Omar’s third essay starts with the claim.', 'صارت الدائرة جملة؛ وانتقل الرقم إلى السجلّ. تبدأ أيام الاثنين بعشر دقائق على فقرة واحدة. المقال الثالث لعمر يبدأ بالادّعاء.'),
     partial: t('Some essays get a line now, when there is time. There is rarely time. The folded papers still go in the bag.', 'بعض المقالات تحصل على سطر الآن، حين يكون هناك وقت. ونادرًا ما يكون هناك وقت. ما زالت الأوراق المطوية تذهب إلى الحقيبة.'),
-    unchanged: t('Ninety marks, ninety circles, every fortnight. The tote bag still leaves at 2:40. She has started marking in the staffroom with the door closed.', 'تسعون درجة، تسعون دائرة، كل أسبوعين. ما زالت الحقيبة تغادر في ٢:٤٠. بدأت تصحّح في غرفة المعلّمين والباب مغلق.'),
+    unchanged: t('Ninety marks, ninety circles, every fortnight. The tote bag still leaves at 2:40. She has started marking in the staffroom with the door closed. Everything Toki said was true. None of it was heard.', 'تسعون درجة، تسعون دائرة، كل أسبوعين. ما زالت الحقيبة تغادر في ٢:٤٠. بدأت تصحّح في غرفة المعلّمين والباب مغلق. كل ما قاله توكي كان صحيحًا. ولم يُسمَع منه شيء.'),
   },
 };
 
@@ -130,7 +130,7 @@ const CONVO_24: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('They clearly did — ninety is real work. Can I tell you about one answer? I asked Hind why the reaction speeds up. She scored ninety-five and she said, "we didn’t do that one." What do you make of that?', 'نجحت بوضوح — التسعون عمل حقيقي. هل لي أن أحكي لك عن إجابة واحدة؟ سألت هند لماذا يتسارع التفاعل. حصلت على خمسة وتسعين وقالت: «لم نأخذ هذا السؤال.» ما رأيك في ذلك؟'), reply: t('She said that? Hind? …The test had the worksheet questions on it. With different numbers. I thought that was the point.', 'قالت ذلك؟ هند؟ …الاختبار كان فيه أسئلة ورقة العمل. بأرقام مختلفة. ظننت أن هذه هي الفكرة.') },
         { id: 'b', effect: 'neutral', label: t('Ninety is wonderful for a first unit. Enjoy it — most new teachers don’t get a result like this until their second year.', 'التسعون رائعة لوحدة أولى. استمتعي بها — أغلب المعلّمين الجدد لا يحصلون على نتيجة كهذه حتى عامهم الثاني.'), reply: t('Thank you! I’m going to show Ms. Huda right now.', 'شكرًا! سأريها للأستاذة هدى الآن.') },
-        { id: 'c', effect: 'closes', label: t('Ninety on a test that copies the worksheet doesn’t tell us much, though. That’s recall, not understanding — we need to be careful about what we celebrate.', 'لكن التسعين في اختبار ينسخ ورقة العمل لا تخبرنا بالكثير. هذا استدعاء لا فهم — علينا أن نحذر ممّا نحتفل به.'), reply: t('Oh. …I didn’t know I wasn’t supposed to use the worksheet. Nobody said.', 'آه. …لم أعرف أنه لا ينبغي لي استخدام ورقة العمل. لم يقل أحد.') },
+        { id: 'c', effect: 'closes', label: t('Ninety on a test that copies the worksheet is recall. We should be careful calling that understanding.', 'تسعون في اختبار ينسخ ورقة العمل هي استدعاء. علينا أن نحذر من تسمية ذلك فهمًا.'), reply: t('Oh. …I didn’t know I wasn’t supposed to use the worksheet. Nobody said.', 'آه. …لم أعرف أنه لا ينبغي لي استخدام ورقة العمل. لم يقل أحد.') },
       ],
     },
     {
@@ -179,8 +179,8 @@ export const LEVEL_21: LevelDefinition = {
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
-      correctId: 'lethal',
-      hint: t('The routine has never missed a day, and ‘The pile’ is still rubber-banded. If every ticket vanished tonight, what would be different tomorrow?', 'الروتين لم يفوّت يومًا، و«الكومة» ما زالت مربوطة. لو اختفت كل البطاقات الليلة، ما الذي سيختلف غدًا؟'),
+      correctId: 'high',
+      hint: t('The routine has never missed a day, and ‘The pile’ is still rubber-banded. The tickets exist and the answers are on them — nobody has read them yet. Is the practice working against learning, or one unread pile away from it?', 'الروتين لم يفوّت يومًا، و«الكومة» ما زالت مربوطة. البطاقات موجودة والإجابات عليها — لم يقرأها أحد بعد. هل تعمل الممارسة ضد التعلّم، أم أنها على بُعد كومة غير مقروءة منه؟'),
     },
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
