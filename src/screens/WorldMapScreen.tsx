@@ -6,6 +6,7 @@ import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
 import { TopBar } from '../components/TopBar';
+import { PeoplePair } from '../components/PeopleGlyphs';
 import './WorldMapScreen.css';
 
 interface WorldMapScreenProps {
@@ -165,6 +166,7 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
               <span className="map__school" aria-hidden="true">
                 <SchoolGlyph state={st} />
                 <span className="map__num">{w.number}</span>
+                {st === 'done' && <span className="map__people"><PeoplePair lit size={14} /></span>}
               </span>
               <span className="map__label" dir={dir}>{tx(w.title)}</span>
             </button>

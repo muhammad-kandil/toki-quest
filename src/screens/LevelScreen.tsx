@@ -8,6 +8,7 @@ import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
 import { EvidenceRecap } from '../components/EvidenceRecap';
+import { BeatIcon } from '../components/PeopleGlyphs';
 import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
 import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTypes';
 import { useLocale } from '../i18n/LocaleContext';
@@ -160,7 +161,7 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
 
   return (
     <div className="level-screen">
-      <LevelProgress current={beatIndex + 1} total={visibleBeats.length} />
+      <LevelProgress current={beatIndex + 1} total={visibleBeats.length} beats={visibleBeats} />
       <ReactionToki kind={reaction} trigger={reactionTrigger} />
 
       {beat === 'observe' && <ObserveBeat level={level} onContinue={() => { sfx.play('tap'); advance(); }} />}
@@ -192,11 +193,26 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
   );
 }
 
-function LevelProgress({ current, total }: { current: number; total: number }) {
+const BEAT_LABEL: Record<Beat, Text> = {
+  observe: UI['art.beatObserve'], drift: UI['art.beatDrift'], risk: UI['art.beatRisk'], coaching: UI['art.beatCoaching'],
+  reasoning: UI['art.beatReasoning'], conversation: UI['art.beatConversation'], reveal: UI['art.beatReveal'],
+};
+
+/** The beat strip: each step is a small icon (eye, magnifier, gauge,
+ *  speech bubble, lightbulb, teacher-and-bubble, open door) rather than
+ *  an anonymous dot. Class names are kept for tests. */
+function LevelProgress({ current, total, beats }: { current: number; total: number; beats: Beat[] }) {
+  const { tx } = useLocale();
   return (
-    <div className="level-progress" role="progressbar" aria-valuenow={current} aria-valuemax={total}>
-      {Array.from({ length: total }).map((_, i) => (
-        <span key={i} className={`level-progress__dot ${i < current ? 'level-progress__dot--filled' : ''}`} />
+    <div className="level-progress level-progress--icons" role="progressbar" aria-valuenow={current} aria-valuemax={total}>
+      {beats.map((b, i) => (
+        <span
+          key={b}
+          className={`level-progress__dot ${i < current ? 'level-progress__dot--filled' : ''} ${i === current - 1 ? 'level-progress__dot--current' : ''}`}
+          title={tx(BEAT_LABEL[b])}
+        >
+          <BeatIcon kind={b} size={14} />
+        </span>
       ))}
     </div>
   );

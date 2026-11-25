@@ -123,7 +123,10 @@
   }
 }
 
-/* ---------- Evidence spots (interactive Observe) ---------- */
+/* ---------- Evidence markers: people, not dots ----------
+   A soft white badge with a shadow; the glyph (teacher, student, group,
+   board, device, paper…) in indigo; an orange ring that pulses until
+   the spot is inspected, then the badge turns teal with a tick. */
 .evidence-spot {
   position: absolute;
   width: 44px;  /* comfortable thumb target */
@@ -153,20 +156,39 @@
 }
 .evidence-spot__core {
   position: absolute;
-  inset: 9px;
+  inset: 5px;
   border-radius: 50%;
-  background: var(--toki-orange);
-  border: 2.5px solid var(--toki-indigo);
-  /* white halo so the marker reads against busy classroom art */
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.95), 0 3px 8px rgba(69, 43, 116, 0.35);
-  color: #fff;
-  font-weight: 800;
-  font-size: 12px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F3F0FA 100%);
+  border: 2px solid var(--toki-orange);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 3px 8px rgba(69, 43, 116, 0.35), inset 0 1px 0 rgba(255,255,255,0.9);
+  color: var(--toki-indigo);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform var(--duration-fast) var(--ease-bounce), background var(--duration-fast);
+  transition: transform var(--duration-fast) var(--ease-bounce), background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
 }
-.evidence-spot:active .evidence-spot__core { transform: scale(0.85); }
+.evidence-spot__glyph,
+.evidence-spot__tick {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--duration-fast) var(--ease-smooth), transform var(--duration-fast) var(--ease-bounce);
+}
+.evidence-spot__tick { opacity: 0; transform: scale(0.5); }
+/* Keep the glyph itself unmirrored in RTL — people and objects don't flip. */
+:root[dir='rtl'] .evidence-spot__glyph svg { transform: none; }
+.evidence-spot:active .evidence-spot__core { transform: scale(0.88); }
 .evidence-spot--done .evidence-spot__ring { animation: none; opacity: 0; }
-.evidence-spot--done .evidence-spot__core { background: var(--toki-teal); }
+.evidence-spot--done .evidence-spot__core {
+  background: linear-gradient(180deg, var(--toki-teal) 0%, #15B8A0 100%);
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}
+.evidence-spot--done .evidence-spot__glyph { opacity: 0; transform: scale(0.6); }
+.evidence-spot--done .evidence-spot__tick { opacity: 1; transform: scale(1); }
+@media (prefers-reduced-motion: reduce) {
+  .evidence-spot { animation: none; }
+  .evidence-spot__ring { animation: none; opacity: 0.7; transform: scale(1.05); }
+}

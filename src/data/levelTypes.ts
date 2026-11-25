@@ -46,6 +46,9 @@ export interface EvidenceSpot {
   y: number;
   label: Text;
   clue: Text;
+  /** Who/what the marker shows (teacher, student, group, board, …).
+   *  Optional: inferred from id/label when absent — see components/PeopleGlyphs. */
+  kind?: 'teacher' | 'student' | 'group' | 'board' | 'device' | 'paper' | 'book' | 'door' | 'window' | 'clock' | 'chart' | 'lens';
 }
 
 export interface LevelDefinition {
