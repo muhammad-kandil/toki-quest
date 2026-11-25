@@ -34,11 +34,11 @@ const CONVO_31: ConversationDefinition = {
       ],
     },
     {
-      teacherLine: t('So they skip the video. They still do the questions. The lesson is complete — that’s what the target is. If the target was the check score, someone should have said.', 'إذًا يتخطّون الفيديو. ما زالوا يحلّون الأسئلة. الدرس مكتمل — هذا هو الهدف. لو كان الهدف درجة الاختبار، لكان على أحد أن يقول.'),
+      teacherLine: t('So they skip the video. They still do the questions. The lesson is complete — that’s what the target is. If the target was the check score, someone should have said.', 'يعني يتخطّون الفيديو. ما زالوا يحلّون الأسئلة. الدرس مكتمل — هذا هو الهدف. لو كان الهدف درجة الاختبار، لكان على أحد أن يقول.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Nobody said — that’s fair. Here’s what I’d try: tomorrow, open the check column before the completion column, and let the lowest question set the first five minutes. Same lesson, same target. Does that cost you anything?', 'لم يقل أحد — هذا صحيح. إليك ما سأجرّبه: غدًا، افتح عمود الاختبار قبل عمود الإنجاز، ودع السؤال الأدنى يحدّد الدقائق الخمس الأولى. الدرس نفسه، الهدف نفسه. هل يكلّفك ذلك شيئًا؟'), reply: t('Open the other column first. …No, it doesn’t cost me anything. I just never looked at it first.', 'افتح العمود الآخر أولًا. …لا، لا يكلّفني شيئًا. فقط لم أنظر إليه أولًا قط.') },
         { id: 'b', effect: 'neutral', label: t('You’re right that the target is completion. Maybe just glance at the check scores now and then so nothing surprises you.', 'أنت محق في أن الهدف هو الإنجاز. ربما ألقِ نظرة على درجات الاختبار بين حين وآخر حتى لا يفاجئك شيء.'), reply: t('I’ll glance. Nothing surprises me in that class anyway.', 'سألقي نظرة. لا شيء يفاجئني في ذلك الصف على أي حال.') },
-        { id: 'c', effect: 'closes', label: t('Someone is saying it now. A lesson where students skip the teaching at 0:04 isn’t complete, whatever the column says — and that needs to change before next week.', 'أحدهم يقوله الآن. درس يتخطّى فيه الطلاب الشرح عند الثانية الرابعة ليس مكتملًا، مهما قال العمود — وهذا يجب أن يتغيّر قبل الأسبوع القادم.'), reply: t('Before next week. Right. And when the hundred drops, that’s on you, not me.', 'قبل الأسبوع القادم. حسنًا. وحين تنخفض المئة، فذلك عليك لا عليّ.') },
+        { id: 'c', effect: 'closes', label: t('Someone is saying it now. A lesson where students skip the teaching at 0:04 isn’t complete, whatever the column says — and that needs to change before next week.', 'أحدهم يقوله الآن. درس يتخطّى فيه الطلاب الشرح عند الثانية الرابعة ليس مكتملًا، مهما قال العمود — وهذا يجب أن يتغيّر قبل الأسبوع القادم.'), reply: t('Before next week. Right. And when the hundred drops, that’s on you, not me.', 'قبل الأسبوع القادم. طيّب. وحين تنخفض المئة، فذلك عليك لا عليّ.') },
       ],
     },
   ],
@@ -57,19 +57,19 @@ const CONVO_32: ConversationDefinition = {
   read: t('She chose not to hover — she calls it trust, and she means it. She will take a better idea in a second if it doesn’t sound like control.', 'اختارت ألّا تحوم حولهم — تسمّيه ثقة، وتعنيها. ستأخذ فكرة أفضل في ثانية إن لم تبدُ كالسيطرة.'),
   turns: [
     {
-      teacherLine: t('I know some coaches want me walking the rows the whole time. I made a choice: they work independently, and I don’t stand over them. They’re fourteen, not nine.', 'أعرف أن بعض المشرفين يريدونني أمشي بين الصفوف طوال الوقت. اتخذت قرارًا: يعملون باستقلالية، ولا أقف فوق رؤوسهم. عمرهم أربعة عشر، لا تسعة.'),
+      teacherLine: t('I know some coaches want me walking the rows the whole time. I made a choice: they work independently, and I don’t stand over them. They’re fourteen, not nine.', 'أعرف أن بعض المدرّبين يريدونني أمشي بين الصفوف طوال الوقت. اتخذت قرارًا: يعملون باستقلالية، ولا أقف فوق رؤوسهم. عمرهم أربعة عشر، لا تسعة.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Agreed — nobody learns with someone standing over them. Can I show you one student, though? Back row, Ahmed. He opened the same explanation four times and never raised his hand. What do you think he was doing?', 'موافق — لا أحد يتعلّم وأحدهم واقف فوق رأسه. لكن هل أريك طالبًا واحدًا؟ الصف الخلفي، أحمد. فتح الشرح نفسه أربع مرات ولم يرفع يده قط. ماذا تظنّين أنه كان يفعل؟'), reply: t('Four times? …He never asks. He’s one of the quiet ones. I thought he was just slow and careful.', 'أربع مرات؟ …لا يسأل أبدًا. من الهادئين. ظننته بطيئًا ودقيقًا فحسب.') },
         { id: 'b', effect: 'neutral', label: t('I think that’s a mature approach. The room was calm and everyone was on the right lesson — that’s more than a lot of classes manage.', 'أظن أن هذه مقاربة ناضجة. كانت الغرفة هادئة والجميع في الدرس الصحيح — وهذا أكثر مما تستطيعه صفوف كثيرة.'), reply: t('Thank you — I think the calm matters. So we’re good?', 'شكرًا — أظن أن الهدوء مهم. إذًا كل شيء على ما يرام؟') },
-        { id: 'c', effect: 'closes', label: t('Independence without monitoring isn’t independence, it’s absence. With devices you have to watch the thinking, not the room — the live view exists for that.', 'الاستقلالية دون مراقبة ليست استقلالية بل غياب. مع الأجهزة عليك أن تراقبي التفكير لا الغرفة — العرض المباشر موجود لهذا.'), reply: t('Absence. Okay. I’ll open the live view and watch dots move, if that’s what the observation form wants.', 'غياب. حسنًا. سأفتح العرض المباشر وأراقب النقاط تتحرّك، إن كان هذا ما يريده نموذج الملاحظة.') },
+        { id: 'c', effect: 'closes', label: t('Independence without monitoring isn’t independence, it’s absence. With devices you have to watch the thinking, not the room — the live view exists for that.', 'الاستقلالية دون مراقبة ليست استقلالية بل غياب. مع الأجهزة عليك أن تراقبي التفكير لا الغرفة — العرض المباشر موجود لهذا.'), reply: t('Absence. Okay. I’ll open the live view and watch dots move, if that’s what the observation form wants.', 'غياب. طيّب. سأفتح العرض المباشر وأراقب النقاط تتحرّك، إن كان هذا ما يريده نموذج الملاحظة.') },
       ],
     },
     {
-      teacherLine: t('So I should have gone to him? If I go to Ahmed, I have to go to all of them, and then I’m hovering again. Where’s the line?', 'إذًا كان ينبغي أن أذهب إليه؟ إن ذهبت إلى أحمد، عليّ أن أذهب إليهم جميعًا، وعندها أعود إلى الحوم. أين الحد؟'),
+      teacherLine: t('So I should have gone to him? If I go to Ahmed, I have to go to all of them, and then I’m hovering again. Where’s the line?', 'يعني كان ينبغي أن أذهب إليه؟ إن ذهبت إلى أحمد، عليّ أن أذهب إليهم جميعًا، وعندها أعود إلى الحوم. أين الحد؟'),
       options: [
         { id: 'a', effect: 'opens', label: t('Not all of them — two. Live view open on the corner of your screen, one walk through the room with one question, and the two students the view shows stuck come to your desk for three minutes. The rest never notice. Could you try it Thursday?', 'ليس جميعهم — اثنان. العرض المباشر مفتوح في زاوية شاشتك، جولة واحدة في الغرفة بسؤال واحد، والطالبان اللذان يُظهرهما العرض عالقين يأتيان إلى مكتبك ثلاث دقائق. البقية لا يلاحظون. هل تجرّبينها الخميس؟'), reply: t('Two, to my desk. That’s not hovering — that’s… office hours. Thursday. I’ll have the view open.', 'اثنان، إلى مكتبي. هذا ليس حومًا — هذا… ساعات مكتبية. الخميس. سيكون العرض مفتوحًا.') },
         { id: 'b', effect: 'neutral', label: t('There’s no hard line. Use your instincts — you clearly know the class. Maybe check in a bit more often.', 'لا يوجد حد صارم. استخدمي حدسك — من الواضح أنك تعرفين الصف. ربما اطمئنّي عليهم أكثر قليلًا.'), reply: t('A bit more often. Sure. I thought I was already doing that.', 'أكثر قليلًا. طبعًا. ظننت أنني أفعل ذلك بالفعل.') },
-        { id: 'c', effect: 'closes', label: t('The line is that every student who’s stuck gets help within a minute. If that means circulating the whole lesson, that’s the job with devices.', 'الحد هو أن كل طالب عالق يحصل على المساعدة خلال دقيقة. وإن كان ذلك يعني التجوّل طوال الدرس، فهذه هي الوظيفة مع الأجهزة.'), reply: t('The whole lesson. So, hovering. We’ve gone in a circle.', 'طوال الدرس. إذًا، حوم. عدنا في دائرة.') },
+        { id: 'c', effect: 'closes', label: t('The line is that every student who’s stuck gets help within a minute. If that means circulating the whole lesson, that’s the job with devices.', 'الحد هو أن كل طالب عالق يحصل على المساعدة خلال دقيقة. وإن كان ذلك يعني التجوّل طوال الدرس، فهذه هي الوظيفة مع الأجهزة.'), reply: t('The whole lesson. So, hovering. We’ve gone in a circle.', 'طوال الدرس. يعني، حوم. درنا دورة كاملة.') },
       ],
     },
   ],
@@ -84,7 +84,7 @@ const CONVO_32: ConversationDefinition = {
 const CONVO_33: ConversationDefinition = {
   teacherName: t('Ms. Maha', 'الأستاذة مها'),
   stance: 'tired',
-  setting: t('Monday, 7:20 am. Her annotated report from last night is on the desk, the pen still on it.', 'الاثنين، السابعة وعشرون دقيقة صباحًا. تقريرها المعلَّق عليه من ليلة أمس على المكتب، والقلم ما زال فوقه.'),
+  setting: t('Monday, 7:20 am. Her annotated report from last night is on the desk, the pen still on it.', 'الاثنين، ٧:٢٠ صباحًا. تقريرها المعلَّق عليه من ليلة أمس على المكتب، والقلم ما زال فوقه.'),
   read: t('She spends every Sunday evening on this report because she was told it mattered. Nobody has ever asked her what she wrote. Start with the report, not the plan.', 'تقضي كل مساء أحد على هذا التقرير لأنها أُخبرت أنه مهم. لم يسألها أحد قط عمّا كتبت. ابدأ من التقرير لا من الخطة.'),
   turns: [
     {
@@ -92,15 +92,15 @@ const CONVO_33: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('I read it — last three Sundays. The same line each time: "Group B weak on fractions — again." You spotted it before anyone. What happened to Group B on the Mondays after?', 'قرأتها — الآحاد الثلاثة الأخيرة. السطر نفسه في كل مرة: «المجموعة ب ضعيفة في الكسور — مجددًا.» لاحظتِه قبل الجميع. ماذا حدث للمجموعة ب في أيام الاثنين التي تلت؟'), reply: t('The Mondays… were the plan. Week 5, week 6. The plan doesn’t have fractions in it. I wrote it down and then I taught the plan.', 'أيام الاثنين… كانت الخطة. الأسبوع ٥، الأسبوع ٦. الخطة لا تحتوي على كسور. كتبتها ثم درّست الخطة.') },
         { id: 'b', effect: 'neutral', label: t('Two hours a week on review is more than most people give. The detail in your notes is excellent — I mean that.', 'ساعتان أسبوعيًا على المراجعة أكثر مما يعطيه أغلب الناس. التفاصيل في ملاحظاتك ممتازة — أعنيها.'), reply: t('Thank you. It would be nice if that showed up somewhere.', 'شكرًا. سيكون لطيفًا لو ظهر ذلك في مكان ما.') },
-        { id: 'c', effect: 'closes', label: t('The review isn’t the job, though. Reviewing data without acting on it is just reading — the two hours only count if Monday changes.', 'لكن المراجعة ليست الوظيفة. مراجعة البيانات دون العمل بها مجرّد قراءة — الساعتان لا تُحتسبان إلا إن تغيّر الاثنين.'), reply: t('Just reading. Two hours of my Sunday is just reading. Noted.', 'مجرّد قراءة. ساعتان من أحدي مجرّد قراءة. مفهوم.') },
+        { id: 'c', effect: 'closes', label: t('The review isn’t the job, though. Reviewing data without acting on it is just reading — the two hours only count if Monday changes.', 'لكن المراجعة ليست الوظيفة. مراجعة البيانات دون العمل بها مجرّد قراءة — الساعتان لا تُحتسبان إلا إن تغيّر الاثنين.'), reply: t('Just reading. Two hours of my Sunday is just reading. Noted.', 'مجرّد قراءة. ساعتان من مساء الأحد عندي مجرّد قراءة. مفهوم.') },
       ],
     },
     {
-      teacherLine: t('So I should change the plan every week for every group? I have four groups and one of me. The review already takes my whole evening.', 'إذًا أغيّر الخطة كل أسبوع لكل مجموعة؟ لديّ أربع مجموعات وأنا واحدة. المراجعة تأخذ مسائي كله بالفعل.'),
+      teacherLine: t('So I should change the plan every week for every group? I have four groups and one of me. The review already takes my whole evening.', 'يعني أغيّر الخطة كل أسبوع لكل مجموعة؟ لديّ أربع مجموعات وأنا واحدة. المراجعة تأخذ مسائي كله بالفعل.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Not the plan — the last line. Each note ends with a verb and a group: "reteach — B, Tuesday." Then Monday morning you check the plan against that one line, not the whole report. That’s two hours becoming two hours and a minute. Try it next Sunday?', 'ليست الخطة — بل السطر الأخير. كل ملاحظة تنتهي بفعل ومجموعة: «إعادة تدريس — ب، الثلاثاء.» ثم صباح الاثنين تقارنين الخطة بذلك السطر الواحد، لا بالتقرير كله. هذه ساعتان تصبحان ساعتين ودقيقة. هل تجرّبينها الأحد القادم؟'), reply: t('A verb and a group. "Reteach — B, Tuesday." …That is one line. I could have written that three weeks ago.', 'فعل ومجموعة. «إعادة تدريس — ب، الثلاثاء.» …هذا سطر واحد. كان بإمكاني كتابته قبل ثلاثة أسابيع.') },
         { id: 'b', effect: 'neutral', label: t('Not every week — just when something stands out. Fractions for Group B stands out. Fit it in where you can.', 'ليس كل أسبوع — فقط حين يبرز شيء. الكسور للمجموعة ب تبرز. أدخليها حيث تستطيعين.'), reply: t('Where I can. I’ll look for a gap in week 8.', 'حيث أستطيع. سأبحث عن فجوة في الأسبوع ٨.') },
-        { id: 'c', effect: 'closes', label: t('Honestly, the review could be half as long if it ended in decisions. Spend one hour reviewing and one hour planning the response — that’s the balance.', 'بصراحة، يمكن أن تكون المراجعة نصف طولها لو انتهت بقرارات. اقضي ساعة في المراجعة وساعة في تخطيط الاستجابة — هذا هو التوازن.'), reply: t('So now my review is too long as well. I’ll shorten it. I’ll shorten it to nothing.', 'إذًا الآن مراجعتي طويلة أيضًا. سأقصّرها. سأقصّرها إلى لا شيء.') },
+        { id: 'c', effect: 'closes', label: t('Honestly, the review could be half as long if it ended in decisions. Spend one hour reviewing and one hour planning the response — that’s the balance.', 'بصراحة، يمكن أن تكون المراجعة نصف طولها لو انتهت بقرارات. اقضي ساعة في المراجعة وساعة في تخطيط الاستجابة — هذا هو التوازن.'), reply: t('So now my review is too long as well. I’ll shorten it. I’ll shorten it to nothing.', 'يعني الآن مراجعتي طويلة أيضًا. سأقصّرها. سأقصّرها إلى لا شيء.') },
       ],
     },
   ],
@@ -122,14 +122,14 @@ const CONVO_34: ConversationDefinition = {
       teacherLine: t('The school policy allows AI for writing support. I have it right here. If someone wants to ban it, that’s above my pay grade — I am not going to interrogate thirty students about every sentence.', 'سياسة المدرسة تسمح بالذكاء الاصطناعي لدعم الكتابة. ها هي هنا. إن أراد أحد منعه، فذلك فوق صلاحياتي — لن أستجوب ثلاثين طالبًا عن كل جملة.'),
       options: [
         { id: 'a', effect: 'opens', label: t('I’m not here about the policy — it allows it, you’re right. I asked Salma one thing: "explain this sentence". She read it aloud twice and said it means what it says. What did she learn writing this?', 'لست هنا بخصوص السياسة — إنها تسمح به، أنت محق. سألت سلمى شيئًا واحدًا: «اشرحي هذه الجملة». قرأتها بصوت مرتفع مرتين وقالت إنها تعني ما تقوله. ماذا تعلّمت سلمى وهي تكتب هذا؟'), reply: t('…She couldn’t explain her own sentence? Salma? She’s one of my strongest — on paper. On paper. I see what you did there.', '…لم تستطع شرح جملتها؟ سلمى؟ إنها من أقوى طلابي — على الورق. على الورق. فهمت ما تقصده.') },
-        { id: 'b', effect: 'neutral', label: t('Nobody’s talking about banning anything. The policy is sensible, and honestly the essay reads beautifully.', 'لا أحد يتحدث عن منع شيء. السياسة معقولة، وبصراحة المقال يُقرأ بشكل جميل.'), reply: t('It does read beautifully. So we agree the policy is fine. Good.', 'يُقرأ بشكل جميل فعلًا. إذًا نتفق على أن السياسة جيدة. حسنًا.') },
+        { id: 'b', effect: 'neutral', label: t('Nobody’s talking about banning anything. The policy is sensible, and honestly the essay reads beautifully.', 'لا أحد يتحدث عن منع شيء. السياسة معقولة، وبصراحة المقال يُقرأ بشكل جميل.'), reply: t('It does read beautifully. So we agree the policy is fine. Good.', 'يُقرأ بشكل جميل فعلًا. يعني نتفق على أن السياسة جيدة. طيّب.') },
         { id: 'c', effect: 'closes', label: t('The policy allows support, not substitution. A pasted essay with one draft and a one-minute history isn’t support — and it’s your task that let it through.', 'السياسة تسمح بالدعم لا بالاستبدال. مقال ملصوق بمسودة واحدة وسجلّ من دقيقة واحدة ليس دعمًا — ومهمتك هي التي سمحت بمروره.'), reply: t('My task. Of course. Shall I also take responsibility for the internet while we’re here?', 'مهمتي. طبعًا. هل أتحمّل مسؤولية الإنترنت أيضًا ما دمنا هنا؟') },
       ],
     },
     {
-      teacherLine: t('So what do you want — handwritten essays in exam conditions? They’ll use it at home anyway. I can’t see the draft history from my living room.', 'إذًا ماذا تريد — مقالات بخط اليد في ظروف امتحان؟ سيستخدمونه في البيت على أي حال. لا أستطيع رؤية سجلّ المسودات من غرفة معيشتي.'),
+      teacherLine: t('So what do you want — handwritten essays in exam conditions? They’ll use it at home anyway. I can’t see the draft history from my living room.', 'طيّب ماذا تريد — مقالات بخط اليد في ظروف امتحان؟ سيستخدمونه في البيت على أي حال. لا أستطيع رؤية سجلّ المسودات من غرفة معيشتي.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('Keep the tool — move the thinking. The plan comes first, in Salma’s own words, before she opens anything; the tool gives feedback on that plan; and the last five minutes she defends one paragraph to you out loud. The tool stays in the middle. Would that work with this class?', 'احتفظ بالأداة — وانقل التفكير. الخطة أولًا، بكلمات سلمى، قبل أن تفتح أي شيء؛ تعطي الأداة تغذية راجعة على تلك الخطة؛ وفي الدقائق الخمس الأخيرة تدافع عن فقرة واحدة أمامك بصوت مرتفع. تبقى الأداة في المنتصف. هل ينجح ذلك مع هذا الصف؟'), reply: t('Plan first, tool in the middle, defend it at the end. …Nobody can paste a plan in their own words. Fine. Fine, that I can mark.', 'الخطة أولًا، الأداة في المنتصف، الدفاع في النهاية. …لا أحد يستطيع لصق خطة بكلماته. حسنًا. حسنًا، هذا أستطيع تقييمه.') },
+        { id: 'a', effect: 'opens', label: t('Keep the tool — move the thinking. The plan comes first, in Salma’s own words, before she opens anything; the tool gives feedback on that plan; and the last five minutes she defends one paragraph to you out loud. The tool stays in the middle. Would that work with this class?', 'احتفظ بالأداة — وانقل التفكير. الخطة أولًا، بكلمات سلمى، قبل أن تفتح أي شيء؛ تعطي الأداة تغذية راجعة على تلك الخطة؛ وفي الدقائق الخمس الأخيرة تدافع عن فقرة واحدة أمامك بصوت مرتفع. تبقى الأداة في المنتصف. هل ينجح ذلك مع هذا الصف؟'), reply: t('Plan first, tool in the middle, defend it at the end. …Nobody can paste a plan in their own words. Fine. Fine, that I can mark.', 'الخطة أولًا، الأداة في المنتصف، الدفاع في النهاية. …لا أحد يستطيع لصق خطة بكلماته. طيّب. طيّب، هذا أستطيع تصحيحه.') },
         { id: 'b', effect: 'neutral', label: t('Not exam conditions. Maybe just remind them that the tool is for support, and trust them to use it properly.', 'ليست ظروف امتحان. ربما ذكّرهم فقط بأن الأداة للدعم، وثق بهم في استخدامها كما ينبغي.'), reply: t('I remind them every week. Salma was in the room when I did.', 'أذكّرهم كل أسبوع. كانت سلمى في الغرفة حين فعلت.') },
         { id: 'c', effect: 'closes', label: t('Yes — handwritten first drafts in class, no exceptions. If the thinking can’t be seen, it can’t be assessed, and right now none of it can be seen.', 'نعم — مسودات أولى بخط اليد في الصف، دون استثناء. إن لم يمكن رؤية التفكير فلا يمكن تقييمه، والآن لا يمكن رؤية أي منه.'), reply: t('No exceptions. Thirty handwritten essays a fortnight, in 2026. I’ll send you my marking when it’s done — around June.', 'دون استثناء. ثلاثون مقالًا بخط اليد كل أسبوعين، في ٢٠٢٦. سأرسل لك تصحيحي حين ينتهي — حوالي يونيو.') },
       ],
@@ -150,7 +150,7 @@ export const LEVEL_31: LevelDefinition = {
   sceneImage: sceneAct,
   scenario: t(
     'Every student has completed the assigned Alef lesson, and the teacher proudly shows Toki the dashboard: 100%, every name green. The class worked quietly and finished with ten minutes to spare. The teacher has been recognised twice this term for completion rates. Toki opens one student’s lesson.',
-    'أكمل كل طالب درس ألف المحدد، ويعرض المعلّم بفخر على توكي لوحة البيانات: ١٠٠٪، كل اسم باللون الأخضر. عمل الصف بهدوء وأنهى قبل الموعد بعشر دقائق. حصل المعلّم على تقدير مرتين هذا الفصل لمعدلات الإنجاز. يفتح توكي درس أحد الطلاب.',
+    'أكمل كل طالب درس «ألف» المكلَّف به، ويعرض المعلّم بفخر على توكي لوحة البيانات: ١٠٠٪، كل اسم باللون الأخضر. عمل الصف بهدوء وأنهى قبل الموعد بعشر دقائق. حصل المعلّم على تقدير مرتين هذا الفصل لمعدلات الإنجاز. يفتح توكي درس أحد الطلاب.',
   ),
   evidence: [
     { id: 'dashboard', x: 52, y: 26, label: t('The dashboard', 'لوحة البيانات'), clue: t('100% completion. Average score on the lesson check: 41%.', 'إنجاز ١٠٠٪. متوسط الدرجة في اختبار الدرس: ٤١٪.') },
@@ -203,7 +203,7 @@ export const LEVEL_31: LevelDefinition = {
   reveal: {
     whatDrifted: t(
       'Completion has become the goal. Students have learned how to finish an Alef lesson quickly; the teacher has learned to watch the column that rewards that.',
-      'أصبح الإنجاز هو الهدف. تعلّم الطلاب كيف يُنهون درس ألف بسرعة؛ وتعلّم المعلّم مراقبة العمود الذي يكافئ ذلك.',
+      'أصبح الإنجاز هو الهدف. تعلّم الطلاب كيف يُنهون درس «ألف» بسرعة؛ وتعلّم المعلّم مراقبة العمود الذي يكافئ ذلك.',
     ),
     whyItHappened: t(
       'Completion is the easiest number to see, report, and praise. When it gets recognised, it gets optimised — by teachers and students alike — and the lesson check quietly stops mattering.',
@@ -226,12 +226,12 @@ export const LEVEL_32: LevelDefinition = {
   sceneImage: sceneAssess,
   scenario: t(
     'All students are logged into Alef and working on their devices. The room is calm and focused — no chatter, no movement, every head down. The teacher tells Toki this is the best-behaved class in the grade. Toki walks the rows and looks at the screens, not the faces.',
-    'كل الطلاب مسجّلون في ألف ويعملون على أجهزتهم. الغرفة هادئة ومركّزة — لا ثرثرة ولا حركة، كل الرؤوس منخفضة. يخبر المعلّم توكي أن هذا أفضل صف سلوكًا في المرحلة. يمشي توكي بين الصفوف وينظر إلى الشاشات لا الوجوه.',
+    'كل الطلاب مسجّلون في «ألف» ويعملون على أجهزتهم. الغرفة هادئة ومركّزة — لا ثرثرة ولا حركة، كل الرؤوس منخفضة. يخبر المعلّم توكي أن هذا أفضل صف سلوكًا في المرحلة. يمشي توكي بين الصفوف وينظر إلى الشاشات لا الوجوه.',
   ),
   evidence: [
     { id: 'row1', x: 22, y: 64, label: t('Front row', 'الصف الأمامي'), clue: t('Three screens, same question, three different wrong answers submitted without a pause.', 'ثلاث شاشات، السؤال نفسه، ثلاث إجابات خاطئة مختلفة أُرسلت دون توقف.') },
     { id: 'row3', x: 58, y: 70, label: t('Back row', 'الصف الخلفي'), clue: t('A student has clicked through the same explanation four times. Stuck, silent, and not raising a hand.', 'طالب ضغط على الشرح نفسه أربع مرات. عالق وصامت ولا يرفع يده.') },
-    { id: 'teacher', x: 80, y: 36, label: t('The teacher', 'المعلّم'), clue: t('At the front desk, watching the room, not the Alef live view. Calm.', 'على المكتب الأمامي، يراقب الغرفة لا عرض ألف المباشر. هادئ.') },
+    { id: 'teacher', x: 80, y: 36, label: t('The teacher', 'المعلّم'), clue: t('At the front desk, watching the room, not the Alef live view. Calm.', 'على المكتب الأمامي، يراقب الغرفة لا عرض «ألف» المباشر. هادئ.') },
   ],
   steps: {
     identifyDrift: {
@@ -239,7 +239,7 @@ export const LEVEL_32: LevelDefinition = {
       options: [
         { id: 'behaviour', label: t('Whether every student is on the assigned lesson, not another tab', 'هل كل طالب في الدرس المكلَّف به لا في تبويب آخر') },
         { id: 'pace', label: t('Whether the lesson’s pace suits the class — too fast, too slow', 'هل يناسب إيقاع الدرس الصف — أسرع أم أبطأ من اللازم') },
-        { id: 'liveview', label: t('Whether the teacher has the Alef live view open', 'هل عرض ألف المباشر مفتوح عند المعلّم') },
+        { id: 'liveview', label: t('Whether the teacher has the Alef live view open', 'هل عرض «ألف» المباشر مفتوح عند المعلّم') },
         { id: 'thinking', label: t('What is happening on the screens between a question and an answer', 'ماذا يحدث على الشاشات بين السؤال والإجابة') },
       ],
       correctId: 'thinking',
@@ -302,12 +302,12 @@ export const LEVEL_33: LevelDefinition = {
   sceneImage: sceneOut,
   scenario: t(
     'The teacher reviews Alef data every Sunday evening — she shows Toki the routine with real pride, and the reports are annotated by hand. Then she continues with the same lesson sequence, for all students, at the same pace. Toki asks what changed last week because of the data.',
-    'تراجع المعلّمة بيانات ألف كل مساء أحد — تُري توكي الروتين بفخر حقيقي، والتقارير معلّق عليها بخط اليد. ثم تواصل تسلسل الدروس نفسه، لكل الطلاب، بالإيقاع نفسه. يسأل توكي: ما الذي تغيّر الأسبوع الماضي بسبب البيانات؟',
+    'تراجع المعلّمة بيانات «ألف» كل مساء أحد — تُري توكي الروتين بفخر حقيقي، والتقارير معلّق عليها بخط اليد. ثم تواصل تسلسل الدروس نفسه، لكل الطلاب، بالإيقاع نفسه. يسأل توكي: ما الذي تغيّر الأسبوع الماضي بسبب البيانات؟',
   ),
   evidence: [
     { id: 'report', x: 26, y: 40, label: t('Annotated report', 'تقرير معلّق عليه'), clue: t('"Group B weak on fractions — again." Written three Sundays in a row.', '«المجموعة ب ضعيفة في الكسور — مجددًا.» مكتوبة ثلاثة أحاد متتالية.') },
     { id: 'plan', x: 56, y: 66, label: t('The week plan', 'خطة الأسبوع'), clue: t('Identical for all four groups. Fractions were covered in week 3; the plan has moved on.', 'متطابقة للمجموعات الأربع. غُطّيت الكسور في الأسبوع ٣؛ والخطة انتقلت.') },
-    { id: 'alef', x: 80, y: 30, label: t('Alef assignment', 'تكليف ألف'), clue: t('One lesson assigned to the whole class. The platform’s "assign by group" has never been used.', 'درس واحد مكلَّف به الصف كله. خاصية «التكليف حسب المجموعة» في المنصة لم تُستخدم قط.') },
+    { id: 'alef', x: 80, y: 30, label: t('Alef assignment', 'تكليف «ألف»'), clue: t('One lesson assigned to the whole class. The platform’s "assign by group" has never been used.', 'درس واحد مكلَّف به الصف كله. خاصية «التكليف حسب المجموعة» في المنصة لم تُستخدم قط.') },
   ],
   steps: {
     identifyDrift: {
@@ -363,7 +363,7 @@ export const LEVEL_33: LevelDefinition = {
     ),
     howToRestore: t(
       'Alef data should guide grouping, support, reteaching, and targeted learning decisions. Every Sunday note ends with a verb and a group: "Assign fractions practice to Group B; reteach Tuesday."',
-      'ينبغي لبيانات ألف أن توجّه قرارات التجميع والدعم وإعادة التدريس والتعلّم الموجّه. تنتهي كل ملاحظة أحد بفعل ومجموعة: «كلّف المجموعة ب بتدريب الكسور؛ أعد التدريس الثلاثاء.»',
+      'ينبغي لبيانات «ألف» أن توجّه قرارات التجميع والدعم وإعادة التدريس والتعلّم الموجّه. تنتهي كل ملاحظة أحد بفعل ومجموعة: «كلّف المجموعة ب بتدريب الكسور؛ أعد التدريس الثلاثاء.»',
     ),
   },
   points: { drift: 25, risk: 25, coaching: 30, restore: 20, reasoningBonus: 25 },

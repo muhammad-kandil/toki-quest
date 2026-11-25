@@ -12,7 +12,7 @@ export const LEVEL_5: LevelDefinition = {
   sceneImage: sceneImg,
   scenario: t(
     'Toki enters a buzzing, competitive classroom. Students race for points, badges, and spots on a leaderboard. The energy is electric — hands shoot up, everyone wants to win the next round. The teacher has gamified everything, and engagement has never looked higher.',
-    'يدخل توكي صفًا صاخبًا تنافسيًا. الطلاب يتسابقون على النقاط والشارات ومراكز لوحة المتصدّرين. الطاقة كهربائية — الأيدي تقفز، والجميع يريد الفوز بالجولة التالية. المعلّم حوّل كل شيء إلى لعبة، ولم تبدُ المشاركة أعلى من هذا قط.',
+    'يدخل توكي صفًا صاخبًا تنافسيًا. الطلاب يتسابقون على النقاط والشارات ومراكز لوحة المتصدّرين. الطاقة كهربائية — الأيدي تقفز، والجميع يريد الفوز بالجولة التالية. المعلّم حوّل كل شيء إلى لعبة، ولم يبدُ التفاعل أعلى من هذا قط.',
   ),
   evidence: [
     {
@@ -71,7 +71,7 @@ export const LEVEL_5: LevelDefinition = {
       prompt: t('Why change what’s rewarded rather than remove the game?', 'لماذا نغيّر ما يُكافَأ بدلًا من إزالة اللعبة؟'),
       options: [
         { id: 'r1', label: t('Removing the games would damage the relationship the teacher has built', 'إزالة الألعاب ستضرّ بالعلاقة التي بناها المعلّم') },
-        { id: 'r2', label: t('Engagement is valuable — the fix is to point it at reasoning and growth, so the energy serves learning instead of competing with it', 'المشاركة قيّمة — والحل أن نوجّهها نحو التعليل والنمو، فتخدم الطاقةُ التعلّمَ بدل أن تنافسه') },
+        { id: 'r2', label: t('Engagement is valuable — the fix is to point it at reasoning and growth, so the energy serves learning instead of competing with it', 'التفاعل قيّم — والحل أن نوجّهه نحو التعليل والنمو، فتخدم الطاقةُ التعلّمَ بدل أن تنافسه') },
         { id: 'r3', label: t('Competition raises effort, so the games should stay as they are', 'المنافسة ترفع الجهد، فينبغي أن تبقى الألعاب كما هي') },
         { id: 'r4', label: t('Quick recall is a real skill and deserves to be rewarded too', 'الاستدعاء السريع مهارة حقيقية وتستحق المكافأة أيضًا') },
       ],
@@ -86,7 +86,7 @@ export const LEVEL_5: LevelDefinition = {
   reveal: {
     whatDrifted: t(
       'Winning has become more important than learning. The competition drives engagement, but it rewards speed and performance rather than thinking and understanding.',
-      'أصبح الفوز أهم من التعلّم. التنافس يحرّك المشاركة، لكنه يكافئ السرعة والأداء لا التفكير والفهم.',
+      'أصبح الفوز أهم من التعلّم. التنافس يحرّك التفاعل، لكنه يكافئ السرعة والأداء لا التفكير والفهم.',
     ),
     whyItHappened: t(
       'Points and leaderboards produce visible, immediate excitement — so the game’s scoreboard quietly becomes the goal, and depth of learning takes a back seat to winning.',
@@ -94,7 +94,7 @@ export const LEVEL_5: LevelDefinition = {
     ),
     howToRestore: t(
       'Keep the engagement, change the reward: recognize reasoning, explanation, reflection, and improvement rather than speed. (It’s why this game never once rewarded you for being fast.)',
-      'احتفظ بالمشاركة وغيّر المكافأة: قدّر التعليل والشرح والتأمل والتحسّن بدل السرعة. (لهذا لم تكافئك هذه اللعبة قط على السرعة.)',
+      'احتفظ بالتفاعل وغيّر المكافأة: قدّر التعليل والشرح والتأمل والتحسّن بدل السرعة. (لهذا لم تكافئك هذه اللعبة قط على السرعة.)',
     ),
   },
 

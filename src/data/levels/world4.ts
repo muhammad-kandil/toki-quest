@@ -28,7 +28,7 @@ const CONVO_41: ConversationDefinition = {
       ],
     },
     {
-      teacherLine: t('So I should say "well done" less?', 'إذًا أقول «أحسنت» أقل؟'),
+      teacherLine: t('So I should say "well done" less?', 'يعني أقول «أحسنت» أقل؟'),
       options: [
         { id: 'a', effect: 'opens', label: t('Say it, then add one thing. "Beautiful — the way you coloured inside the roof. Try that on the door." Same warmth, and now he knows.', 'قوليها، ثم أضيفي شيئًا واحدًا. «جميلة — الطريقة التي لوّنت بها داخل السقف. جرّبها على الباب.» الدفء نفسه، والآن يعرف.'), reply: t('"Try that on the door." That is one more sentence. I could do that with every child.', '«جرّبها على الباب.» هذه جملة واحدة أخرى. أستطيع فعلها مع كل طفل.') },
         { id: 'b', effect: 'neutral', label: t('Keep the praise; maybe balance it with a little more effort language — "you kept going".', 'احتفظي بالمدح؛ وربما وازنيه بمزيد من لغة الجهد — «واصلت المحاولة».'), reply: t('I do say that. I will say it more.', 'أقول ذلك فعلًا. سأقولها أكثر.') },
@@ -53,22 +53,22 @@ const CONVO_42: ConversationDefinition = {
     {
       teacherLine: t('Six points, all things they actually got wrong. I do not sugar-coat it. They know exactly where they stand.', 'ست نقاط، كلها أشياء أخطؤوا فيها فعلًا. لا أجمّل الأمر. يعرفون تمامًا أين يقفون.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('They do — I wrote all six down myself. Then you said "next task" and the folders closed. What were you hoping they would do with the six?', 'يعرفون — كتبت الست بنفسي. ثم قلت «المهمة التالية» وأُغلقت الملفات. ما الذي كنت تأمل أن يفعلوه بالست؟'), reply: t('Use them. On the next one. Which is a different task, so… no, they could not, could they.', 'يستخدمونها. في التالية. وهي مهمة مختلفة، إذًا… لا، لم يستطيعوا، أليس كذلك.') },
+        { id: 'a', effect: 'opens', label: t('They do — I wrote all six down myself. Then you said "next task" and the folders closed. What were you hoping they would do with the six?', 'يعرفون — كتبت الست بنفسي. ثم قلت «المهمة التالية» وأُغلقت الملفات. ما الذي كنت تأمل أن يفعلوه بالست؟'), reply: t('Use them. On the next one. Which is a different task, so… no, they could not, could they.', 'يستخدمونها. في التالية. وهي مهمة مختلفة، إذًا… لا، ما كانوا سيستطيعون، صحيح؟') },
         { id: 'b', effect: 'neutral', label: t('It was expert feedback. I learned something about the practical myself, listening to it.', 'كانت تغذية راجعة خبيرة. تعلّمت أنا نفسي شيئًا عن التجربة وأنا أستمع.'), reply: t('Most coaches do not follow the chemistry. Good.', 'معظم المدرّبين لا يتابعون الكيمياء. جيد.') },
         { id: 'c', effect: 'closes', label: t('Feedback nobody acts on is a speech, not feedback. The research on this is clear.', 'التغذية الراجعة التي لا يعمل بها أحد خطبة، لا تغذية راجعة. البحوث في هذا واضحة.'), reply: t('A speech. Fifteen years of speeches, apparently. Send me the research; I will file it.', 'خطبة. خمسة عشر عامًا من الخطب، على ما يبدو. أرسل لي البحوث؛ سأحفظها في الملف.') },
       ],
     },
     {
-      teacherLine: t('So I give them time to fix it. Six points, twenty-six students — that is the whole lesson gone.', 'إذًا أعطيهم وقتًا لإصلاحه. ست نقاط، ستة وعشرون طالبًا — هذا الدرس كله ضاع.'),
+      teacherLine: t('So I give them time to fix it. Six points, twenty-six students — that is the whole lesson gone.', 'يعني أعطيهم وقتًا لإصلاحه. ست نقاط، ستة وعشرون طالبًا — يعني ضياع الدرس كله.'),
       options: [
         { id: 'a', effect: 'opens', label: t('One point, not six. "Fix the units in your table — five minutes." Same feedback, but it ends in their hands, not in the folder.', 'نقطة واحدة، لا ست. «صحّحوا الوحدات في جدولكم — خمس دقائق.» التغذية الراجعة نفسها، لكنها تنتهي في أيديهم لا في الملف.'), reply: t('Five minutes, one thing. I could put the other five on the board for the ones who finish.', 'خمس دقائق، شيء واحد. أستطيع وضع الخمس الأخرى على السبورة لمن ينتهي.') },
         { id: 'b', effect: 'neutral', label: t('Maybe have them note the points down so they carry over to the next practical.', 'ربما اجعلهم يدوّنون النقاط لتُنقل إلى التجربة التالية.'), reply: t('They have notebooks. I will tell them to use them.', 'لديهم دفاتر. سأقول لهم أن يستخدموها.') },
-        { id: 'c', effect: 'closes', label: t('It is a priority question. Learning matters more than finishing the scheme of work.', 'إنها مسألة أولويات. التعلّم أهم من إنهاء خطة المنهج.'), reply: t('Tell the head of science that in June. I will give you her email.', 'قل ذلك لرئيسة قسم العلوم في يونيو. سأعطيك بريدها.') },
+        { id: 'c', effect: 'closes', label: t('It is a priority question. Learning matters more than finishing the scheme of work.', 'إنها مسألة أولويات. التعلّم أهم من إنهاء الخطة الدراسية.'), reply: t('Tell the head of science that in June. I will give you her email.', 'قل ذلك لرئيسة قسم العلوم في يونيو. سأعطيك بريدها.') },
       ],
     },
   ],
   outcomes: {
-    restored: t('Feedback is one point and five minutes of green pen before the folder closes. The student who said "be more careful" now says "the units".', 'التغذية الراجعة نقطة واحدة وخمس دقائق بالقلم الأخضر قبل أن يُغلق الملف. الطالب الذي قال «أكون أكثر حذرًا» يقول الآن «الوحدات».'),
+    restored: t('Feedback is one point and five minutes of green pen before the folder closes. The student who said "be more careful" now says "the units".', 'التغذية الراجعة نقطة واحدة وخمس دقائق بالقلم الأخضر قبل أن يُغلق الملف. الطالب الذي قال «أكون أكثر حرصًا» يقول الآن «الوحدات».'),
     partial: t('Students write the six points in their notebooks. The notebooks go in the bag. The next practical has the same six.', 'يكتب الطلاب النقاط الست في دفاترهم. تذهب الدفاتر إلى الحقيبة. التجربة التالية فيها النقاط الست نفسها.'),
     unchanged: t('The research is filed. The feedback is still six points and four minutes, delivered now with a glance at the door.', 'البحوث في الملف. التغذية الراجعة ما زالت ست نقاط وأربع دقائق، تُلقى الآن مع نظرة نحو الباب.'),
   },
@@ -85,14 +85,14 @@ const CONVO_43: ConversationDefinition = {
       teacherLine: t('I know what you are going to say. Too many comments. But if I write less, they say I do not care.', 'أعرف ما ستقوله. تعليقات كثيرة جدًا. لكن إن كتبت أقل، يقولون إنني لا أهتم.'),
       options: [
         { id: 'a', effect: 'opens', label: t('I was not going to say that. I watched Hamad get his essay back: grade, back page, grade again, bag. How many of the eleven did he read?', 'لم أكن سأقول ذلك. راقبت حمد وهو يستلم مقاله: الدرجة، الصفحة الأخيرة، الدرجة مرة أخرى، الحقيبة. كم من الأحد عشر قرأ؟'), reply: t('None. He never does. None of them do, really. I write them anyway.', 'ولا واحدًا. لا يقرأ أبدًا. لا أحد منهم يقرأ، في الحقيقة. أكتبها على أي حال.') },
-        { id: 'b', effect: 'neutral', label: t('Nobody could say you do not care. That marking is the most thorough I have seen this year.', 'لا أحد يستطيع القول إنك لا تهتمين. هذا التصحيح الأكثر شمولًا الذي رأيته هذا العام.'), reply: t('Thorough. Yes. It takes my whole Saturday.', 'شامل. نعم. يستهلك سبتي كله.') },
-        { id: 'c', effect: 'closes', label: t('Eleven comments is more than anyone can take in. Research says three at most.', 'أحد عشر تعليقًا أكثر مما يستطيع أحد استيعابه. تقول البحوث ثلاثة على الأكثر.'), reply: t('Three. So I spend my Saturday writing three. And when parents ask why the margin is empty?', 'ثلاثة. إذًا أقضي سبتي أكتب ثلاثة. وحين يسأل الأهل لماذا الهامش فارغ؟') },
+        { id: 'b', effect: 'neutral', label: t('Nobody could say you do not care. That marking is the most thorough I have seen this year.', 'لا أحد يستطيع القول إنك لا تهتمين. هذا التصحيح الأكثر شمولًا الذي رأيته هذا العام.'), reply: t('Thorough. Yes. It takes my whole Saturday.', 'شامل. نعم. يأخذ يوم السبت كله مني.') },
+        { id: 'c', effect: 'closes', label: t('Eleven comments is more than anyone can take in. Research says three at most.', 'أحد عشر تعليقًا أكثر مما يستطيع أحد استيعابه. تقول البحوث ثلاثة على الأكثر.'), reply: t('Three. So I spend my Saturday writing three. And when parents ask why the margin is empty?', 'ثلاثة. يعني أقضي يوم السبت أكتب ثلاثة. وحين يسأل الأهل لماذا الهامش فارغ؟') },
       ],
     },
     {
-      teacherLine: t('Then what is the point of any of it? I could write the grade and go home.', 'إذًا ما الفائدة من أي منها؟ أستطيع كتابة الدرجة والعودة إلى البيت.'),
+      teacherLine: t('Then what is the point of any of it? I could write the grade and go home.', 'يعني ما الفائدة من أي منها؟ أستطيع كتابة الدرجة والعودة إلى البيت.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('What if Monday opened with "fix the one thing in your margin" before anyone sees a grade? Three comments, twenty minutes, and your Saturday back.', 'ماذا لو بدأ الاثنين بـ«أصلحوا الشيء الواحد في هامشكم» قبل أن يرى أحد درجة؟ ثلاثة تعليقات، عشرون دقيقة، وسبتك يعود إليك.'), reply: t('Before the grade. They would actually have to read it. …My Saturday back.', 'قبل الدرجة. سيضطرون فعلًا إلى قراءته. …سبتي يعود إليّ.') },
+        { id: 'a', effect: 'opens', label: t('What if Monday opened with "fix the one thing in your margin" before anyone sees a grade? Three comments, twenty minutes, and your Saturday back.', 'ماذا لو بدأ الاثنين بـ«أصلحوا الشيء الواحد في هامشكم» قبل أن يرى أحد درجة؟ ثلاثة تعليقات، عشرون دقيقة، ويرجع لك يوم السبت.'), reply: t('Before the grade. They would actually have to read it. …My Saturday back.', 'قبل الدرجة. سيضطرون فعلًا إلى قراءته. …يرجع لي يوم السبت.') },
         { id: 'b', effect: 'neutral', label: t('The point is the thinking you do while marking — it shapes the next lesson even if they never read it.', 'الفائدة هي التفكير الذي تقومين به أثناء التصحيح — يشكّل الدرس التالي حتى لو لم يقرؤوه.'), reply: t('I suppose. It would be nice if it shaped them, too.', 'ربما. سيكون لطيفًا لو شكّلهم هم أيضًا.') },
         { id: 'c', effect: 'closes', label: t('With the next essay due Friday, the comments cannot land anyway. The planning has to change first.', 'مع موعد المقال التالي يوم الجمعة، لا يمكن للتعليقات أن تصل على أي حال. التخطيط يجب أن يتغير أولًا.'), reply: t('The planning. Which I did. On Sunday. After the marking.', 'التخطيط. الذي أنجزته. يوم الأحد. بعد التصحيح.') },
       ],
@@ -116,8 +116,8 @@ const CONVO_44: ConversationDefinition = {
       teacherLine: t('Green pen corrections after every task. Every student, every time. That is the policy and these books prove it.', 'تصحيحات بالقلم الأخضر بعد كل مهمة. كل طالب، كل مرة. هذه هي السياسة وهذه الدفاتر تثبت ذلك.'),
       options: [
         { id: 'a', effect: 'opens', label: t('They do — I have never seen it followed this consistently. May I show you one thing? Page 12, page 19, page 27: the same sign error, in green, three times.', 'تثبت ذلك — لم أرَ السياسة تُتَّبع بهذا الاتساق قط. هل أريك شيئًا واحدًا؟ الصفحة ١٢، الصفحة ١٩، الصفحة ٢٧: خطأ الإشارة نفسه، بالأخضر، ثلاث مرات.'), reply: t('…Three times. He corrected it three times. Where is he getting it from?', '…ثلاث مرات. صحّحه ثلاث مرات. من أين يأتي به؟') },
-        { id: 'b', effect: 'neutral', label: t('The books are immaculate. If every department followed policy like this, my job would be easy.', 'الدفاتر لا تشوبها شائبة. لو اتبع كل قسم السياسة هكذا، لكان عملي سهلًا.'), reply: t('Tell the head of maths. She thinks I am slow on the scheme.', 'قل ذلك لرئيسة قسم الرياضيات. تظن أنني بطيء في خطة المنهج.') },
-        { id: 'c', effect: 'closes', label: t('The policy is being followed and it is not working. Copying the right answer is not learning.', 'السياسة تُتَّبع وهي لا تعمل. نسخ الإجابة الصحيحة ليس تعلّمًا.'), reply: t('Not working. So the policy is wrong, or I am? Because I did not write it.', 'لا تعمل. إذًا السياسة خاطئة، أم أنا؟ لأنني لم أكتبها.') },
+        { id: 'b', effect: 'neutral', label: t('The books are immaculate. If every department followed policy like this, my job would be easy.', 'الدفاتر لا تشوبها شائبة. لو اتبع كل قسم السياسة هكذا، لكان عملي سهلًا.'), reply: t('Tell the head of maths. She thinks I am slow on the scheme.', 'قل ذلك لرئيسة قسم الرياضيات. تظن أنني بطيء في الخطة الدراسية.') },
+        { id: 'c', effect: 'closes', label: t('The policy is being followed and it is not working. Copying the right answer is not learning.', 'السياسة تُتَّبع وهي لا تعمل. نسخ الإجابة الصحيحة ليس تعلّمًا.'), reply: t('Not working. So the policy is wrong, or I am? Because I did not write it.', 'لا تعمل. يعني السياسة خاطئة، أم أنا؟ لأنني لم أكتبها.') },
       ],
     },
     {
@@ -224,7 +224,7 @@ export const LEVEL_42: LevelDefinition = {
   ),
   evidence: [
     { id: 'feedback', x: 50, y: 28, label: t('The feedback', 'التغذية الراجعة'), clue: t('Four minutes, six distinct points, all correct. Nobody writes anything down.', 'أربع دقائق، ست نقاط متمايزة، كلها صحيحة. لا أحد يدوّن شيئًا.') },
-    { id: 'after', x: 26, y: 66, label: t('When it ends', 'حين تنتهي'), clue: t('"Okay — next task." The flawed work goes in the folder, untouched.', '«حسنًا — المهمة التالية.» يذهب العمل المعيب إلى الملف دون أن يُمسّ.') },
+    { id: 'after', x: 26, y: 66, label: t('When it ends', 'حين تنتهي'), clue: t('"Okay — next task." The flawed work goes in the folder, untouched.', '«طيّب — المهمة التالية.» يذهب العمل المعيب إلى الملف دون أن يُمسّ.') },
     { id: 'student', x: 78, y: 66, label: t('Ask a student', 'اسأل طالبًا'), clue: t('"What was the main thing to fix?" — "Um… be more careful?"', '«ما الشيء الأساسي الذي ينبغي إصلاحه؟» — «أمم… أن أكون أكثر حرصًا؟»') },
   ],
   steps: {
@@ -237,13 +237,13 @@ export const LEVEL_42: LevelDefinition = {
         { id: 'priority', label: t('Whether the teacher signals which of the six points matters most', 'هل يشير المعلّم إلى أي النقاط الست هي الأهم') },
       ],
       correctId: 'action',
-      hint: t('The second clue: "Okay — next task", and the flawed work goes in the folder untouched. Which option is asking about that moment rather than about the six points?', 'الدليل الثاني: «حسنًا — المهمة التالية»، ويذهب العمل المعيب إلى الملف دون أن يُمَس. أي خيار يسأل عن تلك اللحظة لا عن النقاط الست؟'),
+      hint: t('The second clue: "Okay — next task", and the flawed work goes in the folder untouched. Which option is asking about that moment rather than about the six points?', 'الدليل الثاني: «طيّب — المهمة التالية»، ويذهب العمل المعيب إلى الملف دون أن يُمَس. أي خيار يسأل عن تلك اللحظة لا عن النقاط الست؟'),
     },
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
       correctId: 'moderate',
-      hint: t('The feedback clue says all six points were correct and expert. The student clue says "be more careful". Is the practice itself broken, or is one step missing from it?', 'يقول دليل التغذية الراجعة إن النقاط الست كلها صحيحة وخبيرة. ويقول دليل الطالب «أكون أكثر حذرًا». هل الممارسة نفسها معطّلة، أم أن خطوة واحدة ناقصة منها؟'),
+      hint: t('The feedback clue says all six points were correct and expert. The student clue says "be more careful". Is the practice itself broken, or is one step missing from it?', 'يقول دليل التغذية الراجعة إن النقاط الست كلها صحيحة وخبيرة. ويقول دليل الطالب «أكون أكثر حرصًا». هل الممارسة نفسها معطّلة، أم أن خطوة واحدة ناقصة منها؟'),
     },
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
@@ -265,7 +265,7 @@ export const LEVEL_42: LevelDefinition = {
         { id: 'r4', label: t('The revised work hands the teacher evidence that the feedback actually landed', 'العمل المراجَع يعطي المعلّم دليلًا على أن التغذية الراجعة وصلت') },
       ],
       correctId: 'r2',
-      hint: t('The student said "be more careful" after four minutes of expert feedback. What did he not get to do between hearing it and "next task"?', 'قال الطالب «أكون أكثر حذرًا» بعد أربع دقائق من تغذية راجعة خبيرة. ما الذي لم تُتَح له فرصة فعله بين سماعها و«المهمة التالية»؟'),
+      hint: t('The student said "be more careful" after four minutes of expert feedback. What did he not get to do between hearing it and "next task"?', 'قال الطالب «أكون أكثر حرصًا» بعد أربع دقائق من تغذية راجعة خبيرة. ما الذي لم تُتَح له فرصة فعله بين سماعها و«المهمة التالية»؟'),
       bonusPoints: 25,
     },
   },
@@ -313,7 +313,7 @@ export const LEVEL_43: LevelDefinition = {
         { id: 'cost', label: t('Whether the weekend marking is sustainable for the teacher', 'هل تصحيح عطلة الأسبوع قابل للاستمرار بالنسبة إلى المعلّمة') },
       ],
       correctId: 'use',
-      hint: t('Follow the third clue: "due Friday — on a new topic". Even if the eleven comments were three perfect ones, what would happen to them by Friday?', 'اتبع الدليل الثالث: «مطلوب الجمعة — في موضوع جديد». حتى لو كانت التعليقات الأحد عشر ثلاثة تعليقات مثالية، ماذا سيحدث لها بحلول الجمعة؟'),
+      hint: t('Follow the third clue: "due Friday — on a new topic". Even if the eleven comments were three perfect ones, what would happen to them by Friday?', 'اتبع الدليل الثالث: «موعدها الجمعة — بموضوع جديد». حتى لو كانت التعليقات الأحد عشر ثلاثة تعليقات مثالية، ماذا سيحدث لها بحلول الجمعة؟'),
     },
     assessRisk: {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
@@ -326,8 +326,8 @@ export const LEVEL_43: LevelDefinition = {
       options: [
         { id: 'three', label: t('Three comments instead of eleven, each naming one change to make', 'ثلاثة تعليقات بدل أحد عشر، يسمّي كل منها تغييرًا واحدًا') },
         { id: 'revise', label: t('Three comments, and the next lesson opens with students revising the essay against them', 'ثلاثة تعليقات، ويُفتتح الدرس التالي بمراجعة الطلاب هذه المقالة على ضوئها') },
-        { id: 'grade-later', label: t('Return the comments first and the grade a week later, so the margin actually gets read', 'أعيدي التعليقات أولًا والدرجة بعد أسبوع، ليُقرأ الهامش') },
-        { id: 'codes', label: t('Replace written comments with marking codes keyed to a class sheet', 'استبدلي التعليقات المكتوبة برموز تصحيح مرتبطة بورقة للصف') },
+        { id: 'grade-later', label: t('Return the comments first and the grade a week later, so the margin actually gets read', 'أعد التعليقات أولًا والدرجة بعد أسبوع، ليُقرأ الهامش') },
+        { id: 'codes', label: t('Replace written comments with marking codes keyed to a class sheet', 'استبدل التعليقات المكتوبة برموز تصحيح مرتبطة بورقة للصف') },
       ],
       correctId: 'revise',
       hint: t('Two of these make the margin shorter or get it read. Look at the "next essay" clue again: new topic, Friday. Which move gives this essay a second life before that?', 'اثنتان من هذه تجعلان الهامش أقصر أو تجعلانه يُقرأ. انظر إلى دليل «المقال التالي» مجددًا: موضوع جديد، الجمعة. أي خطوة تمنح هذا المقال حياة ثانية قبل ذلك؟'),

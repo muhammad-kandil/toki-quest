@@ -22,7 +22,7 @@ export const BADGES: BadgeDefinition[] = [
   {
     id: 'drift-detective',
     name: t('Drift Detective', 'محقّق الانحراف'),
-    description: t('You can see past a busy, impressive surface.', 'ترى ما وراء السطح المشغول المبهر.'),
+    description: t('You can see past a busy, impressive surface.', 'ترى ما وراء المشهد المزدحم المبهر.'),
     glyph: 'magnifier',
     color: '#1DD6BB',
     howToEarn: t('World 1: a clean first-try run — and the teacher actually changed the lesson', 'العالم ١: جولة نظيفة من المحاولة الأولى — وغيّر المعلّم الدرس فعلًا'),
@@ -33,7 +33,7 @@ export const BADGES: BadgeDefinition[] = [
     description: t('You choose the move that fixes the cause, not the symptom.', 'تختار الخطوة التي تعالج السبب لا العَرَض.'),
     glyph: 'cap',
     color: '#452B74',
-    howToEarn: t('Worlds 2 & 4: name the cause, not the symptom, first time — and leave the teacher with one thing to do', 'العالمان ٢ و٤: سمِّ السبب لا العَرَض من المحاولة الأولى — واترك المعلّم بشيء واحد يفعله'),
+    howToEarn: t('Worlds 2 & 4: name the cause, not the symptom, first time — and leave the teacher with one thing to do', 'العالمان ٢ و٤: سمِّ السبب لا العَرَض من المحاولة الأولى — واترك للمعلّم شيئًا واحدًا يفعله'),
   },
   {
     id: 'purpose-protector',
@@ -49,7 +49,7 @@ export const BADGES: BadgeDefinition[] = [
     description: t('You can name a lethal mutation when you see one.', 'تستطيع تسمية التحوّر القاتل حين تراه.'),
     glyph: 'dna',
     color: '#E0466B',
-    howToEarn: t('World 7: a diagnosis with nothing missed and nothing over-called — then said to a strong teacher', 'العالم ٧: تشخيص لا ينقصه شيء ولا يزيد — ثم يُقال لمعلّم قوي'),
+    howToEarn: t('World 7: a diagnosis with nothing missed and nothing over-called — then said to a strong teacher', 'العالم ٧: تشخيص لا ينقصه شيء ولا يزيد — ثم قُلته لمعلّم قوي'),
   },
   {
     id: 'thinking-architect',

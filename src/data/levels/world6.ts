@@ -22,13 +22,13 @@ const CONVO_61: ConversationDefinition = {
     {
       teacherLine: t('Three levels, every lesson, every student placed from the baseline. The head of department uses my folder for induction. What did you see?', 'ثلاثة مستويات، كل حصة، كل طالب موضوع من التقييم الأساسي. رئيسة القسم تستخدم ملفي للتدريب التمهيدي. ماذا رأيت؟'),
       options: [
-        { id: 'a', effect: 'opens', label: t('I saw why they use it — nobody was lost for a second. I sat with Omar on bronze: he was stuck on question 1 for twelve minutes. What is question 1 asking him to already know?', 'رأيت لماذا يستخدمونه — لم يضِع أحد لحظة. جلست مع عمر في البرونزي: ظل عالقًا في السؤال ١ اثنتي عشرة دقيقة. ما الذي يطلب السؤال ١ منه أن يعرفه مسبقًا؟'), reply: t('Expanding a bracket. Which he… cannot do. So the eight questions are all expanding brackets. Oh.', 'فكّ قوس. وهو… لا يستطيع. إذًا الأسئلة الثمانية كلها فكّ أقواس. آه.') },
-        { id: 'b', effect: 'neutral', label: t('I saw the most organised differentiation in the school. The trays alone would take most teachers a term.', 'رأيت أكثر تمايز منظّم في المدرسة. الأدراج وحدها تستغرق معظم المعلّمين فصلًا كاملًا.'), reply: t('A summer, actually. But thank you.', 'صيفًا كاملًا، في الحقيقة. لكن شكرًا.') },
+        { id: 'a', effect: 'opens', label: t('I saw why they use it — nobody was lost for a second. I sat with Omar on bronze: he was stuck on question 1 for twelve minutes. What is question 1 asking him to already know?', 'رأيت لماذا يستخدمونه — لم يضِع أحد لحظة. جلست مع عمر في البرونزي: ظل عالقًا في السؤال ١ اثنتي عشرة دقيقة. ما الذي يطلب السؤال ١ منه أن يعرفه مسبقًا؟'), reply: t('Expanding a bracket. Which he… cannot do. So the eight questions are all expanding brackets. Oh.', 'فكّ قوس. وهو… لا يستطيع. يعني الأسئلة الثمانية كلها فكّ أقواس. آه.') },
+        { id: 'b', effect: 'neutral', label: t('I saw the most organised differentiation in the school. The trays alone would take most teachers a term.', 'رأيت التمايز الأكثر تنظيمًا في المدرسة. الأدراج وحدها تستغرق معظم المعلّمين فصلًا كاملًا.'), reply: t('A summer, actually. But thank you.', 'صيفًا كاملًا، في الحقيقة. لكن شكرًا.') },
         { id: 'c', effect: 'closes', label: t('Three sheets with the same skill and different lengths is not differentiation. It is the same lesson, rationed.', 'ثلاث أوراق بالمهارة نفسها وأطوال مختلفة ليست تمايزًا. إنها الحصة نفسها، مقنَّنة.'), reply: t('Rationed. I will tell the head of department her induction folder is rationed.', 'مقنَّنة. سأخبر رئيسة القسم أن ملف التدريب التمهيدي لديها مقنَّن.') },
       ],
     },
     {
-      teacherLine: t('So Omar needs a fourth sheet now? I cannot plan four levels for every lesson.', 'إذًا يحتاج عمر إلى ورقة رابعة الآن؟ لا أستطيع تخطيط أربعة مستويات لكل حصة.'),
+      teacherLine: t('So Omar needs a fourth sheet now? I cannot plan four levels for every lesson.', 'يعني يحتاج عمر إلى ورقة رابعة الآن؟ لا أستطيع تخطيط أربعة مستويات لكل حصة.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Still three — but bronze starts with the bracket he is missing, and gold ends with one problem nobody has seen before. Same trays, same lists. The sheets just stop being the same sheet.', 'ما زالت ثلاثة — لكن البرونزي يبدأ بالقوس الذي ينقصه، والذهبي ينتهي بمسألة لم يرها أحد من قبل. الأدراج نفسها، القوائم نفسها. فقط تتوقف الأوراق عن كونها الورقة نفسها.'), reply: t('Bronze teaches the bracket first. Gold gets a new problem at the end. That is… two pages changed, not three sheets. I could do that for Thursday.', 'البرونزي يعلّم القوس أولًا. والذهبي يحصل على مسألة جديدة في النهاية. هذا… صفحتان تغيّرتا، لا ثلاث أوراق. أستطيع فعل ذلك للخميس.') },
         { id: 'b', effect: 'neutral', label: t('Maybe move him to a different group, or re-run the baseline this month so the groups are fresh.', 'ربما انقليه إلى مجموعة مختلفة، أو أعيدي التقييم الأساسي هذا الشهر لتكون المجموعات محدَّثة.'), reply: t('I can re-baseline. It takes a lesson, but I can.', 'أستطيع إعادة التقييم الأساسي. يستغرق حصة، لكنني أستطيع.') },
@@ -63,7 +63,7 @@ const CONVO_62: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('Keep the steps and the timer. Two changes: each step gets a "finished? do this" line for Fahad, and you press next when most of the room is done, not when the clock says. You are still in charge; the clock is not.', 'احتفظ بالخطوات والمؤقّت. تغييران: كل خطوة تحصل على سطر «انتهيت؟ افعل هذا» لفهد، وتضغط التالي حين ينتهي معظم الصف، لا حين يقول المؤقّت. ما زلت أنت المسؤول؛ لا الساعة.'), reply: t('I press next. Not the clock. …That is what I did in September, before the timer. It was the chairs that were the problem, not the pressing.', 'أنا أضغط التالي. لا الساعة. …هذا ما فعلته في سبتمبر، قبل المؤقّت. كانت الكراسي هي المشكلة، لا الضغط.') },
         { id: 'b', effect: 'neutral', label: t('Keep the timer. Maybe set each step from last week’s average instead of a flat eight.', 'احتفظ بالمؤقّت. ربما اضبط كل خطوة من متوسط الأسبوع الماضي بدلًا من ثمانٍ ثابتة.'), reply: t('I have the data. I can average it. Seven and a half, probably.', 'لديّ البيانات. أستطيع حساب المتوسط. سبع ونصف، على الأرجح.') },
-        { id: 'c', effect: 'closes', label: t('Pair Fahad with Ali. Fahad has five spare minutes every step and Ali needs exactly that.', 'ضع فهد مع علي. لدى فهد خمس دقائق فائضة في كل خطوة وعلي يحتاج إليها تمامًا.'), reply: t('So Fahad becomes the teacher and Ali becomes his problem. That is the September I am trying not to have.', 'إذًا يصبح فهد المعلّم ويصبح علي مشكلته. هذا هو سبتمبر الذي أحاول ألا أعيشه.') },
+        { id: 'c', effect: 'closes', label: t('Pair Fahad with Ali. Fahad has five spare minutes every step and Ali needs exactly that.', 'ضع فهد مع علي. لدى فهد خمس دقائق فائضة في كل خطوة وعلي يحتاج إليها تمامًا.'), reply: t('So Fahad becomes the teacher and Ali becomes his problem. That is the September I am trying not to have.', 'يعني يصبح فهد المعلّم ويصبح علي مشكلته. هذا هو سبتمبر الذي أحاول ألا أعيشه.') },
       ],
     },
   ],
@@ -90,7 +90,7 @@ const CONVO_63: ConversationDefinition = {
       ],
     },
     {
-      teacherLine: t('Fine. I move Maitha up. And the Eagle who is struggling, down. Then the chart is right again.', 'حسنًا. أنقل ميثاء إلى الأعلى. والنسر المتعثّر، إلى الأسفل. ثم يعود المخطط صحيحًا.'),
+      teacherLine: t('Fine. I move Maitha up. And the Eagle who is struggling, down. Then the chart is right again.', 'طيّب. أنقل ميثاء إلى الأعلى. والنسر المتعثّر، إلى الأسفل. ثم يعود المخطط صحيحًا.'),
       options: [
         { id: 'a', effect: 'opens', label: t('For this topic, yes — and that is the change: groups made from the last test, for this topic, and remade when the topic changes. The four tasks stay. The chart just gets a date that moves.', 'لهذا الموضوع، نعم — وهذا هو التغيير: مجموعات تُشكَّل من آخر اختبار، لهذا الموضوع، وتُعاد حين يتغير الموضوع. المهام الأربع تبقى. فقط يحصل المخطط على تاريخ يتحرك.'), reply: t('A date that moves. Every topic. That is… five charts a year, not one. The tasks I already have. Yes. I could keep the tasks.', 'تاريخ يتحرك. كل موضوع. هذا… خمسة مخططات في السنة، لا واحد. والمهام لديّ بالفعل. نعم. أستطيع الاحتفاظ بالمهام.') },
         { id: 'b', effect: 'neutral', label: t('Moving those two is a good start. Maybe re-run the baseline before the next term as well.', 'نقل هذين بداية جيدة. ربما أعيدي التقييم الأساسي قبل الفصل التالي أيضًا.'), reply: t('Two moves now, a new baseline in April. I can live with that.', 'انتقالان الآن، وتقييم أساسي جديد في أبريل. أستطيع التعايش مع ذلك.') },
@@ -121,7 +121,7 @@ const CONVO_64: ConversationDefinition = {
       ],
     },
     {
-      teacherLine: t('So I leave the support table and circulate. Then nobody gets anything. I have done that version of this job.', 'إذًا أترك طاولة الدعم وأتجول. فلا يحصل أحد على شيء. جرّبت تلك النسخة من هذه الوظيفة.'),
+      teacherLine: t('So I leave the support table and circulate. Then nobody gets anything. I have done that version of this job.', 'يعني أترك طاولة الدعم وأتجول. فلا يحصل أحد على شيء. جرّبت تلك النسخة من هذه الوظيفة.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Stay at the table. Change the task the others get: one open problem with a "prove it" line at the end. It cannot be finished in twelve minutes or copied out neatly. They work; you do not move.', 'ابقَ على الطاولة. غيّر المهمة التي يحصل عليها الآخرون: مسألة مفتوحة واحدة مع سطر «أثبت ذلك» في النهاية. لا يمكن إنهاؤها في اثنتي عشرة دقيقة ولا نسخها بترتيب. هم يعملون؛ وأنت لا تتحرك.'), reply: t('"Prove it." One problem. I do not have to be there for that. …I could write one of those tonight, if that is all it is.', '«أثبت ذلك.» مسألة واحدة. لا يلزم أن أكون هناك من أجلها. …أستطيع كتابة واحدة الليلة، إن كان هذا كل ما في الأمر.') },
         { id: 'b', effect: 'neutral', label: t('Keep the table. Maybe give the others an extension bank to choose from when they finish.', 'احتفظ بالطاولة. ربما أعطِ الآخرين بنك إثراء يختارون منه حين ينتهون.'), reply: t('There is an extension folder somewhere. I will find it.', 'هناك ملف إثراء في مكان ما. سأجده.') },
@@ -174,8 +174,8 @@ export const LEVEL_61: LevelDefinition = {
       options: [
         { id: 'choice', label: t('Let students choose their sheet and move up when they finish', 'دع الطلاب يختارون ورقتهم وينتقلون إلى الأعلى حين ينهونها') },
         { id: 'one-sheet', label: t('One sheet for everyone, questions ordered from easy to hard, teacher support at the start for anyone stuck', 'ورقة واحدة للجميع، بأسئلة مرتّبة من السهل إلى الصعب، ودعم من المعلّم في البداية') },
-        { id: 'regroup', label: t('Re-sort the three groups from last week’s quiz instead of the term baseline', 'أعد فرز المجموعات الثلاث من اختبار الأسبوع الماضي بدل الاختبار القاعدي للفصل') },
-        { id: 'need', label: t('Three sheets that do different things: bronze teaches the prerequisite, gold applies the skill to a new problem', 'احتفظ بثلاث أوراق وغيّر ما تفعله: البرونزية تعلّم المهارة السابقة الغائبة، والذهبية تطبّق المهارة على مسألة جديدة') },
+        { id: 'regroup', label: t('Re-sort the three groups from last week’s quiz instead of the term baseline', 'أعد فرز المجموعات الثلاث من اختبار الأسبوع الماضي بدل التقييم الأساسي للفصل') },
+        { id: 'need', label: t('Three sheets that do different things: bronze teaches the prerequisite, gold applies the skill to a new problem', 'ثلاث أوراق تفعل أشياء مختلفة: البرونزية تعلّم المهارة السابقة، والذهبية تطبّق المهارة على مسألة جديدة') },
       ],
       correctId: 'need',
       hint: t('Choice, one ordered sheet and re-sorting all change who receives which quantity. Read the two student clues again: he cannot begin, she was finished before she started. Which move changes what each sheet asks for?', 'الاختيار والورقة الواحدة المرتبة وإعادة الفرز كلها تغيّر مَن يتلقى أي كمية. اقرأ دليلي البرونزي والذهبي مجددًا: هو لا يستطيع البدء، وهي أنهت قبل أن تبدأ. أي خطوة تغيّر ما تطلبه كل ورقة؟'),
@@ -248,7 +248,7 @@ export const LEVEL_62: LevelDefinition = {
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
-        { id: 'adjust', label: t('Keep the steps, add "finished? do this" to each, and move on when the room says so, not the clock', 'احتفظ بالخطوات، وأضف «انتهيت؟ افعل هذا» على كل منها، وتفقد الغرفة قبل الانتقال لا الساعة') },
+        { id: 'adjust', label: t('Keep the steps, add "finished? do this" to each, and move on when the room says so, not the clock', 'احتفظ بالخطوات، وأضف «انتهيت؟ افعل هذا» على كل منها، وانتقل حين تقول الغرفة ذلك، لا الساعة') },
         { id: 'self-pace', label: t('Put the four steps on one sheet and let every student move at their own speed', 'ضع الخطوات الأربع في ورقة واحدة ودع كل طالب يتحرك بسرعته') },
         { id: 'pairs', label: t('Pair the fast student with the struggling one so they move together', 'اقرن الطالب السريع بالمتعثّر ليتحرّكا معًا') },
         { id: 'variable', label: t('Keep the timer but set each step’s length from last week’s average finish time for that step', 'احتفظ بالمؤقّت لكن اضبط كل خطوة على متوسط وقت الإنهاء الأسبوع الماضي') },
@@ -296,10 +296,10 @@ export const LEVEL_63: LevelDefinition = {
   sceneImage: sceneTalk,
   scenario: t(
     'Students sit in ability groups: Eagles, Hawks, Robins, Sparrows. The groups were set in September from a baseline test and have been the same ever since. It makes planning simple and every child knows their table. Toki asks when a student last moved.',
-    'يجلس الطلاب في مجموعات بحسب القدرة: النسور والصقور والعصافير والدوري. حُددت المجموعات في سبتمبر من اختبار قاعدي وبقيت كما هي منذ ذلك الحين. يجعل ذلك التخطيط بسيطًا ويعرف كل طفل طاولته. يسأل توكي: متى انتقل طالب آخر مرة؟'),
+    'يجلس الطلاب في مجموعات بحسب القدرة: النسور والصقور والحساسين والعصافير. حُددت المجموعات في سبتمبر من تقييم أساسي وبقيت كما هي منذ ذلك الحين. يجعل ذلك التخطيط بسيطًا ويعرف كل طفل طاولته. يسأل توكي: متى انتقل طالب آخر مرة؟'),
   evidence: [
     { id: 'chart', x: 50, y: 28, label: t('The seating chart', 'مخطط الجلوس'), clue: t('Dated 4 September. No crossings-out. Seven months, zero moves.', 'مؤرّخ ٤ سبتمبر. لا شطب. سبعة أشهر، صفر انتقالات.') },
-    { id: 'sparrow', x: 24, y: 66, label: t('A Sparrow', 'طالب من الدوري'), clue: t('Scored higher than two Eagles on last month’s test. Still a Sparrow. Introduces herself to Toki as "I’m in the low group."', 'حصلت على درجة أعلى من اثنين من النسور في اختبار الشهر الماضي. ما زالت من الدوري. تقدّم نفسها لتوكي: «أنا في المجموعة الضعيفة.»') },
+    { id: 'sparrow', x: 24, y: 66, label: t('A Sparrow', 'طالبة من العصافير'), clue: t('Scored higher than two Eagles on last month’s test. Still a Sparrow. Introduces herself to Toki as "I’m in the low group."', 'حصلت على درجة أعلى من اثنين من النسور في اختبار الشهر الماضي. ما زالت من العصافير. تقدّم نفسها لتوكي: «أنا في المجموعة الضعيفة.»') },
     { id: 'eagle', x: 78, y: 66, label: t('An Eagle', 'طالب من النسور'), clue: t('Struggling with this topic specifically. Gets the Eagle task anyway. Copies from his neighbour.', 'يتعثّر في هذا الموضوع تحديدًا. يحصل على مهمة النسور رغم ذلك. ينسخ من جاره.') },
   ],
   steps: {
@@ -307,9 +307,9 @@ export const LEVEL_63: LevelDefinition = {
       prompt: t('The groups are tidy and stable. What should Toki question?', 'المجموعات مرتّبة ومستقرة. ما الذي ينبغي أن يتساءل عنه توكي؟'),
       options: [
         { id: 'flexibility', label: t('How often the groups are re-made, and from what evidence', 'كم مرة تُعاد المجموعات، ومن أي دليل') },
-        { id: 'identity', label: t('What "I’m in the low group" is doing to the Sparrow’s effort', 'ما الذي تفعله «أنا في المجموعة الضعيفة» بجهد طالبة الدوري') },
+        { id: 'identity', label: t('What "I’m in the low group" is doing to the Sparrow’s effort', 'ما الذي تفعله «أنا في المجموعة الضعيفة» بجهد طالبة العصافير') },
         { id: 'tasks', label: t('Whether the Eagle task is actually harder or only labelled so', 'هل مهمة النسور أصعب فعلًا أم مسمّاة كذلك فقط') },
-        { id: 'baseline', label: t('Whether the September baseline tested the right things', 'هل اختبر الاختبار القاعدي في سبتمبر الأشياء الصحيحة') },
+        { id: 'baseline', label: t('Whether the September baseline tested the right things', 'هل اختبر التقييم الأساسي في سبتمبر الأشياء الصحيحة') },
       ],
       correctId: 'flexibility',
       hint: t('The label and the baseline are both real questions. Look at the seating-chart clue: dated 4 September, no crossings-out. Which option is asking about the crossings-out?', 'العنوان والتقييم الأساسي كلاهما سؤالان حقيقيان. انظر إلى دليل مخطط الجلوس: مؤرَّخ ٤ سبتمبر، لا شطب. أي خيار يسأل عن الشطب؟'),
@@ -323,8 +323,8 @@ export const LEVEL_63: LevelDefinition = {
     chooseCoaching: {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
-        { id: 'retest', label: t('Re-run the baseline this month and re-set the four groups from it', 'أعد الاختبار القاعدي هذا الشهر وأعد ضبط المجموعات الأربع منه') },
-        { id: 'move-two', label: t('Move the Sparrow up and the Eagle down today, and keep the rest as they are', 'انقل طالبة الدوري إلى الأعلى وطالب النسور إلى الأسفل اليوم، وأبقِ البقية كما هم') },
+        { id: 'retest', label: t('Re-run the baseline this month and re-set the four groups from it', 'أعد التقييم الأساسي هذا الشهر وأعد ضبط المجموعات الأربع منه') },
+        { id: 'move-two', label: t('Move the Sparrow up and the Eagle down today, and keep the rest as they are', 'انقل طالبة العصافير إلى الأعلى وطالب النسور إلى الأسفل اليوم، وأبقِ البقية كما هم') },
         { id: 'regroup', label: t('Regroup by this topic from the latest evidence, and plan to regroup again next topic', 'أعد التجميع بحسب الموضوع الحالي من أحدث الأدلة، وخطّط لإعادة التجميع في الموضوع التالي') },
         { id: 'mixed', label: t('Mixed tables for the teaching, ability groups only for the practice task that follows', 'طاولات مختلطة للتدريس، ومجموعات بحسب القدرة لمهمة التدريب فقط') },
       ],
@@ -332,7 +332,7 @@ export const LEVEL_63: LevelDefinition = {
       hint: t('A new baseline redraws the chart once; moving two students fixes two students once; mixed tables change where grouping happens. Read the Eagle clue: strong in general, stuck in this one. Which move expects the chart to change again?', 'التقييم الأساسي الجديد يعيد رسم المخطط مرة واحدة؛ ونقل طالبين يصلح طالبين مرة واحدة؛ والطاولات المختلطة تغيّر مكان التجميع. اقرأ دليل النسر: قوي عمومًا، عالق في هذا الموضوع تحديدًا. أي خطوة تتوقع أن يتغير المخطط مرة أخرى؟'),
     },
     reasoning: {
-      prompt: t('Why "regroup by topic, from evidence" rather than a fresh baseline?', 'لماذا «إعادة التجميع بحسب الموضوع من الأدلة» بدل اختبار قاعدي جديد؟'),
+      prompt: t('Why "regroup by topic, from evidence" rather than a fresh baseline?', 'لماذا «إعادة التجميع بحسب الموضوع من الأدلة» بدل تقييم أساسي جديد؟'),
       options: [
         { id: 'r2', label: t('A student is strong in one topic and stuck in another; a fixed group cannot know that', 'الطالب قوي في موضوع وعالق في آخر؛ والمجموعة التي لا تتغيّر لا تستطيع معرفة ذلك') },
         { id: 'r1', label: t('A group that changes every topic cannot become a label a child introduces herself with', 'المجموعة التي تتغيّر كل موضوع لا يمكن أن تصبح تصنيفًا تقدّم به طفلة نفسها') },
@@ -400,7 +400,7 @@ export const LEVEL_64: LevelDefinition = {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
         { id: 'rotate', label: t('Split the forty minutes: twenty at the support table, twenty circulating the independent tables', 'قسّم الدقائق الأربعين: عشرون على طاولة الدعم، وعشرون مع الطاولات المستقلة') },
-        { id: 'stretch', label: t('Keep the support; design the independent task to stretch: an open problem with a "prove it" step', 'احتفظ بالدعم، وصمّم المهمة المستقلة لتتحدّى: مسألة مفتوحة بخطوة «أثبت ذلك»، تُفحص في الدقائق العشر الأخيرة') },
+        { id: 'stretch', label: t('Keep the support; design the independent task to stretch: an open problem with a "prove it" step', 'احتفظ بالدعم، وصمّم المهمة المستقلة لتتحدّى: مسألة مفتوحة بخطوة «أثبت ذلك»') },
         { id: 'peer', label: t('Have the confident students tutor the support table once they finish', 'اجعل الطلاب الواثقين يعلّمون طاولة الدعم حين ينتهون') },
         { id: 'extension-bank', label: t('Give the independent tables an extension bank to pick from when they finish early', 'أعطِ الطاولات المستقلة بنك إثراء يختارون منه حين ينهون مبكرًا') },
       ],

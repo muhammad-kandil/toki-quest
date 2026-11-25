@@ -17,7 +17,7 @@ export const WORLD_3_BOSS: WorldBossDefinition = {
   sceneImage: sceneImg,
   scenario: t(
     'The school is a showcase for Alef. Every classroom has devices out, every teacher has the dashboard open, completion is in the high nineties, and visitors are brought here to see technology done right. Toki is one of those visitors — and spends the day asking, in each room, a quieter question: is the technology carrying the thinking, or carrying it away?',
-    'المدرسة نموذج يُعرض لمنصة ألف. في كل صف أجهزة مفتوحة، ولدى كل معلّم لوحة البيانات مفتوحة، والإنجاز في التسعينيات العليا، ويُؤتى بالزوار إلى هنا ليروا التقنية في أحسن صورها. توكي أحد هؤلاء الزوار — ويقضي اليوم يسأل في كل غرفة سؤالًا أهدأ: هل تحمل التقنية التفكير، أم تحمله بعيدًا؟',
+    'المدرسة نموذج يُعرض لمنصة «ألف». في كل صف أجهزة مفتوحة، ولدى كل معلّم لوحة البيانات مفتوحة، والإنجاز في التسعينيات العليا، ويُؤتى بالزوار إلى هنا ليروا التقنية في أحسن صورها. توكي أحد هؤلاء الزوار — ويقضي اليوم يسأل في كل غرفة سؤالًا أهدأ: هل تحمل التقنية التفكير، أم تحمله بعيدًا؟',
   ),
   scenes: [
     {
@@ -31,7 +31,7 @@ export const WORLD_3_BOSS: WorldBossDefinition = {
     {
       id: 'grade-5',
       place: t('Grade 5 Math', 'الصف الخامس، رياضيات'),
-      observation: t('Devices half-closed, the Alef lesson stopped at question 6 with twenty minutes left. Completion for this class will fall below 80% today. The teacher is at the board with a different example, arguing with three students about why their answer is wrong; the rest are shouting corrections. Then everyone retries on the device.', 'الأجهزة نصف مغلقة، ودرس ألف متوقف عند السؤال ٦ وقد بقيت عشرون دقيقة. سينخفض إنجاز هذا الصف اليوم دون ٨٠٪. المعلّمة عند السبورة بمثال مختلف، تجادل ثلاثة طلاب في سبب خطأ إجابتهم؛ والبقية يصيحون بالتصحيحات. ثم يعيد الجميع المحاولة على الجهاز.'),
+      observation: t('Devices half-closed, the Alef lesson stopped at question 6 with twenty minutes left. Completion for this class will fall below 80% today. The teacher is at the board with a different example, arguing with three students about why their answer is wrong; the rest are shouting corrections. Then everyone retries on the device.', 'الأجهزة نصف مغلقة، ودرس «ألف» متوقف عند السؤال ٦ وقد بقيت عشرون دقيقة. سينخفض إنجاز هذا الصف اليوم دون ٨٠٪. المعلّمة عند السبورة بمثال مختلف، تجادل ثلاثة طلاب في سبب خطأ إجابتهم؛ والبقية يصيحون بالتصحيحات. ثم يعيد الجميع المحاولة على الجهاز.'),
       fitsPattern: false,
       finding: t('Loud, unfinished, and the healthiest room on the tour. The platform showed her a misconception and she stopped the lesson to teach to it. Today’s completion number will be the lowest in the school — and the most honest.', 'صاخب وغير مكتمل وأسلم غرفة في الجولة. أظهرت لها المنصة فهمًا خاطئًا فأوقفت الدرس لتدرّسه. سيكون رقم الإنجاز اليوم الأدنى في المدرسة — والأصدق.'),
       hint: t('Noise and an unfinished lesson are what the tour would notice. Ask what the live view showed her, and what she did in the next two minutes.', 'الضجيج والدرس غير المكتمل هما ما ستلاحظه الجولة. اسأل ماذا أظهر لها العرض المباشر، وماذا فعلت في الدقيقتين التاليتين.'),

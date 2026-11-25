@@ -41,7 +41,7 @@ export const LEVEL_1: LevelDefinition = {
       options: [
         { id: 'collaboration', label: t('Collaboration', 'التعاون') },
         { id: 'thinking-quality', label: t('Thinking quality', 'جودة التفكير') },
-        { id: 'engagement', label: t('Student engagement', 'مشاركة الطلاب') },
+        { id: 'engagement', label: t('Student engagement', 'تفاعل الطلاب') },
         { id: 'management', label: t('Classroom management', 'إدارة الصف') },
       ],
       correctId: 'thinking-quality',
@@ -71,7 +71,7 @@ export const LEVEL_1: LevelDefinition = {
       prompt: t('Why is this the right coaching move?', 'لماذا هذه هي الخطوة التدريبية الصحيحة؟'),
       options: [
         { id: 'r1', label: t('It gives students thinking time before they speak, which raises the quality of the first answer', 'تمنح الطلاب وقتًا للتفكير قبل الحديث، فترفع جودة الإجابة الأولى') },
-        { id: 'r2', label: t('It redirects existing engagement toward evidence-based reasoning, without losing the energy', 'توجّه المشاركة القائمة نحو التعليل المبني على الأدلة دون فقدان الحماس') },
+        { id: 'r2', label: t('It redirects existing engagement toward evidence-based reasoning, without losing the energy', 'توجّه التفاعل القائم نحو التعليل المبني على الأدلة دون فقدان الحماس') },
         { id: 'r3', label: t('It makes participation more equal, so the quiet students contribute too', 'تجعل المشاركة أكثر عدلًا، فيسهم الطلاب الهادئون أيضًا') },
         { id: 'r4', label: t('It gives the teacher a clear structure to assess each discussion against', 'تمنح المعلّم بنية واضحة يقيّم كل نقاش على أساسها') },
       ],
@@ -86,7 +86,7 @@ export const LEVEL_1: LevelDefinition = {
   reveal: {
     whatDrifted: t(
       'The classroom has plenty of participation, but the talk is opinion-sharing, not reasoning. Students are engaged with each other — not yet engaged with evidence.',
-      'في الصف مشاركة وفيرة، لكن الحوار تبادلُ آراء لا تعليل. الطلاب منخرطون مع بعضهم، لكنهم لم ينخرطوا بعد مع الأدلة.',
+      'في الصف مشاركة وفيرة، لكن الحوار تبادلُ آراء لا تعليل. الطلاب متفاعلون مع بعضهم، لكنهم لم يتفاعلوا بعد مع الأدلة.',
     ),
     whyItHappened: t(
       'When collaboration is introduced, "everyone is talking" can quietly become the goal itself, because it’s the easiest thing to see and measure in the moment.',

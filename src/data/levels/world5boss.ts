@@ -12,16 +12,16 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
   sceneImage: sceneImg,
   scenario: t(
     'Questioning is this school’s signature. It is in the vision statement, on the lesson-plan template, and in every observation rubric: "frequent, varied questioning." Observers tally questions per lesson and the numbers are superb. Toki is handed the tally sheet, puts it in his pocket, and spends the day counting something else: how many students, in each room, actually had to think.',
-    'طرح الأسئلة هو بصمة هذه المدرسة. موجود في بيان الرؤية، وفي نموذج خطة الدرس، وفي كل معيار ملاحظة: «أسئلة متكررة ومتنوعة». يحصي الملاحظون الأسئلة في كل درس والأرقام رائعة. تُسلَّم ورقة الإحصاء إلى توكي، فيضعها في جيبه، ويقضي اليوم يعدّ شيئًا آخر: كم طالبًا، في كل غرفة، اضطر فعلًا إلى التفكير.',
+    'طرح الأسئلة هو بصمة هذه المدرسة. موجود في بيان الرؤية، وفي نموذج خطة الدرس، وفي كل سلّم تقدير للملاحظة: «أسئلة متكررة ومتنوعة». يحصي الملاحظون الأسئلة في كل درس والأرقام رائعة. تُسلَّم ورقة الإحصاء إلى توكي، فيضعها في جيبه، ويقضي اليوم يعدّ شيئًا آخر: كم طالبًا، في كل غرفة، اضطر فعلًا إلى التفكير.',
   ),
   scenes: [
     {
       id: 'rubric',
-      place: t('The observation rubric', 'معيار الملاحظة'),
+      place: t('The observation rubric', 'سلّم تقدير الملاحظة'),
       observation: t('"Questioning: frequency (1–5), variety (1–5)." No row for wait time. No row for how many students responded. No row for what the answers contained.', '«طرح الأسئلة: التكرار (١–٥)، التنوّع (١–٥).» لا صف لوقت الانتظار. لا صف لعدد الطلاب المجيبين. لا صف لما احتوته الإجابات.'),
       fitsPattern: true,
-      finding: t('The rubric counts questions and is blind to thinking. Teachers are being observed into asking more and waiting less.', 'يعدّ المعيار الأسئلة وهو أعمى عن التفكير. يُلاحَظ المعلّمون حتى يسألوا أكثر وينتظروا أقل.'),
-      hint: t('What does the rubric make visible, and what does it hide?', 'ما الذي يجعله المعيار مرئيًا، وما الذي يخفيه؟'),
+      finding: t('The rubric counts questions and is blind to thinking. Teachers are being observed into asking more and waiting less.', 'يعدّ السلّم الأسئلة وهو أعمى عن التفكير. يُلاحَظ المعلّمون حتى يسألوا أكثر وينتظروا أقل.'),
+      hint: t('What does the rubric make visible, and what does it hide?', 'ما الذي يجعله السلّم مرئيًا، وما الذي يخفيه؟'),
     },
     {
       id: 'grade-6',
@@ -36,8 +36,8 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
       place: t('Grade 2 Phonics', 'الصف الثاني، صوتيات'),
       observation: t('The lesson the school films for new teachers. Forty-one questions in twenty minutes, every child’s eyes on the teacher, hands shooting up, a pace that never flags, "excellent!" after every answer. Toki writes down the answers: forty-one single words. He writes down the voices: six.', 'الدرس الذي تصوّره المدرسة للمعلّمين الجدد. واحد وأربعون سؤالًا في عشرين دقيقة، عيون كل طفل على المعلّمة، أيدٍ تنطلق إلى الأعلى، إيقاع لا يتراجع، «ممتاز!» بعد كل إجابة. يدوّن توكي الإجابات: واحد وأربعون كلمة مفردة. يدوّن الأصوات: ستة.'),
       fitsPattern: true,
-      finding: t('Maximum questioning, minimum thinking. The rubric’s ideal lesson is the world’s clearest drift.', 'أقصى قدر من الأسئلة، أدنى قدر من التفكير. الدرس المثالي بحسب المعيار هو أوضح انحراف في هذا العالم.'),
-      hint: t('Everything the rubric can see is here. Read Toki’s two lists instead: how many words per answer, and how many voices.', 'كل ما يستطيع المعيار رؤيته موجود هنا. اقرأ قائمتَي توكي بدل ذلك: كم كلمة في كل إجابة، وكم صوتًا.'),
+      finding: t('Maximum questioning, minimum thinking. The rubric’s ideal lesson is the world’s clearest drift.', 'أقصى قدر من الأسئلة، أدنى قدر من التفكير. الدرس المثالي بحسب السلّم هو أوضح انحراف في هذا العالم.'),
+      hint: t('Everything the rubric can see is here. Read Toki’s two lists instead: how many words per answer, and how many voices.', 'كل ما يستطيع السلّم رؤيته موجود هنا. اقرأ قائمتَي توكي بدل ذلك: كم كلمة في كل إجابة، وكم صوتًا.'),
     },
     {
       id: 'dept',
@@ -65,19 +65,19 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
       { id: 'wait', label: t('Nobody waits — questions are answered before most students have heard them', 'لا أحد ينتظر — تُجاب الأسئلة قبل أن يسمعها معظم الطلاب') },
     ],
     correctId: 'counted',
-    hint: t('Six voices, no wait time and recall questions are all true of Grade 2 — and all three are symptoms. The rubric, the stem-bank quota and the filmed lesson share a cause. What is being counted?', 'ستة أصوات، وبلا وقت انتظار، وأسئلة تذكّر — كلها صحيحة في الصف الثاني، وكلها أعراض. يتشارك المعيار وحصة بنك الجذور والدرس المصوَّر سببًا واحدًا. ما الذي يُعدّ؟'),
+    hint: t('Six voices, no wait time and recall questions are all true of Grade 2 — and all three are symptoms. The rubric, the stem-bank quota and the filmed lesson share a cause. What is being counted?', 'ستة أصوات، وبلا وقت انتظار، وأسئلة تذكّر — كلها صحيحة في الصف الثاني، وكلها أعراض. يتشارك السلّم وحصة بنك الجذور والدرس المصوَّر سببًا واحدًا. ما الذي يُعدّ؟'),
   },
   assessRisk: {
     prompt: t('Across the school, how serious is this pattern?', 'على مستوى المدرسة، ما مدى خطورة هذا النمط؟'),
     correctId: 'high',
-    hint: t('Serious and spreading — the rubric actively pushes every teacher toward it. But the thinking habit survives in pockets, and the fix is a rubric row, not a culture change. High, not yet lethal.', 'خطير ومنتشر — يدفع المعيار كل معلّم نحوه فعليًا. لكن عادة التفكير تنجو في جيوب، والإصلاح صف في المعيار لا تغيير ثقافة. كبير، ليس قاتلًا بعد.'),
+    hint: t('Serious and spreading — the rubric actively pushes every teacher toward it. But the thinking habit survives in pockets, and the fix is a rubric row, not a culture change. High, not yet lethal.', 'خطير ومنتشر — يدفع السلّم كل معلّم نحوه فعليًا. لكن عادة التفكير تنجو في جيوب، والإصلاح صف في السلّم لا تغيير ثقافة. كبير، ليس قاتلًا بعد.'),
   },
   coaching: {
-    prompt: t('The rubric, the stem bank, and the vision statement all say "questioning." What is the one move with the greatest impact?', 'المعيار وبنك الجذور وبيان الرؤية تقول كلها «طرح الأسئلة». ما الخطوة الواحدة ذات الأثر الأكبر؟'),
+    prompt: t('The rubric, the stem bank, and the vision statement all say "questioning." What is the one move with the greatest impact?', 'السلّم وبنك الجذور وبيان الرؤية تقول كلها «طرح الأسئلة». ما الخطوة الواحدة ذات الأثر الأكبر؟'),
     options: [
       { id: 'film', label: t('Re-film the model lesson in Grade 6 and Grade 11 and retire the Grade 2 video', 'أعد تصوير الدرس النموذجي في الصفين السادس والحادي عشر واسحب فيديو الصف الثاني') },
       { id: 'quota', label: t('Replace the stem-bank quota with a rule: every question is followed by thirty seconds of writing', 'استبدل حصة بنك الجذور بقاعدة: كل سؤال يتبعه ثلاثون ثانية من الكتابة') },
-      { id: 'rubric', label: t('Rubric rows become "wait time ≥ 3 seconds" and "proportion of students who produced an answer"', 'استبدل صفّي المعيار بـ«وقت الانتظار ≥ ٣ ثوانٍ» و«نسبة الطلاب الذين أنتجوا إجابة»') },
+      { id: 'rubric', label: t('Rubric rows become "wait time ≥ 3 seconds" and "proportion of students who produced an answer"', 'استبدل صفّي السلّم بـ«وقت الانتظار ≥ ٣ ثوانٍ» و«نسبة الطلاب الذين أنتجوا إجابة»') },
       { id: 'coach', label: t('Pair every teacher with a peer to observe each other for thinkers, not questions, this term', 'اقرن كل معلّم بزميل ليلاحظ كلٌّ منهما الآخر بحثًا عن المفكّرين لا الأسئلة، هذا الفصل') },
     ],
     correctId: 'rubric',
@@ -90,7 +90,7 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
     ),
     whyItHappened: t(
       'Questions are easy to count and thinking is not. Once the rubric chose the countable thing, every incentive in the building pointed the same way — and the best teachers started looking like the worst.',
-      'الأسئلة سهلة العدّ والتفكير ليس كذلك. وما إن اختار المعيار الشيء القابل للعدّ، أشارت كل الحوافز في المبنى إلى الاتجاه نفسه — وبدأ أفضل المعلّمين يبدون كأسوئهم.',
+      'الأسئلة سهلة العدّ والتفكير ليس كذلك. وما إن اختار السلّم الشيء القابل للعدّ، أشارت كل الحوافز في المبنى إلى الاتجاه نفسه — وبدأ أفضل المعلّمين يبدون كأسوئهم.',
     ),
     howToRestore: t(
       'Restore questioning as a tool for reasoning, explanation, and learning by measuring the thing it is for. Wait time and the proportion of students thinking are observable in any lesson — and they make the Grade 6 and Grade 11 rooms the model, not the anomaly.',
