@@ -60,7 +60,7 @@ export const WORLD_6_BOSS: WorldBossDefinition = {
     prompt: t('Three scenes fit; two don’t. Name the pattern.', 'ثلاثة مشاهد تطابق؛ واثنان لا. سمِّ النمط.'),
     options: [
       { id: 'stale', label: t('Groups and tiers are set once and never revisited, so they go stale', 'تُحدَّد المجموعات والمستويات مرة واحدة ولا يُعاد النظر فيها، فتتقادم') },
-      { id: 'structure', label: t('Differentiation became something a lesson has, not a response to what each learner needs now', 'أصبح التمايز بنية مرئية لا استجابة لما يحتاجه كل متعلّم الآن') },
+      { id: 'structure', label: t('Differentiation became something a lesson has, not a response to what each learner needs now', 'أصبح التمايز شيئًا يملكه الدرس لا استجابة لما يحتاجه كل متعلّم الآن') },
       { id: 'quantity', label: t('Differentiation is done by quantity — fewer questions, more questions — never by the kind of task', 'يُجرى التمايز بالكمية — أسئلة أقل، أسئلة أكثر — لا بالنوع') },
       { id: 'support-only', label: t('Support is treated as the whole of differentiation, and the top group is forgotten', 'يُعامَل الدعم على أنه التمايز كله، وتُنسى المجموعة العليا') },
     ],
@@ -75,7 +75,7 @@ export const WORLD_6_BOSS: WorldBossDefinition = {
   coaching: {
     prompt: t('The policy, the template, and the timetable all enforce the structure. What is the one move with the greatest impact?', 'السياسة والنموذج والجدول تفرض البنية كلها. ما الخطوة الواحدة ذات الأثر الأكبر؟'),
     options: [
-      { id: 'regroup-policy', label: t('Make it policy that every group is re-set from evidence at the start of each topic', 'اجعل من السياسة أن تُعاد كل مجموعة من الأدلة في بداية كل موضوع') },
+      { id: 'regroup-policy', label: t('Make it policy that every group is re-set from evidence at the start of each topic', 'اجعل إعادة تشكيل كل مجموعة من الأدلة في بداية كل موضوع سياسةً') },
       { id: 'ta-rota', label: t('Rotate the TA across all groups on a weekly rota', 'ناوب المساعد على كل المجموعات في جدول أسبوعي') },
       { id: 'question', label: t('One question replaces the template’s three boxes: "what does each group lack, and what will move them?"', 'استبدل الخانات الثلاث في النموذج بسؤال واحد — «ما الذي لا تملكه كل مجموعة بعد، وما الذي سيحرّكها؟»') },
       { id: 'model', label: t('Make the Grade 9 lesson the model and have every department plan and teach one lesson like it this term', 'اجعل درس الصف التاسع النموذج ودع كل قسم يخطط درسًا مثله هذا الفصل') },

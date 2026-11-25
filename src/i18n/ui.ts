@@ -31,7 +31,7 @@ export const UI = {
   hintUnlockNext: t('Complete a classroom to unlock the next.', 'أكمل صفًا لفتح الصف التالي.'),
   hintBossReady: t(
     'The Final Visit awaits. When you’re ready, enter The Perfect Classroom.',
-    'الزيارة الأخيرة بانتظارك. عندما تكون مستعدًا، ادخل الصف المثالي.',
+    'الزيارة الأخيرة بانتظارك. عند استعدادك، ادخل الصف المثالي.',
   ),
   hintAllDone: t(
     'World complete. Revisit any classroom to sharpen your score.',
@@ -91,10 +91,10 @@ export const UI = {
   tokiRead: t('Toki’s read', 'قراءة توكي'),
   tokiSays: t('What does Toki say?', 'ماذا يقول توكي؟'),
   teacherReplies: t('Continue', 'متابعة'),
-  stanceDefensive: t('defensive', 'في موقف دفاعي'),
-  stanceTired: t('tired', 'مُرهَق'),
-  stanceProud: t('proud', 'فخور'),
-  stanceEager: t('eager', 'متحمّس'),
+  stanceDefensive: t('defensive', 'نبرة دفاعية'),
+  stanceTired: t('tired', 'نبرة إرهاق'),
+  stanceProud: t('proud', 'نبرة فخر'),
+  stanceEager: t('eager', 'نبرة حماس'),
   outcomeRestored: t('Practice restored', 'عادت الممارسة إلى غايتها'),
   outcomePartial: t('Partly restored', 'عادت جزئيًا'),
   outcomeUnchanged: t('Nothing changed', 'لم يتغيّر شيء'),

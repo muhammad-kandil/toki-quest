@@ -42,15 +42,15 @@ export const CONVO_71: ConversationDefinition = {
 export const CONVO_72: ConversationDefinition = {
   teacherName: t('Ms. Hessa', 'الأستاذة حصة'),
   stance: 'defensive',
-  setting: t('She has seen the leader’s note — "low engagement, no technology" — and she is waiting for Toki to confirm it.', 'رأت ملاحظة القائد — «مشاركة منخفضة، لا تقنية» — وتنتظر أن يؤكّدها توكي.'),
+  setting: t('She has seen the leader’s note — "low engagement, no technology" — and she is waiting for Toki to confirm it.', 'رأت ملاحظة القائد — «تفاعل منخفض، لا تقنية» — وتنتظر أن يؤكّدها توكي.'),
   read: t('She teaches quietly, and she has been marked down for it before. She is braced for this conversation.', 'تدرّس بهدوء، وسبق أن خُفّضت درجتها بسبب ذلك. تستعدّ لهذه المحادثة.'),
   turns: [
     {
-      teacherLine: t('I know what the note says. Low engagement. So — what should I add? Groups? A game?', 'أعرف ما تقوله الملاحظة. مشاركة منخفضة. إذًا — ماذا أضيف؟ مجموعات؟ لعبة؟'),
+      teacherLine: t('I know what the note says. Low engagement. So — what should I add? Groups? A game?', 'أعرف ما تقوله الملاحظة. تفاعل منخفض. طيّب — ماذا أضيف؟ مجموعات؟ لعبة؟'),
       options: [
-        { id: 'a', effect: 'opens', label: t('Nothing. Twenty-six whiteboards went up three times and you changed the next example after the second one. That’s the most engagement I’ve seen this week. I’m going to say so.', 'لا شيء. رُفعت ست وعشرون سبورة ثلاث مرات وغيّرتِ المثال التالي بعد الثانية. هذه أعلى مشاركة رأيتها هذا الأسبوع. وسأقول ذلك.'), reply: t('…You counted the whiteboards. Nobody has ever counted the whiteboards.', '…عددت السبورات. لم يعدّ أحد السبورات من قبل.') },
-        { id: 'b', effect: 'neutral', label: t('I wouldn’t worry about the note. Your lesson was solid — strong fundamentals.', 'لا تقلقي بشأن الملاحظة. درسك كان متينًا — أساسيات قوية.'), reply: t('Solid. That’s what they said last year, before the "low engagement" bit.', 'متين. هذا ما قالوه العام الماضي، قبل جزء «المشاركة المنخفضة».') },
-        { id: 'c', effect: 'closes', label: t('A short collaborative task wouldn’t hurt — it would make the engagement visible for observers.', 'مهمة تعاونية قصيرة لن تضرّ — ستجعل المشاركة مرئية للمراقبين.'), reply: t('For observers. Right. I’ll put on a show next time.', 'للمراقبين. حسنًا. سأقدّم عرضًا في المرة القادمة.') },
+        { id: 'a', effect: 'opens', label: t('Nothing. Twenty-six whiteboards went up three times and you changed the next example after the second one. That’s the most engagement I’ve seen this week. I’m going to say so.', 'لا شيء. رُفعت ست وعشرون سبورة ثلاث مرات وغيّرتِ المثال التالي بعد الثانية. هذا أعلى تفاعل رأيته هذا الأسبوع. وسأقول ذلك.'), reply: t('…You counted the whiteboards. Nobody has ever counted the whiteboards.', '…عددت السبورات. لم يعدّها أحد من قبل.') },
+        { id: 'b', effect: 'neutral', label: t('I wouldn’t worry about the note. Your lesson was solid — strong fundamentals.', 'لا تقلقي بشأن الملاحظة. درسك كان متينًا — أساسيات قوية.'), reply: t('Solid. That’s what they said last year, before the "low engagement" bit.', 'متين. هذا ما قالوه العام الماضي، قبل أن يضيفوا «التفاعل المنخفض».') },
+        { id: 'c', effect: 'closes', label: t('A short collaborative task wouldn’t hurt — it would make the engagement visible for observers.', 'مهمة تعاونية قصيرة لن تضرّ — ستجعل التفاعل مرئيًا للمراقبين.'), reply: t('For observers. Right. I’ll put on a show next time.', 'للمراقبين. طيّب. سأقدّم لهم عرضًا في المرة القادمة.') },
       ],
     },
     {
@@ -81,15 +81,15 @@ export const CONVO_73: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('The hook was fine — ninety seconds and it set up the question. Here’s the thing I actually noticed: Omar, Hind, Sara. Eleven questions. Do you know who answered them?', 'التمهيد كان جيدًا — تسعون ثانية ومهّد للسؤال. ما لاحظته فعلًا: عمر، هند، سارة. أحد عشر سؤالًا. هل تعرفين مَن أجاب عنها؟'), reply: t('…Those three. Every time. I didn’t even — I was so focused on the timing.', '…هؤلاء الثلاثة. في كل مرة. لم أنتبه حتى — كنت مركّزة على التوقيت.') },
         { id: 'b', effect: 'neutral', label: t('It was a strong lesson. The differentiation in particular — two investigations from real data — was excellent.', 'كان درسًا قويًا. التمايز بالذات — استقصاءان من بيانات حقيقية — كان ممتازًا.'), reply: t('Really? Oh good. I was worried about the carousel timing.', 'حقًا؟ جميل. كنت قلقة بشأن توقيت الدوّارة.') },
-        { id: 'c', effect: 'closes', label: t('There were three issues: the questioning, the Alef-as-reward, and the exit ticket. Let’s go through them.', 'كانت هناك ثلاث مشكلات: الأسئلة، و«ألف» كمكافأة، وبطاقة الخروج. لنمرّ عليها.'), reply: t('Three. Okay. Can I get a pen. Sorry. Okay.', 'ثلاث. حسنًا. هل أحضر قلمًا؟ آسفة. حسنًا.') },
+        { id: 'c', effect: 'closes', label: t('There were three issues: the questioning, the Alef-as-reward, and the exit ticket. Let’s go through them.', 'كانت هناك ثلاث مشكلات: الأسئلة، و«ألف» كمكافأة، وبطاقة الخروج. لنمرّ عليها.'), reply: t('Three. Okay. Can I get a pen. Sorry. Okay.', 'ثلاث. طيّب. لحظة، أحضر قلمًا. آسفة. طيّب.') },
       ],
     },
     {
-      teacherLine: t('Three students. In an observed lesson. What do I even do about that — call on the quiet ones and watch them freeze?', 'ثلاثة طلاب. في درس مُلاحَظ. ماذا أفعل حتى حيال ذلك — أنادي الهادئين وأشاهدهم يتجمّدون؟'),
+      teacherLine: t('Three students. In an observed lesson. What do I even do about that — call on the quiet ones and watch them freeze?', 'ثلاثة طلاب. في درس مُلاحَظ. ماذا أفعل أصلًا حيال ذلك — أنادي الهادئين وأشاهدهم يتجمّدون؟'),
       options: [
         { id: 'a', effect: 'opens', label: t('Give everyone thirty seconds and a whiteboard before anyone speaks. Then you pick who reads theirs. Nobody freezes, because everybody already has an answer in their hand.', 'امنحي الجميع ثلاثين ثانية وسبورة قبل أن يتكلم أحد. ثم تختارين مَن يقرأ إجابته. لا أحد يتجمّد، لأن الجميع يحمل إجابة في يده.'), reply: t('Whiteboards first, then I pick. That’s… one change. I can do one change by Sunday.', 'السبورات أولًا، ثم أختار. هذا… تغيير واحد. أستطيع تغييرًا واحدًا بحلول الأحد.') },
-        { id: 'b', effect: 'neutral', label: t('Just try to spread the questions around a bit more. Keep a mental tally.', 'حاولي فقط توزيع الأسئلة أكثر. احتفظي بعدّ ذهني.'), reply: t('A tally. I’ll try. I lose track when it gets going, but I’ll try.', 'عدّ. سأحاول. أفقد الحساب حين يشتدّ الدرس، لكنني سأحاول.') },
-        { id: 'c', effect: 'closes', label: t('Cold-calling is standard practice. If students freeze, that tells you something about the classroom culture.', 'النداء العشوائي ممارسة قياسية. إن تجمّد الطلاب، فهذا يخبرك شيئًا عن ثقافة الصف.'), reply: t('About my classroom culture. Right. I’ll… note that down with the other three.', 'عن ثقافة صفّي. حسنًا. سأـ… أدوّن ذلك مع الثلاثة الأخرى.') },
+        { id: 'b', effect: 'neutral', label: t('Just try to spread the questions around a bit more. Keep a mental tally.', 'حاولي فقط توزيع الأسئلة أكثر. احتفظي بعدّ ذهني.'), reply: t('A tally. I’ll try. I lose track when it gets going, but I’ll try.', 'أعدّ. سأحاول. أضيع العدّ حين يحمى الدرس، لكنني سأحاول.') },
+        { id: 'c', effect: 'closes', label: t('Cold-calling is standard practice. If students freeze, that tells you something about the classroom culture.', 'النداء العشوائي ممارسة قياسية. إن تجمّد الطلاب، فهذا يخبرك شيئًا عن ثقافة الصف.'), reply: t('About my classroom culture. Right. I’ll… note that down with the other three.', 'ثقافة صفّي. طيّب. سأ… أدوّن ذلك مع الثلاث الأخرى.') },
       ],
     },
   ],
@@ -111,12 +111,12 @@ export const CONVO_74: ConversationDefinition = {
       teacherLine: t('Go on, then. What’s the programme this term?', 'تفضّل إذًا. ما البرنامج هذا الفصل؟'),
       options: [
         { id: 'a', effect: 'opens', label: t('No programme. Your feedback loop is the one I’d show other people. I have one thirty-second thing, and then I’ll leave you to the books.', 'لا برنامج. حلقة التغذية الراجعة عندك هي ما كنت سأريه للآخرين. عندي شيء واحد من ثلاثين ثانية، ثم أتركك للدفاتر.'), reply: t('Thirty seconds. Go on.', 'ثلاثون ثانية. تفضّل.') },
-        { id: 'b', effect: 'neutral', label: t('No programme — just a check-in. It was a strong lesson, really nothing major.', 'لا برنامج — مجرد متابعة. كان درسًا قويًا، لا شيء جوهري فعلًا.'), reply: t('"Nothing major." So there’s something minor. Go on, then.', '«لا شيء جوهري.» إذًا هناك شيء ثانوي. تفضّل.') },
+        { id: 'b', effect: 'neutral', label: t('No programme — just a check-in. It was a strong lesson, really nothing major.', 'لا برنامج — مجرد متابعة. كان درسًا قويًا، لا شيء جوهري فعلًا.'), reply: t('"Nothing major." So there’s something minor. Go on, then.', '«لا شيء جوهري.» يعني هناك شيء ثانوي. تفضّل.') },
         { id: 'c', effect: 'closes', label: t('Not a programme as such, but I’d like to set a goal around success criteria and do a couple of follow-up visits.', 'ليس برنامجًا بالمعنى الحرفي، لكنني أودّ وضع هدف حول معايير النجاح وإجراء زيارتي متابعة.'), reply: t('A goal and follow-up visits. For the lesson you just watched. That’s a programme.', 'هدف وزيارات متابعة. للدرس الذي شاهدته للتو. هذا برنامج.') },
       ],
     },
     {
-      teacherLine: t('Fine. The thirty seconds.', 'حسنًا. الثلاثون ثانية.'),
+      teacherLine: t('Fine. The thirty seconds.', 'طيّب. الثلاثون ثانية.'),
       options: [
         { id: 'a', effect: 'opens', label: t('At the door two students couldn’t say what they got better at today. The criteria from 10:02 — what if the last question of the lesson was "which one did we meet?" That’s it. That’s the whole thing.', 'عند الباب لم يستطع طالبان القول فيمَ تحسّنا اليوم. معايير الساعة ١٠:٠٢ — ماذا لو كان آخر سؤال في الدرس «أيّها حققنا؟» هذا كل شيء. هذه الفكرة كلها.'), reply: t('"Which one did we meet." …That’s it? That’s a question. I can ask a question.', '«أيّها حققنا.» …هذا كل شيء؟ هذا سؤال. أستطيع أن أطرح سؤالًا.') },
         { id: 'b', effect: 'neutral', label: t('Just make sure the success criteria come back at the end of the lesson. Closure matters.', 'فقط تأكّدي من أن معايير النجاح تعود في نهاية الدرس. الإغلاق مهم.'), reply: t('Closure. Yes. I know. The bell doesn’t.', 'الإغلاق. نعم. أعرف. الجرس لا يعرف.') },

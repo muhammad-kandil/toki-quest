@@ -12,7 +12,7 @@ export const LEVEL_3: LevelDefinition = {
   sceneImage: sceneImg,
   scenario: t(
     'Toki enters a classroom filled with impressive work. Students have made colorful posters, polished slide decks, and elaborate models. The walls are covered in beautiful output, and the teacher is visibly proud of how much the students have produced.',
-    'يدخل توكي صفًا مليئًا بأعمال مبهرة. صنع الطلاب ملصقات ملوّنة وعروضًا متقنة ومجسّمات متقنة الصنع. الجدران مغطاة بإنتاج جميل، والمعلّم فخور بوضوح بكم ما أنتجه طلابه.',
+    'يدخل توكي صفًا مليئًا بأعمال مبهرة. صنع الطلاب ملصقات ملوّنة وعروضًا أنيقة ومجسّمات متقنة الصنع. الجدران مغطاة بإنتاج جميل، والمعلّم فخور بوضوح بكمّ ما أنتجه طلابه.',
   ),
   evidence: [
     {
@@ -24,13 +24,13 @@ export const LEVEL_3: LevelDefinition = {
     {
       id: 'student',
       x: 55, y: 68,
-      label: t('Ask the artist', 'اسأل صاحب العمل'),
+      label: t('Ask the artist', 'اسأل صاحبة العمل'),
       clue: t('"Why does the water go up here?" A pause. "Because… that’s how the picture was."', '«لماذا يصعد الماء هنا؟» صمت. «لأن… هكذا كانت الصورة.»'),
     },
     {
       id: 'rubric',
       x: 82, y: 30,
-      label: t('The rubric', 'معيار التقييم'),
+      label: t('The rubric', 'سلّم التقدير'),
       clue: t('Criteria: colour, neatness, creativity, effort. Nothing about explanation.', 'المعايير: الألوان، الترتيب، الإبداع، الجهد. لا شيء عن الشرح.'),
     },
   ],
@@ -52,7 +52,7 @@ export const LEVEL_3: LevelDefinition = {
       prompt: t('How serious is this drift?', 'ما مدى خطورة هذا الانحراف؟'),
       options: RISK_OPTIONS,
       correctId: 'high',
-      hint: t('Read the rubric. If every poster in the school is graded by these four words, how long could the gap you heard go unnoticed?', 'اقرأ معيار التقييم. لو قُيِّم كل ملصق في المدرسة بهذه الكلمات الأربع، كم من الوقت قد تمرّ الفجوة التي سمعتها دون أن يلاحظها أحد؟'),
+      hint: t('Read the rubric. If every poster in the school is graded by these four words, how long could the gap you heard go unnoticed?', 'اقرأ سلّم التقدير. لو قُيِّم كل ملصق في المدرسة بهذه الكلمات الأربع، كم من الوقت قد تمرّ الفجوة التي سمعتها دون أن يلاحظها أحد؟'),
       hintSpotId: 'rubric',
     },
     chooseCoaching: {
@@ -61,7 +61,7 @@ export const LEVEL_3: LevelDefinition = {
         { id: 'grade-looks', label: t('Add a written reflection sheet students complete after the project', 'أضف ورقة تأمل مكتوبة يملؤها الطلاب بعد المشروع') },
         { id: 'embed', label: t('Embed explanation, reasoning, and application into the task', 'ضمّن الشرح والتعليل والتطبيق في المهمة نفسها') },
         { id: 'more-projects', label: t('Have students present their projects to the class at the end', 'اجعل الطلاب يعرضون مشاريعهم على الصف في النهاية') },
-        { id: 'display', label: t('Use a rubric with a clear criterion for scientific accuracy', 'استخدم معيار تقييم ببند واضح للدقة العلمية') },
+        { id: 'display', label: t('Use a rubric with a clear criterion for scientific accuracy', 'استخدم سلّم تقدير ببند واضح للدقة العلمية') },
       ],
       correctId: 'embed',
       hint: t('Look at the caption on the poster. Which move would make copying it impossible, rather than checking afterwards whether it was copied?', 'انظر إلى التعليق على الملصق. أي خطوة تجعل نسخه مستحيلًا، بدلًا من التحقق لاحقًا مما إذا كان قد نُسخ؟'),

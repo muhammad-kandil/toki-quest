@@ -20,19 +20,19 @@ const CONVO_51: ConversationDefinition = {
   read: t('Improving fast, and she took the questioning course last month. Fourteen questions in ten minutes is her applying it, proudly.', 'تتحسن بسرعة، وحضرت دورة طرح الأسئلة الشهر الماضي. أربعة عشر سؤالًا في عشر دقائق هي تطبيقها لها، بفخر.'),
   turns: [
     {
-      teacherLine: t('I am trying to ask way more questions this term, like the course said. Did it look like they were engaged?', 'أحاول طرح أسئلة أكثر بكثير هذا الفصل، كما قالت الدورة. هل بدا أنهم مشاركون؟'),
+      teacherLine: t('I am trying to ask way more questions this term, like the course said. Did it look like they were engaged?', 'أحاول طرح أسئلة أكثر بكثير هذا الفصل، كما قالت الدورة. هل بدا أنهم متفاعلون؟'),
       options: [
         { id: 'a', effect: 'opens', label: t('Hands everywhere. One thing I noticed: on "what do we call this process", four students guessed four words. What were they looking at while they guessed?', 'أيدٍ في كل مكان. شيء واحد لاحظته: في «ماذا نسمّي هذه العملية»، خمّن أربعة طلاب أربع كلمات. إلامَ كانوا ينظرون وهم يخمّنون؟'), reply: t('…Me. They were looking at me. Not the diagram. Huh.', '…إليّ. كانوا ينظرون إليّ. لا إلى الرسم. همم.') },
-        { id: 'b', effect: 'neutral', label: t('Really engaged. The number of questions is a huge step up from last term.', 'مشاركون جدًا. عدد الأسئلة قفزة كبيرة عن الفصل الماضي.'), reply: t('Fourteen! I counted. The course said aim for ten.', 'أربعة عشر! عددتها. الدورة قالت استهدفي عشرة.') },
-        { id: 'c', effect: 'closes', label: t('Engaged in guessing. Those were closed questions — one word each. The course should have covered question types.', 'مشاركون في التخمين. كانت تلك أسئلة مغلقة — كلمة واحدة لكل منها. كان ينبغي أن تغطي الدورة أنواع الأسئلة.'), reply: t('It did cover them. I thought I was doing it right. Okay.', 'غطّتها فعلًا. ظننت أنني أفعل الصواب. حسنًا.') },
+        { id: 'b', effect: 'neutral', label: t('Really engaged. The number of questions is a huge step up from last term.', 'متفاعلون جدًا. عدد الأسئلة قفزة كبيرة عن الفصل الماضي.'), reply: t('Fourteen! I counted. The course said aim for ten.', 'أربعة عشر! عددتها. الدورة قالت استهدفي عشرة.') },
+        { id: 'c', effect: 'closes', label: t('Engaged in guessing. Those were closed questions — one word each. The course should have covered question types.', 'متفاعلون في التخمين. كانت تلك أسئلة مغلقة — كلمة واحدة لكل منها. كان ينبغي أن تغطي الدورة أنواع الأسئلة.'), reply: t('It did cover them. I thought I was doing it right. Okay.', 'غطّتها فعلًا. ظننت أنني أفعل الصواب. حسنًا.') },
       ],
     },
     {
-      teacherLine: t('So the questions are wrong? I planned every one of them.', 'إذًا الأسئلة خاطئة؟ خططت كل واحد منها.'),
+      teacherLine: t('So the questions are wrong? I planned every one of them.', 'يعني الأسئلة خاطئة؟ خططت كل واحد منها.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Keep every one. Change the shape of three: "what is it called?" becomes "what is going on in this diagram, and how can you tell?" Same plan, nothing to guess.', 'احتفظي بكل واحد. غيّري شكل ثلاثة: «ماذا يُسمّى؟» يصبح «ماذا يحدث في هذا الرسم، وكيف تعرف؟» الخطة نفسها، ولا شيء للتخمين.'), reply: t('"How can you tell." They would have to look at the diagram for that. Can I try it tomorrow and you come back?', '«كيف تعرف.» سيضطرون إلى النظر إلى الرسم من أجل ذلك. هل أجرّبها غدًا وتعود أنت؟') },
         { id: 'b', effect: 'neutral', label: t('Not wrong — maybe mix in a few open ones. Variety is good.', 'ليست خاطئة — ربما أدخلي بعض الأسئلة المفتوحة. التنوّع جيد.'), reply: t('I will add some. Open ones. Like "what do you think?"', 'سأضيف بعضها. مفتوحة. مثل «ما رأيك؟»') },
-        { id: 'c', effect: 'closes', label: t('Fewer questions, better questions. Fourteen in ten minutes is quantity over quality.', 'أسئلة أقل، أسئلة أفضل. أربعة عشر في عشر دقائق كمّ على حساب الكيف.'), reply: t('The course literally said more. I do not know who to listen to anymore.', 'الدورة قالت حرفيًا المزيد. لم أعد أعرف لمن أستمع.') },
+        { id: 'c', effect: 'closes', label: t('Fewer questions, better questions. Fourteen in ten minutes is quantity over quality.', 'أسئلة أقل، أسئلة أفضل. أربعة عشر في عشر دقائق كمّ على حساب الكيف.'), reply: t('The course literally said more. I do not know who to listen to anymore.', 'الدورة قالت حرفيًا المزيد. لم أعد أعرف لمن أصغي.') },
       ],
     },
   ],
@@ -86,14 +86,14 @@ const CONVO_53: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('You would, and the pace is worth keeping. Can I replay one moment? "Why?" — "Because it is negative." — "Good, next." What was inside that "because"?', 'ستخسرينه، والإيقاع يستحق الحفاظ عليه. هل أعيد لحظة واحدة؟ «لماذا؟» — «لأنه سالب.» — «جيد، التالي.» ماذا كان داخل تلك الـ«لأن»؟'), reply: t('…I do not know. I did not ask. I heard "negative" and it was right, so I moved.', '…لا أعرف. لم أسأل. سمعت «سالب» وكانت صحيحة، فانتقلت.') },
         { id: 'b', effect: 'neutral', label: t('Honestly, the energy is a strength. Most classrooms would kill for that attention.', 'بصراحة، الطاقة نقطة قوة. معظم الصفوف تتمنى هذا الانتباه.'), reply: t('Thank you. I know some people think it is a circus.', 'شكرًا. أعرف أن بعض الناس يظنونه سيركًا.') },
-        { id: 'c', effect: 'closes', label: t('Nobody is drifting off, and nobody is thinking either. Four-word answers are recall, not reasoning.', 'لا أحد يسرح، ولا أحد يفكّر أيضًا. إجابات من أربع كلمات استرجاع، لا تعليل.'), reply: t('Not thinking. Right. Come and watch the "thinking" classroom next door; bring a pillow.', 'لا يفكّرون. حسنًا. تعال وشاهد صف «التفكير» المجاور؛ أحضر وسادة.') },
+        { id: 'c', effect: 'closes', label: t('Nobody is drifting off, and nobody is thinking either. Four-word answers are recall, not reasoning.', 'لا أحد يسرح، ولا أحد يفكّر أيضًا. إجابات من أربع كلمات استرجاع، لا تعليل.'), reply: t('Not thinking. Right. Come and watch the "thinking" classroom next door; bring a pillow.', 'لا يفكّرون. طيّب. تعال وشاهد صف «التفكير» المجاور؛ أحضر وسادة.') },
       ],
     },
     {
-      teacherLine: t('So I stop and dig into every answer? That is three questions a lesson and the back row asleep by the second.', 'إذًا أتوقف وأتعمّق في كل إجابة؟ هذه ثلاثة أسئلة في الحصة والصف الخلفي نائم عند الثاني.'),
+      teacherLine: t('So I stop and dig into every answer? That is three questions a lesson and the back row asleep by the second.', 'يعني أتوقف وأتعمّق في كل إجابة؟ هذه ثلاثة أسئلة في الحصة والصف الخلفي نائم عند الثاني.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Not every one — pick three. After the answer: "say more", then "Khalid, build on that." The pace stays; the answer goes somewhere instead of being waved through.', 'ليس كلها — اختاري ثلاثة. بعد الإجابة: «قولي المزيد»، ثم «خالد، ابنِ على ذلك.» يبقى الإيقاع؛ وتذهب الإجابة إلى مكان ما بدلًا من أن تُمرَّر.'), reply: t('"Build on that." That is still fast. That is a relay, not a stop. I can do a relay.', '«ابنِ على ذلك.» هذا ما زال سريعًا. هذا تتابع، لا توقّف. أستطيع التتابع.') },
-        { id: 'b', effect: 'neutral', label: t('Keep all ten, maybe add a short written explanation at the end of the lesson.', 'احتفظي بالعشرة كلها، وربما أضيفي تفسيرًا مكتوبًا قصيرًا في نهاية الحصة.'), reply: t('A plenary task. Fine, if there is time at the end. There usually is not.', 'مهمة ختامية. حسنًا، إن كان هناك وقت في النهاية. وعادة لا يكون.') },
+        { id: 'b', effect: 'neutral', label: t('Keep all ten, maybe add a short written explanation at the end of the lesson.', 'احتفظي بالعشرة كلها، وربما أضيفي تفسيرًا مكتوبًا قصيرًا في نهاية الحصة.'), reply: t('A plenary task. Fine, if there is time at the end. There usually is not.', 'مهمة ختامية. طيّب، إن كان هناك وقت في النهاية. وعادة لا يكون.') },
         { id: 'c', effect: 'closes', label: t('Three seconds of wait time before every answer would fix most of it. It is a well-known technique.', 'ثلاث ثوانٍ من الانتظار قبل كل إجابة ستصلح معظمه. إنها تقنية معروفة.'), reply: t('I know the technique. I was doing it before you were coaching. It does not work in here.', 'أعرف التقنية. كنت أطبّقها قبل أن تبدأ أنت التدريب. لا تنجح هنا.') },
       ],
     },
@@ -123,7 +123,7 @@ const CONVO_54: ConversationDefinition = {
     {
       teacherLine: t('Latifa gets there. Slowly. You want me to hold the whole class for one student?', 'لطيفة تصل. ببطء. تريدني أن أوقف الصف كله من أجل طالبة واحدة؟'),
       options: [
-        { id: 'a', effect: 'opens', label: t('For nine. Try one thing tomorrow: ask, count three on your fingers, then the name. Same questions, same students. Watch whose hand is up at three.', 'من أجل تسعة. جرّب شيئًا واحدًا غدًا: اسأل، عدّ ثلاثة على أصابعك، ثم الاسم. الأسئلة نفسها، الطلاب أنفسهم. راقب مَن يده مرفوعة عند الثلاثة.'), reply: t('Three fingers. …That is nothing. That is one breath. Fine. Tomorrow. Come and count the hands yourself.', 'ثلاثة أصابع. …هذا لا شيء. هذا نفَس واحد. حسنًا. غدًا. تعال وعدّ الأيدي بنفسك.') },
+        { id: 'a', effect: 'opens', label: t('For nine. Try one thing tomorrow: ask, count three on your fingers, then the name. Same questions, same students. Watch whose hand is up at three.', 'من أجل تسعة. جرّب شيئًا واحدًا غدًا: اسأل، عدّ ثلاثة على أصابعك، ثم الاسم. الأسئلة نفسها، الطلاب أنفسهم. راقب مَن يده مرفوعة عند الثلاثة.'), reply: t('Three fingers. …That is nothing. That is one breath. Fine. Tomorrow. Come and count the hands yourself.', 'ثلاثة أصابع. …هذا لا شيء. هذا نفَس واحد. طيّب. غدًا. تعال وعدّ الأيدي بنفسك.') },
         { id: 'b', effect: 'neutral', label: t('Not hold the class — maybe just make sure the same four are not always first.', 'ليس إيقاف الصف — ربما فقط تأكّد من أن الأربعة أنفسهم ليسوا دائمًا الأوائل.'), reply: t('I can spread it around. I do, mostly.', 'أستطيع التوزيع. أفعل ذلك، في الغالب.') },
         { id: 'c', effect: 'closes', label: t('Ask yourself what the question is for. If it only reaches four students, it is not doing its job.', 'اسأل نفسك ما الغاية من السؤال. إن كان يصل إلى أربعة طلاب فقط، فهو لا يؤدي وظيفته.'), reply: t('I know what a question is for. I will take the feedback from the file, thanks.', 'أعرف ما الغاية من السؤال. سآخذ التغذية الراجعة من الملف، شكرًا.') },
       ],
@@ -144,11 +144,11 @@ export const LEVEL_51: LevelDefinition = {
   sceneImage: sceneTalk,
   scenario: t(
     'The teacher asks a lot of questions, and students answer them eagerly. But Toki notices a rhythm: a question, three or four guesses, "not quite… closer… yes!" — until someone lands on the word the teacher had in mind. The class is good at it. Toki listens to what the questions are asking for.',
-    'يطرح المعلّم أسئلة كثيرة، ويجيب الطلاب عنها بحماس. لكن توكي يلاحظ إيقاعًا: سؤال، ثلاثة أو أربعة تخمينات، «ليس تمامًا… أقرب… نعم!» — حتى يصل أحدهم إلى الكلمة التي في ذهن المعلّم. الصف بارع في ذلك. يُنصت توكي لما تطلبه الأسئلة.',
+    'تطرح المعلّمة أسئلة كثيرة، ويجيب الطلاب عنها بحماس. لكن توكي يلاحظ إيقاعًا: سؤال، ثلاثة أو أربعة تخمينات، «ليس تمامًا… أقرب… نعم!» — حتى يصل أحدهم إلى الكلمة التي في ذهن المعلّمة. الصف بارع في ذلك. يُنصت توكي لما تطلبه الأسئلة.',
   ),
   evidence: [
     { id: 'question', x: 50, y: 28, label: t('A question', 'سؤال'), clue: t('"What do we call this process?" One word wanted. Four students guess words.', '«ماذا نسمّي هذه العملية؟» المطلوب كلمة واحدة. يخمّن أربعة طلاب كلمات.') },
-    { id: 'student', x: 24, y: 66, label: t('A student', 'طالب'), clue: t('Hand up, then down, then up: she’s watching the teacher’s face, not thinking about the diagram.', 'يد مرفوعة، ثم منخفضة، ثم مرفوعة: إنها تراقب وجه المعلّم لا تفكّر في الرسم.') },
+    { id: 'student', x: 24, y: 66, label: t('A student', 'طالب'), clue: t('Hand up, then down, then up: she’s watching the teacher’s face, not thinking about the diagram.', 'يد مرفوعة، ثم منخفضة، ثم مرفوعة: إنها تراقب وجه المعلّمة لا تفكّر في الرسم.') },
     { id: 'reasons', x: 78, y: 64, label: t('Toki’s tally', 'إحصاء توكي'), clue: t('Fourteen questions in ten minutes. Number that began with "why" or "how do you know": zero.', 'أربعة عشر سؤالًا في عشر دقائق. عدد ما بدأ منها بـ«لماذا» أو «كيف تعرف»: صفر.') },
   ],
   steps: {
@@ -157,7 +157,7 @@ export const LEVEL_51: LevelDefinition = {
       options: [
         { id: 'wait', label: t('How long students get between the question and the first guess', 'كم من الوقت يحصل الطلاب بين السؤال والتخمين الأول') },
         { id: 'number', label: t('How many different students get to answer', 'كم طالبًا مختلفًا يحصل على فرصة الإجابة') },
-        { id: 'openness', label: t('Whether the questions have one answer in mind or many possible ones', 'هل للأسئلة إجابة واحدة في ذهن المعلّم أم إجابات عدّة على الطاولة') },
+        { id: 'openness', label: t('Whether the questions have one answer in mind or many possible ones', 'هل للأسئلة إجابة واحدة في ذهن المعلّمة أم إجابات ممكنة عدّة') },
         { id: 'vocab', label: t('Whether students have been taught the vocabulary the questions require', 'هل دُرّس الطلاب المفردات التي تتطلّبها الأسئلة') },
       ],
       correctId: 'openness',
@@ -173,7 +173,7 @@ export const LEVEL_51: LevelDefinition = {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
         { id: 'pre-teach', label: t('Pre-teach the key terms so the guessing stops and the answers come faster', 'درّس المصطلحات الأساسية مسبقًا ليتوقف التخمين وتأتي الإجابات أسرع') },
-        { id: 'no-hands', label: t('Cold-call instead of taking guesses, so every student has to be ready with an answer', 'نادِ عشوائيًا بدل أخذ التخمينات، ليكون كل طالب مستعدًا') },
+        { id: 'no-hands', label: t('Cold-call instead of taking guesses, so every student has to be ready with an answer', 'نادِ بالاسم بدل أخذ التخمينات، ليكون كل طالب مستعدًا') },
         { id: 'accept', label: t('Accept the first reasonable answer instead of fishing for the exact word', 'اقبل أول إجابة معقولة بدل الصيد عن الكلمة الدقيقة') },
         { id: 'reframe', label: t('Same questions, new shape: "what is it called?" becomes "what is happening here, and why?"', 'احتفظ بالأسئلة وغيّر شكلها: من «ماذا تُسمّى؟» إلى «ما الذي يحدث هنا، ولماذا؟»') },
       ],
@@ -183,9 +183,9 @@ export const LEVEL_51: LevelDefinition = {
     reasoning: {
       prompt: t('Why change the shape of the question rather than the amount?', 'لماذا نغيّر شكل السؤال لا كمّه؟'),
       options: [
-        { id: 'r1', label: t('A "why" question cannot be answered by watching the teacher’s face', 'سؤال «لماذا» لا يمكن الإجابة عنه بمراقبة وجه المعلّم') },
+        { id: 'r1', label: t('A "why" question cannot be answered by watching the teacher’s face', 'سؤال «لماذا» لا يمكن الإجابة عنه بمراقبة وجه المعلّمة') },
         { id: 'r3', label: t('Open questions give the four guessers less to guess and the rest more to say', 'تمنح الأسئلة المفتوحة المخمّنين الأربعة أقل ليخمّنوا والبقية أكثر ليقولوه') },
-        { id: 'r2', label: t('A guessing game trains students to read the teacher, not the content', 'لعبة التخمين تدرّب الطلاب على قراءة المعلّم لا المحتوى') },
+        { id: 'r2', label: t('A guessing game trains students to read the teacher, not the content', 'لعبة التخمين تدرّب الطلاب على قراءة المعلّمة لا المحتوى') },
         { id: 'r4', label: t('The right word matters less than the reasoning that leads to it', 'الكلمة الصحيحة أقل أهمية من التعليل الذي يقود إليها') },
       ],
       correctId: 'r2',
@@ -197,7 +197,7 @@ export const LEVEL_51: LevelDefinition = {
   reveal: {
     whatDrifted: t(
       'Questioning has become a guessing game. Students are engaged in reading the teacher rather than reasoning about the content.',
-      'أصبح طرح الأسئلة لعبة تخمين. ينشغل الطلاب بقراءة المعلّم لا بالتعليل حول المحتوى.',
+      'أصبح طرح الأسئلة لعبة تخمين. ينشغل الطلاب بقراءة المعلّمة لا بالتعليل حول المحتوى.',
     ),
     whyItHappened: t(
       'Closed questions keep a lesson moving and feel interactive. The teacher gets the word she wanted; the class gets a win. Nobody notices that no one had to think.',
@@ -205,7 +205,7 @@ export const LEVEL_51: LevelDefinition = {
     ),
     howToRestore: t(
       'Questions should invite reasoning, not only lead students toward the teacher’s expected answer. Same number of questions; each one begins with what, why, or how do you know.',
-      'ينبغي للأسئلة أن تدعو إلى التعليل، لا أن تقود الطلاب فقط نحو الإجابة التي يتوقعها المعلّم. العدد نفسه من الأسئلة؛ يبدأ كل منها بـ«ماذا» أو «لماذا» أو «كيف تعرف».',
+      'ينبغي للأسئلة أن تدعو إلى التعليل، لا أن تقود الطلاب فقط نحو الإجابة التي تتوقعها المعلّمة. العدد نفسه من الأسئلة؛ يبدأ كل منها بـ«ماذا» أو «لماذا» أو «كيف تعرف».',
     ),
   },
   points: { drift: 25, risk: 25, coaching: 30, restore: 20, reasoningBonus: 25 },
@@ -296,7 +296,7 @@ export const LEVEL_53: LevelDefinition = {
   sceneImage: sceneAct,
   scenario: t(
     'The teacher is energetic and the lesson flies. Questions come every few seconds, answers come back short, and the momentum never drops. Students are alert and the pace is exhilarating. Toki times the gap between a question and the next question.',
-    'المعلّم نشيط والدرس يطير. تأتي الأسئلة كل بضع ثوانٍ، وتعود الإجابات قصيرة، ولا يتراجع الزخم أبدًا. الطلاب متيقّظون والإيقاع مثير. يقيس توكي الفاصل بين سؤال والسؤال التالي.',
+    'المعلّمة نشيطة والدرس يطير. تأتي الأسئلة كل بضع ثوانٍ، وتعود الإجابات قصيرة، ولا يتراجع الزخم أبدًا. الطلاب متيقّظون والإيقاع مثير. يقيس توكي الفاصل بين سؤال والسؤال التالي.',
   ),
   evidence: [
     { id: 'timer', x: 50, y: 28, label: t('The stopwatch', 'ساعة الإيقاف'), clue: t('Average gap: 6 seconds. Longest answer: four words.', 'متوسط الفاصل: ٦ ثوانٍ. أطول إجابة: أربع كلمات.') },
@@ -375,7 +375,7 @@ export const LEVEL_54: LevelDefinition = {
     'تطرح المعلّمة سؤالًا جيدًا وتختار فورًا أول يد مرفوعة. في كل مرة. اليد الأولى عادةً لأحد أربعة طلاب، وعادةً صحيحة، فيبدو الدرس متجاوبًا وحادًا. يراقب توكي الأيدي التي ترتفع متأخرة ثانية واحدة.',
   ),
   evidence: [
-    { id: 'hands', x: 26, y: 62, label: t('The hands', 'الأيدي'), clue: t('Toki counts: question, 0.8 seconds, name called. Nine hands were on their way up.', 'يعدّ توكي: سؤال، ٠.٨ ثانية، نداء باسم. كانت تسع أيدٍ في طريقها إلى الارتفاع.') },
+    { id: 'hands', x: 26, y: 62, label: t('The hands', 'الأيدي'), clue: t('Toki counts: question, 0.8 seconds, name called. Nine hands were on their way up.', 'يعدّ توكي: سؤال، ٠٫٨ ثانية، نداء باسم. كانت تسع أيدٍ في طريقها إلى الارتفاع.') },
     { id: 'late', x: 58, y: 70, label: t('A late hand', 'يد متأخرة'), clue: t('He had the answer. By the time his hand was up, the class had moved on. His hand stays down for the rest of the lesson.', 'كانت لديه الإجابة. وحين ارتفعت يده كان الصف قد انتقل. تبقى يده منخفضة بقية الدرس.') },
     { id: 'answer', x: 80, y: 32, label: t('A first answer', 'إجابة أولى'), clue: t('Fast, confident, and shallow. A slower student’s written note has the deeper point — unread.', 'سريعة وواثقة وسطحية. ملاحظة طالبة أبطأ مكتوبة فيها النقطة الأعمق — غير مقروءة.') },
   ],

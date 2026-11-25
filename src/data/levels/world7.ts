@@ -35,7 +35,7 @@ export const LEVEL_71: AcademyLevelDefinition = {
     { id: 'board', x: 22, y: 30, label: t('The objective', 'الهدف'), clue: t('"Students will be able to solve two-step equations." Referred to twice during the lesson.', '«سيتمكن الطلاب من حل معادلات ذات خطوتين.» أُشير إليه مرتين أثناء الدرس.') },
     { id: 'groups', x: 48, y: 60, label: t('Group work', 'العمل الجماعي'), clue: t('Four groups, each with a leader, timer and roles. Every group finishes the task sheet on time.', 'أربع مجموعات، لكل منها قائد ومؤقّت وأدوار. تنهي كل مجموعة ورقة المهمة في الوقت المحدد.') },
     { id: 'ticket', x: 76, y: 42, label: t('Exit ticket', 'بطاقة الخروج'), clue: t('One question. Nine of twenty-four students solve it correctly. The teacher thanks the class for a great lesson.', 'سؤال واحد. يحلّه تسعة من أربعة وعشرين طالبًا بشكل صحيح. يشكر المعلّم الصف على درس رائع.') },
-    { id: 'file', x: 62, y: 80, label: t('The lesson file', 'ملف الدرس'), clue: t('A full evaluation form: routines ✓, engagement ✓, technology ✓, assessment ✓. No box asks what students can now do.', 'نموذج تقييم كامل: الروتين ✓، المشاركة ✓، التقنية ✓، التقييم ✓. لا خانة تسأل ماذا يستطيع الطلاب فعله الآن.') },
+    { id: 'file', x: 62, y: 80, label: t('The lesson file', 'ملف الدرس'), clue: t('A full evaluation form: routines ✓, engagement ✓, technology ✓, assessment ✓. No box asks what students can now do.', 'نموذج تقييم كامل: الروتين ✓، التفاعل ✓، التقنية ✓، التقييم ✓. لا خانة تسأل ماذا يستطيع الطلاب فعله الآن.') },
   ],
   diagnosis: {
     prompt: t('File your diagnosis. Tick every finding the evidence supports — and nothing it doesn’t.', 'سجّل تشخيصك. ضع علامة على كل نتيجة يدعمها الدليل — ولا شيء غير ذلك.'),
@@ -71,7 +71,7 @@ export const LEVEL_71: AcademyLevelDefinition = {
   conversation: CONVO_71,
   reveal: {
     verdict: t('One finding. Everything else was healthy — and saying so is part of the diagnosis.', 'نتيجة واحدة. كل ما عداها كان سليمًا — وقول ذلك جزء من التشخيص.'),
-    whatDrifted: t('The school learned to evaluate teaching by its ingredients. Routines, engagement, technology, assessment — all present, all ticked. Learning became the one ingredient nobody weighed.', 'تعلّمت المدرسة تقييم التدريس بمكوّناته. روتين، مشاركة، تقنية، تقييم — كلها حاضرة، كلها مؤشَّر عليها. وأصبح التعلّم المكوّن الوحيد الذي لم يزنه أحد.'),
+    whatDrifted: t('The school learned to evaluate teaching by its ingredients. Routines, engagement, technology, assessment — all present, all ticked. Learning became the one ingredient nobody weighed.', 'تعلّمت المدرسة تقييم التدريس بمكوّناته. روتين، تفاعل، تقنية، تقييم — كلها حاضرة، كلها مؤشَّر عليها. وأصبح التعلّم المكوّن الوحيد الذي لم يزنه أحد.'),
     whyItHappened: t('Implementation is visible in one visit. Impact takes a second question. When observation forms reward what is visible, teachers polish what is visible.', 'التنفيذ مرئي في زيارة واحدة. الأثر يحتاج سؤالًا ثانيًا. حين تكافئ نماذج الملاحظة ما هو مرئي، يصقل المعلّمون ما هو مرئي.'),
     howToRestore: t('Add the second question to every visit — "and what can they do now?" — and let the exit ticket, not the form, decide whether the lesson was excellent.', 'أضف السؤال الثاني إلى كل زيارة — «وماذا يستطيعون فعله الآن؟» — ودع بطاقة الخروج، لا النموذج، تقرّر ما إذا كان الدرس ممتازًا.'),
   },
@@ -89,7 +89,7 @@ export const LEVEL_72: AcademyLevelDefinition = {
   sceneImage: sceneOutput,
   scenario: t(
     'No music. No group roles. No devices on the desks. The teacher explains for twelve minutes while students listen, then the room goes quiet for half an hour of writing. A visiting leader has already noted "low engagement, no technology". Toki is asked to confirm it.',
-    'لا موسيقى. لا أدوار جماعية. لا أجهزة على الطاولات. تشرح المعلّمة اثنتي عشرة دقيقة بينما يستمع الطلاب، ثم يهدأ الصف نصف ساعة من الكتابة. دوّن قائد زائر بالفعل «مشاركة منخفضة، لا تقنية». يُطلب من توكي تأكيد ذلك.',
+    'لا موسيقى. لا أدوار جماعية. لا أجهزة على الطاولات. تشرح المعلّمة اثنتي عشرة دقيقة بينما يستمع الطلاب، ثم يهدأ الصف نصف ساعة من الكتابة. دوّن قائد زائر بالفعل «تفاعل منخفض، لا تقنية». يُطلب من توكي تأكيد ذلك.',
   ),
   evidence: [
     { id: 'explain', x: 24, y: 34, label: t('The twelve minutes', 'الدقائق الاثنتا عشرة'), clue: t('The teacher writes a paragraph live, thinking aloud about each choice. Students annotate a copy as she goes.', 'تكتب المعلّمة فقرة مباشرة، مفكّرة بصوت عالٍ في كل اختيار. يدوّن الطلاب ملاحظاتهم على نسخة أثناء ذلك.') },
@@ -113,14 +113,14 @@ export const LEVEL_72: AcademyLevelDefinition = {
   assessRisk: {
     prompt: t('How serious is what Toki found?', 'ما مدى خطورة ما وجده توكي؟'),
     correctId: 'none',
-    hint: t('The visiting leader wrote "low engagement". Look at the whiteboards clue: how many students answered, and how many times? Then ask what the word "engagement" was measuring.', 'كتب القائد الزائر «مشاركة منخفضة». انظر إلى دليل السبورات الصغيرة: كم طالبًا أجاب، وكم مرة؟ ثم اسأل ما الذي كانت كلمة «المشاركة» تقيسه.'),
+    hint: t('The visiting leader wrote "low engagement". Look at the whiteboards clue: how many students answered, and how many times? Then ask what the word "engagement" was measuring.', 'كتب القائد الزائر «تفاعل منخفض». انظر إلى دليل السبورات الصغيرة: كم طالبًا أجاب، وكم مرة؟ ثم اسأل ما الذي كانت كلمة «التفاعل» تقيسه.'),
     hintSpotId: 'whiteboards',
   },
   coaching: {
     prompt: t('The visiting leader is waiting for Toki’s confirmation. What does Toki do?', 'ينتظر القائد الزائر تأكيد توكي. ماذا يفعل توكي؟'),
     options: [
       { id: 'affirm', label: t('Name precisely what is working — the whiteboard checks, the feedback loop — so the teacher keeps it, and correct the note', 'سمِّ بدقة ما يعمل — فحوص السبورات، حلقة التغذية الراجعة — لتحتفظ به المعلّمة، وصحّح الملاحظة') },
-      { id: 'groups', label: t('Suggest adding group work to raise engagement', 'اقترح إضافة عمل جماعي لرفع المشاركة') },
+      { id: 'groups', label: t('Suggest adding group work to raise engagement', 'اقترح إضافة عمل جماعي لرفع التفاعل') },
       { id: 'alef', label: t('Recommend using Alef on devices during the lesson', 'أوصِ باستخدام «ألف» على الأجهزة أثناء الدرس') },
       { id: 'objective', label: t('Ask the teacher to display the objective on the board', 'اطلب من المعلّمة عرض الهدف على السبورة') },
     ],
@@ -131,8 +131,8 @@ export const LEVEL_72: AcademyLevelDefinition = {
   conversation: CONVO_72,
   reveal: {
     verdict: t('No findings. The hardest diagnosis to file — and the one that earns a teacher’s trust for the next five visits.', 'لا نتائج. أصعب تشخيص يُسجَّل — وهو ما يكسب ثقة المعلّمة للزيارات الخمس التالية.'),
-    whatDrifted: t('Nothing in the classroom. What drifted was the observer: a rubric that mistakes visible activity for learning, and quiet for its absence.', 'لا شيء في الصف. ما انحرف هو المراقب: معيار يخلط بين النشاط المرئي والتعلّم، وبين الهدوء وغيابه.'),
-    whyItHappened: t('Engagement is easy to see and thinking is not. Lists of "look-fors" slowly turn into lists of "must-haves".', 'المشاركة سهلة الرؤية والتفكير ليس كذلك. قوائم «ما نبحث عنه» تتحوّل ببطء إلى قوائم «ما يجب أن يكون».'),
+    whatDrifted: t('Nothing in the classroom. What drifted was the observer: a rubric that mistakes visible activity for learning, and quiet for its absence.', 'لا شيء في الصف. ما انحرف هو المراقب: سلّم تقدير يخلط بين النشاط المرئي والتعلّم، وبين الهدوء وغيابه.'),
+    whyItHappened: t('Engagement is easy to see and thinking is not. Lists of "look-fors" slowly turn into lists of "must-haves".', 'التفاعل سهل الرؤية والتفكير ليس كذلك. قوائم «ما نبحث عنه» تتحوّل ببطء إلى قوائم «ما يجب أن يكون».'),
     howToRestore: t('Judge lessons by what every student did with their mind, not by what the room did with its furniture. Then tell the teacher exactly what to keep.', 'احكم على الدروس بما فعله كل طالب بعقله، لا بما فعلته الغرفة بأثاثها. ثم أخبر المعلّمة تحديدًا بما تحتفظ به.'),
   },
   points: POINTS,
@@ -193,7 +193,7 @@ export const LEVEL_73: AcademyLevelDefinition = {
     verdict: t('Three findings, two healthy practices protected, one priority chosen. That is a diagnosis, not a list.', 'ثلاث نتائج، ممارستان سليمتان محميّتان، أولوية واحدة مختارة. هذا تشخيص، لا قائمة.'),
     whatDrifted: t('The lesson was built to be watched. Questioning became performance, the platform became a prize, and the exit ticket asked about feelings because feelings are always good news.', 'بُني الدرس ليُشاهَد. أصبحت الأسئلة أداءً، والمنصة جائزة، وسألت بطاقة الخروج عن المشاعر لأن المشاعر دائمًا خبر جيد.'),
     whyItHappened: t('Announced observations reward what observers can see in forty minutes. A talented, nervous teacher optimised for exactly that.', 'تكافئ الملاحظات المُعلنة ما يستطيع المراقبون رؤيته في أربعين دقيقة. معلّمة موهوبة ومتوترة حسّنت لذلك تحديدًا.'),
-    howToRestore: t('One change at a time, starting where the thinking is: no hands, every student answers, cold call from the whiteboards. Keep the two-task differentiation exactly as it is.', 'تغيير واحد في كل مرة، بدءًا من حيث التفكير: لا أيدٍ، كل طالب يجيب، نداء عشوائي من السبورات. احتفظ بتمايز المهمتين كما هو تمامًا.'),
+    howToRestore: t('One change at a time, starting where the thinking is: no hands, every student answers, cold call from the whiteboards. Keep the two-task differentiation exactly as it is.', 'تغيير واحد في كل مرة، بدءًا من حيث التفكير: لا أيدٍ، كل طالب يجيب، نداء بالاسم من السبورات. احتفظ بتمايز المهمتين كما هو تمامًا.'),
   },
   points: POINTS,
   badgeTriggers: ['mutation-hunter'],

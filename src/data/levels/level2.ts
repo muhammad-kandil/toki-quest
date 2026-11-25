@@ -12,7 +12,7 @@ export const LEVEL_2: LevelDefinition = {
   sceneImage: sceneImg,
   scenario: t(
     'Toki visits a fast-paced classroom. Students rotate through stations, games, and hands-on tasks in quick succession. Nobody is idle, the pace is relentless, and the teacher proudly notes that every minute is filled. It looks like a model of engagement and time-on-task.',
-    'يزور توكي صفًا سريع الإيقاع. الطلاب يتنقلون بين المحطات والألعاب والمهام العملية بسرعة متتالية. لا أحد خامل، والإيقاع لا يتوقف، والمعلّم يشير بفخر إلى أن كل دقيقة مُستغَلّة. يبدو الصف نموذجًا للمشاركة واستثمار الوقت.',
+    'يزور توكي صفًا سريع الإيقاع. الطلاب يتنقلون بين المحطات والألعاب والمهام العملية بسرعة متتالية. لا أحد خامل، والإيقاع لا يتوقف، والمعلّم يشير بفخر إلى أن كل دقيقة مُستغَلّة. يبدو الصف نموذجًا للتفاعل واستثمار الوقت.',
   ),
   evidence: [
     {
@@ -60,7 +60,7 @@ export const LEVEL_2: LevelDefinition = {
       options: [
         { id: 'fewer', label: t('Keep the stations but add a two-minute reflection card at the end of each', 'احتفظ بالمحطات لكن أضف بطاقة تأمل لدقيقتين في نهاية كل منها') },
         { id: 'reconnect', label: t('Reconnect every activity to a clear learning objective', 'اربط كل نشاط من جديد بهدف تعلّم واضح') },
-        { id: 'timer', label: t('Pair the stations so students teach the next group what they found', 'ازدوج المحطات ليعلّم الطلاب المجموعة التالية ما وجدوه') },
+        { id: 'timer', label: t('Pair the stations so students teach the next group what they found', 'رتّب المحطات في أزواج ليعلّم الطلاب المجموعة التالية ما وجدوه') },
         { id: 'reward', label: t('Add a short quiz after the rotation to check what stuck', 'أضف اختبارًا قصيرًا بعد الدورة للتحقق مما رسخ') },
       ],
       correctId: 'reconnect',

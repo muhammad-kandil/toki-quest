@@ -28,7 +28,7 @@ const KIND_LABEL: Record<EvidenceKind, Text> = {
   alefData: t('Alef data', 'بيانات «ألف»'),
   planning: t('Teacher planning', 'تخطيط المعلّم'),
   studentWork: t('Student work', 'عمل الطلاب'),
-  assessment: t('Assessment sample', 'عيّنة تقويم'),
+  assessment: t('Assessment sample', 'عيّنة تقييم'),
   studentVoice: t('Student responses', 'إجابات الطلاب'),
   leadership: t('Leadership priorities', 'أولويات القيادة'),
 };

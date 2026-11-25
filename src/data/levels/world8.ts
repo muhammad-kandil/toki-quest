@@ -54,7 +54,7 @@ export const SCHOOL_VISIT: SchoolVisitDefinition = {
       evidence: [
         { kind: 'leadership', title: t('Leadership note', 'ملاحظة القيادة'), body: t('"Science usage is below target (71%). Teacher reminded twice. Please prioritise."', '«استخدام العلوم دون الهدف (٧١٪). ذُكّر المعلّم مرتين. يُرجى إعطاء الأولوية.»') },
         { kind: 'observation', title: t('Observation', 'ملاحظة'), body: t('Students predict, test, and argue from their results. The teacher assigns Alef lessons only where the diagnostic showed a gap, and skips the rest on purpose.', 'يتنبأ الطلاب ويختبرون ويجادلون من نتائجهم. يسند المعلّم دروس «ألف» فقط حيث أظهر التشخيص فجوة، ويتخطى البقية عمدًا.') },
-        { kind: 'studentVoice', title: t('Student responses', 'إجابات الطلاب'), body: t('"We only do the Alef ones we got wrong on the check. The rest we do with Mr Khalid." Written explanations cite evidence from their own experiments.', '«نعمل فقط دروس «ألف» التي أخطأنا فيها في الفحص. والبقية نعملها مع الأستاذ خالد.» الشروح المكتوبة تستشهد بأدلة من تجاربهم.') },
+        { kind: 'studentVoice', title: t('Student responses', 'إجابات الطلاب'), body: t('"We only do the Alef ones we got wrong on the check. The rest we do with Mr Khalid." Written explanations cite evidence from their own experiments.', '«نعمل فقط دروس ألف التي أخطأنا فيها في الفحص. والبقية نعملها مع الأستاذ خالد.» الشروح المكتوبة تستشهد بأدلة من تجاربهم.') },
       ],
       impact: {
         correctId: 'linked',
@@ -84,7 +84,7 @@ export const SCHOOL_VISIT: SchoolVisitDefinition = {
       tag: t('Grade 9 · checkpoint +11', 'الصف التاسع · تقويم +١١'),
       sceneImage: sceneArabic,
       evidence: [
-        { kind: 'observation', title: t('Observation', 'ملاحظة'), body: t('A text is read; students argue about the author’s choices in pairs, then the teacher cold-calls six students for their reasoning. Every answer is pushed: "and why would that matter?"', 'يُقرأ نص؛ يتجادل الطلاب حول اختيارات الكاتب في ثنائيات، ثم تنادي المعلّمة ستة طلاب عشوائيًا لتعليلهم. كل إجابة تُدفع: «ولماذا سيهم ذلك؟»') },
+        { kind: 'observation', title: t('Observation', 'ملاحظة'), body: t('A text is read; students argue about the author’s choices in pairs, then the teacher cold-calls six students for their reasoning. Every answer is pushed: "and why would that matter?"', 'يُقرأ نص؛ يتجادل الطلاب حول اختيارات الكاتب في ثنائيات، ثم تنادي المعلّمة ستة طلاب بالاسم لتعليلهم. كل إجابة تُدفع: «ولماذا سيهم ذلك؟»') },
         { kind: 'assessment', title: t('Two checkpoints', 'تقويمان'), body: t('Term 1: 61%. Term 2: 72%. The gain is largest among the students who scored lowest in Term 1.', 'الفصل الأول: ٦١٪. الفصل الثاني: ٧٢٪. المكسب أكبر بين الطلاب الأدنى في الفصل الأول.') },
         { kind: 'studentVoice', title: t('Student responses', 'إجابات الطلاب'), body: t('"I know what I’m working on: using evidence from the text, not just my opinion. She tells us every week where we are."', '«أعرف فيمَ أعمل: استخدام الدليل من النص، لا رأيي فقط. تخبرنا كل أسبوع أين نحن.»') },
       ],
@@ -106,7 +106,7 @@ export const SCHOOL_VISIT: SchoolVisitDefinition = {
       ],
       impact: {
         correctId: 'unverified',
-        hint: t('Busy, happy, well-run. Is there any evidence of what was learned — or only of what was done?', 'مشغول، سعيد، منظّم جيدًا. هل يوجد أي دليل على ما تُعلِّم — أم فقط على ما نُفِّذ؟'),
+        hint: t('Busy, happy, well-run. Is there any evidence of what was learned — or only of what was done?', 'مشغول، سعيد، منظّم جيدًا. هل يوجد أي دليل على ما تعلّموه — أم فقط على ما نُفِّذ؟'),
         finding: t('Activity without a record of impact. Nothing here is broken, and nothing here can show it works. A simple "can now / not yet" record per child would turn the busiest room in the school into evidence.', 'نشاط دون سجل للأثر. لا شيء هنا معطّل، ولا شيء هنا يستطيع إثبات أنه يعمل. سجل بسيط «يستطيع الآن / ليس بعد» لكل طفل سيحوّل أكثر غرفة مشغولة في المدرسة إلى دليل.'),
       },
     },
@@ -123,14 +123,14 @@ export const SCHOOL_VISIT: SchoolVisitDefinition = {
       impact: {
         correctId: 'drifted',
         hint: t('What does this school measure, reward, and chase? Now look back at Mathematics and Science and ask who taught them to behave that way.', 'ما الذي تقيسه هذه المدرسة وتكافئه وتلاحقه؟ انظر الآن إلى الرياضيات والعلوم واسأل مَن علّمهما التصرّف بهذه الطريقة.'),
-        finding: t('Leadership has mutated into usage management. It congratulates the department that learns least and pressures the one that learns most, because it measures activity and never asks about learning. Every classroom drift in this school is downstream of this room.', 'تحوّلت القيادة إلى إدارة للاستخدام. تهنّئ القسم الذي يتعلّم أقل وتضغط على القسم الذي يتعلّم أكثر، لأنها تقيس النشاط ولا تسأل عن التعلّم أبدًا. كل انحراف صفّي في هذه المدرسة يقع في مجرى هذه الغرفة.'),
+        finding: t('Leadership has mutated into usage management. It congratulates the department that learns least and pressures the one that learns most, because it measures activity and never asks about learning. Every classroom drift in this school is downstream of this room.', 'تحوّلت القيادة إلى إدارة للاستخدام. تهنّئ القسم الذي يتعلّم أقل وتضغط على القسم الذي يتعلّم أكثر، لأنها تقيس النشاط ولا تسأل عن التعلّم أبدًا. كل انحراف صفّي في هذه المدرسة ينبع من هذه الغرفة.'),
       },
     },
   ],
   prioritise: {
     prompt: t('Six contexts, one coach, one term. Where should Toki’s coaching go first — where will it change the most?', 'ستة سياقات، مدرّب واحد، فصل واحد. أين ينبغي أن يذهب تدريب توكي أولًا — أين سيغيّر أكثر؟'),
     correctId: 'leadership',
-    hint: t('Ask: which issue, if it changed, would change the others? Coaching Mathematics fixes one room until the next usage report. Coaching Science fixes nothing. What is upstream of all of them?', 'اسأل: أي قضية، لو تغيّرت، ستغيّر الأخريات؟ تدريب الرياضيات يصلح غرفة واحدة حتى تقرير الاستخدام التالي. تدريب العلوم لا يصلح شيئًا. ما الذي يقع في أعلى مجرى الجميع؟'),
+    hint: t('Ask: which issue, if it changed, would change the others? Coaching Mathematics fixes one room until the next usage report. Coaching Science fixes nothing. What is upstream of all of them?', 'اسأل: أي قضية، لو تغيّرت، ستغيّر الأخريات؟ تدريب الرياضيات يصلح غرفة واحدة حتى تقرير الاستخدام التالي. تدريب العلوم لا يصلح شيئًا. ما الذي يقع عند منبع كل ذلك؟'),
     rationale: t('The leadership team is not the biggest problem in the building — Mathematics is. But Mathematics is doing exactly what leadership rewards. Change what the school measures and asks about, and Mathematics, English and Kindergarten start to move on their own. Coach the room that teaches the other rooms how to behave.', 'فريق القيادة ليس أكبر مشكلة في المبنى — الرياضيات هي. لكن الرياضيات تفعل تمامًا ما تكافئه القيادة. غيّر ما تقيسه المدرسة وتسأل عنه، فتبدأ الرياضيات والإنجليزية والروضة بالتحرك من تلقاء نفسها. درّب الغرفة التي تعلّم الغرف الأخرى كيف تتصرّف.'),
   },
   finalMission: {
@@ -150,7 +150,7 @@ export const SCHOOL_VISIT: SchoolVisitDefinition = {
   ),
   finalMessage: [
     t('Congratulations. You have completed Toki’s Coaching Quest.', 'تهانينا. لقد أكملت رحلة توكي التدريبية.'),
-    t('As a DLIS, your role is not only to observe what teachers are doing. Your role is to uncover what students are learning.', 'بصفتك مشرفًا، دورك ليس فقط ملاحظة ما يفعله المعلّمون. دورك هو الكشف عمّا يتعلّمه الطلاب.'),
+    t('As a DLIS, your role is not only to observe what teachers are doing. Your role is to uncover what students are learning.', 'بصفتك أخصائي تطبيق التعلّم الرقمي (DLIS)، دورك ليس فقط ملاحظة ما يفعله المعلّمون. دورك هو الكشف عمّا يتعلّمه الطلاب.'),
     t('The most dangerous instructional drifts are not always visible. They often preserve the appearance of effective teaching while quietly changing its purpose.', 'أخطر الانحرافات التعليمية ليست دائمًا مرئية. غالبًا ما تحفظ مظهر التدريس الفعّال بينما تغيّر غايته بهدوء.'),
     t('Spot the drift. Protect the purpose. Prevent the lethal mutation.', 'اكتشف الانحراف. احمِ الغاية. امنع التحوّر القاتل.'),
   ],

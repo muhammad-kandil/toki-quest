@@ -37,7 +37,7 @@ const CONVO_21: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('They do — and you didn’t. Can I show you one from yesterday? Question 2: three of the five in this bundle got it wrong the same way. Did that one come up today?', 'صحيح — وأنت لم تتوقف. هل لي أن أريك واحدة من الأمس؟ السؤال ٢: ثلاثة من الخمسة في هذه الرزمة أخطؤوا فيه بالطريقة نفسها. هل مرّ هذا السؤال اليوم؟'), reply: t('…No. Today was the next topic. I hadn’t opened yesterday’s yet.', '…لا. اليوم كان الموضوع التالي. لم أفتح بطاقات الأمس بعد.') },
         { id: 'b', effect: 'neutral', label: t('That consistency is rare. Honestly, I wish every classroom in the school had this routine.', 'هذا الاتساق نادر. بصراحة، أتمنى لو أن كل صف في المدرسة لديه هذا الروتين.'), reply: t('Tell the head that. I’ve been saying it for a year.', 'قل ذلك للمدير. أقولها منذ سنة.') },
-        { id: 'c', effect: 'closes', label: t('Collecting them isn’t the point, though. An exit ticket is formative assessment — if it doesn’t feed back into teaching, it’s just paperwork.', 'لكن جمعها ليس الغاية. بطاقة الخروج تقييم تكويني — إن لم تعد إلى التدريس فهي مجرّد أوراق.'), reply: t('Paperwork. Right. I’ll remember that next time someone asks me to model good practice.', 'أوراق. حسنًا. سأتذكّر ذلك في المرة القادمة التي يُطلب مني فيها تقديم نموذج للممارسة الجيدة.') },
+        { id: 'c', effect: 'closes', label: t('Collecting them isn’t the point, though. An exit ticket is formative assessment — if it doesn’t feed back into teaching, it’s just paperwork.', 'لكن جمعها ليس الغاية. بطاقة الخروج تقييم تكويني — إن لم تعد إلى التدريس فهي مجرّد أوراق.'), reply: t('Paperwork. Right. I’ll remember that next time someone asks me to model good practice.', 'أوراق. طيّب. سأتذكّر ذلك في المرة القادمة التي يُطلب مني فيها تقديم نموذج للممارسة الجيدة.') },
       ],
     },
     {
@@ -45,7 +45,7 @@ const CONVO_21: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('Not reading — sorting. Three piles, ninety seconds: got it, nearly, not yet. The "not yet" pile is tomorrow’s first five minutes, and nothing else changes. Could you try it with tonight’s?', 'ليس قراءة — بل فرزًا. ثلاث كومات، تسعون ثانية: فهم، تقريبًا، ليس بعد. كومة «ليس بعد» هي الدقائق الخمس الأولى من الغد، ولا يتغيّر شيء آخر. هل تجرّبها مع بطاقات الليلة؟'), reply: t('Ninety seconds. Three piles. …That I can do before I leave the room.', 'تسعون ثانية. ثلاث كومات. …هذا أستطيع فعله قبل أن أغادر الغرفة.') },
         { id: 'b', effect: 'neutral', label: t('You don’t have to read all of them. Just dip into a few now and then to get a feel for the class.', 'لست مضطرًا لقراءتها كلها. اطّلع على بعضها بين حين وآخر لتأخذ انطباعًا عن الصف.'), reply: t('I’ll have a look when there’s a quiet week.', 'سأطّلع عليها حين يأتي أسبوع هادئ.') },
-        { id: 'c', effect: 'closes', label: t('If the scheme of work is moving on while three in five don’t get it, the scheme of work is the problem, not the tickets.', 'إن كانت الخطة الدراسية تمضي بينما ثلاثة من خمسة لا يفهمون، فالمشكلة في الخطة لا في البطاقات.'), reply: t('The scheme of work came from your department. Take it up with them.', 'الخطة الدراسية جاءت من قسمكم. راجعوا أنفسكم.') },
+        { id: 'c', effect: 'closes', label: t('If the scheme of work is moving on while three in five don’t get it, the scheme of work is the problem, not the tickets.', 'إن كانت الخطة الدراسية تمضي بينما ثلاثة من خمسة لا يفهمون، فالمشكلة في الخطة لا في البطاقات.'), reply: t('The scheme of work came from your department. Take it up with them.', 'الخطة الدراسية جاءت من عندكم. تكلّموا مع بعضكم.') },
       ],
     },
   ],
@@ -60,22 +60,22 @@ const CONVO_21: ConversationDefinition = {
 const CONVO_22: ConversationDefinition = {
   teacherName: t('Ms. Layla', 'الأستاذة ليلى'),
   stance: 'tired',
-  setting: t('Friday, 2:40 pm. Three class sets of essays in a tote bag by the door, going home with her.', 'الجمعة، الثانية وأربعون دقيقة. ثلاث مجموعات مقالات في حقيبة قماشية عند الباب، ستذهب معها إلى البيت.'),
+  setting: t('Friday, 2:40 pm. Three class sets of essays in a tote bag by the door, going home with her.', 'الجمعة، ٢:٤٠ بعد الظهر. ثلاث مجموعات مقالات في حقيبة قماشية عند الباب، ستذهب معها إلى البيت.'),
   read: t('Ninety essays a fortnight, every one marked. Anything that sounds like more marking will end this before it starts.', 'تسعون مقالًا كل أسبوعين، كلها مصحَّحة. أي شيء يبدو مثل مزيد من التصحيح سينهي هذا قبل أن يبدأ.'),
   turns: [
     {
       teacherLine: t('Ninety essays. Every single one has a mark and a circle on the weak paragraph. If you’re here to tell me to write more comments, I’ll be honest — there aren’t more hours.', 'تسعون مقالًا. كل واحد منها عليه درجة ودائرة حول الفقرة الضعيفة. إن كنت هنا لتقول لي اكتبي مزيدًا من التعليقات، سأكون صريحة — لا توجد ساعات أكثر.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Fewer, if anything. I watched Omar get his back: eight seconds, folded, in the bag. What do you think he did with the circle?', 'أقل، إن كان هناك شيء. راقبت عمر وهو يستلم مقاله: ثماني ثوانٍ، طواه، وضعه في الحقيبة. ماذا تظنّين أنه فعل بالدائرة؟'), reply: t('Nothing. He never does anything with the circle. None of them do. I know that.', 'لا شيء. لا يفعل شيئًا بالدائرة أبدًا. لا أحد منهم يفعل. أعرف ذلك.') },
-        { id: 'b', effect: 'neutral', label: t('I know how much work that is. The marking in this department is thorough — you should hear how other schools do it.', 'أعرف كم هذا من العمل. التصحيح في هذا القسم دقيق — ينبغي أن تسمعي كيف تفعلها مدارس أخرى.'), reply: t('I’d rather not hear about other schools at 2:40 on a Friday.', 'أفضّل ألّا أسمع عن مدارس أخرى في الثانية وأربعين دقيقة يوم الجمعة.') },
+        { id: 'b', effect: 'neutral', label: t('I know how much work that is. The marking in this department is thorough — you should hear how other schools do it.', 'أعرف كم هذا من العمل. التصحيح في هذا القسم دقيق — ينبغي أن تسمعي كيف تفعلها مدارس أخرى.'), reply: t('I’d rather not hear about other schools at 2:40 on a Friday.', 'أفضّل ألّا أسمع عن مدارس أخرى في ٢:٤٠ يوم الجمعة.') },
         { id: 'c', effect: 'closes', label: t('A mark and a circle isn’t feedback, though. Feedback has to be specific and actionable, or the research says it does nothing.', 'لكن الدرجة والدائرة ليستا تغذية راجعة. التغذية الراجعة يجب أن تكون محدّدة وقابلة للتطبيق، وإلا فإن الأبحاث تقول إنها لا تفعل شيئًا.'), reply: t('The research doesn’t mark ninety essays. Was there anything else?', 'الأبحاث لا تصحّح تسعين مقالًا. هل من شيء آخر؟') },
       ],
     },
     {
-      teacherLine: t('So what, I stop marking? They’ll ask for the number anyway. Their parents will ask for the number.', 'إذًا ماذا، أتوقف عن التصحيح؟ سيسألون عن الرقم على أي حال. أهلهم سيسألون عن الرقم.'),
+      teacherLine: t('So what, I stop marking? They’ll ask for the number anyway. Their parents will ask for the number.', 'يعني ماذا، أتوقف عن التصحيح؟ سيسألون عن الرقم على أي حال. أهلهم سيسألون عن الرقم.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Keep the number — in your markbook. On the paper, one line: "Next time, start the paragraph with the claim." Then give them the first ten minutes of Monday to redo that one paragraph. Same marking time. Would Omar get through ten minutes?', 'احتفظي بالرقم — في سجلّك. وعلى الورقة سطر واحد: «في المرة القادمة ابدأ الفقرة بالادّعاء.» ثم أعطيهم الدقائق العشر الأولى من الاثنين لإعادة تلك الفقرة وحدها. وقت التصحيح نفسه. هل يصمد عمر عشر دقائق؟'), reply: t('One line instead of a circle. And ten minutes I was going to spend starting the next essay anyway. …He might, actually.', 'سطر واحد بدل الدائرة. وعشر دقائق كنت سأقضيها في بدء المقال التالي على أي حال. …ربما يصمد فعلًا.') },
-        { id: 'b', effect: 'neutral', label: t('Of course keep marking. Maybe just add a bit more detail where you can — when the essay deserves it.', 'طبعًا استمرّي في التصحيح. ربما أضيفي قليلًا من التفصيل حين تستطيعين — حين يستحق المقال ذلك.'), reply: t('Where I can. Which is nowhere, most fortnights.', 'حين أستطيع. أي في لا مكان، في أغلب الأسبوعين.') },
+        { id: 'b', effect: 'neutral', label: t('Of course keep marking. Maybe just add a bit more detail where you can — when the essay deserves it.', 'طبعًا استمرّي في التصحيح. ربما أضيفي قليلًا من التفصيل حين تستطيعين — حين يستحق المقال ذلك.'), reply: t('Where I can. Which is nowhere, most fortnights.', 'حين أستطيع. يعني أبدًا، في أغلب الأسابيع.') },
         { id: 'c', effect: 'closes', label: t('The number is the problem. Grades without comments actually lower achievement — you’d be better off not giving one at all.', 'الرقم هو المشكلة. الدرجات بلا تعليقات تخفض التحصيل فعلًا — الأفضل ألّا تعطي درجة أصلًا.'), reply: t('You go and explain to thirty parents why there’s no mark. I’ll wait here with the essays.', 'اذهب أنت واشرح لثلاثين من الأهل لماذا لا توجد درجة. سأنتظر هنا مع المقالات.') },
       ],
     },
@@ -83,7 +83,7 @@ const CONVO_22: ConversationDefinition = {
   outcomes: {
     restored: t('The circle became a sentence; the number moved to the markbook. Mondays open with ten minutes on one paragraph. Omar’s third essay starts with the claim.', 'صارت الدائرة جملة؛ وانتقل الرقم إلى السجلّ. تبدأ أيام الاثنين بعشر دقائق على فقرة واحدة. المقال الثالث لعمر يبدأ بالادّعاء.'),
     partial: t('Some essays get a line now, when there is time. There is rarely time. The folded papers still go in the bag.', 'بعض المقالات تحصل على سطر الآن، حين يكون هناك وقت. ونادرًا ما يكون هناك وقت. ما زالت الأوراق المطوية تذهب إلى الحقيبة.'),
-    unchanged: t('Ninety marks, ninety circles, every fortnight. The tote bag still leaves at 2:40. She has started marking in the staffroom with the door closed.', 'تسعون درجة، تسعون دائرة، كل أسبوعين. ما زالت الحقيبة تغادر في الثانية وأربعين دقيقة. بدأت تصحّح في غرفة المعلّمين والباب مغلق.'),
+    unchanged: t('Ninety marks, ninety circles, every fortnight. The tote bag still leaves at 2:40. She has started marking in the staffroom with the door closed.', 'تسعون درجة، تسعون دائرة، كل أسبوعين. ما زالت الحقيبة تغادر في ٢:٤٠. بدأت تصحّح في غرفة المعلّمين والباب مغلق.'),
   },
 };
 
@@ -98,15 +98,15 @@ const CONVO_23: ConversationDefinition = {
       teacherLine: t('Before you say it: I know strand 3 is red. Everyone who walks in here tells me strand 3 is red. I follow the scheme of work, and the scheme of work says week 11.', 'قبل أن تقولها: أعرف أن المحور ٣ أحمر. كل من يدخل هنا يقول لي إن المحور ٣ أحمر. أنا أتبع الخطة الدراسية، والخطة الدراسية تقول الأسبوع ١١.'),
       options: [
         { id: 'a', effect: 'opens', label: t('I wasn’t going to say it — you clearly see it. What I don’t know is what the red is: twelve students, or three? And are they sitting together?', 'لم أكن سأقولها — من الواضح أنك تراه. ما لا أعرفه هو ما هذا الأحمر: اثنا عشر طالبًا، أم ثلاثة؟ وهل يجلسون معًا؟'), reply: t('Seven, I think. Maybe eight. …They’re where they sat in September. Nobody told me to move anyone.', 'سبعة، على ما أظن. ربما ثمانية. …يجلسون حيث جلسوا في سبتمبر. لم يقل لي أحد أن أنقل أحدًا.') },
-        { id: 'b', effect: 'neutral', label: t('I’m not here about strand 3. Honestly, the dashboard is a leadership tool — what matters to me is what I saw in the lesson, and the lesson was well run.', 'لست هنا بخصوص المحور ٣. بصراحة، اللوحة أداة للقيادة — ما يهمني هو ما رأيته في الدرس، والدرس كان منظّمًا.'), reply: t('Good. Then we agree. Was that it?', 'جيد. إذًا نتفق. هل انتهينا؟') },
-        { id: 'c', effect: 'closes', label: t('The scheme of work is a guide, not a contract. Data-informed teaching means the dashboard overrides the plan when students aren’t learning.', 'الخطة الدراسية دليل لا عقد. التدريس المستند إلى البيانات يعني أن اللوحة تتجاوز الخطة حين لا يتعلّم الطلاب.'), reply: t('Then put that in writing and send it to the head of department, because that is not what I was told in August.', 'إذًا اكتب ذلك وأرسله إلى رئيس القسم، لأن هذا ليس ما قيل لي في أغسطس.') },
+        { id: 'b', effect: 'neutral', label: t('I’m not here about strand 3. Honestly, the dashboard is a leadership tool — what matters to me is what I saw in the lesson, and the lesson was well run.', 'لست هنا بخصوص المحور ٣. بصراحة، اللوحة أداة للقيادة — ما يهمني هو ما رأيته في الدرس، والدرس كان منظّمًا.'), reply: t('Good. Then we agree. Was that it?', 'جيد. يعني نتفق. هل انتهينا؟') },
+        { id: 'c', effect: 'closes', label: t('The scheme of work is a guide, not a contract. Data-informed teaching means the dashboard overrides the plan when students aren’t learning.', 'الخطة الدراسية دليل لا عقد. التدريس المستند إلى البيانات يعني أن اللوحة تتجاوز الخطة حين لا يتعلّم الطلاب.'), reply: t('Then put that in writing and send it to the head of department, because that is not what I was told in August.', 'طيّب، اكتب ذلك وأرسله إلى رئيس القسم، لأن هذا ليس ما قيل لي في أغسطس.') },
       ],
     },
     {
       teacherLine: t('Fine — say I move those seven. Next month it’s strand 5, and the month after that it’s something else. I can’t rebuild the room every time a cell goes red.', 'حسنًا — لنقل إنني نقلت هؤلاء السبعة. الشهر القادم المحور ٥، والذي بعده شيء آخر. لا أستطيع إعادة بناء الغرفة كلما احمرّت خانة.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('You shouldn’t have to. What if every red cell got one word next to it — reteach, regroup, or extend — and a name? Then strand 5 isn’t a rebuild, it’s a word. Want to try it on strand 3 now, with me?', 'لا ينبغي أن تضطر لذلك. ماذا لو حصلت كل خانة حمراء على كلمة واحدة بجانبها — إعادة تدريس، أو تجميع، أو إثراء — واسم؟ عندها لا يكون المحور ٥ إعادة بناء، بل كلمة. هل تجرّبها على المحور ٣ الآن، معي؟'), reply: t('A word and a name. …Regroup. The seven, Tuesday, while the rest do the extension. That’s — fine, that’s ten minutes of planning.', 'كلمة واسم. …تجميع. السبعة، يوم الثلاثاء، بينما يعمل الباقون على الإثراء. هذا — حسنًا، هذا عشر دقائق تخطيط.') },
-        { id: 'b', effect: 'neutral', label: t('Nobody’s asking you to rebuild anything. Just keep an eye on the dashboard and use your professional judgement.', 'لا أحد يطلب منك إعادة بناء شيء. راقب اللوحة فحسب واستخدم حكمك المهني.'), reply: t('My judgement says week 11. So we’re back where we started.', 'حكمي يقول الأسبوع ١١. إذًا عدنا إلى حيث بدأنا.') },
+        { id: 'a', effect: 'opens', label: t('You shouldn’t have to. What if every red cell got one word next to it — reteach, regroup, or extend — and a name? Then strand 5 isn’t a rebuild, it’s a word. Want to try it on strand 3 now, with me?', 'لا ينبغي أن تضطر لذلك. ماذا لو حصلت كل خانة حمراء على كلمة واحدة بجانبها — إعادة تدريس، أو تجميع، أو إثراء — واسم؟ عندها لا يكون المحور ٥ إعادة بناء، بل كلمة. هل تجرّبها على المحور ٣ الآن، معي؟'), reply: t('A word and a name. …Regroup. The seven, Tuesday, while the rest do the extension. That’s — fine, that’s ten minutes of planning.', 'كلمة واسم. …تجميع. السبعة، يوم الثلاثاء، بينما يعمل الباقون على الإثراء. هذا — طيّب، هذا عشر دقائق تخطيط.') },
+        { id: 'b', effect: 'neutral', label: t('Nobody’s asking you to rebuild anything. Just keep an eye on the dashboard and use your professional judgement.', 'لا أحد يطلب منك إعادة بناء شيء. راقب اللوحة فحسب واستخدم حكمك المهني.'), reply: t('My judgement says week 11. So we’re back where we started.', 'حكمي يقول الأسبوع ١١. يعني رجعنا إلى حيث بدأنا.') },
         { id: 'c', effect: 'closes', label: t('If the room needs rebuilding every month, that’s what responsive teaching looks like. Static seating since September is the real issue here.', 'إن كانت الغرفة تحتاج إلى إعادة بناء كل شهر، فهذا ما يبدو عليه التدريس المستجيب. الجلوس الثابت منذ سبتمبر هو المشكلة الحقيقية هنا.'), reply: t('Noted. I’ll add "rebuild the room monthly" to the list of things I’ve been told this year.', 'مفهوم. سأضيف «إعادة بناء الغرفة شهريًا» إلى قائمة ما قيل لي هذا العام.') },
       ],
     },
@@ -134,10 +134,10 @@ const CONVO_24: ConversationDefinition = {
       ],
     },
     {
-      teacherLine: t('So the test was too easy? Should I rewrite it? We start the new unit Monday — I don’t really have time to redo the whole thing.', 'إذًا كان الاختبار سهلًا جدًا؟ هل أعيد كتابته؟ نبدأ الوحدة الجديدة الاثنين — ليس لديّ وقت فعلًا لإعادة الأمر كله.'),
+      teacherLine: t('So the test was too easy? Should I rewrite it? We start the new unit Monday — I don’t really have time to redo the whole thing.', 'يعني الاختبار كان سهلًا جدًا؟ هل أعيد كتابته؟ نبدأ الوحدة الجديدة الاثنين — ليس لديّ وقت فعلًا لإعادة الأمر كله.'),
       options: [
         { id: 'a', effect: 'opens', label: t('Don’t rewrite it. Add two questions in a context they’ve never seen — a kettle, a rusting gate — and give them tomorrow. Then ask the same two again in three weeks, mid-lesson. Would that fit?', 'لا تعيدي كتابته. أضيفي سؤالين في سياق لم يروه من قبل — غلاية، بوابة تصدأ — وأعطيهم إياهما غدًا. ثم اسألي السؤالين نفسيهما بعد ثلاثة أسابيع، في منتصف درس. هل يناسب ذلك؟'), reply: t('Two questions, tomorrow. And again in three weeks. Yes — that I can do. Can I show you them before I give them?', 'سؤالان، غدًا. ومجددًا بعد ثلاثة أسابيع. نعم — هذا أستطيع فعله. هل أريك إياهما قبل أن أعطيهما؟') },
-        { id: 'b', effect: 'neutral', label: t('Not too easy — just make the next unit’s test a bit more varied. You’ll get a feel for it with experience.', 'ليس سهلًا جدًا — فقط اجعلي اختبار الوحدة القادمة أكثر تنوّعًا قليلًا. ستكتسبين الإحساس بذلك مع الخبرة.'), reply: t('Okay. More varied. I’ll try.', 'حسنًا. أكثر تنوّعًا. سأحاول.') },
+        { id: 'b', effect: 'neutral', label: t('Not too easy — just make the next unit’s test a bit more varied. You’ll get a feel for it with experience.', 'ليس سهلًا جدًا — فقط اجعلي اختبار الوحدة القادمة أكثر تنوّعًا قليلًا. ستكتسبين الإحساس بذلك مع الخبرة.'), reply: t('Okay. More varied. I’ll try.', 'طيّب. أكثر تنوّعًا. سأحاول.') },
         { id: 'c', effect: 'closes', label: t('Honestly, the unit shouldn’t close on Monday. If the understanding isn’t there, moving on is moving on from nothing — keep it open another week.', 'بصراحة، لا ينبغي أن تُغلق الوحدة يوم الاثنين. إن لم يكن الفهم موجودًا، فالمضيّ قدمًا مضيّ من لا شيء — أبقيها مفتوحة أسبوعًا آخر.'), reply: t('Ms. Huda signed off the scheme of work. I can’t just… not start Monday. I’ll ask her.', 'الأستاذة هدى اعتمدت الخطة الدراسية. لا أستطيع… ألّا أبدأ الاثنين. سأسألها.') },
       ],
     },
@@ -262,7 +262,7 @@ export const LEVEL_22: LevelDefinition = {
       prompt: t("What's the best coaching move?", 'ما أفضل خطوة تدريبية؟'),
       options: [
         { id: 'next-step', label: t('One named next step instead of the number, then ten minutes to apply it', 'استبدل الرقم بخطوة تالية مسمّاة، ثم عشر دقائق لتطبيقها') },
-        { id: 'rubric', label: t('Return the essay with the rubric row that cost the marks highlighted', 'أعد المقال مع تظليل صف المعيار الذي خسر الدرجات') },
+        { id: 'rubric', label: t('Return the essay with the rubric row that cost the marks highlighted', 'أعد المقال مع تظليل صف سلّم التقدير الذي خسر الدرجات') },
         { id: 'conference', label: t('Hold a two-minute conference with each student about their score', 'اعقد مقابلة من دقيقتين مع كل طالب حول درجته') },
         { id: 'redraft', label: t('Ask every student to redraft the essay for a higher mark', 'اطلب من كل طالب إعادة صياغة المقال لدرجة أعلى') },
       ],
@@ -270,11 +270,11 @@ export const LEVEL_22: LevelDefinition = {
       hint: t('Watch ‘A student’ once more: eight seconds, folded, bagged. Which move would survive those eight seconds — and leave him with time to do something about it?', 'راقب «طالب» مرة أخرى: ثماني ثوانٍ، طُويت، وُضعت في الحقيبة. أي خطوة تنجو من تلك الثواني الثماني — وتترك له وقتًا ليفعل شيئًا حيالها؟'),
     },
     reasoning: {
-      prompt: t('Why one step rather than a full rubric?', 'لماذا خطوة واحدة بدل معيار كامل؟'),
+      prompt: t('Why one step rather than a full rubric?', 'لماذا خطوة واحدة بدل سلّم تقدير كامل؟'),
       options: [
         { id: 'r1', label: t('Students read the first line and skip the rest', 'يقرأ الطلاب السطر الأول ويتخطّون البقية') },
         { id: 'r2', label: t('Feedback works only when the student can act on it today', 'لا تنجح التغذية الراجعة إلا حين يستطيع الطالب العمل بها اليوم') },
-        { id: 'r3', label: t('A rubric row names the criterion but not the move', 'يسمّي صف المعيار المعيارَ لا الخطوة') },
+        { id: 'r3', label: t('A rubric row names the criterion but not the move', 'يسمّي صف سلّم التقدير المعيارَ لا الخطوة') },
         { id: 'r4', label: t('One comment per student is easier for the teacher to track', 'تعليق واحد لكل طالب أسهل على المعلّم في المتابعة') },
       ],
       correctId: 'r2',
@@ -348,7 +348,7 @@ export const LEVEL_23: LevelDefinition = {
     reasoning: {
       prompt: t('Why attach a decision to each cell rather than discuss the dashboard generally?', 'لماذا نربط قرارًا بكل خانة بدل مناقشة اللوحة عمومًا؟'),
       options: [
-        { id: 'r1', label: t('A decision with names on it cannot be postponed to next month', 'القرار الذي تحمله أسماء لا يمكن تأجيله') },
+        { id: 'r1', label: t('A decision with names on it cannot be postponed to next month', 'القرار الذي يحمل أسماء لا يمكن تأجيله إلى الشهر القادم') },
         { id: 'r3', label: t('Leadership can audit decisions, not discussions', 'تستطيع القيادة تدقيق القرارات لا النقاشات') },
         { id: 'r4', label: t('Whole-class reteaching wastes the green students’ time', 'إعادة التدريس للصف كله تهدر وقت الطلاب الخُضر') },
         { id: 'r2', label: t('Data counts only when it changes what happens for specific students', 'لا تعني البيانات شيئًا إلا حين تغيّر ما يحدث لطلاب بعينهم') },

@@ -11,7 +11,7 @@ export const BOSS: BossDefinition = {
 
   scenario: t(
     'Toki steps into the most impressive classroom yet. The objectives are crystal clear on the board. Students are engaged, on-task, and producing beautiful work. The teacher circulates expertly, questioning, checking, adjusting. By every measure Toki has learned to use, this room is flawless. So Toki does what a good coach does — and looks closer, dimension by dimension.',
-    'يدخل توكي أكثر الصفوف إبهارًا حتى الآن. الأهداف واضحة تمامًا على السبورة. الطلاب منخرطون ومنهمكون في المهام وينتجون أعمالًا جميلة. المعلّم يتجوّل باحتراف، يسأل ويتحقق ويعدّل. بكل المقاييس التي تعلّم توكي استخدامها، هذا الصف لا عيب فيه. لذا يفعل توكي ما يفعله المدرّب الجيد — ينظر عن قرب، بُعدًا بُعدًا.',
+    'يدخل توكي أكثر الصفوف إبهارًا حتى الآن. الأهداف واضحة تمامًا على السبورة. الطلاب متفاعلون ومنهمكون في المهام وينتجون أعمالًا جميلة. المعلّم يتجوّل باحتراف، يسأل ويتحقق ويعدّل. بكل المقاييس التي تعلّم توكي استخدامها، هذا الصف لا عيب فيه. لذا يفعل توكي ما يفعله المدرّب الجيد — ينظر عن قرب، بُعدًا بُعدًا.',
   ),
 
   dimensions: [
@@ -50,7 +50,7 @@ export const BOSS: BossDefinition = {
     {
       id: 'technology',
       label: t('The Technology Use', 'استخدام التقنية'),
-      observation: t('Toki watches how the Alef platform and tools are being used.', 'يراقب توكي كيف تُستخدم منصة ألف وأدواتها.'),
+      observation: t('Toki watches how the Alef platform and tools are being used.', 'يراقب توكي كيف تُستخدم منصة «ألف» وأدواتها.'),
       verdict: 'clean',
       finding: t('Purposeful and integrated — tech serves the learning, never replaces it. The platform is used to deepen understanding, not to look modern. Well done.', 'هادف ومتكامل — التقنية تخدم التعلّم ولا تحلّ محله. تُستخدم المنصة لتعميق الفهم لا للظهور بمظهر عصري. أحسنت.'),
       hint: t('Ask whether the technology is serving the learning goal, or just present because it’s expected.', 'اسأل: هل تخدم التقنية هدف التعلّم، أم أنها حاضرة فقط لأنها متوقَّعة؟'),
@@ -81,7 +81,7 @@ export const BOSS: BossDefinition = {
     prompt: t('This is the subtlest coaching challenge in the game. The teacher is doing everything right. How do you coach a mutation that lives in student thinking?', 'هذا أدقّ تحدٍّ تدريبي في اللعبة. المعلّم يفعل كل شيء بشكل صحيح. كيف تعالج تحوّرًا يسكن في تفكير الطلاب؟'),
     options: [
       { id: 'more-rigor', label: t('Tell the teacher to add more rigorous tasks', 'اطلب من المعلّم إضافة مهام أكثر صرامة') },
-      { id: 'surface-thinking', label: t('Help the teacher surface and probe how students actually think — not just what they produce', 'ساعد المعلّم على إظهار كيف يفكّر الطلاب فعلًا وسبر أغواره — لا ما ينتجونه فقط') },
+      { id: 'surface-thinking', label: t('Help the teacher surface and probe how students actually think — not just what they produce', 'ساعد المعلّم على إظهار طريقة تفكير الطلاب فعلًا وسبرها — لا ما ينتجونه فقط') },
       { id: 'harder-tests', label: t('Recommend harder assessments to catch the gap', 'أوصِ بتقييمات أصعب لكشف الفجوة') },
       { id: 'nothing', label: t('Nothing — the room is excellent, leave it alone', 'لا شيء — الصف ممتاز، اتركه كما هو') },
     ],

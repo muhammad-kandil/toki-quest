@@ -17,17 +17,17 @@ export const CONVO_1: ConversationDefinition = {
   read: t('Two years ago this room was silent rows. She built this noise on purpose, and she is right to be proud of it.', 'قبل عامين كانت هذه الغرفة صفوفًا صامتة. بنت هذا الصخب عمدًا، ومن حقها أن تفخر به.'),
   turns: [
     {
-      teacherLine: t('Did you see them? Every single group was talking. Last year I couldn’t get three hands up.', 'هل رأيتهم؟ كل مجموعة كانت تتحدث. في العام الماضي ما كنت أستطيع رفع ثلاث أيدٍ.'),
+      teacherLine: t('Did you see them? Every single group was talking. Last year I couldn’t get three hands up.', 'هل رأيتهم؟ كل مجموعة كانت تتحدث. في العام الماضي ما كنت أرى ثلاث أيدٍ مرفوعة.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('I did — the table by the door didn’t stop once. What did you hear them saying to each other?', 'رأيت — الطاولة التي عند الباب لم تتوقف لحظة. ماذا سمعتِهم يقولون لبعضهم؟'), reply: t('Honestly? A lot of "yes, I agree". I noticed that too, actually.', 'بصراحة؟ كثير من «نعم، أوافق». لاحظت ذلك أنا أيضًا، في الحقيقة.') },
+        { id: 'a', effect: 'opens', label: t('I did — the table by the door didn’t stop once. What did you hear them saying to each other?', 'رأيت — الطاولة التي عند الباب لم تتوقف لحظة. ماذا سمعتِهم يقولون لبعضهم؟'), reply: t('Honestly? A lot of "yes, I agree". I noticed that too, actually.', 'بصراحة؟ كثير من «نعم، أوافق». أنا لاحظت هذا أيضًا، صراحةً.') },
         { id: 'b', effect: 'neutral', label: t('It was great energy. Collaboration is clearly a strength in this room.', 'كانت طاقة رائعة. من الواضح أن التعاون نقطة قوة في هذا الصف.'), reply: t('Thank you! It took a lot of work to get here.', 'شكرًا! تطلّب الأمر جهدًا كبيرًا للوصول إلى هنا.') },
-        { id: 'c', effect: 'closes', label: t('Lots of talk, but I didn’t hear much reasoning. The discussion lacked academic rigour.', 'حديث كثير، لكنني لم أسمع تعليلًا يُذكر. افتقر النقاش إلى الصرامة الأكاديمية.'), reply: t('Rigour. Right. Last year the complaint was they never spoke. Now it’s that they speak wrong.', 'صرامة. حسنًا. في العام الماضي كانت الشكوى أنهم لا يتكلمون. والآن أنهم يتكلمون بطريقة خاطئة.') },
+        { id: 'c', effect: 'closes', label: t('Lots of talk, but I didn’t hear much reasoning. The discussion lacked academic rigour.', 'حديث كثير، لكنني لم أسمع تعليلًا يُذكر. افتقر النقاش إلى الصرامة الأكاديمية.'), reply: t('Rigour. Right. Last year the complaint was they never spoke. Now it’s that they speak wrong.', 'صرامة. طيّب. في العام الماضي كانت الشكوى أنهم لا يتكلمون. والآن أنهم يتكلمون بطريقة خاطئة.') },
       ],
     },
     {
-      teacherLine: t('So what, I make them stop agreeing with each other?', 'إذًا ماذا، أمنعهم من موافقة بعضهم؟'),
+      teacherLine: t('So what, I make them stop agreeing with each other?', 'يعني ماذا، أمنعهم من أن يوافق بعضهم بعضًا؟'),
       options: [
-        { id: 'a', effect: 'opens', label: t('No — keep every bit of it. What if the task said "convince the other table" instead of "discuss"? Same energy, but now they need a reason.', 'لا — احتفظي بكل ذرّة منه. ماذا لو قالت المهمة «أقنعوا الطاولة الأخرى» بدلًا من «ناقشوا»؟ الطاقة نفسها، لكنهم الآن بحاجة إلى سبب.'), reply: t('"Convince the other table." They would fight for that. I could try it Thursday.', '«أقنعوا الطاولة الأخرى.» سيتنافسون على ذلك. أستطيع تجربتها يوم الخميس.') },
+        { id: 'a', effect: 'opens', label: t('No — keep every bit of it. What if the task said "convince the other table" instead of "discuss"? Same energy, but now they need a reason.', 'لا — احتفظي بكل ذرّة منه. ماذا لو قالت المهمة «أقنعوا الطاولة الأخرى» بدلًا من «ناقشوا»؟ الطاقة نفسها، لكنهم الآن بحاجة إلى سبب.'), reply: t('"Convince the other table." They would fight for that. I could try it Thursday.', '«أقنعوا الطاولة الأخرى.» سيتحمّسون لها كثيرًا. أستطيع تجربتها يوم الخميس.') },
         { id: 'b', effect: 'neutral', label: t('The research is clear that accountable talk needs sentence stems and evidence prompts.', 'البحوث واضحة في أن الحوار المسؤول يحتاج إلى بدايات جمل ومحفّزات للأدلة.'), reply: t('I have a sentence-stem poster somewhere. I’ll look for it.', 'عندي ملصق بدايات الجمل في مكان ما. سأبحث عنه.') },
         { id: 'c', effect: 'closes', label: t('You need to structure the talk more tightly. I’ll send you a protocol to follow.', 'تحتاجين إلى تنظيم الحوار بشكل أكثر إحكامًا. سأرسل لك بروتوكولًا لتتبعيه.'), reply: t('A protocol. Of course. I’ll add it to the folder with the others.', 'بروتوكول. طبعًا. سأضيفه إلى الملف مع البقية.') },
       ],
@@ -52,15 +52,15 @@ export const CONVO_2: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('Nothing about the energy. Can I ask about station three — what were they meant to walk away understanding?', 'لا شيء في الطاقة. هل لي أن أسأل عن المحطة الثالثة — بماذا كان يُفترض أن يخرجوا منها فاهمين؟'), reply: t('Station three… density, I think. Or was that four. Let me check the plan.', 'المحطة الثالثة… الكثافة، أظن. أم كانت الرابعة؟ دعني أراجع الخطة.') },
         { id: 'b', effect: 'neutral', label: t('Honestly, it was impressive. The time-on-task was excellent.', 'بصراحة كان مبهرًا. استثمار الوقت كان ممتازًا.'), reply: t('That’s what I’m going for. Every minute counts.', 'هذا ما أسعى إليه. كل دقيقة لها قيمة.') },
-        { id: 'c', effect: 'closes', label: t('I’d cut it to three stations. Six is too many for any real learning to happen.', 'كنت سأقلّصها إلى ثلاث محطات. ست محطات أكثر من أن يحدث فيها تعلّم حقيقي.'), reply: t('Three. So half of what I built. Okay.', 'ثلاث. أي نصف ما بنيته. حسنًا.') },
+        { id: 'c', effect: 'closes', label: t('I’d cut it to three stations. Six is too many for any real learning to happen.', 'كنت سأقلّصها إلى ثلاث محطات. ست محطات أكثر من أن يحدث فيها تعلّم حقيقي.'), reply: t('Three. So half of what I built. Okay.', 'ثلاث. يعني نصف ما بنيته. طيّب.') },
       ],
     },
     {
       teacherLine: t('The plan says "explore density" for three and "investigate buoyancy" for four. They did both.', 'الخطة تقول «استكشاف الكثافة» للثالثة و«استقصاء الطفو» للرابعة. فعلوا الاثنين.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('They did. If a student had to explain density to you at the end of station three — which of the six could they do that for?', 'فعلوا. لو كان على طالب أن يشرح لك الكثافة في نهاية المحطة الثالثة — في أيّ من الست كان سيستطيع فعل ذلك؟'), reply: t('…Two of them. Maybe. The others are more "do", less "explain". I see what you’re asking.', '…اثنتان منها. ربما. البقية «نفّذ» أكثر من «اشرح». فهمت ما تسأله.') },
+        { id: 'a', effect: 'opens', label: t('They did. If a student had to explain density to you at the end of station three — which of the six could they do that for?', 'فعلوا. لو كان على طالب أن يشرح لك الكثافة في نهاية المحطة الثالثة — في أيّ من الست كان سيستطيع فعل ذلك؟'), reply: t('…Two of them. Maybe. The others are more "do", less "explain". I see what you’re asking.', '…اثنتان منها. ربما. البقية «نفّذ» أكثر من «اشرح». فهمت قصدك.') },
         { id: 'b', effect: 'neutral', label: t('That’s a good plan. Objectives matter — keep them visible to the students as well.', 'هذه خطة جيدة. الأهداف مهمة — أبقِها مرئية للطلاب أيضًا.'), reply: t('I can put them on the station cards. Easy.', 'أستطيع وضعها على بطاقات المحطات. سهل.') },
-        { id: 'c', effect: 'closes', label: t('"Explore" isn’t an objective. The plan needs measurable outcomes for each station.', '«استكشاف» ليس هدفًا. تحتاج الخطة إلى نواتج قابلة للقياس لكل محطة.'), reply: t('I used the template the school gave us. Maybe tell them, not me.', 'استخدمت النموذج الذي أعطتنا إياه المدرسة. ربما أخبرهم هم، لا أنا.') },
+        { id: 'c', effect: 'closes', label: t('"Explore" isn’t an objective. The plan needs measurable outcomes for each station.', '«استكشاف» ليس هدفًا. تحتاج الخطة إلى نواتج قابلة للقياس لكل محطة.'), reply: t('I used the template the school gave us. Maybe tell them, not me.', 'استخدمت النموذج الذي أعطتنا إياه المدرسة. قُل لهم هم، لا لي.') },
       ],
     },
   ],
@@ -83,7 +83,7 @@ export const CONVO_3: ConversationDefinition = {
       options: [
         { id: 'a', effect: 'opens', label: t('I can see why. Pick one for me — the volcano, say — and tell me what Sara would say if I asked her why it erupts.', 'أفهم لماذا. اختاري لي واحدًا — البركان مثلًا — وأخبريني ماذا ستقول سارة لو سألتها لماذا يثور.'), reply: t('Sara would… she’d tell you about the baking soda. Whether she’d get to pressure, I’m not sure.', 'سارة… ستحدّثك عن صودا الخبز. أما إن كانت ستصل إلى الضغط، فلست متأكدة.') },
         { id: 'b', effect: 'neutral', label: t('They deserve to be photographed. The creativity here is a real strength.', 'تستحق التصوير. الإبداع هنا نقطة قوة حقيقية.'), reply: t('They work so hard on them. Weeks, some of them.', 'يعملون عليها بجد. أسابيع، بعضهم.') },
-        { id: 'c', effect: 'closes', label: t('They look wonderful, but a display isn’t evidence of learning. We need to assess understanding, not products.', 'تبدو رائعة، لكن العرض ليس دليلًا على التعلّم. علينا تقييم الفهم لا المنتجات.'), reply: t('So the visitors were impressed by nothing. Good to know.', 'إذًا أُعجب الزوّار بلا شيء. جيد أن أعرف.') },
+        { id: 'c', effect: 'closes', label: t('They look wonderful, but a display isn’t evidence of learning. We need to assess understanding, not products.', 'تبدو رائعة، لكن العرض ليس دليلًا على التعلّم. علينا تقييم الفهم لا المنتجات.'), reply: t('So the visitors were impressed by nothing. Good to know.', 'يعني الزوّار أُعجبوا بلا شيء. جميل أن أعرف.') },
       ],
     },
     {
@@ -106,13 +106,13 @@ export const CONVO_3: ConversationDefinition = {
 export const CONVO_4: ConversationDefinition = {
   teacherName: t('Mr. Khalid', 'الأستاذ خالد'),
   stance: 'tired',
-  setting: t('4:10 pm. A spreadsheet open, a stack of quizzes beside it, half marked.', 'الرابعة وعشر دقائق مساءً. جدول بيانات مفتوح، وبجانبه كومة اختبارات نصفها مصحَّح.'),
+  setting: t('4:10 pm. A spreadsheet open, a stack of quizzes beside it, half marked.', '٤:١٠ عصرًا. جدول بيانات مفتوح، وبجانبه كومة اختبارات نصفها مصحَّح.'),
   read: t('He is not resisting assessment — he is buried under it. Anything that sounds like "more" will not land.', 'هو لا يقاوم التقييم — بل غارق تحته. أي شيء يبدو مثل «المزيد» لن يصل إليه.'),
   turns: [
     {
-      teacherLine: t('Three quizzes a week, every mark in the system by Thursday. If this is about the data, it’s all there.', 'ثلاثة اختبارات أسبوعيًا، وكل درجة في النظام بحلول الخميس. إن كان الأمر يخصّ البيانات، فكلها هناك.'),
+      teacherLine: t('Three quizzes a week, every mark in the system by Thursday. If this is about the data, it’s all there.', 'ثلاثة اختبارات أسبوعيًا، وكل درجة في النظام بحلول الخميس. إن كان الموضوع عن البيانات، فكلها موجودة.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('It is all there — I looked. Can I ask about one number? Question 4 last Tuesday, eleven students wrong the same way. What happened on Wednesday?', 'كلها هناك — اطّلعت عليها. هل لي أن أسأل عن رقم واحد؟ السؤال ٤ يوم الثلاثاء الماضي، أحد عشر طالبًا أخطؤوا بالطريقة نفسها. ماذا حدث يوم الأربعاء؟'), reply: t('Wednesday was… the next unit. I didn’t go back. I don’t have time to go back.', 'الأربعاء كان… الوحدة التالية. لم أرجع. ليس لديّ وقت للرجوع.') },
+        { id: 'a', effect: 'opens', label: t('It is all there — I looked. Can I ask about one number? Question 4 last Tuesday, eleven students wrong the same way. What happened on Wednesday?', 'كلها هناك — اطّلعت عليها. هل لي أن أسأل عن رقم واحد؟ السؤال ٤ يوم الثلاثاء الماضي، أحد عشر طالبًا أخطؤوا بالطريقة نفسها. ماذا حدث يوم الأربعاء؟'), reply: t('Wednesday was… the next unit. I didn’t go back. I don’t have time to go back.', 'الأربعاء كان… الوحدة التالية. لم أرجع. لا وقت عندي للرجوع.') },
         { id: 'b', effect: 'neutral', label: t('It really is impressive. The consistency of your data is the best in the department.', 'إنه مبهر فعلًا. اتساق بياناتك هو الأفضل في القسم.'), reply: t('Tell that to whoever designed the system.', 'قل ذلك لمن صمّم النظام.') },
         { id: 'c', effect: 'closes', label: t('The data is there, but it isn’t being used. Assessment for learning means acting on results, not just recording them.', 'البيانات موجودة، لكنها لا تُستخدم. التقييم من أجل التعلّم يعني العمل بالنتائج لا تسجيلها فحسب.'), reply: t('I know what assessment for learning means. I did the course. Twice.', 'أعرف ما يعني التقييم من أجل التعلّم. حضرت الدورة. مرتين.') },
       ],
@@ -141,15 +141,15 @@ export const CONVO_5: ConversationDefinition = {
   read: t('She is the teacher students ask for. The games are how she won them over, and she knows it. Take the games away and you take her away.', 'هي المعلّمة التي يطلبها الطلاب. الألعاب هي الطريقة التي كسبتهم بها، وهي تعرف ذلك. خذ الألعاب وتأخذها هي.'),
   turns: [
     {
-      teacherLine: t('Did you see Omar? He hates maths and he was first on the buzzer three rounds running. Tell me that isn’t engagement.', 'هل رأيت عمر؟ يكره الرياضيات وكان الأول على الجرس ثلاث جولات متتالية. قل لي إن هذا ليس مشاركة.'),
+      teacherLine: t('Did you see Omar? He hates maths and he was first on the buzzer three rounds running. Tell me that isn’t engagement.', 'هل رأيت عمر؟ يكره الرياضيات وكان الأول على الجرس ثلاث جولات متتالية. قل لي إن هذا ليس تفاعلًا.'),
       options: [
-        { id: 'a', effect: 'opens', label: t('It’s engagement — nobody could say otherwise. Here’s what I’m curious about: in round two, who got it right but didn’t buzz first?', 'إنها مشاركة — لا أحد يستطيع إنكار ذلك. ما يثير فضولي: في الجولة الثانية، مَن أجاب صحيحًا لكنه لم يضغط الجرس أولًا؟'), reply: t('Hind. Hind had it. She always has it, she’s just slow to press. She was fourth.', 'هند. هند كانت تعرفها. دائمًا تعرفها، لكنها بطيئة في الضغط. كانت الرابعة.') },
-        { id: 'b', effect: 'neutral', label: t('It’s engagement, absolutely. You’ve built something students actually want to be in.', 'إنها مشاركة، بلا شك. بنيتِ شيئًا يريد الطلاب فعلًا أن يكونوا فيه.'), reply: t('They beg for it. Fridays are the best day of the week in here.', 'يتوسلون من أجلها. الجمعة أفضل يوم في الأسبوع هنا.') },
-        { id: 'c', effect: 'closes', label: t('It’s engagement with the buzzer, not with maths. Speed games reward the fastest, not the deepest thinkers.', 'إنها مشاركة مع الجرس لا مع الرياضيات. ألعاب السرعة تكافئ الأسرع لا الأعمق تفكيرًا.'), reply: t('And the lecture rewards nobody. I’ve seen the "deep" classrooms. They’re asleep.', 'والمحاضرة لا تكافئ أحدًا. رأيت الصفوف «العميقة». إنها نائمة.') },
+        { id: 'a', effect: 'opens', label: t('It’s engagement — nobody could say otherwise. Here’s what I’m curious about: in round two, who got it right but didn’t buzz first?', 'إنه تفاعل — لا أحد ينكر ذلك. لكن ما يشغلني: في الجولة الثانية، مَن أجاب صحيحًا لكنه لم يضغط الجرس أولًا؟'), reply: t('Hind. Hind had it. She always has it, she’s just slow to press. She was fourth.', 'هند. هند كانت تعرفها. دائمًا تعرفها، لكنها بطيئة في الضغط. كانت الرابعة.') },
+        { id: 'b', effect: 'neutral', label: t('It’s engagement, absolutely. You’ve built something students actually want to be in.', 'إنه تفاعل، بلا شك. بنيتِ شيئًا يريد الطلاب فعلًا أن يكونوا فيه.'), reply: t('They beg for it. Fridays are the best day of the week in here.', 'يترجّونني من أجلها. الجمعة أفضل يوم في الأسبوع هنا.') },
+        { id: 'c', effect: 'closes', label: t('It’s engagement with the buzzer, not with maths. Speed games reward the fastest, not the deepest thinkers.', 'إنه تفاعل مع الجرس لا مع الرياضيات. ألعاب السرعة تكافئ الأسرع لا الأعمق تفكيرًا.'), reply: t('And the lecture rewards nobody. I’ve seen the "deep" classrooms. They’re asleep.', 'والمحاضرة لا تكافئ أحدًا. رأيت الصفوف «العميقة». إنها نائمة.') },
       ],
     },
     {
-      teacherLine: t('So Hind’s slow. What do you want me to do, give her a head start?', 'إذًا هند بطيئة. ماذا تريدني أن أفعل، أمنحها أسبقية؟'),
+      teacherLine: t('So Hind’s slow. What do you want me to do, give her a head start?', 'يعني هند بطيئة. ماذا تريدني أن أفعل، أمنحها أسبقية؟'),
       options: [
         { id: 'a', effect: 'opens', label: t('What if one round in three had no buzzer — every table writes, then the point goes to the best explanation? Omar still wins his rounds. Hind gets hers.', 'ماذا لو كانت جولة من كل ثلاث بلا جرس — كل طاولة تكتب، ثم تذهب النقطة لأفضل تفسير؟ ما زال عمر يفوز بجولاته. وهند تحصل على جولاتها.'), reply: t('An explanation round. The tables would go quiet for it… and then loud again. I could do that without losing anything.', 'جولة تفسير. ستهدأ الطاولات من أجلها… ثم تعلو مجددًا. أستطيع فعل ذلك دون أن أخسر شيئًا.') },
         { id: 'b', effect: 'neutral', label: t('Maybe just vary the format a bit. Different games suit different students.', 'ربما نوّعي الصيغة قليلًا. ألعاب مختلفة تناسب طلابًا مختلفين.'), reply: t('I’ve got about twenty games. I’ll rotate them more.', 'عندي حوالي عشرين لعبة. سأبدّل بينها أكثر.') },
