@@ -1,0 +1,11 @@
+/* Read-aloud toggle: same chip as the sound button; the waves breathe while on. */
+.topbar__btn--voice-on { color: var(--toki-teal-shadow, var(--toki-indigo)); }
+.voice-wave { transform-origin: 16px 12px; animation: voice-wave 1.6s ease-in-out infinite; }
+.voice-wave--2 { animation-delay: 0.3s; }
+@keyframes voice-wave {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .voice-wave { animation: none; }
+}

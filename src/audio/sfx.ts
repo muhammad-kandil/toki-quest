@@ -435,6 +435,11 @@ export const sfx = {
   moodFor(worldNumber: number): Mood {
     return worldNumber <= 3 ? 'warm' : worldNumber <= 6 ? 'thoughtful' : 'serious';
   },
+  /** Lower the music bed for a while (used by Read aloud under speech). */
+  duck(seconds: number, depth = 0.3) {
+    if (!enabled) return;
+    duck(seconds, depth);
+  },
   isEnabled: () => enabled,
   setEnabled(on: boolean) {
     enabled = on;

@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ConversationDefinition, ConversationOutcome, TurnEffect } from '../data/conversationTypes';
 import { resolveOutcome } from '../data/conversationTypes';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI } from '../i18n/ui';
 import type { Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
+import { useVoice } from '../audio/useVoice';
 import tokiFace from '../assets/raw/toki-face-teal-arch.png';
 import './ConversationBeat.css';
 
@@ -32,6 +33,7 @@ export function ConversationBeat({ conversation, onDone }: {
   onDone: (outcome: ConversationOutcome, effects: TurnEffect[]) => void;
 }) {
   const { tx } = useLocale();
+  const voiceCtl = useVoice();
   const [turnIdx, setTurnIdx] = useState(0);
   const [effects, setEffects] = useState<TurnEffect[]>([]);
   const [chosen, setChosen] = useState<string | null>(null);
@@ -44,6 +46,19 @@ export function ConversationBeat({ conversation, onDone }: {
   const closed = effects.includes('closes');
   const finished = closed || effects.length === total;
   const outcome = finished ? resolveOutcome(effects, total) : null;
+
+  // Read aloud: speak each new line of the thread as it appears — the
+  // teacher's opening, then Toki's chosen line and the reply together.
+  // Option labels are never read; the player is reading those.
+  const spokenUpTo = useRef(0);
+  useEffect(() => {
+    const fresh = transcript.slice(spokenUpTo.current);
+    spokenUpTo.current = transcript.length;
+    if (!fresh.length) return;
+    voiceCtl.speakSequence(fresh.map((l) => ({ text: tx(l.text), who: l.who })));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transcript.length]);
+  useEffect(() => () => voiceCtl.cancel(), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const choose = (id: string) => {
     if (chosen) return;
