@@ -79,14 +79,13 @@ def run(lang):
                     spots.nth(i).click(); pg.wait_for_timeout(200)
                 pg.click('.beat__cta'); pg.wait_for_timeout(500)
                 d = level_data(w, lid)
-                # beats in current main order: drift → risk → coaching → conversation → reasoning → reveal
+                # beat order since wave 2: drift → risk → coaching → reasoning → conversation → reveal
                 pick(pg, d['identifyDrift'])
                 pick(pg, d['assessRisk'])
                 pick(pg, d['chooseCoaching'])
+                pick(pg, d['reasoning'])
                 close = lid in CLOSE_ON
                 out = play_convo(pg, d['turns'], close)
-                if pg.locator('.convo').count() == 0 and pg.locator('.beat--reveal').count() == 0:
-                    pick(pg, d['reasoning'])
                 pg.wait_for_timeout(600)
                 reveal = pg.locator('.beat--reveal').count() == 1
                 badge = pg.locator('.badge-earned').count()
