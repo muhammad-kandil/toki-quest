@@ -68,6 +68,7 @@ export const UI = {
   whyItHappened: t('Why it happened', 'لماذا حدث ذلك'),
   howRestored: t('How Toki restored it', 'كيف أعاده توكي إلى مساره'),
   howToRestore: t('How to restore it', 'كيف نعيده إلى مساره'),
+  scoreTotal: t('Total', 'المجموع'),
   howItCouldHaveGone: t('How it could have gone', 'كيف كان يمكن أن يسير الأمر'),
   visited: t('Visited', 'تمت الزيارة'),
   scoreNote: t(

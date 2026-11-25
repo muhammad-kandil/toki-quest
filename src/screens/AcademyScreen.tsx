@@ -11,6 +11,12 @@ import { BeatIcon } from '../components/PeopleGlyphs';
 import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
 import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTypes';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
+import affirmingToki from '../assets/raw/toki-reaction-affirming.png';
+import thoughtfulToki from '../assets/raw/toki-reaction-thoughtful.png';
+
+/** The reveal face follows what actually happened in the room. */
+const revealFace = (outcome: string | null | undefined) =>
+  outcome === 'unchanged' ? thoughtfulToki : outcome === 'partial' ? affirmingToki : celebratingToki;
 import { useLocale } from '../i18n/LocaleContext';
 import { useVoice } from '../audio/useVoice';
 import { UI, fmt } from '../i18n/ui';
@@ -261,7 +267,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
         ];
         return (
           <div className="beat beat--reveal">
-            <img src={celebratingToki} alt="" className="reveal__celebrate-toki" />
+            <img src={revealFace(outcome)} alt="" className="reveal__celebrate-toki" />
             <span className="reveal__risk-badge" style={{ background: riskColor }}>{tx(riskLabel)}</span>
             <h3 className="beat__heading">{tx(S.theVerdict)}</h3>
             <p className="academy__verdict">{tx(level.reveal.verdict)}</p>

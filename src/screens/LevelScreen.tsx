@@ -4,6 +4,12 @@ import { RISK_META, type RiskLevel } from '../data/levelTypes';
 import { getBadge } from '../data/badges';
 import tealHero from '../assets/raw/toki-face-teal-hero.png';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
+import affirmingToki from '../assets/raw/toki-reaction-affirming.png';
+import thoughtfulToki from '../assets/raw/toki-reaction-thoughtful.png';
+
+/** The reveal face follows what actually happened in the room. */
+const revealFace = (outcome: string | null | undefined) =>
+  outcome === 'unchanged' ? thoughtfulToki : outcome === 'partial' ? affirmingToki : celebratingToki;
 import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
@@ -360,7 +366,7 @@ function RevealBeat({ level, outcomes, result, heldBadges, outcome, onFinish }: 
 
   return (
     <div className="beat beat--reveal">
-      <img src={celebratingToki} alt="" className="reveal__celebrate-toki" />
+      <img src={revealFace(outcome)} alt="" className="reveal__celebrate-toki" />
       <span className="reveal__risk-badge" style={{ background: riskMeta.color }}>{tx(riskMeta.label)}</span>
       <h3 className="beat__heading">{tx(UI.revealHeading)}</h3>
 
@@ -419,6 +425,8 @@ function ScoreSummary({ level, outcomes, outcome }: { level: LevelDefinition; ou
   ];
   if (level.points.reasoningBonus) rows.push({ label: UI.reasoningBonus, key: 'reasoning', points: level.points.reasoningBonus });
   const convoCredit = outcome ? OUTCOME_CREDIT[outcome] : 0;
+  const total = rows.reduce((sum, row) => sum + Math.round(row.points * creditFor(outcomes[row.key]?.attemptsToCorrect ?? null)), 0)
+    + (level.conversation ? Math.round(level.points.restore * convoCredit) : 0);
 
   return (
     <div className="score-summary">
@@ -449,6 +457,10 @@ function ScoreSummary({ level, outcomes, outcome }: { level: LevelDefinition; ou
           <span>+{Math.round(level.points.restore * convoCredit)}</span>
         </div>
       )}
+      <div className="score-summary__row score-summary__row--total">
+        <span className="score-summary__label">{tx(UI.scoreTotal)}</span>
+        <span>{total}</span>
+      </div>
     </div>
   );
 }

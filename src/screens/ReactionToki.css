@@ -6,8 +6,8 @@
 */
 .reaction-toki {
   position: fixed;
-  top: 7%;
-  left: 50%;
+  top: 52px;            /* below the beat strip */
+  inset-inline-end: 10px; /* beside the heading, never over it */
   z-index: 50;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@
   gap: var(--space-2);
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -8px) scale(0.9);
+  transform: translateY(-8px) scale(0.9);
   transition:
     opacity 200ms var(--ease-smooth),
     transform 200ms var(--ease-smooth);
@@ -23,12 +23,12 @@
 
 .reaction-toki--visible {
   opacity: 1;
-  transform: translate(-50%, 0) scale(1);
+  transform: translateY(0) scale(1);
 }
 
 .reaction-toki img {
-  width: 84px;
-  height: 84px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
   filter: drop-shadow(var(--shadow-md));
 }
