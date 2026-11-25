@@ -43,7 +43,23 @@ function initData(): string | null {
   return null;
 }
 
-export function reportProgress(payload: ProgressPayload): void {
+export type FeedbackVerdict = 'fair' | 'unsure' | 'disagree';
+
+export interface FeedbackPayload {
+  levelId: number;
+  verdict: FeedbackVerdict;
+  text?: string;
+  lang: string;
+  outcome?: 'restored' | 'partial' | 'unchanged';
+  attempts?: Record<string, number>;
+}
+
+/** Only ever true inside Telegram with a configured endpoint. */
+export function canReport(): boolean {
+  return !!URL && initData() !== null;
+}
+
+function post(body: Record<string, unknown>): void {
   if (!URL) return;
   const data = initData();
   if (!data) return;
@@ -53,7 +69,7 @@ export function reportProgress(payload: ProgressPayload): void {
     fetch(URL, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ initData: data, ...payload }),
+      body: JSON.stringify({ initData: data, ...body }),
       keepalive: true,
       signal: controller.signal,
     })
@@ -62,4 +78,13 @@ export function reportProgress(payload: ProgressPayload): void {
   } catch {
     /* never surfaces to the player */
   }
+}
+
+export function reportProgress(payload: ProgressPayload): void {
+  post({ ...payload });
+}
+
+/** One feedback event per level per device; same signed path as progress. */
+export function sendFeedback(feedback: FeedbackPayload): void {
+  post({ feedback: { ...feedback, text: feedback.text?.slice(0, 240) || undefined } });
 }

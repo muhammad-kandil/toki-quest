@@ -14,6 +14,19 @@
 > `v_toki_levels` gains `first_try_rate` (target band 40–70 % — above it the
 > room is guessable, below it unfair), `restored_rate` and `unchanged_rate`.
 >
+> **Feedback + analytics (wave 3):** run `supabase/003_feedback.sql`, then
+> `supabase/004_analytics_views.sql` (in that order — 004 reads
+> `v_toki_levels` as 003 leaves it), then redeploy the function. Every reveal
+> now carries a "Was this classroom fair?" card; a tap (and optional 240-char
+> note) is POSTed to the same function as `{ initData, feedback: { levelId,
+> verdict, text?, lang, outcome?, attempts? } }` and lands in `toki_feedback`
+> (RLS on, no anon grants). Read it from `v_toki_feedback` (newest first, with
+> the player's name); `v_toki_levels` gains `fair_rate` and `disagree_count`.
+> 004 adds `v_toki_funnel` (per world: started / completed / common drop-off
+> level), `v_toki_sessions` (per player: active days, levels per active day,
+> feedback count) and `v_toki_pilot_readout` (one row per level with the
+> go/no-go flag). The post-pilot queries live in `docs/pilot/READOUT.md`.
+>
 > The Azure Function + CX db variant below is built and tested but parked:
 > the Alef account has no Azure subscription to host the Function. The CX db
 > schema (`data_schema.toki_*`) already exists; a nightly sync from Supabase

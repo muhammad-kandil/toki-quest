@@ -6,6 +6,7 @@ import type { LevelResult } from './LevelScreen';
 import { ObserveBeat } from './LevelScreen';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
+import { FeedbackCard } from '../components/FeedbackCard';
 import { EvidenceRecap } from '../components/EvidenceRecap';
 import { BeatIcon } from '../components/PeopleGlyphs';
 import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
@@ -307,6 +308,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
                 </div>
               )}
             </div>
+            <FeedbackCard levelId={level.id} outcome={r.outcome} attempts={r.attempts} />
             {newBadges.length > 0 && (
               <div className="badge-earned">
                 {newBadges.map((id) => { const b = getBadge(id); return b ? (

@@ -6,6 +6,7 @@ import type { LevelResult } from './LevelScreen';
 import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
+import { FeedbackCard } from '../components/FeedbackCard';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
@@ -188,6 +189,7 @@ export function WorldBossScreen({ boss, heldBadges, onComplete }: {
               <div className="score-summary__row"><span>{tx({ en: 'Scenes read correctly', ar: 'مشاهد قُرئت بشكل صحيح' })}</span><span>{sceneFirstTry.filter(Boolean).length}/{boss.scenes.length}</span></div>
               <div className="score-summary__row"><span>{tx({ en: 'Total', ar: 'المجموع' })}</span><span>+{r.score}</span></div>
             </div>
+            <FeedbackCard levelId={boss.id} outcome={r.outcome} attempts={r.attempts} />
             {newBadges.length > 0 && (
               <div className="badge-earned">
                 {newBadges.map((id) => { const b = getBadge(id); return b ? (

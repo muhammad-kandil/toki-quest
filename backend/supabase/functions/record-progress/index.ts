@@ -65,20 +65,36 @@ Deno.serve(async (req) => {
   // Telemetry (optional, validated shape; unknown keys ignored).
   const OUTCOMES = new Set(["restored", "partial", "unchanged"]);
   const STEP = /^[a-z]{3,12}$/;
-  const attemptsFor = (levelId: number): Record<string, number> | null => {
-    const raw = body.attempts?.[levelId] ?? body.attempts?.[String(levelId)];
+  const cleanAttempts = (raw: unknown): Record<string, number> | null => {
     if (!raw || typeof raw !== "object") return null;
     const out: Record<string, number> = {};
-    for (const [k, v] of Object.entries(raw)) {
+    for (const [k, v] of Object.entries(raw as Record<string, unknown>)) {
       const n = Number(v);
       if (STEP.test(k) && Number.isInteger(n) && n >= 1 && n <= 20) out[k] = n;
     }
     return Object.keys(out).length ? out : null;
   };
-  const outcomeFor = (levelId: number): string | null => {
-    const o = body.outcomes?.[levelId] ?? body.outcomes?.[String(levelId)];
-    return typeof o === "string" && OUTCOMES.has(o) ? o : null;
-  };
+  const cleanOutcome = (o: unknown): string | null =>
+    typeof o === "string" && OUTCOMES.has(o) ? o : null;
+  const attemptsFor = (levelId: number) =>
+    cleanAttempts(body.attempts?.[levelId] ?? body.attempts?.[String(levelId)]);
+  const outcomeFor = (levelId: number) =>
+    cleanOutcome(body.outcomes?.[levelId] ?? body.outcomes?.[String(levelId)]);
+
+  // In-game feedback ("Was this classroom fair?"), optional. One row per
+  // event; the client sends it alone, never with bestScores.
+  const VERDICTS = new Set(["fair", "unsure", "disagree"]);
+  const fb = body.feedback;
+  const feedback = fb && typeof fb === "object" && validLevel(Number(fb.levelId)) && VERDICTS.has(fb.verdict)
+    ? {
+        level_id: Number(fb.levelId),
+        verdict: fb.verdict as string,
+        text: typeof fb.text === "string" && fb.text.trim().length > 0 ? fb.text.trim().slice(0, 240) : null,
+        lang: fb.lang === "ar" ? "ar" : fb.lang === "en" ? "en" : null,
+        outcome: cleanOutcome(fb.outcome),
+        attempts: cleanAttempts(fb.attempts),
+      }
+    : null;
 
   const sql = postgres(Deno.env.get("SUPABASE_DB_URL")!, { prepare: false, max: 1 });
   try {
@@ -105,6 +121,13 @@ Deno.serve(async (req) => {
             best_score = greatest(public.toki_progress.best_score, excluded.best_score),
             updated_at = case when excluded.best_score > public.toki_progress.best_score then now() else public.toki_progress.updated_at end`;
       }
+      if (feedback) {
+        // After the player upsert so the FK holds on a first-ever request.
+        await tx`
+          insert into public.toki_feedback (telegram_user_id, level_id, verdict, text, lang, outcome, attempts)
+          values (${user.id}, ${feedback.level_id}, ${feedback.verdict}, ${feedback.text}, ${feedback.lang},
+                  ${feedback.outcome}, ${feedback.attempts ? tx.json(feedback.attempts) : null})`;
+      }
     });
   } catch (e) {
     console.error("record-progress db error", e);
@@ -112,5 +135,5 @@ Deno.serve(async (req) => {
   } finally {
     await sql.end({ timeout: 2 });
   }
-  return json(200, { ok: true, levels: scores.length });
+  return json(200, { ok: true, levels: scores.length, feedback: !!feedback });
 });

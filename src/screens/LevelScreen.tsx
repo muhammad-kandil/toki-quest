@@ -13,6 +13,7 @@ const revealFace = (outcome: string | null | undefined) =>
 import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
+import { FeedbackCard } from '../components/FeedbackCard';
 import { EvidenceRecap } from '../components/EvidenceRecap';
 import { BeatIcon } from '../components/PeopleGlyphs';
 import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
@@ -382,6 +383,7 @@ function RevealBeat({ level, outcomes, result, heldBadges, outcome, onFinish }: 
       <RevealBlock label={level.conversation ? (outcome === 'restored' ? UI.howToRestore : UI.howItCouldHaveGone) : UI.howRestored} text={level.reveal.howToRestore} />
 
       <ScoreSummary level={level} outcomes={outcomes} outcome={outcome} />
+      <FeedbackCard levelId={level.id} outcome={result.outcome} attempts={result.attempts} />
 
       {newBadges.length > 0 && (
         <div className="badge-earned">

@@ -6,6 +6,7 @@ import type { LevelResult } from './LevelScreen';
 import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
+import { FeedbackCard } from '../components/FeedbackCard';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import tokiHero from '../assets/raw/toki-face-teal-hero.png';
 import { TokiAvatar } from '../components/TokiAvatar';
@@ -282,6 +283,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
               <div className="score-summary__row"><span>{tx(S.missionRow)}</span><span>{(attempts.mission ?? 0) === 1 ? tx(UI.firstTry) : fmt(tx(UI.tryN), { n: attempts.mission ?? 0 })}</span></div>
               <div className="score-summary__row"><span>{tx({ en: 'Total', ar: 'المجموع' })}</span><span>+{r.score}</span></div>
             </div>
+            <FeedbackCard levelId={visit.id} outcome={r.outcome} attempts={r.attempts} />
             {newBadges.length > 0 && (
               <div className="badge-earned">
                 {newBadges.map((id) => { const b = getBadge(id); return b ? (
