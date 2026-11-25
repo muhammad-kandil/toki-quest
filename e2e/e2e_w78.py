@@ -1,5 +1,7 @@
 import json
 from playwright.sync_api import sync_playwright
+import os
+PORT=os.environ.get('PORT','5400')
 
 def convo_any(pg):
     """Walk a conversation beat if present (pick option 0 each turn)."""
@@ -22,7 +24,7 @@ def run(lang):
         errs=[]; failed=[]
         pg.on('pageerror',lambda e:errs.append(str(e)))
         pg.on('response',lambda r:failed.append((r.url.split('/')[-1],r.status)) if r.status>=400 else None)
-        pg.goto('http://127.0.0.1:5400/toki-quest/',wait_until='networkidle'); pg.wait_for_timeout(600)
+        pg.goto(f'http://127.0.0.1:{PORT}/toki-quest/',wait_until='networkidle'); pg.wait_for_timeout(600)
         pg.evaluate("""(s)=>{localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:true,unlockedLevel:1,bestScores:s,badges:[],selectedSkinId:'teal-classic',lang:'%s'}))}"""%lang, DONE)
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
         print(f'[{lang}] lang/dir:', pg.evaluate("[document.documentElement.lang, document.documentElement.dir]"))

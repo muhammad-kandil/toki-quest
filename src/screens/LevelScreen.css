@@ -530,3 +530,17 @@
 .reveal__celebrate-toki {
   filter: drop-shadow(0 10px 14px rgba(69, 43, 116, 0.28));
 }
+
+/* "→ The board": the clue a hint points at, next to the question. */
+.hint-spot {
+  display: inline-block;
+  margin-inline-start: var(--space-2);
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--toki-indigo);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  white-space: nowrap;
+}

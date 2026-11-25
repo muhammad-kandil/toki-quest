@@ -12,7 +12,7 @@ export const CONVO_71: ConversationDefinition = {
   teacherName: t('Mr. Saeed', 'الأستاذ سعيد'),
   stance: 'proud',
   setting: t('His classroom, after the new teachers who came to observe have left.', 'صفّه، بعد أن غادر المعلّمون الجدد الذين جاؤوا للمشاهدة.'),
-  read: t('He has been told for three years that this is the model classroom. He is generous, confident, and has never once been asked the second question.', 'قيل له لثلاث سنوات إن هذا هو الصف النموذجي. كريم، واثق، ولم يُسأل قط السؤال الثاني.'),
+  read: t('He has been told for three years that this is the model classroom. He is generous, confident, and used to visitors leaving impressed.', 'قيل له لثلاث سنوات إن هذا هو الصف النموذجي. كريم، واثق، ومعتاد على أن يغادر الزوار معجبين.'),
   turns: [
     {
       teacherLine: t('The new ones always ask about the routines. I tell them: routines first, everything else follows.', 'الجدد يسألون دائمًا عن الروتين. أقول لهم: الروتين أولًا، وكل شيء يتبعه.'),
@@ -43,7 +43,7 @@ export const CONVO_72: ConversationDefinition = {
   teacherName: t('Ms. Hessa', 'الأستاذة حصة'),
   stance: 'defensive',
   setting: t('She has seen the leader’s note — "low engagement, no technology" — and she is waiting for Toki to confirm it.', 'رأت ملاحظة القائد — «مشاركة منخفضة، لا تقنية» — وتنتظر أن يؤكّدها توكي.'),
-  read: t('She teaches quietly and well, and she has been marked down for it before. She expects to be told to be louder. The hardest conversation is the one where Toki has nothing to fix.', 'تدرّس بهدوء وإتقان، وسبق أن خُفّضت درجتها بسبب ذلك. تتوقّع أن يُطلب منها أن تكون أعلى صوتًا. أصعب محادثة هي تلك التي لا يملك توكي فيها ما يُصلحه.'),
+  read: t('She teaches quietly, and she has been marked down for it before. She is braced for this conversation.', 'تدرّس بهدوء، وسبق أن خُفّضت درجتها بسبب ذلك. تستعدّ لهذه المحادثة.'),
   turns: [
     {
       teacherLine: t('I know what the note says. Low engagement. So — what should I add? Groups? A game?', 'أعرف ما تقوله الملاحظة. مشاركة منخفضة. إذًا — ماذا أضيف؟ مجموعات؟ لعبة؟'),

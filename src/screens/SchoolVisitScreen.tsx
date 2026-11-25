@@ -136,7 +136,9 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
     const m = credit(attempts.mission ?? 0);
     const score = Math.round(visit.points.contexts * cCredit) + Math.round(visit.points.priority * p) + Math.round(visit.points.mission * m);
     const clean = cCredit === 1 && p === 1 && m === 1;
-    return { levelId: visit.id, score, reasoningBonusEarned: false, badgesEarned: clean ? visit.badgeTriggers : [] };
+    const att: Record<string, number> = { contexts: cCredit === 1 ? 1 : 2 };
+    for (const k of ['priority', 'mission']) if ((attempts[k] ?? 0) > 0) att[k] = attempts[k];
+    return { levelId: visit.id, score, reasoningBonusEarned: false, badgesEarned: clean ? visit.badgeTriggers : [], attempts: att };
   };
 
   useEffect(() => {

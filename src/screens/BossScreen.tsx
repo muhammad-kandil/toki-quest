@@ -137,6 +137,7 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
       score,
       reasoningBonusEarned: true,
       badgesEarned: clean ? boss.badgeTriggers : [],
+      attempts: { locate: locateAttempts, coaching: coachingAttempts },
     });
   };
 

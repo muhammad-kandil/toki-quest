@@ -1,6 +1,6 @@
 /**
- * Progress reporting to the admin-only store (CX db via the Azure
- * Function in backend/azure-function).
+ * Progress reporting to the admin-only store (Supabase Edge Function
+ * `record-progress`; see backend/README.md).
  *
  * Fire-and-forget by design: the player's own save lives in Telegram
  * CloudStorage; this is a copy for the DLIS team's completion view.
@@ -15,6 +15,10 @@ interface ProgressPayload {
   bestScores: Record<number, number>;
   badges: string[];
   lang?: string;
+  /** levelId → step → attempts-to-correct (1 = first try). */
+  attempts?: Record<number, Record<string, number>>;
+  /** levelId → conversation outcome. */
+  outcomes?: Record<number, 'restored' | 'partial' | 'unchanged'>;
 }
 
 /**

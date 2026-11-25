@@ -8,6 +8,12 @@
 > One secret must be set in the dashboard (Edge Functions → Secrets):
 > `TELEGRAM_BOT_TOKEN`. Admin view: SQL Editor → `select * from v_toki_admin`.
 >
+> **Telemetry (wave 2):** run `supabase/002_telemetry.sql` once, then redeploy
+> the function. `toki_progress` gains `attempts` (per-step attempts-to-correct,
+> from the best run) and `outcome` (how the coaching conversation ended);
+> `v_toki_levels` gains `first_try_rate` (target band 40–70 % — above it the
+> room is guessable, below it unfair), `restored_rate` and `unchanged_rate`.
+>
 > The Azure Function + CX db variant below is built and tested but parked:
 > the Alef account has no Azure subscription to host the Function. The CX db
 > schema (`data_schema.toki_*`) already exists; a nightly sync from Supabase

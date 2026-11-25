@@ -21,8 +21,14 @@ export interface StepDefinition {
   prompt: Text;
   options: ChoiceOption[];
   correctId: string;
-  /** Shown if the player picks wrong, before letting them try again. */
+  /**
+   * Shown if the player picks wrong, before letting them try again.
+   * Written as a question that points at a clue — never a restatement
+   * of the answer.
+   */
   hint: Text;
+  /** Optional: the evidence spot the hint points at (highlighted in the recap). */
+  hintSpotId?: string;
 }
 
 export interface ReasoningStep extends StepDefinition {

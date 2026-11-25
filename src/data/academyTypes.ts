@@ -46,17 +46,21 @@ export interface AcademyLevelDefinition {
     hintOver: Text;
     /** Shown when the player missed a real finding. */
     hintUnder: Text;
+    /** Optional: the evidence spot the hints point at. */
+    hintSpotId?: string;
   };
   assessRisk: {
     prompt: Text;
     correctId: AcademyRisk;
     hint: Text;
+    hintSpotId?: string;
   };
   coaching: {
     prompt: Text;
     options: ChoiceOption[];
     correctId: string;
     hint: Text;
+    hintSpotId?: string;
   };
   /** The conversation that delivers the move. Optional; see LevelDefinition. */
   conversation?: ConversationDefinition;

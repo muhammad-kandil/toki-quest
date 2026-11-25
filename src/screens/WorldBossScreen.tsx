@@ -91,7 +91,10 @@ export function WorldBossScreen({ boss, heldBadges, onComplete }: {
       Math.round(boss.points.risk * credit(attempts.risk ?? 0)) +
       Math.round(boss.points.coaching * credit(attempts.coaching ?? 0));
     const clean = sceneCredit === 1 && attempts.pattern === 1 && attempts.risk === 1 && attempts.coaching === 1;
-    return { levelId: boss.id, score, reasoningBonusEarned: false, badgesEarned: clean ? boss.badgeTriggers : [] };
+    // "scenes" = 1 when every scene was called right first time, else 2.
+    const att: Record<string, number> = { scenes: sceneCredit === 1 ? 1 : 2 };
+    for (const k of ['pattern', 'risk', 'coaching']) if ((attempts[k] ?? 0) > 0) att[k] = attempts[k];
+    return { levelId: boss.id, score, reasoningBonusEarned: false, badgesEarned: clean ? boss.badgeTriggers : [], attempts: att };
   };
 
   useEffect(() => {
