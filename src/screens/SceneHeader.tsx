@@ -3,6 +3,7 @@ import tokiWalking from '../assets/raw/toki-reaction-walking.png';
 import type { EvidenceSpot } from '../data/levelTypes';
 import { useLocale } from '../i18n/LocaleContext';
 import { sfx } from '../audio/sfx';
+import { EvidenceGlyph, kindFor } from '../components/PeopleGlyphs';
 import './SceneHeader.css';
 
 interface SceneHeaderProps {
@@ -48,16 +49,23 @@ export function SceneHeader({ image, alt, evidence, inspected, onInspect }: Scen
 
       {evidence && showSpots && evidence.map((spot, i) => {
         const done = inspected?.has(spot.id);
+        const kind = kindFor(spot);
         return (
           <button
             key={spot.id}
-            className={`evidence-spot ${done ? 'evidence-spot--done' : ''}`}
+            className={`evidence-spot evidence-spot--${kind} ${done ? 'evidence-spot--done' : ''}`}
+            data-kind={kind}
             style={{ left: `${spot.x}%`, top: `${spot.y}%`, animationDelay: `${i * 120}ms` }}
             onClick={() => { sfx.play('discover'); onInspect?.(spot.id); }}
             aria-label={tx(spot.label)}
           >
             <span className="evidence-spot__ring" aria-hidden="true" />
-            <span className="evidence-spot__core" aria-hidden="true">{done ? '✓' : ''}</span>
+            <span className="evidence-spot__core" aria-hidden="true">
+              <span className="evidence-spot__glyph"><EvidenceGlyph kind={kind} size={20} /></span>
+              <span className="evidence-spot__tick">
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </span>
+            </span>
           </button>
         );
       })}

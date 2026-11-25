@@ -7,6 +7,7 @@ import { ObserveBeat } from './LevelScreen';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import { BadgeIcon } from '../components/BadgeIcon';
 import { EvidenceRecap } from '../components/EvidenceRecap';
+import { BeatIcon } from '../components/PeopleGlyphs';
 import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
 import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTypes';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
@@ -19,6 +20,10 @@ import './BossScreen.css';
 import './AcademyScreen.css';
 
 type Phase = 'observe' | 'diagnose' | 'risk' | 'coaching' | 'conversation' | 'reveal';
+const ACADEMY_BEAT_LABEL: Record<Phase, Text> = {
+  observe: UI['art.beatObserve'], diagnose: UI['art.beatDiagnose'], risk: UI['art.beatRisk'],
+  coaching: UI['art.beatCoaching'], conversation: UI['art.beatConversation'], reveal: UI['art.beatReveal'],
+};
 
 const CREDIT: Record<number, number> = { 1: 1, 2: 0.6, 3: 0.3 };
 const credit = (n: number) => (n <= 0 ? 0 : CREDIT[n] ?? 0.15);
@@ -150,8 +155,16 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
 
   return (
     <div className="level-screen academy">
-      <div className="level-progress" role="progressbar" aria-valuenow={phases.indexOf(phase) + 1} aria-valuemax={phases.length}>
-        {phases.map((p, i) => <span key={p} className={`level-progress__dot ${i <= phases.indexOf(phase) ? 'level-progress__dot--filled' : ''}`} />)}
+      <div className="level-progress level-progress--icons" role="progressbar" aria-valuenow={phases.indexOf(phase) + 1} aria-valuemax={phases.length}>
+        {phases.map((p, i) => (
+          <span
+            key={p}
+            className={`level-progress__dot ${i <= phases.indexOf(phase) ? 'level-progress__dot--filled' : ''} ${i === phases.indexOf(phase) ? 'level-progress__dot--current' : ''}`}
+            title={tx(ACADEMY_BEAT_LABEL[p])}
+          >
+            <BeatIcon kind={p} size={14} />
+          </span>
+        ))}
       </div>
       <ReactionToki kind={reaction} trigger={trigger} />
 

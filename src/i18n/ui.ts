@@ -156,6 +156,17 @@ export const UI = {
 
   // ---- Loading ----
   loading: t('Loading Toki’s Quest…', 'جارٍ تحميل رحلة توكي…'),
+
+  // ---- Art: beat strip + people markers (accessibility labels) ----
+  'art.beatObserve': t('Observe', 'لاحظ'),
+  'art.beatDrift': t('Identify the drift', 'حدّد الانحراف'),
+  'art.beatDiagnose': t('File the diagnosis', 'سجّل التشخيص'),
+  'art.beatRisk': t('Assess the risk', 'قيّم الخطورة'),
+  'art.beatCoaching': t('Choose the coaching move', 'اختر الخطوة التدريبية'),
+  'art.beatReasoning': t('Why this move', 'لماذا هذه الخطوة'),
+  'art.beatConversation': t('The conversation', 'المحادثة'),
+  'art.beatReveal': t('What was really happening', 'ما كان يحدث فعلًا'),
+  'art.peopleVisited': t('Teacher and students — visited', 'المعلّم والطلاب — تمت الزيارة'),
 };
 
 /** Replace {n}-style placeholders. */

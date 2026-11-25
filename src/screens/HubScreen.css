@@ -380,3 +380,18 @@
   .door__name { font-size: var(--text-sm); }
   .hub__corridor { padding-inline-start: 52px; }
 }
+
+/* A teacher and a student stand by each door: faint until the room is
+   visited, then lit — the corridor fills with people as Toki goes. */
+.door__people {
+  position: absolute;
+  inset-inline-end: 44px;
+  bottom: 6px;
+  display: block;
+  line-height: 0;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.door--locked .door__people { opacity: 0.45; }
+.door--completed .door__people { opacity: 1; }
+@media (max-width: 360px) { .door__people { display: none; } }

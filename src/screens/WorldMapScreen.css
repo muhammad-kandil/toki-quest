@@ -285,3 +285,17 @@
 .map__node--locked .map__school { opacity: 0.6; filter: grayscale(0.4) drop-shadow(0 4px 6px rgba(69,43,116,0.15)); }
 .map__node--locked .map__label { color: var(--color-text-secondary); }
 .map__node--done .map__label { border: 2px solid var(--toki-teal); }
+
+/* Teacher + student outside each completed school: the map remembers
+   who Toki met. Subtle, no animation. */
+.map__people {
+  position: absolute;
+  inset-inline-start: -2px;
+  bottom: 4px;
+  line-height: 0;
+  opacity: 0.95;
+  pointer-events: none;
+  animation: map-people-in 500ms var(--ease-smooth) backwards;
+}
+@keyframes map-people-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 0.95; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .map__people { animation: none; } }

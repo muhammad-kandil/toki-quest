@@ -7,6 +7,7 @@ import { useLocale } from '../i18n/LocaleContext';
 import { UI } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
 import { TopBar } from '../components/TopBar';
+import { PeoplePair } from '../components/PeopleGlyphs';
 import './HubScreen.css';
 
 interface HubScreenProps {
@@ -102,6 +103,11 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
               aria-label={`${tx(card.subject)}: ${tx(card.title)}${state === 'locked' ? ` (${tx(UI.locked)})` : ''}`}
             >
               <span className="door__number">{card.isBoss ? '★' : i + 1}</span>
+              {!card.isBoss && (
+                <span className="door__people" aria-hidden="true">
+                  <PeoplePair lit={state === 'completed'} size={18} />
+                </span>
+              )}
               <span className="door__subject">{tx(card.subject)}</span>
               <span className="door__name">{tx(card.title)}</span>
               {state === 'completed' && <span className="door__score door__score--done" aria-label={tx(UI.visited)}>✓</span>}

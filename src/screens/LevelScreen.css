@@ -6,7 +6,10 @@
   background: var(--color-bg);
 }
 
-/* ---------- Progress dots ---------- */
+/* ---------- Beat strip (icons, not dots) ----------
+   Each step shows what Toki is doing: eye, magnifier, gauge, speech
+   bubble, lightbulb, teacher-and-bubble, open door. A thin rail runs
+   behind; done steps are teal, the current step lifts, the rest wait. */
 .level-progress {
   display: flex;
   gap: var(--space-2);
@@ -14,6 +17,19 @@
   position: relative;
   z-index: 2;
   margin-bottom: var(--space-4);
+}
+.level-progress--icons { gap: 6px; }
+.level-progress--icons::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 50%;
+  height: 2px;
+  background: var(--color-border);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  z-index: -1;
 }
 
 .level-progress__dot {
@@ -23,9 +39,38 @@
   background: var(--color-border);
   transition: background var(--duration-base) var(--ease-smooth);
 }
+.level-progress--icons .level-progress__dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-elevated);
+  border: 1.5px solid var(--color-border);
+  color: rgba(69, 43, 116, 0.38);
+  box-shadow: 0 1px 2px rgba(69, 43, 116, 0.08);
+  transition: background var(--duration-base) var(--ease-smooth), color var(--duration-base) var(--ease-smooth), border-color var(--duration-base) var(--ease-smooth), transform var(--duration-base) var(--ease-bounce);
+}
+.level-progress--icons .level-progress__dot svg { display: block; }
 
 .level-progress__dot--filled {
   background: var(--toki-teal);
+}
+.level-progress--icons .level-progress__dot--filled {
+  background: linear-gradient(180deg, #27E2C8 0%, var(--toki-teal) 100%);
+  border-color: var(--toki-teal);
+  color: #FFFFFF;
+}
+.level-progress--icons .level-progress__dot--current {
+  background: linear-gradient(180deg, #6A4BA6 0%, var(--toki-indigo) 100%);
+  border-color: var(--toki-indigo);
+  color: #FFFFFF;
+  transform: translateY(-2px) scale(1.12);
+  box-shadow: 0 3px 8px rgba(69, 43, 116, 0.3);
+}
+@media (prefers-reduced-motion: reduce) {
+  .level-progress--icons .level-progress__dot--current { transform: none; }
 }
 
 /* ---------- Shared beat layout ---------- */
@@ -526,6 +571,9 @@
 }
 .level-progress__dot--filled {
   box-shadow: 0 0 0 2px rgba(29, 214, 187, 0.22), 0 1px 2px rgba(69, 43, 116, 0.2);
+}
+.level-progress--icons .level-progress__dot--filled:not(.level-progress__dot--current) {
+  box-shadow: 0 1px 2px rgba(69, 43, 116, 0.18);
 }
 .reveal__celebrate-toki {
   filter: drop-shadow(0 10px 14px rgba(69, 43, 116, 0.28));

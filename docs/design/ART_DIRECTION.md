@@ -53,3 +53,41 @@ The engine is ready for real art; the prompts below match the existing World 1 s
 **Rive Toki.** Replace `TokiAvatar` with a Rive state machine: inputs `mood` (idle / walk / affirm / think / celebrate / hide), `facing` (−1/1 for RTL), `blink` trigger; keep the breathing idle and the 240 ms walk cycle timings already in `TokiAvatar.css` so the game feels the same, only alive. Keep the drop shadow in CSS (one ellipse) rather than in the file, so it still obeys `--elev` tokens.
 
 **Screenshots:** `docs/design/shots/` — `before-*` and `after-*`, EN and AR, 390×844 (JPEG): title, map, hub, classroom, evidence found, choice, conversation, badges. Regenerate with `python3 e2e/shots.py <port> <prefix>` against a served build.
+
+## People, not dots (wave 3)
+
+Every marker the player taps shows *who or what* Toki is looking at; every
+step on the beat strip shows *what Toki is doing*. Source: `src/components/PeopleGlyphs.tsx`.
+
+**Evidence markers** — a white badge (gradient, shadow, 2 px orange border) with an
+indigo glyph; an orange ring pulses until inspected (static under reduced motion);
+inspected → teal badge, white tick. 44 px tap target, `.evidence-spot` class and
+`aria-label` unchanged. Glyphs never mirror in RTL (people and objects don't flip).
+
+| kind | glyph | inferred from id/label containing… |
+|---|---|---|
+| teacher | figure pointing at a small board | teacher, explain, check, question(s), round, Monday |
+| student | single figure | student, quiet, fast, slow, bronze, gold, eagle, sparrow, answer, why, late, author, artist |
+| group | three heads | group, table, pairs, station, hands, row(s), front/middle/back, students, seating, support |
+| board | board with lines on a stand | board, objective, criteria, poster, whiteboard |
+| device | tablet | alef, dashboard, tracker, screen, device, history, leaderboard, completion, finishers |
+| paper | page with folded corner | ticket, essay, sheet, pile, test, rubric, report, margin, green, feedback, drawing, cards |
+| book | open-spine book | book(s), file, plan, planner, gradebook, folder, week |
+| clock | clock | timer, stopwatch, after, ends, pace, minutes |
+| chart | bars | chart, pattern, weeks, tally, reasons, data |
+| door / window | door / window | door / window |
+| lens | magnifier (fallback) | anything else |
+
+Authors can set `kind` explicitly on an `EvidenceSpot`; inference only applies when it
+is absent, so all 31 existing classrooms got people without a data edit.
+
+**Beat strip** — `.level-progress--icons`: eye (observe), magnifier (drift / diagnosis),
+gauge (risk), speech bubble (coaching), lightbulb (reasoning), teacher-and-bubble
+(conversation), open door (reveal). Done = teal, current = indigo and lifted, upcoming =
+outlined; a rail runs behind. Labels via `UI['art.beat*']` as `title`.
+
+**Silhouettes** — `PeoplePair` (teacher taller, student in front): faint by each hub
+door, lit teal/indigo once the room is visited; also outside every completed school on
+the map. Static, subtle, hidden under 360 px.
+
+Shots: `docs/design/shots/people-before-*` / `people-after-*`.

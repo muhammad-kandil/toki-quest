@@ -1,0 +1,17 @@
+/* People glyphs — shared by evidence markers, the beat strip, hub doors
+   and the world map. Transform/opacity only; iOS 12 safe. */
+
+/* Silhouette pair: faint until the room has been visited, then lit teal. */
+.people-pair {
+  display: block;
+  overflow: visible;
+}
+.people-pair__teacher,
+.people-pair__student {
+  fill: rgba(69, 43, 116, 0.16);
+  transition: fill var(--duration-base) var(--ease-smooth), transform var(--duration-base) var(--ease-bounce);
+}
+.people-pair__student { fill: rgba(69, 43, 116, 0.11); }
+.people-pair--lit .people-pair__teacher { fill: var(--toki-teal); }
+.people-pair--lit .people-pair__student { fill: var(--toki-indigo); }
+.people-pair--lit { filter: drop-shadow(0 1px 1px rgba(69, 43, 116, 0.18)); }
