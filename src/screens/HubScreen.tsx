@@ -4,7 +4,8 @@ import type { WorldDefinition } from '../data/worlds';
 import { isLevelUnlocked } from '../data/progression';
 import { getSkinById } from '../data/skins';
 import { useLocale } from '../i18n/LocaleContext';
-import { UI } from '../i18n/ui';
+import { UI, fmt } from '../i18n/ui';
+import type { Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
 import { TopBar } from '../components/TopBar';
 import { PeoplePair } from '../components/PeopleGlyphs';
@@ -72,6 +73,8 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
   };
 
   const bossUnlocked = !!world.bossId && isLevelUnlocked(world.bossId, bestScores);
+  const bossTitle = bossCard[0]?.title;
+  const fmtBoss = (txt: Text): Text => ({ en: fmt(txt.en, { title: bossTitle ? bossTitle.en : '' }), ar: fmt(txt.ar, { title: bossTitle ? bossTitle.ar : '' }) });
   const bossDone = !!world.bossId && bestScores[world.bossId] != null;
   const doneCount = cards.filter((c) => bestScores[c.id] != null).length;
 
@@ -125,7 +128,7 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
       </div>
 
       <p className="hub__hint">
-        {tx(bossDone ? (isFinalVisit ? UI.hintQuestDone : UI.hintAllDone) : isFinalVisit ? UI.hintFinalVisit : bossUnlocked ? UI.hintBossReady : UI.hintUnlockNext)}
+        {tx(bossDone ? (isFinalVisit ? UI.hintQuestDone : UI.hintAllDone) : isFinalVisit ? UI.hintFinalVisit : bossUnlocked ? fmtBoss(UI.hintBossReady) : UI.hintUnlockNext)}
       </p>
 
       <div className={`hub__wipe ${phase === 'opening' ? 'hub__wipe--active' : ''}`} aria-hidden="true" />

@@ -18,7 +18,7 @@ export const BOSS: BossDefinition = {
     {
       id: 'objectives',
       label: t('Learning Objectives', 'أهداف التعلّم'),
-      observation: t('Toki reads the objectives posted on the board and checks them against the lesson.', 'يقرأ توكي الأهداف المكتوبة على السبورة ويقارنها بالدرس.'),
+      observation: t('Board: "Explain how a change in one variable affects another, using evidence from your data." The starter asks students to predict a change; the main task has them test it; the exit question is "what would happen if…". Toki asks a student what she is trying to get better at today. She points at the board and says it in her own words.', 'على السبورة: «اشرح كيف يؤثّر تغيّر متغيّر في متغيّر آخر، مستندًا إلى أدلة من بياناتك.» يطلب النشاط الافتتاحي توقّع تغيّر؛ والمهمة الرئيسية اختباره؛ وسؤال الخروج «ماذا سيحدث لو…». يسأل توكي طالبةً عمّا تحاول أن تتحسّن فيه اليوم. تشير إلى السبورة وتقولها بكلماتها.'),
       verdict: 'clean',
       finding: t('Clear, specific, and genuinely aligned to the activities. The objectives are sound — this teacher knows exactly what students should learn.', 'واضحة ومحددة ومتّسقة فعلًا مع الأنشطة. الأهداف سليمة — هذا المعلّم يعرف تمامًا ما ينبغي أن يتعلّمه الطلاب.'),
       hint: t('Resist the instinct to find something wrong just because you’re looking for a drift. Judge only what’s actually in front of you here.', 'قاوم غريزة البحث عن خطأ لمجرد أنك تبحث عن انحراف. احكم فقط على ما أمامك هنا.'),
@@ -26,15 +26,15 @@ export const BOSS: BossDefinition = {
     {
       id: 'tasks',
       label: t('The Tasks', 'المهام'),
-      observation: t('Toki examines what students are actually being asked to do.', 'يفحص توكي ما يُطلب من الطلاب فعله فعلًا.'),
+      observation: t('Groups have a data table and three questions. Q1 asks for a pattern, Q2 asks why, Q3 asks them to predict a row that is not in the table. No colouring, no copying, no worksheet-filler. Every group Toki passes is on Q2 or Q3.', 'لدى المجموعات جدول بيانات وثلاثة أسئلة. س١ يطلب نمطًا، س٢ يسأل لماذا، س٣ يطلب توقّع صف غير موجود في الجدول. لا تلوين، لا نسخ، لا أوراق عمل للحشو. كل مجموعة يمرّ بها توكي عند س٢ أو س٣.'),
       verdict: 'clean',
       finding: t('Every task maps to an objective. Nothing is busywork; each activity has a clear purpose. The tasks are well-designed.', 'كل مهمة مرتبطة بهدف. لا شيء منها عمل بلا طائل؛ لكل نشاط غاية واضحة. المهام مصمّمة بإتقان.'),
-      hint: t('Check the tasks against the objectives you just confirmed — do they actually connect?', 'قارن المهام بالأهداف التي أكّدتها للتو — هل ترتبط بها فعلًا؟'),
+      hint: t('Put Q3 next to the objective on the board. Does predicting a row that is not in the table need the thing the objective names?', 'ضع س٣ بجانب الهدف على السبورة. هل يحتاج توقّع صف غير موجود في الجدول إلى الشيء الذي يسمّيه الهدف؟'),
     },
     {
       id: 'questions',
       label: t("The Teacher's Questions", 'أسئلة المعلّم'),
-      observation: t('Toki listens to how the teacher questions students.', 'يُنصت توكي إلى طريقة المعلّم في طرح الأسئلة.'),
+      observation: t('Toki counts. In ten minutes: fourteen questions, eleven of them "why" or "how do you know". Wait time is three to four seconds. Twice the teacher takes a wrong answer, thanks the student, and asks the class to find the flaw in it. Names are drawn from a cup.', 'يعدّ توكي. في عشر دقائق: أربعة عشر سؤالًا، أحد عشر منها «لماذا» أو «كيف عرفت». زمن الانتظار ثلاث إلى أربع ثوانٍ. مرتين يأخذ المعلّم إجابة خاطئة، يشكر الطالب، ويطلب من الصف إيجاد الخلل فيها. الأسماء تُسحب من كوب.'),
       verdict: 'clean',
       finding: t('Open-ended, probing, well-timed. The teacher pushes for reasoning and evidence, exactly as a skilled questioner should. Nothing to fix here.', 'مفتوحة وسابرة وحسنة التوقيت. يدفع المعلّم نحو التعليل والأدلة، تمامًا كما ينبغي لسائلٍ ماهر. لا شيء يحتاج إلى إصلاح هنا.'),
       hint: t('Listen for whether the questions ask students to reason, or just to recall.', 'أنصت: هل تطلب الأسئلة من الطلاب أن يعلّلوا، أم أن يتذكّروا فقط؟'),
@@ -42,7 +42,7 @@ export const BOSS: BossDefinition = {
     {
       id: 'assessment',
       label: t('The Assessment', 'التقييم'),
-      observation: t('Toki reviews how learning is being checked.', 'يراجع توكي كيف يُتحقَّق من التعلّم.'),
+      observation: t('Mini whiteboards at minute twelve: twenty-four answers up. Six are wrong in the same way. The teacher stops, reteaches that one idea for four minutes, and checks again — two wrong now. The exit ticket is a new question, not the one from the lesson.', 'سبورات صغيرة في الدقيقة الثانية عشرة: أربع وعشرون إجابة مرفوعة. ست منها خاطئة بالطريقة نفسها. يتوقّف المعلّم، يعيد شرح تلك الفكرة الواحدة أربع دقائق، ويتحقّق مجددًا — اثنتان خاطئتان الآن. بطاقة الخروج سؤال جديد، لا سؤال الدرس نفسه.'),
       verdict: 'clean',
       finding: t('Frequent, varied, and actually used to adjust instruction. The teacher responds to the evidence in real time. This is assessment done right.', 'متكرر ومتنوع ومُستخدَم فعلًا لتعديل التدريس. يستجيب المعلّم للأدلة لحظيًا. هذا هو التقييم على وجهه الصحيح.'),
       hint: t('The question isn’t whether assessment happens — it’s whether it changes what happens next.', 'السؤال ليس هل يحدث التقييم، بل هل يغيّر ما يحدث بعده.'),
@@ -50,7 +50,7 @@ export const BOSS: BossDefinition = {
     {
       id: 'technology',
       label: t('The Technology Use', 'استخدام التقنية'),
-      observation: t('Toki watches how the Alef platform and tools are being used.', 'يراقب توكي كيف تُستخدم منصة «ألف» وأدواتها.'),
+      observation: t('Tablets come out once, for eight minutes: the Alef simulation lets groups change the variable and watch the graph move. Then the tablets go away and the groups argue on paper about what they saw. Nobody is on a device while the teacher is talking.', 'تخرج الأجهزة اللوحية مرة واحدة، لثماني دقائق: تتيح محاكاة «ألف» للمجموعات تغيير المتغيّر ومشاهدة الرسم البياني يتحرّك. ثم تُعاد الأجهزة وتتجادل المجموعات على الورق حول ما رأته. لا أحد على جهاز بينما يتكلّم المعلّم.'),
       verdict: 'clean',
       finding: t('Purposeful and integrated — tech serves the learning, never replaces it. The platform is used to deepen understanding, not to look modern. Well done.', 'هادف ومتكامل — التقنية تخدم التعلّم ولا تحلّ محله. تُستخدم المنصة لتعميق الفهم لا للظهور بمظهر عصري. أحسنت.'),
       hint: t('Ask whether the technology is serving the learning goal, or just present because it’s expected.', 'اسأل: هل تخدم التقنية هدف التعلّم، أم أنها حاضرة فقط لأنها متوقَّعة؟'),
@@ -58,10 +58,10 @@ export const BOSS: BossDefinition = {
     {
       id: 'student-thinking',
       label: t('The Students’ Thinking', 'تفكير الطلاب'),
-      observation: t('Toki does something different now — instead of watching the teacher, Toki sits beside the students and listens to how they think as they work.', 'يفعل توكي الآن شيئًا مختلفًا — بدل مراقبة المعلّم، يجلس بجانب الطلاب ويُنصت إلى كيف يفكّرون أثناء العمل.'),
+      observation: t('Toki sits with a group on Q3 and asks them to predict a row for a variable they have not seen. The answer comes fast and confident, with the right vocabulary. He asks why. The student restarts her explanation, word for word, from the board. He asks what would make it wrong. Silence; then the other three look at the teacher.', 'يجلس توكي مع مجموعة عند س٣ ويطلب منهم توقّع صف لمتغيّر لم يروه. تأتي الإجابة سريعة وواثقة وبالمصطلحات الصحيحة. يسأل: لماذا؟ تعيد الطالبة شرحها، كلمة كلمة، من السبورة. يسأل: ما الذي قد يجعله خاطئًا؟ صمت؛ ثم ينظر الثلاثة الآخرون إلى المعلّم.'),
       verdict: 'mutation',
       finding: t('Here it is. The students have learned to produce every signal of learning — the right answers, the confident explanations, the polished work — without the understanding underneath. They’ve become expert at performing learning. The mutation was never in what the teacher does. It’s in what the students have quietly learned to do.', 'ها هو. تعلّم الطلاب إنتاج كل إشارات التعلّم — الإجابات الصحيحة، والشروح الواثقة، والأعمال المتقنة — دون الفهم الكامن تحتها. أصبحوا خبراء في تمثيل التعلّم. لم يكن التحوّر قط فيما يفعله المعلّم. بل فيما تعلّم الطلاب فعله بهدوء.'),
-      hint: t('Everything you’ve checked so far is something the TEACHER controls. This dimension is different — look at what the students themselves are doing with their thinking.', 'كل ما فحصته حتى الآن شيء يتحكّم فيه المعلّم. هذا البُعد مختلف — انظر إلى ما يفعله الطلاب أنفسهم بتفكيرهم.'),
+      hint: t('Fast, confident, correct vocabulary — then "why" produces the board, and "what would make it wrong" produces silence. Which of those is understanding, and which is a performance of it?', 'سريع، واثق، بالمصطلحات الصحيحة — ثم «لماذا» تُنتج السبورة، و«ما الذي قد يجعله خاطئًا» تُنتج صمتًا. أيّهما فهم، وأيّهما تمثيل له؟'),
     },
   ],
 
@@ -109,5 +109,5 @@ export const BOSS: BossDefinition = {
   },
 
   points: { audit: 40, locate: 40, coaching: 40, reasoningBonus: 30 },
-  badgeTriggers: ['master-dlis'],
+  badgeTriggers: ['clear-eyes'],
 };

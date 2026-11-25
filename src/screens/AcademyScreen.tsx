@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { AcademyLevelDefinition, AcademyRisk } from '../data/academyTypes';
-import { RISK_META, RISK_OPTIONS, type ChoiceOption, type RiskLevel } from '../data/levelTypes';
+import { RISK_META, RISK_DESC, RISK_OPTIONS, type ChoiceOption, type RiskLevel } from '../data/levelTypes';
 import { getBadge } from '../data/badges';
 import type { LevelResult } from './LevelScreen';
 import { ObserveBeat } from './LevelScreen';
@@ -294,7 +294,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
                       <span className={`status-mark ${cr === 1 ? 'status-mark--full' : 'status-mark--partial'}`}>{cr === 1 ? '✓' : '~'}</span>
                       {tx(row.label)} <em className="score-summary__attempt">({label})</em>
                     </span>
-                    <span>+{Math.round(row.pts * cr)}</span>
+                    <span><bdi dir="ltr">+{Math.round(row.pts * cr)}</bdi></span>
                   </div>
                 );
               })}
@@ -304,7 +304,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
                     <span className={`status-mark ${outcome === 'restored' ? 'status-mark--full' : outcome === 'partial' ? 'status-mark--partial' : 'status-mark--none'}`}>{outcome === 'restored' ? '✓' : outcome === 'partial' ? '~' : '–'}</span>
                     {tx(UI.conversationRow)} <em className="score-summary__attempt">({outcome ? tx(OUTCOME_LABEL[outcome]) : '—'})</em>
                   </span>
-                  <span>+{Math.round(convoPoints * (outcome ? OUTCOME_CREDIT[outcome] : 0))}</span>
+                  <span><bdi dir="ltr">+{Math.round(convoPoints * (outcome ? OUTCOME_CREDIT[outcome] : 0))}</bdi></span>
                 </div>
               )}
             </div>
@@ -337,19 +337,20 @@ function ChoiceStep({ heading, prompt, options, wrong, hint, onPick, recap, hint
       <h3 className="beat__heading">{heading}</h3>
       <p className="beat__prompt">{prompt}</p>
       <EvidenceRecap spots={recap} open={!!wrong} highlightId={hintSpot?.id ?? null} />
-      <div className="choice-list">
-        {options.map((o, i) => (
-          <button key={o.id} className={`choice-list__item ${wrong === o.id ? 'choice-list__item--wrong' : ''}`} style={{ animationDelay: `${i * 55}ms` }} onClick={() => onPick(o.id)}>
-            {tx(o.label)}
-          </button>
-        ))}
-      </div>
       {wrong && (
         <p className="beat__hint">
           <span className="hint-mark">?</span> {hint}
           {hintSpot && <span className="hint-spot">→ {tx(hintSpot.label)}</span>}
         </p>
       )}
+      <div className="choice-list">
+        {options.map((o, i) => (
+          <button key={o.id} className={`choice-list__item ${wrong === o.id ? 'choice-list__item--wrong' : ''}`} style={{ animationDelay: `${i * 55}ms` }} onClick={() => onPick(o.id)} disabled={wrong === o.id}>
+            {tx(o.label)}
+            {o.id in RISK_DESC && <small className="choice-list__desc">{tx(RISK_DESC[o.id as RiskLevel])}</small>}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

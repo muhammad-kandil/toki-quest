@@ -54,18 +54,18 @@ export const CONVO_72: ConversationDefinition = {
       ],
     },
     {
-      teacherLine: t('And when the next observer walks in and sees a quiet room?', 'وحين يدخل المراقب التالي ويرى غرفة هادئة؟'),
+      teacherLine: t('And when the next observer walks in and sees a quiet room?', 'وحين يدخل الملاحِظ التالي ويرى غرفة هادئة؟'),
       options: [
-        { id: 'a', effect: 'opens', label: t('Then they should ask the same question I did. Would you let me bring the next observer here — and hand them a whiteboard?', 'حينها ينبغي أن يطرحوا السؤال نفسه الذي طرحته. هل تسمحين لي بإحضار المراقب التالي إلى هنا — وأن أعطيه سبورة؟'), reply: t('Give the observer a whiteboard. …Yes. Yes, bring them.', 'أعطِ المراقب سبورة. …نعم. نعم، أحضرهم.') },
+        { id: 'a', effect: 'opens', label: t('Then they should ask the same question I did. Would you let me bring the next observer here — and hand them a whiteboard?', 'حينها ينبغي أن يطرحوا السؤال نفسه الذي طرحته. هل تسمحين لي بإحضار الملاحِظ التالي إلى هنا — وأن أعطيه سبورة؟'), reply: t('Give the observer a whiteboard. …Yes. Yes, bring them.', 'أعطِ الملاحِظ سبورة. …نعم. نعم، أحضرهم.') },
         { id: 'b', effect: 'neutral', label: t('Keep doing what you’re doing. Good teaching speaks for itself eventually.', 'استمرّي فيما تفعلينه. التدريس الجيد يتحدث عن نفسه في النهاية.'), reply: t('Eventually. I’ve been waiting for "eventually" for four years.', 'في النهاية. أنتظر «النهاية» منذ أربع سنوات.') },
         { id: 'c', effect: 'closes', label: t('Then maybe put the objective on the board and open the Alef dashboard on the screen. It costs nothing and it ticks the boxes.', 'إذًا ربما ضعي الهدف على السبورة وافتحي لوحة «ألف» على الشاشة. لا يكلّف شيئًا ويؤشّر على الخانات.'), reply: t('Tick the boxes. I thought you were different.', 'أؤشّر على الخانات. ظننتك مختلفًا.') },
       ],
     },
   ],
   outcomes: {
-    restored: t('The note was corrected in writing. The next observer was handed a whiteboard at the door and answered three questions with the class. The lesson did not change — the observation did.', 'صُحّحت الملاحظة كتابيًا. أُعطي المراقب التالي سبورة عند الباب وأجاب عن ثلاثة أسئلة مع الصف. لم يتغيّر الدرس — تغيّرت الملاحظة.'),
+    restored: t('The note was corrected in writing. The next observer was handed a whiteboard at the door and answered three questions with the class. The lesson did not change — the observation did.', 'صُحّحت الملاحظة كتابيًا. أُعطي الملاحِظ التالي سبورة عند الباب وأجاب عن ثلاثة أسئلة مع الصف. لم يتغيّر الدرس — تغيّرت الملاحظة.'),
     partial: t('She kept teaching the same way. The note is still in her file, and nobody told the leader why it was wrong.', 'واصلت التدريس بالطريقة نفسها. الملاحظة ما زالت في ملفها، ولم يخبر أحد القائد لماذا كانت خاطئة.'),
-    unchanged: t('Next observation there was a group task, a dashboard on the screen and an objective on the wall. The whiteboards stayed in the cupboard. The observer wrote "much improved".', 'في الملاحظة التالية كان هناك عمل جماعي ولوحة بيانات على الشاشة وهدف على الجدار. بقيت السبورات في الخزانة. كتب المراقب «تحسّن كبير».'),
+    unchanged: t('Next observation there was a group task, a dashboard on the screen and an objective on the wall. The whiteboards stayed in the cupboard. The observer wrote "much improved".', 'في الملاحظة التالية كان هناك عمل جماعي ولوحة بيانات على الشاشة وهدف على الجدار. بقيت السبورات في الخزانة. كتب الملاحِظ «تحسّن كبير».'),
   },
 };
 
@@ -87,14 +87,14 @@ export const CONVO_73: ConversationDefinition = {
     {
       teacherLine: t('Three students. In an observed lesson. What do I even do about that — call on the quiet ones and watch them freeze?', 'ثلاثة طلاب. في درس مُلاحَظ. ماذا أفعل أصلًا حيال ذلك — أنادي الهادئين وأشاهدهم يتجمّدون؟'),
       options: [
-        { id: 'a', effect: 'opens', label: t('Give everyone thirty seconds and a whiteboard before anyone speaks. Then you pick who reads theirs. Nobody freezes, because everybody already has an answer in their hand.', 'امنحي الجميع ثلاثين ثانية وسبورة قبل أن يتكلم أحد. ثم تختارين مَن يقرأ إجابته. لا أحد يتجمّد، لأن الجميع يحمل إجابة في يده.'), reply: t('Whiteboards first, then I pick. That’s… one change. I can do one change by Sunday.', 'السبورات أولًا، ثم أختار. هذا… تغيير واحد. أستطيع تغييرًا واحدًا بحلول الأحد.') },
+        { id: 'a', effect: 'opens', label: t('Give everyone thirty seconds and a whiteboard before anyone speaks. Then you pick who reads theirs. Nobody freezes, because everybody already has an answer in their hand.', 'امنحي الجميع ثلاثين ثانية وسبورة قبل أن يتكلم أحد. ثم تختارين مَن يقرأ إجابته. لا أحد يتجمّد، لأن الجميع يحمل إجابة في يده.'), reply: t('Whiteboards first, then I pick. That’s… one change. I can do one change by Monday.', 'السبورات أولًا، ثم أختار. هذا… تغيير واحد. أستطيع تغييرًا واحدًا بحلول الاثنين.') },
         { id: 'b', effect: 'neutral', label: t('Just try to spread the questions around a bit more. Keep a mental tally.', 'حاولي فقط توزيع الأسئلة أكثر. احتفظي بعدّ ذهني.'), reply: t('A tally. I’ll try. I lose track when it gets going, but I’ll try.', 'أعدّ. سأحاول. أضيع العدّ حين يحمى الدرس، لكنني سأحاول.') },
         { id: 'c', effect: 'closes', label: t('Cold-calling is standard practice. If students freeze, that tells you something about the classroom culture.', 'النداء العشوائي ممارسة قياسية. إن تجمّد الطلاب، فهذا يخبرك شيئًا عن ثقافة الصف.'), reply: t('About my classroom culture. Right. I’ll… note that down with the other three.', 'ثقافة صفّي. طيّب. سأ… أدوّن ذلك مع الثلاث الأخرى.') },
       ],
     },
   ],
   outcomes: {
-    restored: t('Sunday: whiteboards up before any hand. Twenty-two answers to question one. The exit ticket and the Alef-as-prize are still there — and next week, when she asks, Toki has something to say.', 'الأحد: السبورات مرفوعة قبل أي يد. اثنتان وعشرون إجابة عن السؤال الأول. بطاقة الخروج و«ألف» كجائزة ما زالتا هناك — وفي الأسبوع التالي، حين تسأل، سيكون لدى توكي ما يقوله.'),
+    restored: t('Monday: whiteboards up before any hand. Twenty-two answers to question one. The exit ticket and the Alef-as-prize are still there — and next week, when she asks, Toki has something to say.', 'الاثنين: السبورات مرفوعة قبل أي يد. اثنتان وعشرون إجابة عن السؤال الأول. بطاقة الخروج و«ألف» كجائزة ما زالتا هناك — وفي الأسبوع التالي، حين تسأل، سيكون لدى توكي ما يقوله.'),
     partial: t('She keeps a tally for two lessons, then loses it when the lesson gets going. Same three voices by Thursday.', 'تحتفظ بالعدّ درسين، ثم تفقده حين يشتدّ الدرس. الأصوات الثلاثة نفسها بحلول الخميس.'),
     unchanged: t('Four notes in her notebook, none of them tried. The next observed lesson is rehearsed for two weeks instead of one.', 'أربع ملاحظات في دفترها، لم تُجرَّب أيّ منها. الدرس المُلاحَظ التالي يُتدرَّب عليه أسبوعين بدلًا من أسبوع.'),
   },

@@ -281,7 +281,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
               <div className="score-summary__row"><span>{tx(S.contextsRow)}</span><span>{firstTries}/{visit.contexts.length}</span></div>
               <div className="score-summary__row"><span>{tx(S.priorityRow)}</span><span>{(attempts.priority ?? 0) === 1 ? tx(UI.firstTry) : fmt(tx(UI.tryN), { n: attempts.priority ?? 0 })}</span></div>
               <div className="score-summary__row"><span>{tx(S.missionRow)}</span><span>{(attempts.mission ?? 0) === 1 ? tx(UI.firstTry) : fmt(tx(UI.tryN), { n: attempts.mission ?? 0 })}</span></div>
-              <div className="score-summary__row"><span>{tx({ en: 'Total', ar: 'المجموع' })}</span><span>+{r.score}</span></div>
+              <div className="score-summary__row"><span>{tx({ en: 'Total', ar: 'المجموع' })}</span><span><bdi dir="ltr">+{r.score}</bdi></span></div>
             </div>
             <FeedbackCard levelId={visit.id} outcome={r.outcome} attempts={r.attempts} />
             {newBadges.length > 0 && (

@@ -97,6 +97,17 @@ export const RISK_META: Record<RiskLevel, { label: Text; color: string }> = {
   lethal: { label: UI.riskLethal, color: 'var(--risk-lethal)' },
 };
 
+/** What each level means, in one line — shown under the options so the
+ *  scale is defined before the first call, and again on the reveal as
+ *  "why this level". Playtest finding: without this the risk step read
+ *  as a lottery. */
+export const RISK_DESC: Record<RiskLevel, Text> = {
+  minor: { en: 'One lesson, one habit. A sentence from a coach fixes it.', ar: 'درس واحد، عادة واحدة. جملة من المدرّب تكفي لإصلاحها.' },
+  moderate: { en: 'A routine that costs some learning every week, but has not replaced it.', ar: 'روتين يُكلّف شيئًا من التعلّم كل أسبوع، لكنه لم يحلّ محله.' },
+  high: { en: 'Working against learning for this class, now — and the teacher cannot see it.', ar: 'يعمل ضد التعلّم في هذا الصف، الآن — والمعلّم لا يراه.' },
+  lethal: { en: 'The practice kept its shape and lost its purpose. It looks fine, so it spreads.', ar: 'حفظت الممارسة شكلها وفقدت غايتها. تبدو سليمة، فتنتشر.' },
+};
+
 /** The four risk options are identical in every classroom — shared here. */
 export const RISK_OPTIONS: ChoiceOption[] = [
   { id: 'minor', label: { en: 'Minor — a small course correction', ar: 'طفيف — تصحيح بسيط للمسار' } },

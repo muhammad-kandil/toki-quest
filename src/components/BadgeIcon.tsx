@@ -62,6 +62,13 @@ export function BadgeIcon({
           <path d="M24 29c0-5-3-8-8-8 0 5 3 8 8 8z" fill="#fff" />
         </g>
       )}
+      {glyph === 'eye' && (
+        <g {...common}>
+          <path d="M12 24c4-7 8-10 12-10s8 3 12 10c-4 7-8 10-12 10s-8-3-12-10z" fill="#fff" />
+          <circle cx="24" cy="24" r="4" fill={stroke} />
+          <path d="M24 11v-3M24 40v-3" />
+        </g>
+      )}
       {glyph === 'crown' && (
         <g {...common}>
           <path d="M13 31l-1-14 7 6 5-9 5 9 7-6-1 14z" fill="#fff" />

@@ -12,7 +12,7 @@ export interface BadgeDefinition {
   name: Text;
   description: Text;
   /** Which SVG glyph to draw (see BadgeIcon). */
-  glyph: 'magnifier' | 'cap' | 'shield' | 'dna' | 'brain' | 'sprout' | 'crown';
+  glyph: 'magnifier' | 'cap' | 'shield' | 'dna' | 'brain' | 'sprout' | 'crown' | 'eye';
   color: string;
   /** How it is earned — shown when locked. */
   howToEarn: Text;
@@ -68,12 +68,20 @@ export const BADGES: BadgeDefinition[] = [
     howToEarn: t('World 6: a clean first-try run in a differentiation classroom', 'العالم ٦: جولة نظيفة من المحاولة الأولى في صف التمايز'),
   },
   {
+    id: 'clear-eyes',
+    name: t('Clear Eyes', 'عين صافية'),
+    description: t('You looked past a flawless room and found the one thing that was not learning.', 'نظرت إلى ما وراء صفٍّ بلا عيب ووجدت الشيء الوحيد الذي لم يكن تعلّمًا.'),
+    glyph: 'eye',
+    color: '#5B8DEF',
+    howToEarn: t('The Perfect Classroom with a clean run', 'الصف المثالي بجولة نظيفة'),
+  },
+  {
     id: 'master-dlis',
     name: t('Master DLIS', 'خبير DLIS'),
     description: t('You see the whole school — and know where one coach changes the most.', 'ترى المدرسة كلها — وتعرف أين يغيّر مدرّب واحد أكثر ما يمكن.'),
     glyph: 'crown',
     color: '#FCB644',
-    howToEarn: t('The Perfect Classroom, or the whole School Visit, with a clean run', 'الصف المثالي، أو زيارة المدرسة كاملة، بجولة نظيفة'),
+    howToEarn: t('The whole School Visit with a clean run', 'زيارة المدرسة كاملة بجولة نظيفة'),
   },
 ];
 

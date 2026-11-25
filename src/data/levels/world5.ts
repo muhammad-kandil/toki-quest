@@ -116,7 +116,7 @@ const CONVO_54: ConversationDefinition = {
       teacherLine: t('You were timing me. Go on, then. The answers come fast because they know the material. That is the point of teaching it well.', 'كنت توقّتني. تفضّل إذًا. الإجابات تأتي سريعًا لأنهم يعرفون المادة. هذا هو الهدف من تدريسها جيدًا.'),
       options: [
         { id: 'a', effect: 'opens', label: t('They do know it — the answers were right every time. I was timing the hands, not the answers. Nine went up after the name was called. Who were they?', 'يعرفونها فعلًا — كانت الإجابات صحيحة في كل مرة. كنت أوقّت الأيدي، لا الإجابات. تسع أيدٍ ارتفعت بعد أن نودي الاسم. مَن كانوا؟'), reply: t('Nine. …The middle rows, probably. Latifa. She is always a second behind.', 'تسع. …الصفوف الوسطى، على الأرجح. لطيفة. دائمًا متأخرة بثانية.') },
-        { id: 'b', effect: 'neutral', label: t('I was — and the room is sharp. The observers were right about the questioning.', 'كنت أوقّت — والصف حاد. كان المراقبون على حق بشأن طرح الأسئلة.'), reply: t('Two of them. Both wrote excellent. You can add a third if you like.', 'اثنان منهم. كلاهما كتب ممتاز. تستطيع إضافة ثالث إن شئت.') },
+        { id: 'b', effect: 'neutral', label: t('I was — and the room is sharp. The observers were right about the questioning.', 'كنت أوقّت — والصف حاد. كان الملاحِظون على حق بشأن طرح الأسئلة.'), reply: t('Two of them. Both wrote excellent. You can add a third if you like.', 'اثنان منهم. كلاهما كتب ممتاز. تستطيع إضافة ثالث إن شئت.') },
         { id: 'c', effect: 'closes', label: t('0.8 seconds from question to name. That is not questioning, it is a reflex test for the four fastest hands.', '٠٫٨ ثانية من السؤال إلى الاسم. هذا ليس طرح أسئلة، بل اختبار ردود فعل لأسرع أربع أيدٍ.'), reply: t('A reflex test. Twelve years. Write that down for the file with the other two.', 'اختبار ردود فعل. اثنا عشر عامًا. اكتب ذلك في الملف مع الاثنين الآخرين.') },
       ],
     },
@@ -414,7 +414,7 @@ export const LEVEL_54: LevelDefinition = {
         { id: 'r1', label: t('Three seconds is long enough for the deeper answer to form and short enough to keep', 'ثلاث ثوانٍ تكفي لتتشكّل الإجابة الأعمق وتقصر بما يكفي للاستمرار') },
         { id: 'r2', label: t('A question only does its job if it reaches the whole class before anyone answers it', 'لا يؤدي السؤال وظيفته إلا إذا وصل إلى الصف كله قبل أن يجيب عنه أحد') },
         { id: 'r3', label: t('After a pause, the first hand is no longer always the same four', 'بعد التوقف، لا تعود اليد الأولى دائمًا للأربعة أنفسهم') },
-        { id: 'r4', label: t('A habit the teacher counts on his fingers survives an observer leaving the room', 'عادة يعدّها المعلّم على أصابعه تصمد بعد مغادرة المراقب الغرفة') },
+        { id: 'r4', label: t('A habit the teacher counts on his fingers survives an observer leaving the room', 'عادة يعدّها المعلّم على أصابعه تصمد بعد مغادرة الملاحِظ الغرفة') },
       ],
       correctId: 'r2',
       hint: t('Nine hands on their way up, one name already called. Who was the question actually for?', 'تسع أيدٍ في طريقها إلى الارتفاع، واسم واحد نودي بالفعل. لمن كان السؤال في الحقيقة؟'),

@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { LeaveRoom } from './components/LeaveRoom';
 import { bootstrapTelegram } from './telegram/bootstrap';
 import { loadJSON, saveJSON, deleteValue } from './telegram/storage';
 import { reportProgress } from './telegram/progress';
@@ -43,6 +44,15 @@ const DEFAULT_SAVE: SaveData = {
 };
 
 type Screen = 'loading' | 'title' | 'map' | 'world' | 'classroom' | 'boss' | 'worldboss' | 'academy' | 'visit' | 'skins' | 'badges';
+
+const IN_ROOM: Screen[] = ['classroom', 'boss', 'worldboss', 'academy', 'visit'];
+/** Where the hardware / browser Back button goes from each screen.
+ *  'return' = wherever the overlay was opened from. Playtest finding:
+ *  Back used to leave the app entirely (about:blank). */
+const BACK_TARGET: Partial<Record<Screen, Screen | 'return'>> = {
+  map: 'title', world: 'map', skins: 'return', badges: 'return',
+  classroom: 'world', boss: 'world', worldboss: 'world', academy: 'world', visit: 'world',
+};
 
 function App() {
   const [screen, setScreen] = useState<Screen>('loading');
@@ -103,6 +113,32 @@ function App() {
       return next;
     });
   }, []);
+
+  // History integration: every screen past the title pushes one entry, so
+  // Back pops to the parent screen instead of out of the app. Telegram's
+  // own BackButton (when present) is wired to the same handler.
+  const screenRef = useRef<Screen>(screen);
+  const returnToRef = useRef<Screen>(returnTo);
+  screenRef.current = screen;
+  returnToRef.current = returnTo;
+  const goBack = useCallback(() => {
+    const target = BACK_TARGET[screenRef.current];
+    if (!target) return false;
+    setScreen(target === 'return' ? returnToRef.current : target);
+    return true;
+  }, []);
+  useEffect(() => {
+    if (screen === 'loading' || screen === 'title') return;
+    try { window.history.pushState({ toki: screen }, ''); } catch { /* ignore */ }
+  }, [screen]);
+  useEffect(() => {
+    const onPop = () => { goBack(); };
+    window.addEventListener('popstate', onPop);
+    const tgBack = (window as unknown as { Telegram?: { WebApp?: { BackButton?: { onClick: (f: () => void) => void; offClick: (f: () => void) => void } } } }).Telegram?.WebApp?.BackButton;
+    const onTg = () => { goBack(); };
+    tgBack?.onClick(onTg);
+    return () => { window.removeEventListener('popstate', onPop); tgBack?.offClick(onTg); };
+  }, [goBack]);
 
   const go = (s: Screen, from?: Screen) => {
     if (from) setReturnTo(from);
@@ -230,6 +266,7 @@ function App() {
   return (
     <LocaleProvider lang={lang} onChange={setLang}>
       {content}
+      {IN_ROOM.includes(screen) && <LeaveRoom onLeave={() => setScreen('world')} />}
     </LocaleProvider>
   );
 }

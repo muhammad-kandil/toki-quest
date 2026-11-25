@@ -88,7 +88,7 @@ export function ConversationBeat({ conversation, onDone }: {
       <div className="convo__read">
         <img src={tokiFace} alt="" className="convo__read-toki" />
         <div>
-          <p className="convo__read-label">{tx(UI.tokiRead)} · <em>{tx(conversation.teacherName)}, {tx(STANCE_LABEL[conversation.stance])}</em></p>
+          <p className="convo__read-label">{tx(UI.tokiRead)} · <em>{tx(conversation.teacherName)}{tx({ en: ', ', ar: '، ' })}{tx(STANCE_LABEL[conversation.stance])}</em></p>
           <p className="convo__read-text">{tx(conversation.read)}</p>
         </div>
       </div>
@@ -97,7 +97,7 @@ export function ConversationBeat({ conversation, onDone }: {
         {transcript.map((line, i) => (
           <div key={i} className={`bubble bubble--${line.who} ${line.effect ? `bubble--${line.effect}` : ''}`} style={{ animationDelay: `${Math.min(i, 2) * 60}ms` }}>
             {line.who === 'teacher' && <span className="bubble__who">{tx(conversation.teacherName)}</span>}
-            {line.who === 'toki' && <span className="bubble__who">Toki</span>}
+            {line.who === 'toki' && <span className="bubble__who">{tx(UI.tokiName)}</span>}
             <p>{tx(line.text)}</p>
           </div>
         ))}
@@ -113,7 +113,7 @@ export function ConversationBeat({ conversation, onDone }: {
               </button>
             ))}
           </div>
-          <p className="convo__counter">{turnIdx + 1} / {total}</p>
+          <p className="convo__counter"><bdi dir="ltr">{turnIdx + 1} / {total}</bdi></p>
         </>
       ) : (
         <>

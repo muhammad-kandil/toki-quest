@@ -81,7 +81,7 @@ export const WORLD_5_BOSS: WorldBossDefinition = {
       { id: 'coach', label: t('Pair every teacher with a peer to observe each other for thinkers, not questions, this term', 'اقرن كل معلّم بزميل ليلاحظ كلٌّ منهما الآخر بحثًا عن المفكّرين لا الأسئلة، هذا الفصل') },
     ],
     correctId: 'rubric',
-    hint: t('Three of these change what teachers do. Only one changes what observers reward.', 'ثلاث من هذه تغيّر ما يفعله المعلّمون. واحدة فقط تغيّر ما يكافئه المراقبون.'),
+    hint: t('Three of these change what teachers do. Only one changes what observers reward.', 'ثلاث من هذه تغيّر ما يفعله المعلّمون. واحدة فقط تغيّر ما يكافئه الملاحِظون.'),
   },
   reveal: {
     whatDrifted: t(

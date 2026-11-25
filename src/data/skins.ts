@@ -80,7 +80,7 @@ export const SKINS: SkinDefinition[] = [
   },
   {
     id: 'headwrap-a',
-    label: t('Wrapped Up Toki', 'توكي بالعمامة'),
+    label: t('Wrapped Up Toki', 'توكي بالغترة والعقال'),
     image: skinHeadwrapA,
     unlock: 'badge',
     unlockDetail: t('Complete Level 5', 'أكمل المستوى ٥'),

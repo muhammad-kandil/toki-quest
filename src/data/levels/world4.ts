@@ -78,7 +78,7 @@ const CONVO_42: ConversationDefinition = {
 const CONVO_43: ConversationDefinition = {
   teacherName: t('Ms. Alya', 'الأستاذة علياء'),
   stance: 'tired',
-  setting: t('Sunday, first period. The marked essays are on her desk, and so is the next set, unmarked.', 'الأحد، الحصة الأولى. المقالات المصحَّحة على مكتبها، وبجانبها المجموعة التالية، غير مصحَّحة.'),
+  setting: t('Monday, first period. The marked essays are on her desk, and so is the next set, unmarked.', 'الاثنين، الحصة الأولى. المقالات المصحَّحة على مكتبها، وبجانبها المجموعة التالية، غير مصحَّحة.'),
   read: t('Eleven comments per essay, every weekend, for twenty-six students. She is not defending the practice; she is carrying it.', 'أحد عشر تعليقًا لكل مقال، كل عطلة، لستة وعشرين طالبًا. هي لا تدافع عن الممارسة؛ هي تحملها.'),
   turns: [
     {

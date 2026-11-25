@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { WorldBossDefinition } from '../data/worldBossTypes';
-import { RISK_META, RISK_OPTIONS } from '../data/levelTypes';
+import { RISK_META, RISK_DESC, RISK_OPTIONS, type RiskLevel } from '../data/levelTypes';
 import { getBadge } from '../data/badges';
 import type { LevelResult } from './LevelScreen';
 import { SceneHeader } from './SceneHeader';
@@ -187,7 +187,7 @@ export function WorldBossScreen({ boss, heldBadges, onComplete }: {
             <div className="boss__final-word"><p>{tx(boss.reveal.finalWord)}</p></div>
             <div className="score-summary">
               <div className="score-summary__row"><span>{tx({ en: 'Scenes read correctly', ar: 'مشاهد قُرئت بشكل صحيح' })}</span><span>{sceneFirstTry.filter(Boolean).length}/{boss.scenes.length}</span></div>
-              <div className="score-summary__row"><span>{tx({ en: 'Total', ar: 'المجموع' })}</span><span>+{r.score}</span></div>
+              <div className="score-summary__row"><span>{tx({ en: 'Total', ar: 'المجموع' })}</span><span><bdi dir="ltr">+{r.score}</bdi></span></div>
             </div>
             <FeedbackCard levelId={boss.id} outcome={r.outcome} attempts={r.attempts} />
             {newBadges.length > 0 && (
@@ -216,14 +216,15 @@ function ChoiceStep({ heading, prompt, options, wrong, hint, onPick }: {
     <div className="beat beat--choice">
       <h3 className="beat__heading">{heading}</h3>
       <p className="beat__prompt">{prompt}</p>
+      {wrong && <p className="beat__hint"><span className="hint-mark">?</span> {hint}</p>}
       <div className="choice-list">
         {options.map((o, i) => (
-          <button key={o.id} className={`choice-list__item ${wrong === o.id ? 'choice-list__item--wrong' : ''}`} style={{ animationDelay: `${i * 55}ms` }} onClick={() => onPick(o.id)}>
+          <button key={o.id} className={`choice-list__item ${wrong === o.id ? 'choice-list__item--wrong' : ''}`} style={{ animationDelay: `${i * 55}ms` }} onClick={() => onPick(o.id)} disabled={wrong === o.id}>
             {tx(o.label)}
+            {o.id in RISK_DESC && <small className="choice-list__desc">{tx(RISK_DESC[o.id as RiskLevel])}</small>}
           </button>
         ))}
       </div>
-      {wrong && <p className="beat__hint"><span className="hint-mark">?</span> {hint}</p>}
     </div>
   );
 }

@@ -601,3 +601,56 @@
   font-weight: 800;
   color: var(--toki-indigo);
 }
+
+/* ---------- Playtest wave 1 ---------- */
+/* Wrong picks stay marked and inert, so the player never has to remember
+   which doors are already closed. The shake plays once, on the pick. */
+.choice-list__item--wrong:disabled {
+  opacity: 0.72;
+  cursor: default;
+  animation: none;
+}
+.choice-list__item--wrong::after {
+  content: '✕';
+  position: absolute;
+  inset-inline-end: var(--space-3);
+  top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--risk-lethal);
+  opacity: 0.8;
+}
+/* The severity scale is defined under each option — before the first
+   call, not after the third miss. */
+.choice-list__desc {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--text-xs, 12px);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+.beat__scale-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: calc(-1 * var(--space-2)) 0 var(--space-3);
+  max-width: 380px;
+}
+/* The hint now sits above the options (it was below the fold at phone
+   height). The second-miss line is set apart. */
+.beat__hint { margin-bottom: var(--space-3); scroll-margin-top: 64px; }
+.hint-second {
+  display: block;
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px dashed rgba(0, 0, 0, 0.12);
+  color: var(--color-text-primary);
+}
+.reveal__theme { margin-top: calc(-1 * var(--space-2)); }
+.reveal__why-risk {
+  width: 100%;
+  max-width: 380px;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-3);
+}
+.reveal__why-risk strong { color: var(--color-text-primary); font-weight: 600; }

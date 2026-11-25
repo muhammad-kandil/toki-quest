@@ -30,8 +30,8 @@ export const UI = {
   chooseWorld: t('Choose where Toki visits next', 'اختر وجهة توكي التالية'),
   hintUnlockNext: t('Complete a classroom to unlock the next.', 'أكمل صفًا لفتح الصف التالي.'),
   hintBossReady: t(
-    'The Final Visit awaits. When you’re ready, enter The Perfect Classroom.',
-    'الزيارة الأخيرة بانتظارك. عند استعدادك، ادخل الصف المثالي.',
+    'The World Challenge awaits. When you’re ready, enter {title}.',
+    'تحدّي العالم بانتظارك. عند استعدادك، ادخل «{title}».',
   ),
   hintAllDone: t(
     'World complete. Revisit any classroom to sharpen your score.',
@@ -118,6 +118,12 @@ export const UI = {
   riskModerate: t('Moderate Drift', 'انحراف متوسط'),
   riskHigh: t('High Drift', 'انحراف كبير'),
   riskLethal: t('Lethal Mutation', 'تحوّر قاتل'),
+  riskScaleNote: t('Size the drift by what it is doing to learning — not by how it looks.', 'قِس الانحراف بما يفعله بالتعلّم — لا بمظهره.'),
+  riskSecondHint: t('Read the four definitions under the options once more. Which one describes what the evidence shows — no more, no less?', 'اقرأ التعريفات الأربعة تحت الخيارات مرة أخرى. أيّها يصف ما تُظهره الأدلة — لا أكثر ولا أقل؟'),
+  whyThisLevel: t('Why this level:', 'لماذا هذا المستوى:'),
+  tokiName: t('Toki', 'توكي'),
+  leaveRoom: t('Leave room', 'مغادرة الصف'),
+  leaveRoomConfirm: t('Tap again to leave — progress in this room is not kept', 'انقر مرة أخرى للمغادرة — لن يُحفظ تقدّمك في هذا الصف'),
 
   // ---- Boss ----
   beginAudit: t('Begin the Audit', 'ابدأ التدقيق'),

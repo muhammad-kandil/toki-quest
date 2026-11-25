@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { LevelDefinition, StepDefinition } from '../data/levelTypes';
-import { RISK_META, type RiskLevel } from '../data/levelTypes';
+import { RISK_META, RISK_DESC, type RiskLevel } from '../data/levelTypes';
 import { getBadge } from '../data/badges';
 import tealHero from '../assets/raw/toki-face-teal-hero.png';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
@@ -77,7 +77,7 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
   const { tx } = useLocale();
   const [beat, setBeat] = useState<Beat>('observe');
   const [outcomes, setOutcomes] = useState<Record<string, StepOutcome>>({});
-  const [selectedWrong, setSelectedWrong] = useState<string | null>(null);
+  const [wrongIds, setWrongIds] = useState<string[]>([]);
   const [selectedRight, setSelectedRight] = useState<string | null>(null);
   const [reaction, setReaction] = useState<ReactionKind>(null);
   const [reactionTrigger, setReactionTrigger] = useState(0);
@@ -94,7 +94,7 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
   const beatIndex = visibleBeats.indexOf(beat);
 
   const advance = () => {
-    setSelectedWrong(null);
+    setWrongIds([]);
     setSelectedRight(null);
     setReaction(null);
     const next = visibleBeats[beatIndex + 1];
@@ -125,13 +125,12 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
     const delay = riskLevel >= 0 ? 160 : 0;
     if (riskLevel >= 0) sfx.play('risk', { level: riskLevel });
     if (correct) {
-      setSelectedWrong(null);
       setSelectedRight(choiceId);
       setTimeout(() => sfx.play('correct'), delay);
       fireReaction('affirming');
       setTimeout(advance, 500 + delay);
     } else {
-      setSelectedWrong(choiceId);
+      setWrongIds((w) => (w.includes(choiceId) ? w : [...w, choiceId]));
       setTimeout(() => sfx.play('lookAgain'), delay);
       fireReaction('thoughtful');
     }
@@ -175,19 +174,19 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
       {beat === 'observe' && <ObserveBeat level={level} onContinue={() => { sfx.play('tap'); advance(); }} />}
 
       {beat === 'drift' && (
-        <ChoiceBeat heading={tx(UI.identifyDrift)} step={level.steps.identifyDrift} selectedWrong={selectedWrong} selectedRight={selectedRight}
+        <ChoiceBeat heading={tx(UI.identifyDrift)} step={level.steps.identifyDrift} wrongIds={wrongIds} selectedRight={selectedRight}
           onChoose={(id) => handleChoice('drift', level.steps.identifyDrift, id)} recap={level.evidence} />
       )}
       {beat === 'risk' && (
-        <ChoiceBeat heading={tx(UI.assessRisk)} step={level.steps.assessRisk} selectedWrong={selectedWrong} selectedRight={selectedRight}
+        <ChoiceBeat heading={tx(UI.assessRisk)} step={level.steps.assessRisk} wrongIds={wrongIds} selectedRight={selectedRight}
           onChoose={(id) => handleChoice('risk', level.steps.assessRisk, id)} recap={level.evidence} />
       )}
       {beat === 'coaching' && (
-        <ChoiceBeat heading={tx(UI.chooseCoaching)} step={level.steps.chooseCoaching} selectedWrong={selectedWrong} selectedRight={selectedRight}
+        <ChoiceBeat heading={tx(UI.chooseCoaching)} step={level.steps.chooseCoaching} wrongIds={wrongIds} selectedRight={selectedRight}
           onChoose={(id) => handleChoice('coaching', level.steps.chooseCoaching, id)} recap={level.evidence} />
       )}
       {beat === 'reasoning' && level.steps.reasoning && (
-        <ChoiceBeat heading={tx(hasConversation ? UI.whyThisMove : UI.whyBonus)} step={level.steps.reasoning} selectedWrong={selectedWrong} selectedRight={selectedRight}
+        <ChoiceBeat heading={tx(hasConversation ? UI.whyThisMove : UI.whyBonus)} step={level.steps.reasoning} wrongIds={wrongIds} selectedRight={selectedRight}
           onChoose={(id) => handleChoice('reasoning', level.steps.reasoning!, id)} skippable onSkip={() => { sfx.play('tap'); advance(); }} recap={level.evidence} />
       )}
       {beat === 'conversation' && level.conversation && (
@@ -232,7 +231,7 @@ function LevelProgress({ current, total, beats }: { current: number; total: numb
  * only once all have been examined does Toki have "seen enough" to
  * make a call. Reading becomes looking.
  */
-export type ObservableScene = Pick<LevelDefinition, 'title' | 'theme' | 'scenario' | 'sceneImage' | 'evidence'>;
+export type ObservableScene = Pick<LevelDefinition, 'title' | 'theme' | 'scenario' | 'sceneImage' | 'evidence'> & { subject?: LevelDefinition['subject'] };
 
 export function ObserveBeat({ level, onContinue, ctaLabel }: { level: ObservableScene; onContinue: () => void; ctaLabel?: string }) {
   const { tx } = useLocale();
@@ -267,7 +266,7 @@ export function ObserveBeat({ level, onContinue, ctaLabel }: { level: Observable
       ) : (
         <img src={tealHero} alt="" className="beat__toki-avatar" />
       )}
-      <p className="beat__eyebrow">{tx(level.theme)}</p>
+      {level.subject && <p className="beat__eyebrow">{tx(level.subject)}</p>}
       <h2 className="beat__title">{tx(level.title)}</h2>
       <p className="beat__scenario">{tx(level.scenario)}</p>
 
@@ -298,7 +297,7 @@ export function ObserveBeat({ level, onContinue, ctaLabel }: { level: Observable
 interface ChoiceBeatProps {
   heading: string;
   step: StepDefinition;
-  selectedWrong: string | null;
+  wrongIds: string[];
   selectedRight?: string | null;
   onChoose: (id: string) => void;
   skippable?: boolean;
@@ -306,35 +305,50 @@ interface ChoiceBeatProps {
   recap?: LevelDefinition['evidence'];
 }
 
-function ChoiceBeat({ heading, step, selectedWrong, selectedRight, onChoose, skippable, onSkip, recap }: ChoiceBeatProps) {
+function ChoiceBeat({ heading, step, wrongIds, selectedRight, onChoose, skippable, onSkip, recap }: ChoiceBeatProps) {
   const { tx } = useLocale();
   // After a miss, the notebook opens itself and points at the clue the
   // hint is about — the hint is a question, the evidence is the answer.
-  const missed = !!selectedWrong;
+  // Every wrong pick stays marked, so the player is never asked to
+  // remember which doors are already closed. The hint sits above the
+  // options so it is on screen at phone height.
+  const missed = wrongIds.length > 0;
   const hintSpot = missed && step.hintSpotId ? recap?.find((s) => s.id === step.hintSpotId) ?? null : null;
+  const isRisk = step.options.some((o) => o.id === 'lethal') && step.options.length === 4;
+  const hintRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (missed) hintRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }, [wrongIds.length, missed]);
   return (
     <div className="beat beat--choice">
       <h3 className="beat__heading">{heading}</h3>
       <p className="beat__prompt">{tx(step.prompt)}</p>
+      {isRisk && <p className="beat__scale-note">{tx(UI.riskScaleNote)}</p>}
       <EvidenceRecap spots={recap} open={missed} highlightId={hintSpot?.id ?? null} />
-      <div className="choice-list">
-        {step.options.map((opt, i) => (
-          <button
-            key={opt.id}
-            className={`choice-list__item ${selectedWrong === opt.id ? 'choice-list__item--wrong' : ''} ${selectedRight === opt.id ? 'choice-list__item--right' : ''}`}
-            style={{ animationDelay: `${i * 55}ms` }}
-            onClick={() => onChoose(opt.id)}
-          >
-            {tx(opt.label)}
-          </button>
-        ))}
-      </div>
-      {selectedWrong && (
-        <p className="beat__hint">
+      {missed && (
+        <p className="beat__hint" ref={hintRef}>
           <span className="hint-mark">?</span> {tx(step.hint)}
           {hintSpot && <span className="hint-spot">→ {tx(hintSpot.label)}</span>}
+          {isRisk && wrongIds.length >= 2 && <span className="hint-second">{tx(UI.riskSecondHint)}</span>}
         </p>
       )}
+      <div className="choice-list">
+        {step.options.map((opt, i) => {
+          const desc = isRisk ? RISK_DESC[opt.id as RiskLevel] : null;
+          return (
+            <button
+              key={opt.id}
+              className={`choice-list__item ${wrongIds.includes(opt.id) ? 'choice-list__item--wrong' : ''} ${selectedRight === opt.id ? 'choice-list__item--right' : ''}`}
+              style={{ animationDelay: `${i * 55}ms` }}
+              onClick={() => onChoose(opt.id)}
+              disabled={wrongIds.includes(opt.id)}
+            >
+              {tx(opt.label)}
+              {desc && <small className="choice-list__desc">{tx(desc)}</small>}
+            </button>
+          );
+        })}
+      </div>
       {skippable && (
         <button className="beat__skip" onClick={onSkip}>{tx(UI.skipBonus)}</button>
       )}
@@ -370,6 +384,8 @@ function RevealBeat({ level, outcomes, result, heldBadges, outcome, onFinish }: 
       <img src={revealFace(outcome)} alt="" className="reveal__celebrate-toki" />
       <span className="reveal__risk-badge" style={{ background: riskMeta.color }}>{tx(riskMeta.label)}</span>
       <h3 className="beat__heading">{tx(UI.revealHeading)}</h3>
+      <p className="beat__eyebrow reveal__theme">{tx(level.theme)}</p>
+      <p className="reveal__why-risk"><strong>{tx(UI.whyThisLevel)}</strong> {tx(RISK_DESC[riskId])}</p>
 
       <RevealBlock label={UI.whatDrifted} text={level.reveal.whatDrifted} />
       <RevealBlock label={UI.whyItHappened} text={level.reveal.whyItHappened} />
@@ -445,7 +461,7 @@ function ScoreSummary({ level, outcomes, outcome }: { level: LevelDefinition; ou
               {tx(row.label)}
               <em className="score-summary__attempt">({label})</em>
             </span>
-            <span>+{earned}</span>
+            <span><bdi dir="ltr">+{earned}</bdi></span>
           </div>
         );
       })}
@@ -456,7 +472,7 @@ function ScoreSummary({ level, outcomes, outcome }: { level: LevelDefinition; ou
             {tx(UI.conversationRow)}
             <em className="score-summary__attempt">({outcome ? tx(OUTCOME_LABEL[outcome]) : '—'})</em>
           </span>
-          <span>+{Math.round(level.points.restore * convoCredit)}</span>
+          <span><bdi dir="ltr">+{Math.round(level.points.restore * convoCredit)}</bdi></span>
         </div>
       )}
       <div className="score-summary__row score-summary__row--total">

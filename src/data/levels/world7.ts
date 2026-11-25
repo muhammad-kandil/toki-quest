@@ -131,7 +131,7 @@ export const LEVEL_72: AcademyLevelDefinition = {
   conversation: CONVO_72,
   reveal: {
     verdict: t('No findings. The hardest diagnosis to file — and the one that earns a teacher’s trust for the next five visits.', 'لا نتائج. أصعب تشخيص يُسجَّل — وهو ما يكسب ثقة المعلّمة للزيارات الخمس التالية.'),
-    whatDrifted: t('Nothing in the classroom. What drifted was the observer: a rubric that mistakes visible activity for learning, and quiet for its absence.', 'لا شيء في الصف. ما انحرف هو المراقب: سلّم تقدير يخلط بين النشاط المرئي والتعلّم، وبين الهدوء وغيابه.'),
+    whatDrifted: t('Nothing in the classroom. What drifted was the observer: a rubric that mistakes visible activity for learning, and quiet for its absence.', 'لا شيء في الصف. ما انحرف هو الملاحِظ: سلّم تقدير يخلط بين النشاط المرئي والتعلّم، وبين الهدوء وغيابه.'),
     whyItHappened: t('Engagement is easy to see and thinking is not. Lists of "look-fors" slowly turn into lists of "must-haves".', 'التفاعل سهل الرؤية والتفكير ليس كذلك. قوائم «ما نبحث عنه» تتحوّل ببطء إلى قوائم «ما يجب أن يكون».'),
     howToRestore: t('Judge lessons by what every student did with their mind, not by what the room did with its furniture. Then tell the teacher exactly what to keep.', 'احكم على الدروس بما فعله كل طالب بعقله، لا بما فعلته الغرفة بأثاثها. ثم أخبر المعلّمة تحديدًا بما تحتفظ به.'),
   },
@@ -192,7 +192,7 @@ export const LEVEL_73: AcademyLevelDefinition = {
   reveal: {
     verdict: t('Three findings, two healthy practices protected, one priority chosen. That is a diagnosis, not a list.', 'ثلاث نتائج، ممارستان سليمتان محميّتان، أولوية واحدة مختارة. هذا تشخيص، لا قائمة.'),
     whatDrifted: t('The lesson was built to be watched. Questioning became performance, the platform became a prize, and the exit ticket asked about feelings because feelings are always good news.', 'بُني الدرس ليُشاهَد. أصبحت الأسئلة أداءً، والمنصة جائزة، وسألت بطاقة الخروج عن المشاعر لأن المشاعر دائمًا خبر جيد.'),
-    whyItHappened: t('Announced observations reward what observers can see in forty minutes. A talented, nervous teacher optimised for exactly that.', 'تكافئ الملاحظات المُعلنة ما يستطيع المراقبون رؤيته في أربعين دقيقة. معلّمة موهوبة ومتوترة حسّنت لذلك تحديدًا.'),
+    whyItHappened: t('Announced observations reward what observers can see in forty minutes. A talented, nervous teacher optimised for exactly that.', 'تكافئ الملاحظات المُعلنة ما يستطيع الملاحِظون رؤيته في أربعين دقيقة. معلّمة موهوبة ومتوترة حسّنت لذلك تحديدًا.'),
     howToRestore: t('One change at a time, starting where the thinking is: no hands, every student answers, cold call from the whiteboards. Keep the two-task differentiation exactly as it is.', 'تغيير واحد في كل مرة، بدءًا من حيث التفكير: لا أيدٍ، كل طالب يجيب، نداء بالاسم من السبورات. احتفظ بتمايز المهمتين كما هو تمامًا.'),
   },
   points: POINTS,
