@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Term certificate</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.phone { background: var(--t-indigo-deep); background-image: radial-gradient(ellipse at 50% 30%, #4b379a 0%, #2b1f5c 55%, #1b1538 100%); }
+.glow { position: absolute; left: 50%; top: 40px; width: 420px; height: 420px; margin-left: -210px; border-radius: 50%; background: radial-gradient(circle, rgba(242, 181, 58, 0.28) 0%, rgba(242, 181, 58, 0) 65%); }
+.bar { position: relative; z-index: 2; height: 44px; margin: calc(10px + var(--t-safe-top)) var(--t-gutter) 0; text-align: center; }
+.bar .t-btn--icon { position: absolute; left: 0; top: 0; }
+.bar h1 { color: #fff; font-size: var(--t-fs-md); line-height: 44px; }
+.cert { position: relative; z-index: 2; margin: 28px 20px 0; }
+.cert .t-eyebrow { color: var(--t-orange-deep); }
+.cert h2 { margin-top: 2px; font-size: var(--t-fs-lg); color: var(--t-ink); }
+.cert .to { margin-top: 10px; font-size: var(--t-fs-xs); color: var(--t-muted); }
+.cert .for { font-size: var(--t-fs-sm); color: var(--t-ink); line-height: 1.4; }
+.t-certificate__list { margin-top: 12px; }
+.t-certificate__list li { position: relative; padding-left: 30px; }
+.t-certificate__list li i { position: absolute; left: 0; top: 8px; width: 22px; height: 22px; border-radius: 6px; font-style: normal; text-align: center; line-height: 22px; font-size: 12px; font-weight: 800; }
+.sig { margin-top: 12px; font-size: var(--t-fs-2xs); color: var(--t-muted); }
+.sig b { display: block; font-family: var(--t-display); font-size: var(--t-fs-sm); color: var(--t-indigo); }
+.actions { position: absolute; z-index: 2; left: var(--t-gutter); right: var(--t-gutter); bottom: calc(16px + var(--t-safe-bottom)); }
+.actions .t-btn--ghost { margin-top: 10px; }
+.honest { margin-top: 8px; text-align: center; font-size: var(--t-fs-2xs); color: var(--t-on-dark-muted); }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="glow"></div>
+  <div class="bar"><button class="t-btn t-btn--icon" aria-label="Back">&#8592;</button><h1>Term 1 complete</h1></div>
+
+  <div class="t-certificate cert t-reveal">
+    <span class="t-certificate__seal">&#9733;</span>
+    <div class="t-eyebrow">Ms. Mariam's School · Term 1</div>
+    <h2>Certificate of classroom practice</h2>
+    <div class="to">presented to</div>
+    <div class="t-certificate__name">Ms. Mariam</div>
+    <div class="t-certificate__rule"></div>
+    <div class="for">for 12 lessons with Grade 4 and Grade 5, where every student got a next step.</div>
+    <ul class="t-certificate__list">
+      <li><i style="background:var(--t-teal-soft);color:var(--t-teal-deep)">&#10003;</i><b>Students who moved up:</b> 14 of 18, including Sara and Omar</li>
+      <li><i style="background:var(--t-indigo-soft);color:var(--t-indigo)">&#9670;</i><b>Alef resources you tried:</b> 8 (Exit ticket, Team roles, Worked example…)</li>
+      <li><i style="background:var(--t-orange-soft);color:var(--t-orange-deep)">&#9998;</i><b>Your go-to move:</b> Support first, then Teams</li>
+      <li><i style="background:var(--t-blue-soft);color:var(--t-blue-deep)">&#9733;</i><b>Badges:</b> Reads the room · Every voice in</li>
+    </ul>
+    <div class="sig"><b>Pedagogy Hub</b>Alef Education · 26 Nov 2026</div>
+  </div>
+
+  <div class="actions">
+    <button class="t-btn t-btn--block">Share with the community</button>
+    <button class="t-btn t-btn--ghost t-btn--block t-btn--on-dark">Save as image</button>
+    <div class="honest">A record of your practice in the game, not an official qualification.</div>
+  </div>
+</div>
+</body>
+</html>

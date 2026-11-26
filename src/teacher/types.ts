@@ -55,6 +55,8 @@ export interface Student {
   idle: Text;
   /** Optional: a closer look that sets a flag (e.g. looking at Sara's page). */
   peek?: { text: Text; setFlag: string };
+  /** Home context, shown by the "Parent call" power-up before the lesson. */
+  homeNote?: Text;
 }
 
 /** A tappable object in the scene (tablets, board, lesson plan…). */
@@ -164,7 +166,8 @@ export type LocationKind =
   | 'library'     // the notebook: past lessons, paths, students
   | 'community'   // Alef Telegram community
   | 'office'      // principal: story beats, next adventure briefings
-  | 'yard';       // ambient; short optional moments
+  | 'yard'        // ambient; short optional moments
+  | 'shop';       // school store: spend Thank-you notes on outfits, accessories, power-ups
 
 export interface Location {
   id: string;
@@ -200,4 +203,12 @@ export interface TeacherSave {
   lang?: 'en' | 'ar';
   /** Term Pass: stage reached and reward ids claimed. Free for everyone; no paid lane. */
   pass?: { stage: number; claimed: string[]; sharedFor: string[]; replayedFor: string[] };
+  /** Thank-you notes: earned only from the Term Pass; spent in the shop. Never bought with money. */
+  notes?: number;
+  /** Shop item ids owned (outfits, accessories). */
+  owned?: string[];
+  /** Placed accessories by slot (e.g. 'classroom-wall' → item id). */
+  placed?: Record<string, string>;
+  /** Owned power-up counts by id. */
+  powerups?: Record<string, number>;
 }

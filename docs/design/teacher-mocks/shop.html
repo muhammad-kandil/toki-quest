@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Campus Shop</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.phone { background: var(--t-bg); }
+.bar { position: relative; height: 44px; margin: calc(10px + var(--t-safe-top)) var(--t-gutter) 0; }
+.bar .t-btn--icon { position: absolute; left: 0; top: 0; }
+.bar h1 { position: absolute; left: 56px; top: 0; font-size: var(--t-fs-xl); line-height: 44px; }
+.bar .t-notes-chip { position: absolute; right: 0; top: 6px; }
+.intro { margin: 6px var(--t-gutter) 0; font-size: var(--t-fs-xs); color: var(--t-muted); line-height: 1.4; }
+.t-shop-tabs { margin: 10px var(--t-gutter) 0; }
+.t-shop-grid { margin: 12px var(--t-gutter) 0; }
+.t-shop-card__art img { position: absolute; left: 50%; bottom: 6px; height: 88px; margin-left: -40px; }
+.short { display: block; margin-top: 3px; font-size: var(--t-fs-2xs); color: var(--t-muted); text-align: center; line-height: 1.2; }
+.t-shop-buy--short { height: 36px; line-height: 36px; }
+.flying { left: 50%; top: 12px; margin-left: 4px; }
+/* mock only: freeze the hand-over mid-flight so the screenshot shows it */
+.flying { -webkit-animation: none; animation: none; opacity: .9; -webkit-transform: rotate(10deg) scale(.8); transform: rotate(10deg) scale(.8); }
+.done { position: absolute; z-index: var(--t-z-sheet); left: 0; right: 0; bottom: 0; padding: 12px var(--t-gutter) calc(16px + var(--t-safe-bottom)); background: var(--t-panel); border-top-left-radius: var(--t-r-xl); border-top-right-radius: var(--t-r-xl); box-shadow: 0 -8px 30px rgba(35,27,69,.2); }
+.done .t-sheet__grip { margin-bottom: 8px; }
+.done .who { position: relative; padding-left: 64px; min-height: 52px; }
+.done .who .thumb { position: absolute; left: 0; top: 0; width: 52px; height: 52px; border-radius: var(--t-r-sm); background: var(--t-lane-classroom-soft); text-align: center; line-height: 52px; font-size: 26px; color: var(--t-orange-deep); font-family: var(--t-display); font-weight: 800; }
+.done h3 { font-size: var(--t-fs-md); color: var(--t-ink); }
+.done p { margin: 0; font-size: var(--t-fs-sm); color: var(--t-muted); line-height: 1.35; }
+.done .btns { margin-top: 12px; }
+.done .btns .t-btn { width: 63%; }
+.done .btns .t-btn--ghost { width: 33%; margin-left: 4%; }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="bar"><button class="t-btn t-btn--icon" aria-label="Back">&#8592;</button><h1>Campus Shop</h1><span class="t-notes-chip t-notes-chip--gain" aria-label="2 thank-you notes left"><span class="t-notes-icon"></span>2</span></div>
+  <p class="intro">Thank-you notes come from your Term Pass. Lessons, story chapters and Alef resources are never for sale.</p>
+
+  <div class="t-shop-tabs" role="tablist">
+    <button class="t-shop-tab" role="tab">Outfits</button>
+    <button class="t-shop-tab is-on" role="tab" aria-selected="true">Accessories</button>
+    <button class="t-shop-tab" role="tab">Power-ups</button>
+  </div>
+
+  <div class="t-shop-grid">
+    <div class="t-shop-card t-shop-card--owned t-shop-card--inuse">
+      <div class="t-shop-card__art">&#9638;<span class="t-shop-card__tag">Term Pass</span></div>
+      <div class="t-shop-card__body"><span class="t-shop-card__name">Reading-corner rug</span><button class="t-shop-buy t-shop-buy--inuse">In your room</button></div>
+    </div>
+    <div class="t-shop-card t-shop-card--owned">
+      <div class="t-shop-card__art">&#10047;</div>
+      <div class="t-shop-card__body"><span class="t-shop-card__name">Window plant shelf</span><button class="t-shop-buy t-shop-buy--use">Use</button></div>
+    </div>
+    <div class="t-shop-card">
+      <div class="t-shop-card__art">&#9788;<span class="t-shop-stamp">Yours!</span><span class="t-shop-note-fly flying"><span class="t-notes-icon t-notes-icon--lg"></span></span></div>
+      <div class="t-shop-card__body"><span class="t-shop-card__name">Reading lamp</span><button class="t-shop-buy t-shop-buy--inuse">Bought</button></div>
+    </div>
+    <div class="t-shop-card">
+      <div class="t-shop-card__art">&#9641;<span class="t-shop-card__tag">New</span></div>
+      <div class="t-shop-card__body"><span class="t-shop-card__name">Student gallery wall</span><button class="t-shop-buy"><span class="t-notes-icon"></span>2</button></div>
+    </div>
+  </div>
+
+  <div class="done">
+    <div class="t-sheet__grip"></div>
+    <div class="who"><span class="thumb">&#9788;</span><h3>The reading lamp is yours</h3><p>You gave 2 thank-you notes. Where should it go?</p></div>
+    <div class="btns"><button class="t-btn">Place it in my room</button><button class="t-btn t-btn--ghost">Later</button></div>
+  </div>
+</div>
+</body>
+</html>
