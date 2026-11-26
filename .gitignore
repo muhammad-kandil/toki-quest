@@ -4,3 +4,4 @@ dist
 *.log
 .claude/
 tools/audio/out/
+__pycache__/
