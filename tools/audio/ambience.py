@@ -121,7 +121,16 @@ with tempfile.TemporaryDirectory() as tmp:
     for name, bed in BEDS.items():
         oneshot = bed.get('kind') == 'oneshot'
         cands, seen = [], set()
-        for q in bed['queries']:
+        if bed.get('pick'):
+            sid = bed['pick']
+            html = get(f'https://freesound.org/s/{sid}/')
+            pm = re.search(r'previews/(\d+)/%s_(\d+)-(?:lq|hq)\.mp3' % sid, html)
+            um = re.search(r'/people/([^/"]+)/sounds/%s/' % sid, html)
+            if pm and um:
+                cands.append((sid, urllib.parse.unquote(um.group(1)), f'https://cdn.freesound.org/previews/{pm.group(1)}/{sid}_{pm.group(2)}-hq.mp3', 'pinned'))
+            else:
+                print('  !! pinned sound not found', sid)
+        for q in ([] if cands else bed['queries']):
             try:
                 for sid, user, prev in search(q):
                     if sid in seen: continue

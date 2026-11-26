@@ -1,61 +1,231 @@
 {
-  "_doc": "Room recordings. Each bed: Freesound CC0 queries, AudioSet labels it should score high on (want) and must not (avoid). The classifier (MIT/ast-finetuned-audioset) picks the best candidate; the result is cut to a seamless loop. kind=oneshot is played once, not looped.",
+  "_doc": "Room recordings. Each bed: Freesound CC0 queries, AudioSet labels it should score high on (want) and must not (avoid). The classifier (MIT/ast-finetuned-audioset) picks the best candidate; the result is cut to a seamless loop. kind=oneshot is played once, not looped. pick = a Freesound id chosen after reviewing the classifier report; it overrides the search.",
   "class-lively": {
     "desc": "students talking in groups, energetic, the Talkative / busy rooms",
-    "queries": ["classroom children talking", "classroom noise students", "students group work", "school classroom ambience kids", "classroom chatter"],
-    "want": ["Hubbub, speech noise, speech babble", "Child speech, kid speaking", "Children shouting", "Chatter", "Children playing", "Inside, large room or hall", "Inside, small room"],
-    "avoid": ["Music", "Musical instrument", "Vehicle", "Rain", "Wind", "Bird", "Singing", "Television", "Radio"],
-    "loop": 45, "lufs": -24
+    "queries": [
+      "classroom children talking",
+      "classroom noise students",
+      "students group work",
+      "school classroom ambience kids",
+      "classroom chatter"
+    ],
+    "want": [
+      "Hubbub, speech noise, speech babble",
+      "Child speech, kid speaking",
+      "Children shouting",
+      "Chatter",
+      "Children playing",
+      "Inside, large room or hall",
+      "Inside, small room"
+    ],
+    "avoid": [
+      "Music",
+      "Musical instrument",
+      "Vehicle",
+      "Rain",
+      "Wind",
+      "Bird",
+      "Singing",
+      "Television",
+      "Radio"
+    ],
+    "loop": 45,
+    "lufs": -24,
+    "pick": "455779"
   },
   "class-working": {
     "desc": "a class at work: low murmur, pencils, the odd chair",
-    "queries": ["classroom ambience quiet students", "classroom murmur", "students working classroom", "classroom ambience writing", "school class room tone"],
-    "want": ["Inside, small room", "Child speech, kid speaking", "Hubbub, speech noise, speech babble", "Writing", "Speech", "Rustle"],
-    "avoid": ["Music", "Musical instrument", "Children shouting", "Vehicle", "Rain", "Bird", "Television", "Screaming"],
-    "loop": 45, "lufs": -27
+    "queries": [
+      "classroom ambience quiet students",
+      "classroom murmur",
+      "students working classroom",
+      "classroom ambience writing",
+      "school class room tone"
+    ],
+    "want": [
+      "Inside, small room",
+      "Child speech, kid speaking",
+      "Hubbub, speech noise, speech babble",
+      "Writing",
+      "Speech",
+      "Rustle"
+    ],
+    "avoid": [
+      "Music",
+      "Musical instrument",
+      "Children shouting",
+      "Vehicle",
+      "Rain",
+      "Bird",
+      "Television",
+      "Screaming"
+    ],
+    "loop": 45,
+    "lufs": -27,
+    "pick": "636033"
   },
   "class-quiet": {
     "desc": "near silence: room tone, a pencil, a cough — the Quiet Lesson, tests",
-    "queries": ["quiet classroom", "exam room silence", "pencil writing paper", "classroom room tone", "library quiet ambience"],
-    "want": ["Inside, small room", "Silence", "Writing", "Rustle", "Pencil", "Tick", "Clock", "Mechanical fan"],
-    "avoid": ["Music", "Speech", "Children shouting", "Hubbub, speech noise, speech babble", "Vehicle", "Bird", "Rain"],
-    "loop": 40, "lufs": -32
+    "queries": [
+      "quiet classroom",
+      "exam room silence",
+      "pencil writing paper",
+      "classroom room tone",
+      "library quiet ambience"
+    ],
+    "want": [
+      "Inside, small room",
+      "Silence",
+      "Writing",
+      "Rustle",
+      "Pencil",
+      "Tick",
+      "Clock",
+      "Mechanical fan"
+    ],
+    "avoid": [
+      "Music",
+      "Speech",
+      "Children shouting",
+      "Hubbub, speech noise, speech babble",
+      "Vehicle",
+      "Bird",
+      "Rain"
+    ],
+    "loop": 40,
+    "lufs": -32
   },
   "corridor": {
     "desc": "school hallway between lessons",
-    "queries": ["school corridor", "school hallway kids", "school hallway ambience", "school corridor children footsteps"],
-    "want": ["Inside, public space", "Hubbub, speech noise, speech babble", "Walk, footsteps", "Children shouting", "Child speech, kid speaking", "Echo"],
-    "avoid": ["Music", "Musical instrument", "Vehicle", "Rain", "Television"],
-    "loop": 45, "lufs": -27
+    "queries": [
+      "school corridor",
+      "school hallway kids",
+      "school hallway ambience",
+      "school corridor children footsteps"
+    ],
+    "want": [
+      "Inside, public space",
+      "Hubbub, speech noise, speech babble",
+      "Walk, footsteps",
+      "Children shouting",
+      "Child speech, kid speaking",
+      "Echo"
+    ],
+    "avoid": [
+      "Music",
+      "Musical instrument",
+      "Vehicle",
+      "Rain",
+      "Television"
+    ],
+    "loop": 45,
+    "lufs": -27,
+    "pick": "706989"
   },
   "playground": {
     "desc": "school yard at break, distant — map and title",
-    "queries": ["school playground", "school yard children distant", "playground children ambience", "schoolyard recess"],
-    "want": ["Children playing", "Children shouting", "Outside, urban or manmade", "Outside, rural or natural", "Bird", "Hubbub, speech noise, speech babble"],
-    "avoid": ["Music", "Musical instrument", "Car", "Motor vehicle (road)", "Siren", "Rain", "Thunder"],
-    "loop": 50, "lufs": -29
+    "queries": [
+      "school playground",
+      "school yard children distant",
+      "playground children ambience",
+      "schoolyard recess"
+    ],
+    "want": [
+      "Children playing",
+      "Children shouting",
+      "Outside, urban or manmade",
+      "Outside, rural or natural",
+      "Bird",
+      "Hubbub, speech noise, speech babble"
+    ],
+    "avoid": [
+      "Music",
+      "Musical instrument",
+      "Car",
+      "Motor vehicle (road)",
+      "Siren",
+      "Rain",
+      "Thunder"
+    ],
+    "loop": 50,
+    "lufs": -29
   },
   "staffroom": {
     "desc": "adults, small meeting room, air conditioning — data meetings, leadership",
-    "queries": ["office ambience quiet", "meeting room ambience", "staff room ambience", "office room tone air conditioning"],
-    "want": ["Inside, small room", "Mechanical fan", "Air conditioning", "Speech", "Typing", "Computer keyboard", "Hubbub, speech noise, speech babble"],
-    "avoid": ["Music", "Children shouting", "Child speech, kid speaking", "Children playing", "Vehicle", "Rain", "Bird"],
-    "loop": 45, "lufs": -30
+    "queries": [
+      "office ambience quiet",
+      "meeting room ambience",
+      "staff room ambience",
+      "office room tone air conditioning"
+    ],
+    "want": [
+      "Inside, small room",
+      "Mechanical fan",
+      "Air conditioning",
+      "Speech",
+      "Typing",
+      "Computer keyboard",
+      "Hubbub, speech noise, speech babble"
+    ],
+    "avoid": [
+      "Music",
+      "Children shouting",
+      "Child speech, kid speaking",
+      "Children playing",
+      "Vehicle",
+      "Rain",
+      "Bird"
+    ],
+    "loop": 45,
+    "lufs": -30
   },
   "bell": {
     "kind": "oneshot",
     "desc": "school bell, electronic or ringing",
-    "queries": ["school bell", "school bell ring", "school bell electric"],
-    "want": ["Bell", "Ding-dong", "Telephone bell ringing", "Alarm", "Doorbell", "Church bell", "Chime"],
-    "avoid": ["Music", "Speech", "Vehicle"],
-    "maxlen": 6, "lufs": -22
+    "queries": [
+      "school bell",
+      "school bell ring",
+      "school bell electric"
+    ],
+    "want": [
+      "Bell",
+      "Ding-dong",
+      "Telephone bell ringing",
+      "Alarm",
+      "Doorbell",
+      "Church bell",
+      "Chime"
+    ],
+    "avoid": [
+      "Music",
+      "Speech",
+      "Vehicle"
+    ],
+    "maxlen": 6,
+    "lufs": -22,
+    "pick": "403459"
   },
   "chair": {
     "kind": "oneshot",
     "desc": "chairs scraping as a class settles",
-    "queries": ["chair scrape floor", "chairs moving classroom", "chair drag"],
-    "want": ["Scrape", "Squeak", "Wood", "Creak", "Inside, small room"],
-    "avoid": ["Music", "Speech", "Vehicle"],
-    "maxlen": 3, "lufs": -26
+    "queries": [
+      "chair scrape floor",
+      "chairs moving classroom",
+      "chair drag"
+    ],
+    "want": [
+      "Scrape",
+      "Squeak",
+      "Wood",
+      "Creak",
+      "Inside, small room"
+    ],
+    "avoid": [
+      "Music",
+      "Speech",
+      "Vehicle"
+    ],
+    "maxlen": 3,
+    "lufs": -26
   }
 }
