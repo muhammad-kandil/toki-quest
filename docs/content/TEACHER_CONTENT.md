@@ -273,3 +273,51 @@ tablets when printouts run out · V15 Present Mode can show several student
 methods side by side · V16 Teams supports giving roles (questioner, checker,
 recorder) inside a group · V17 Practice gives a short targeted set
 (decimal–percent conversions).
+
+---
+
+<a id="m03"></a>
+## Mission 03 · Bring Learning to Life
+
+`m3` · Grade 7 · Science (falling objects, air resistance) · Sara, Hamdan,
+Noura · opened by M01 "Ready to Learn".
+
+**Teacher's learning goal:** open from students' prior knowledge, out loud,
+so a shared misconception (heavier falls faster) is visible before it is
+taught against; use Present Mode after predictions, not instead of them.
+
+The **board is an investigation of the class**: hands / reasons / the quiet
+ones, with profiles *shared misconception* 45 · *split class* 35 · *most
+already know* 20. Choices: discussion vs show-the-answer (shared); sides
+convince each other (Teams) vs show (split); deeper question vs re-prove
+(ready).
+
+| Student | Profiles (weight) → choices |
+|---|---|
+| Sara (notebook / example / words) | everyday experience 40 → "light, or air?" (See Why) · tell her (`m3.gap`) — word confusion mass/weight 30 → AI Helper · Need Help word card — nearly there 30 → she designs the test (`m3.peerVoice`) · carry on |
+| Hamdan (hands / reason / drawing) | loud and sure 40 → predict then test · correct publicly (`m3.gap`) — quietly doubts 30 → pair with a disagreer (Teams) · call on him (safe answer) — unsure 30 → prediction card · follow the class (`m3.gap`) |
+| Noura (notebook / face / words) | Moon-video link 40 → put it on the board (Present Mode) · park — missed last lesson 30 → Need Help catch-up · note (`m3.gap`) — did it last year 30 → Assign parachute question · helper |
+
+Objects: laptop (clip after predictions vs now, Present Mode), bookshelf
+(Galileo poster). Pool: falcon question (learning 35) · tables argue
+(collaboration 25) · "air pushes heavy things down" (misconception 20, not
+when the class is ready) · water spill (management 15).
+
+Endings: **Not Yet Shaken** (`m3.gap`, p1) → m6 · **The Class Taught
+Itself** (`m3.peerVoice`, p2) → m7 · **Learning Comes Alive** (no gap, p3,
+badge Brought to Life) → m6, m7.
+
+**Scene brief (`teacher/scenes/m03.jpg`):** the Grade 7 room set for
+science: two identical clear bottles (one full of water) on the teacher's
+desk. Hamdan centre-right (66/48) holding a bottle in each hand; Sara
+front-left (34/58) writing; Noura by the window (20/44), quiet, watching.
+Board top-centre with two bottle sketches; laptop lower-right; rolled poster
+behind books on the shelf (10/30). **Film** `m03-1…3`: (1) close-up of the
+two bottles on the desk; (2) the three students reacting (Hamdan sure, Sara
+nodding, Noura doubtful); (3) Ms. Mariam holding the bottles up, about to ask.
+
+**To verify:** V18 Present Mode can show a short clip / image to the class ·
+V19 Present Mode can show a student's example (photo + sentence) · V20 AI
+Helper can explain a science word (mass) to a student · V21 Need Help can
+offer task guidance such as a vocabulary card or a one-line recap · V22
+Assign can give one student an extension question mid-lesson.
