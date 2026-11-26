@@ -222,3 +222,54 @@ to Ms. Mariam / the classroom.
 `adventures/sample-g5-fractions.ts` is the approved Grade 5 fractions demo
 ported to the schema (timed). Not registered in `ADVENTURES`; validated as a
 sample. Flags renamed `g5.*`; resources mapped to the nearest NCLE tool.
+
+---
+
+<a id="m02"></a>
+## Mission 02 · Beyond the Expected
+
+`m2` · Grade 7 · Math (percentages, discounts) · Ahmed, Reem, Khalid ·
+opened by `unlock:m2` (Ahmed's ready profile in M01).
+
+**Teacher's learning goal:** extension means depth, not volume. Check that
+"ready" is real (fast is not the same as deep), give open problems through
+Assign, and let ready learners lead by asking, not by doing others' work
+(Teams with roles).
+
+| Student | Profiles (weight) → choices |
+|---|---|
+| Ahmed (yesterday's work / explanation / with peers) | deep 40 → open problem (Assign, `m2.stretch`) · group leader (does it all, `m2.takeover`) — fast 30 → "estimate first" (See Why) · harder set (`m2.gap`) — leader 30 → questioner role (Teams, `m2.peerLead`) · teach at front (`m2.takeover`) |
+| Reem (check / working / words) | ready 40 → same open problem · her own challenge (both Assign) — compare 35 → "what would you find interesting?" · Ahmed's task — gap 25 → Practice first · extension now (`m2.gap`) |
+| Khalid (face / notebook / words) | unsure 40 → own way in (Assign) · pair with Ahmed (good if `m2.peerLead`, else carried) — ready 30 → open problem too · core task — social 30 → roles for three (Teams) · alone |
+
+Objects: laptop (open problem via Assign / ten harder questions), board
+(three methods side by side via Present Mode / model answer), bookshelf
+(receipt collectible). Pool: discount-on-discount (learning 35, not for the
+"fast" profile) · Reem vs Khalid disagreement (collaboration 25) ·
+"20% off then 20% on" (misconception 20) · sheets run out (management 15).
+
+```mermaid
+flowchart LR
+  C((Classroom)) --> A[Ahmed] & R[Reem] & K[Khalid] & L[Laptop] & B[Board] & S[Bookshelf]
+  A & R & K -.-> P[(pool)]
+  C ==> E{Endings}
+  E -->|m2.gap p1| MM[More Than More → m6]
+  E -->|m2.peerLead p2| TT[A Team That Thinks → m6]
+  E -->|no gap p3| CL[The Ceiling Lifts · badge Beyond the Expected → m7]
+```
+
+**Scene brief (`teacher/scenes/m02.jpg`, 2:3):** the M01 Grade 7 classroom,
+same light. Ahmed centre-right (62/50) bent over a sheet; Reem front-left
+(36/56) leaning to see Ahmed's work; Khalid by the window (20/46), alone,
+sheet half hidden. Laptop, board, bookshelf as in M01. A receipt sticks out
+of a book on the shelf. **Film** `m02-1…3`: (1) Ahmed waiting at the door
+holding a finished sheet; (2) the three students at the front, Ahmed eager,
+Reem determined, Khalid hanging back (all three lines); (3) Ms. Mariam
+looking at the three, deciding.
+
+**To verify:** V13 Assign can give different students different extension
+tasks (open problem vs set) · V14 Assign can send a task to students'
+tablets when printouts run out · V15 Present Mode can show several student
+methods side by side · V16 Teams supports giving roles (questioner, checker,
+recorder) inside a group · V17 Practice gives a short targeted set
+(decimal–percent conversions).
