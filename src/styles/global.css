@@ -53,3 +53,21 @@ img {
   max-width: 100%;
   display: block;
 }
+
+/* Room entrance: the hall ends on a full teal wipe; the room begins under
+   the same teal and dissolves out of it, so door → room is one gesture. */
+.screen-wipe-out {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--toki-teal);
+  pointer-events: none;
+  opacity: 0;
+  -webkit-animation: screen-wipe-out var(--dur-l) var(--ease-standard);
+  animation: screen-wipe-out var(--dur-l) var(--ease-standard);
+}
+@-webkit-keyframes screen-wipe-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes screen-wipe-out { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .screen-wipe-out { display: none; }
+}

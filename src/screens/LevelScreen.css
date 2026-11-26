@@ -280,12 +280,12 @@
   object-fit: contain;
   margin-bottom: var(--space-3);
   filter: drop-shadow(var(--shadow-md));
-  animation: celebrate-in 700ms var(--ease-bounce) both;
+  animation: celebrate-in var(--dur-xl) var(--ease-spring) both;
 }
 
 @keyframes celebrate-in {
-  0% { opacity: 0; transform: translateY(24px) scale(0.6); }
-  60% { opacity: 1; transform: translateY(-6px) scale(1.08); }
+  0% { opacity: 0; transform: translateY(16px) scale(0.82); }
+  60% { opacity: 1; transform: translateY(-3px) scale(1.03); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -654,3 +654,32 @@
   margin: 0 0 var(--space-3);
 }
 .reveal__why-risk strong { color: var(--color-text-primary); font-weight: 600; }
+
+/* ---------- Motion pass (docs/design/ANIMATION_REVIEW.md) ----------
+   Score rows count in one after another, then the total lands last with
+   a small spring — the summary reads as a tally, not a block. */
+.score-summary__row {
+  -webkit-animation: score-row-in var(--dur-m) var(--ease-enter) backwards;
+  animation: score-row-in var(--dur-m) var(--ease-enter) backwards;
+}
+.score-summary__row:nth-child(2) { -webkit-animation-delay: 120ms; animation-delay: 120ms; }
+.score-summary__row:nth-child(3) { -webkit-animation-delay: 170ms; animation-delay: 170ms; }
+.score-summary__row:nth-child(4) { -webkit-animation-delay: 220ms; animation-delay: 220ms; }
+.score-summary__row:nth-child(5) { -webkit-animation-delay: 270ms; animation-delay: 270ms; }
+.score-summary__row:nth-child(6) { -webkit-animation-delay: 320ms; animation-delay: 320ms; }
+.score-summary__row:nth-child(7) { -webkit-animation-delay: 370ms; animation-delay: 370ms; }
+.score-summary__row--total {
+  -webkit-animation: score-total-in var(--dur-l) var(--ease-spring) 440ms backwards !important;
+  animation: score-total-in var(--dur-l) var(--ease-spring) 440ms backwards !important;
+}
+@-webkit-keyframes score-row-in { from { opacity: 0; -webkit-transform: translateY(6px); } to { opacity: 1; -webkit-transform: none; } }
+@keyframes score-row-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@-webkit-keyframes score-total-in { from { opacity: 0; -webkit-transform: scale(0.96); } to { opacity: 1; -webkit-transform: none; } }
+@keyframes score-total-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+
+/* Beats enter with the enter curve; choices stagger on the shared step. */
+.beat { -webkit-animation-timing-function: var(--ease-enter); animation-timing-function: var(--ease-enter); }
+
+@media (prefers-reduced-motion: reduce) {
+  .score-summary__row, .score-summary__row--total { -webkit-animation: none !important; animation: none !important; }
+}

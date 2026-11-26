@@ -14,6 +14,7 @@ import { lines } from '../audio/lines';
 import { useEffect } from 'react';
 import './LevelScreen.css';
 import './BossScreen.css';
+import { useScrollTopOn } from '../hooks/useScrollTopOn';
 
 interface BossScreenProps {
   boss: BossDefinition;
@@ -37,6 +38,7 @@ type AuditCall = 'clean' | 'mutation';
 export function BossScreen({ boss, onComplete }: BossScreenProps) {
   const { tx, lang } = useLocale();
   const [phase, setPhase] = useState<Phase>('intro');
+  useScrollTopOn(phase);
   const [auditIndex, setAuditIndex] = useState(0);
   const voiceCtl = useVoice();
   useEffect(() => { ambience.set(phase === 'reveal' ? 'class-quiet' : roomSound(boss.id).lesson); }, [phase, boss.id]);

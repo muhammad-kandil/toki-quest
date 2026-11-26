@@ -1,36 +1,123 @@
 /*
-  Calm-confidence register (design research): quick, dignified pop-in,
-  no bounce-fest, no confetti. A small nod, not a party.
-  Positioned near the TOP of the screen, clear of the answer options
-  below, so it never covers tappable content.
+  Reaction Toki — calm confidence: a quick, dignified reaction, not a party.
+
+  Placement: on the right end of the beat strip (top of the screen), with
+  the label to his side — never over the heading or the question text
+  (playtest: the old pill sat on top of the prompt).
+
+  Motion, per reaction (single image today; frame art plugs in via
+  TokiSprite without changing this file's layout):
+    affirming    anticipation squash → stretch up → land → settle
+    thoughtful   slump down and to the side → recover upright
+    celebrating  two hops, the second smaller
+  The container fades/rises in with --ease-enter and leaves with
+  --ease-exit; the label slides out from Toki after a short beat.
 */
 .reaction-toki {
   position: fixed;
-  top: 52px;            /* below the beat strip */
-  inset-inline-end: 10px; /* beside the heading, never over it */
+  top: calc(6px + env(safe-area-inset-top, 0px));
+  inset-inline-end: calc(8px + env(safe-area-inset-right, 0px));
   z-index: 50;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;   /* label sits on Toki's inline-start side */
   align-items: center;
-  gap: var(--space-2);
+  gap: 6px;
   pointer-events: none;
   opacity: 0;
-  transform: translateY(-8px) scale(0.9);
-  transition:
-    opacity 200ms var(--ease-smooth),
-    transform 200ms var(--ease-smooth);
+  -webkit-transform: translateY(-6px);
+  transform: translateY(-6px);
+  transition: opacity var(--dur-s) var(--ease-exit), -webkit-transform var(--dur-s) var(--ease-exit);
+  transition: opacity var(--dur-s) var(--ease-exit), transform var(--dur-s) var(--ease-exit);
 }
-
 .reaction-toki--visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  transition: opacity var(--dur-s) var(--ease-enter), -webkit-transform var(--dur-m) var(--ease-enter);
+  transition: opacity var(--dur-s) var(--ease-enter), transform var(--dur-m) var(--ease-enter);
 }
 
-.reaction-toki img {
-  width: 56px;
-  height: 56px;
+.reaction-toki__body {
+  display: block;
+  width: 46px;
+  height: 46px;
+  -webkit-transform-origin: 50% 95%;
+  transform-origin: 50% 95%;
+}
+.reaction-toki__body img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  object-position: 50% 100%;
   filter: drop-shadow(var(--shadow-md));
+}
+.reaction-toki--affirming .reaction-toki__body { -webkit-animation: rt-hop 620ms var(--ease-standard) both; animation: rt-hop 620ms var(--ease-standard) both; }
+.reaction-toki--thoughtful .reaction-toki__body { -webkit-animation: rt-slump 760ms var(--ease-standard) both; animation: rt-slump 760ms var(--ease-standard) both; }
+.reaction-toki--celebrating .reaction-toki__body { -webkit-animation: rt-double-hop 900ms var(--ease-standard) both; animation: rt-double-hop 900ms var(--ease-standard) both; }
+
+@-webkit-keyframes rt-hop {
+  0%   { -webkit-transform: translateY(0) scale(1, 1); }
+  18%  { -webkit-transform: translateY(2px) scale(1.1, 0.88); }
+  45%  { -webkit-transform: translateY(-10px) scale(0.94, 1.08); }
+  70%  { -webkit-transform: translateY(0) scale(1.06, 0.94); }
+  100% { -webkit-transform: translateY(0) scale(1, 1); }
+}
+@keyframes rt-hop {
+  0%   { transform: translateY(0) scale(1, 1); }
+  18%  { transform: translateY(2px) scale(1.1, 0.88); }
+  45%  { transform: translateY(-10px) scale(0.94, 1.08); }
+  70%  { transform: translateY(0) scale(1.06, 0.94); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@-webkit-keyframes rt-slump {
+  0%   { -webkit-transform: translateY(0) rotate(0deg) scale(1, 1); }
+  35%  { -webkit-transform: translateY(3px) rotate(-7deg) scale(1.04, 0.94); }
+  60%  { -webkit-transform: translateY(2px) rotate(-6deg) scale(1.03, 0.95); }
+  85%  { -webkit-transform: translateY(-1px) rotate(2deg) scale(0.99, 1.02); }
+  100% { -webkit-transform: translateY(0) rotate(0deg) scale(1, 1); }
+}
+@keyframes rt-slump {
+  0%   { transform: translateY(0) rotate(0deg) scale(1, 1); }
+  35%  { transform: translateY(3px) rotate(-7deg) scale(1.04, 0.94); }
+  60%  { transform: translateY(2px) rotate(-6deg) scale(1.03, 0.95); }
+  85%  { transform: translateY(-1px) rotate(2deg) scale(0.99, 1.02); }
+  100% { transform: translateY(0) rotate(0deg) scale(1, 1); }
+}
+@-webkit-keyframes rt-double-hop {
+  0%   { -webkit-transform: translateY(0) scale(1, 1); }
+  12%  { -webkit-transform: translateY(2px) scale(1.1, 0.88); }
+  32%  { -webkit-transform: translateY(-12px) scale(0.93, 1.09); }
+  50%  { -webkit-transform: translateY(0) scale(1.07, 0.93); }
+  66%  { -webkit-transform: translateY(-6px) scale(0.97, 1.04); }
+  82%  { -webkit-transform: translateY(0) scale(1.03, 0.97); }
+  100% { -webkit-transform: translateY(0) scale(1, 1); }
+}
+@keyframes rt-double-hop {
+  0%   { transform: translateY(0) scale(1, 1); }
+  12%  { transform: translateY(2px) scale(1.1, 0.88); }
+  32%  { transform: translateY(-12px) scale(0.93, 1.09); }
+  50%  { transform: translateY(0) scale(1.07, 0.93); }
+  66%  { transform: translateY(-6px) scale(0.97, 1.04); }
+  82%  { transform: translateY(0) scale(1.03, 0.97); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+/* In RTL Toki stands at the left edge, so the slump leans the other way
+   (toward the screen's centre). Separate keyframes: iOS 12 can't take
+   calc() inside rotate(). */
+[dir='rtl'] .reaction-toki--thoughtful .reaction-toki__body { -webkit-animation-name: rt-slump-rtl; animation-name: rt-slump-rtl; }
+@-webkit-keyframes rt-slump-rtl {
+  0%   { -webkit-transform: translateY(0) rotate(0deg) scale(1, 1); }
+  35%  { -webkit-transform: translateY(3px) rotate(7deg) scale(1.04, 0.94); }
+  60%  { -webkit-transform: translateY(2px) rotate(6deg) scale(1.03, 0.95); }
+  85%  { -webkit-transform: translateY(-1px) rotate(-2deg) scale(0.99, 1.02); }
+  100% { -webkit-transform: translateY(0) rotate(0deg) scale(1, 1); }
+}
+@keyframes rt-slump-rtl {
+  0%   { transform: translateY(0) rotate(0deg) scale(1, 1); }
+  35%  { transform: translateY(3px) rotate(7deg) scale(1.04, 0.94); }
+  60%  { transform: translateY(2px) rotate(6deg) scale(1.03, 0.95); }
+  85%  { transform: translateY(-1px) rotate(-2deg) scale(0.99, 1.02); }
+  100% { transform: translateY(0) rotate(0deg) scale(1, 1); }
 }
 
 .reaction-toki__label {
@@ -41,24 +128,27 @@
   border-radius: var(--radius-pill);
   color: white;
   box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+  -webkit-animation: rt-label-in var(--dur-m) var(--ease-enter) 90ms both;
+  animation: rt-label-in var(--dur-m) var(--ease-enter) 90ms both;
+}
+@-webkit-keyframes rt-label-in {
+  from { opacity: 0; -webkit-transform: translateX(calc(var(--dir) * 10px)) scale(0.92); }
+  to   { opacity: 1; -webkit-transform: none; }
+}
+@keyframes rt-label-in {
+  from { opacity: 0; transform: translateX(calc(var(--dir) * 10px)) scale(0.92); }
+  to   { opacity: 1; transform: none; }
 }
 
-.reaction-toki--affirming .reaction-toki__label {
-  background: var(--toki-teal-shadow);
-}
+.reaction-toki--affirming .reaction-toki__label { background: var(--toki-teal-shadow); }
+.reaction-toki--thoughtful .reaction-toki__label { background: var(--toki-orange); }
+.reaction-toki--celebrating .reaction-toki__label { background: var(--toki-green); }
 
-.reaction-toki--thoughtful .reaction-toki__label {
-  background: var(--toki-orange);
-}
+/* Real frame art carries its own motion: keep only the gentle entrance. */
+.reaction-toki__body img[data-frames='on'] { -webkit-transform: none; transform: none; }
 
-.reaction-toki--celebrating .reaction-toki__label {
-  background: var(--toki-green);
-}
-
-/* Respect reduced motion: skip the pop transform, keep the fade only */
 @media (prefers-reduced-motion: reduce) {
-  .reaction-toki {
-    transition: opacity 220ms linear;
-    transform: translate(-50%, 0) scale(1) !important;
-  }
+  .reaction-toki, .reaction-toki--visible { -webkit-transform: none; transform: none; transition: opacity var(--dur-s) linear; }
+  .reaction-toki__body, .reaction-toki__label { -webkit-animation: none !important; animation: none !important; }
 }

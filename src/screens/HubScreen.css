@@ -113,8 +113,8 @@
     box-shadow var(--duration-fast) var(--ease-smooth),
     border-color var(--duration-fast) var(--ease-smooth),
     opacity var(--duration-base) var(--ease-smooth);
-  animation: door-enter var(--duration-base) var(--ease-smooth) backwards;
-  animation-delay: calc(var(--door-index) * 60ms);
+  animation: door-enter var(--dur-m) var(--ease-enter) backwards;
+  animation-delay: calc(var(--door-index) * var(--stagger));
 }
 /* Lit top edge: a thin band of light along the card's upper rim. */
 .door::before {
@@ -249,10 +249,10 @@
   border-color: var(--toki-teal);
   background: var(--toki-teal);
   transform: perspective(700px) rotateY(calc(var(--dir) * -9deg)) scale(1.02);
-  transition: transform 420ms var(--ease-smooth), background var(--duration-fast) var(--ease-smooth);
+  transition: transform var(--dur-l) var(--ease-standard), background var(--dur-xs) var(--ease-standard);
 }
 .door--opening::after {
-  animation: door-leaf 420ms var(--ease-smooth) forwards;
+  animation: door-leaf var(--dur-l) var(--ease-standard) forwards;
 }
 @keyframes door-leaf {
   0% { transform: scaleX(0); opacity: 0; }
@@ -302,7 +302,7 @@
   opacity: 0;
   pointer-events: none;
   z-index: 100;
-  transition: opacity 380ms var(--ease-smooth);
+  transition: opacity var(--dur-m) var(--ease-standard);
 }
 
 .hub__wipe--active {
@@ -320,7 +320,7 @@
   /* --toki-y is measured from the real door (HubScreen), so Toki stops
      level with the door he chose, whatever its height. */
   transform: translateY(var(--toki-y, 14px));
-  transition: transform var(--walk-ms, 750ms) var(--ease-smooth);
+  transition: transform var(--walk-ms, 600ms) var(--ease-anticipate);
   pointer-events: none;
 }
 
@@ -332,12 +332,12 @@
   transform-origin: 50% 92%;
   filter: drop-shadow(0 4px 5px rgba(69, 43, 116, 0.22));
 }
-.hub__toki--idle img { animation: toki-breathe 3.4s ease-in-out infinite; }
+.hub__toki--idle img { animation: toki-breathe 6.8s ease-in-out infinite; }
 
 /* The "walk" — a gentle bob while moving, to imply steps without
    true frame animation (honest about static art). */
 .hub__toki--walking img {
-  animation: toki-bob 260ms var(--ease-smooth) infinite;
+  animation: toki-walk 260ms ease-in-out infinite;
 }
 
 @keyframes toki-bob {
@@ -349,7 +349,7 @@
    through it — walking away from us, into the room — then the wipe. */
 .hub__toki--hiding {
   transition: none;
-  animation: toki-enter-door 560ms cubic-bezier(.45, 0, .7, 1) forwards;
+  animation: toki-enter-door 480ms var(--ease-exit) forwards;
 }
 .hub__toki--hiding img { animation: none; }
 @keyframes toki-enter-door {

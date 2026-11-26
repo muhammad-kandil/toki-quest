@@ -26,6 +26,7 @@ import { UI, fmt } from '../i18n/ui';
 import type { Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
 import './LevelScreen.css';
+import { useScrollTopOn } from '../hooks/useScrollTopOn';
 
 type Beat = 'observe' | 'drift' | 'risk' | 'coaching' | 'conversation' | 'reasoning' | 'reveal';
 
@@ -78,6 +79,7 @@ const RISK_ORDER: RiskLevel[] = ['minor', 'moderate', 'high', 'lethal'];
 export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps) {
   const { tx } = useLocale();
   const [beat, setBeat] = useState<Beat>('observe');
+  useScrollTopOn(beat);
   // The room: the class at work during the lesson; after it, with the
   // teacher, the students have gone (or the talk moves to a corridor).
   const room = roomSound(level.id);

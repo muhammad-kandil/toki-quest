@@ -20,6 +20,7 @@ import { sfx } from '../audio/sfx';
 import './LevelScreen.css';
 import './BossScreen.css';
 import './SchoolVisitScreen.css';
+import { useScrollTopOn } from '../hooks/useScrollTopOn';
 
 type Phase = 'intro' | 'school' | 'context' | 'prioritise' | 'mission' | 'reveal';
 
@@ -79,6 +80,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
   const { tx } = useLocale();
   const voiceCtl = useVoice();
   const [phase, setPhase] = useState<Phase>('intro');
+  useScrollTopOn(phase);
   const [activeId, setActiveId] = useState<string | null>(null);
   useEffect(() => { ambience.set(activeId ? VISIT_SOUND[activeId] ?? 'class-working' : 'corridor'); }, [activeId]);
   const [calls, setCalls] = useState<Record<string, { firstTry: boolean; done: boolean }>>({});

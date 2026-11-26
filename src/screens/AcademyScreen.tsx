@@ -28,6 +28,7 @@ import { sfx } from '../audio/sfx';
 import './LevelScreen.css';
 import './BossScreen.css';
 import './AcademyScreen.css';
+import { useScrollTopOn } from '../hooks/useScrollTopOn';
 
 type Phase = 'observe' | 'diagnose' | 'risk' | 'coaching' | 'conversation' | 'reveal';
 const ACADEMY_BEAT_LABEL: Record<Phase, Text> = {
@@ -76,6 +77,7 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
   const { tx } = useLocale();
   const voiceCtl = useVoice();
   const [phase, setPhase] = useState<Phase>('observe');
+  useScrollTopOn(phase);
   const room = roomSound(level.id);
   const afterLesson = phase === 'conversation' || phase === 'reveal';
   useEffect(() => { ambience.set(afterLesson ? room.conversation ?? 'class-quiet' : room.lesson); }, [afterLesson, room.lesson, room.conversation]);

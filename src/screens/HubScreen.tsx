@@ -25,6 +25,10 @@ interface HubScreenProps {
 type DoorState = 'locked' | 'available' | 'completed';
 type TransitionPhase = 'idle' | 'walking' | 'hiding' | 'opening';
 
+/** Toki is into the doorway before the wipe starts; the wipe then covers the rest. */
+const HIDE_LEAD_MS = 200;
+const WIPE_MS = 300;
+
 /**
  * Inside a world: the corridor of classrooms. Toki (in the chosen skin)
  * stands beside the cards; tapping one walks Toki to it, ducks behind
@@ -49,6 +53,10 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
     const t = window.setTimeout(measure, 450);   // after the door-enter animation and font swap
     return () => { window.removeEventListener('resize', measure); window.clearTimeout(t); };
   }, [world.id]);
+  // Door → room budget (playtest: transitions felt dead at ~2–3 s):
+  // walk 320–800 ms by distance, then Toki starts into the doorway and the
+  // wipe overlaps his shrink, so the whole trip stays ≤ 1.3 s.
+  const walkTime = (i: number) => Math.round(320 + Math.min(480, Math.abs(tokiY(i) - tokiY(0)) * 1.1));
   const TOKI_H = 52;
   const tokiY = (i: number) => (doorY[i] ?? TOKI_H / 2 + 14) - TOKI_H * 0.62;
   const skin = getSkinById(skinId);
@@ -78,7 +86,7 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
     setPhase('walking');
     const steps = setInterval(() => sfx.play('step'), 170);
     // Walk time follows the distance, so a far door is a longer walk.
-    const walkMs = Math.round(450 + Math.min(700, Math.abs(tokiY(index) - tokiY(0)) * 1.6));
+    const walkMs = walkTime(index);
     setTimeout(() => {
       clearInterval(steps);
       sfx.play('door');
@@ -86,8 +94,8 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
       setTimeout(() => {
         sfx.play('wipe');
         setPhase('opening');
-        setTimeout(() => onEnterClassroom(id), 420);
-      }, 560);
+        setTimeout(() => onEnterClassroom(id), WIPE_MS);
+      }, HIDE_LEAD_MS);
     }, walkMs);
   };
 
@@ -140,7 +148,7 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
 
         <div
           className={`hub__toki ${walkingTo != null ? 'hub__toki--walking' : 'hub__toki--idle'} ${phase === 'hiding' || phase === 'opening' ? 'hub__toki--hiding' : ''}`}
-          style={{ '--toki-y': `${tokiY(walkingTo ?? 0)}px`, '--walk-ms': `${Math.round(450 + Math.min(700, Math.abs(tokiY(walkingTo ?? 0) - tokiY(0)) * 1.6))}ms` } as React.CSSProperties}
+          style={{ '--toki-y': `${tokiY(walkingTo ?? 0)}px`, '--walk-ms': `${walkTime(walkingTo ?? 0)}ms` } as React.CSSProperties}
         >
           <img src={skin.image} alt="" />
         </div>
