@@ -2,7 +2,7 @@ import { useLocale } from '../../i18n/LocaleContext';
 import { location } from '../content';
 import type { GameSave } from '../engine/save';
 import { S, fmt } from '../strings';
-import { SubHeader } from '../ui';
+import { SubHeader, missionLine } from '../ui';
 import { nextAdventure } from './CampusScreen';
 
 export function OfficeScreen({ save, onBack, onAdventure }: { save: GameSave; onBack: () => void; onAdventure: (id: string) => void }) {
@@ -20,7 +20,7 @@ export function OfficeScreen({ save, onBack, onAdventure }: { save: GameSave; on
         {n ? (
           <>
             <span className="t-chip">{tx(S.briefing)}</span>
-            <div className="t-eyebrow">{fmt(tx(S.missionN), { n: String(n.number).padStart(2, '0') })} · {tx(n.meta)}</div>
+            <div className="t-eyebrow">{missionLine(fmt(tx(S.missionN), { n: String(n.number).padStart(2, '0') }), tx(n.meta))}</div>
             <h2>{tx(n.title)}</h2>
             {n.intro.slice(0, 2).map((l, i) => <p key={i} className="ts-brief">{tx(l)}</p>)}
             <button type="button" className="t-btn ts-office__go" onClick={() => onAdventure(n.id)}>

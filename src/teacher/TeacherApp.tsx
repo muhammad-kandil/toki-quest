@@ -12,7 +12,7 @@ import { sfx } from '../audio/sfx';
 import { ambience } from '../audio/ambience';
 import { adventures, adventure, getTermPass } from './content';
 import { normalizeSave, newSave, SAVE_KEY, type GameSave } from './engine/save';
-import { ToastProvider, asset } from './ui';
+import { ToastProvider, art } from './ui';
 import { TitleScreen } from './screens/TitleScreen';
 import { NameScreen } from './screens/NameScreen';
 import { CampusScreen, nextAdventure } from './screens/CampusScreen';
@@ -139,7 +139,7 @@ export default function TeacherApp() {
   useEffect(() => {
     if (screen !== 'campus') return;
     const n = nextAdventure(save);
-    if (n) { const img = new Image(); img.src = asset(n.scene); }
+    if (n) { const img = new Image(); img.src = art(n.scene); }
   }, [screen, save]);
 
   /* ---------- actions ---------- */

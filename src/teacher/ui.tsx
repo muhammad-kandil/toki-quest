@@ -7,6 +7,27 @@ import { sfx } from '../audio/sfx';
 
 export const asset = (p: string) => (import.meta.env.BASE_URL || '/') + p.replace(/^\/+/, '');
 
+/** "Mission 01 · Grade 7 · Math" without repeating the mission number when the content's meta already has it. */
+export function missionLine(missionLabel: string, meta: string): string {
+  return /^(mission|المهمة)/i.test(meta.trim()) ? meta : `${missionLabel} · ${meta}`;
+}
+/** The grade segment of a meta line ("Grade 7"), else its first segment. */
+export function gradeOf(meta: string): string {
+  const parts = meta.split('·').map((p) => p.trim());
+  return parts.find((p) => /grade|الصف/i.test(p)) ?? parts[0];
+}
+
+declare const __TEACHER_ART__: string[];
+const ART: string[] = typeof __TEACHER_ART__ !== 'undefined' ? __TEACHER_ART__ : [];
+/** Stand-in classroom picture used while a mission's own art is missing. */
+export const FALLBACK_SCENE = 'teacher-demo/img/classroom.jpg';
+/** Mission art URL: files under teacher/ that are not in the build fall back (no 404 in the console). */
+export function art(p: string): string {
+  const clean = p.replace(/^\/+/, '');
+  if (clean.startsWith('teacher/') && !ART.includes(clean)) return asset(FALLBACK_SCENE);
+  return asset(clean);
+}
+
 export const STAGE_VAR: Record<Stage, string> = { launch: 'var(--t-stage-launch)', facilitate: 'var(--t-stage-facilitate)', extend: 'var(--t-stage-extend)' };
 export const TONE_VAR: Record<Outcome['tone'], string> = { good: 'var(--t-good)', mixed: 'var(--t-mixed)', poor: 'var(--t-poor)', insight: 'var(--t-insight)' };
 

@@ -5,6 +5,7 @@
  */
 import type { Adventure, Period, TeacherSave } from '../types';
 import { encodePath, type SimState } from './sim';
+import { unlockFlags } from './mission';
 
 export type PassState = NonNullable<TeacherSave['pass']>;
 export type GameSave = TeacherSave & Required<Pick<TeacherSave,
@@ -12,6 +13,8 @@ export type GameSave = TeacherSave & Required<Pick<TeacherSave,
 
 /** Flag key marking that the latest run of an adventure used a power-up (notebook icon). */
 export const powerupFlag = (advId: string) => `__pu:${advId}`;
+/** Flag key recording every badge a mission awarded (completed[].badge keeps only the primary one). */
+export const badgeFlag = (advId: string, badgeId: string) => `__badge:${advId}:${badgeId}`;
 
 export const PERIODS: Period[] = ['morning', 'midday', 'afternoon'];
 export const MAX_ENERGY = 3;
@@ -106,6 +109,7 @@ export interface CompletionResult {
  */
 export function recordCompletion(
   s: GameSave, adv: Adventure, sim: SimState, badge: string, termStages: number, usedPowerups = false, opens: string[] = [],
+  badges: string[] = [],
 ): CompletionResult {
   const prev = s.completed[adv.id];
   const firstTime = !prev;
@@ -121,7 +125,7 @@ export function recordCompletion(
   const toolkit = [...s.toolkit];
   for (const r of sim.found) if (!toolkit.includes(r)) toolkit.push(r);
   const unlocked = [...s.unlocked];
-  for (const id of [adv.unlocks, ...opens]) if (id && !unlocked.includes(id)) unlocked.push(id);
+  for (const id of [adv.unlocks, ...opens, ...unlockFlags(sim.flags)]) if (id && !unlocked.includes(id)) unlocked.push(id);
   const rewarded = [...s.rewarded];
   for (const k of sim.rewardedNow ?? []) if (!rewarded.includes(k)) rewarded.push(k);
   const next = advancePeriod({
@@ -129,7 +133,7 @@ export function recordCompletion(
     energy: Math.max(0, s.energy - 1),
     completed: { ...s.completed, [adv.id]: { badge, path: encodePath(sim.path), students: sim.students } },
     toolkit, unlocked,
-    flags: { ...s.flags, ...sim.flags, [powerupFlag(adv.id)]: usedPowerups },
+    flags: { ...s.flags, ...sim.flags, [powerupFlag(adv.id)]: usedPowerups, ...Object.fromEntries(badges.map((b) => [badgeFlag(adv.id, b), true])) },
     runs: { ...s.runs, [adv.id]: (s.runs[adv.id] ?? 0) + 1 },
     seenOutcomes: { ...s.seenOutcomes, [adv.id]: seen },
     pass,

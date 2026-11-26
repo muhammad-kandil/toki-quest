@@ -84,6 +84,7 @@ textarea.ts-input { min-height: 84px; resize: vertical; }
 .ts-map__frame { -webkit-box-ordinal-group: 2; -webkit-order: 1; order: 1; }
 .ts-map__frame { position: relative; width: 100%; height: 0; padding-top: 133.333%; overflow: hidden; background: var(--t-bg); }
 .ts-map__art, .ts-map__svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
+.ts-campus .t-pin--next { z-index: calc(var(--t-z-pins) + 2); }
 .ts-pin--still .t-pin__head:before { -webkit-animation: none; animation: none; opacity: 0; }
 .ts-pin--start .t-pin__label { left: 0; -webkit-transform: none; transform: none; }
 .ts-pin--end .t-pin__label { left: auto; right: 0; -webkit-transform: none; transform: none; }

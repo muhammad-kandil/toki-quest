@@ -302,6 +302,8 @@ export const S = {
   afterStage: t('After stage {n}', 'بعد المرحلة {n}'),
   laneClassroomSub: t('your room', 'صفّك'),
   laneProSub: t('for Monday’s lesson', 'لدرس الاثنين'),
+  openedByChoice: t('Opened by a choice you made', 'فتحه اختيار قمتِ به'),
+  milestoneHint: t('Every student’s starting point is found. Finish what is open, or begin the lesson.', 'وجدتِ نقطة انطلاق كل طالب. أكملي ما هو مفتوح، أو ابدئي الدرس.'),
   // event kinds
   kind: {
     'needs-help': t('Student needs help', 'طالب يحتاج مساعدة'),

@@ -3,7 +3,7 @@ import { adventures } from '../content';
 import { decodePath } from '../engine/sim';
 import { powerupFlag, type GameSave } from '../engine/save';
 import { S, fmt } from '../strings';
-import { SubHeader } from '../ui';
+import { SubHeader, missionLine } from '../ui';
 import { PathChips } from '../components/PathChips';
 import { StudentRows } from '../components/StudentRows';
 
@@ -27,7 +27,7 @@ export function LibraryScreen({ save, onBack, onReplay }: { save: GameSave; onBa
               <div className="ts-page__head">
                 {b && <span className="t-medal t-medal--sm" aria-hidden="true">{b.icon}</span>}
                 <div>
-                  <div className="t-eyebrow">{fmt(tx(S.missionN), { n: String(a.number).padStart(2, '0') })} · {tx(a.meta)}</div>
+                  <div className="t-eyebrow">{missionLine(fmt(tx(S.missionN), { n: String(a.number).padStart(2, '0') }), tx(a.meta))}</div>
                   <h2 className="ts-h-lg">{tx(a.title)}</h2>
                   {b && <p className="ts-hint">{tx(b.title)}</p>}
                 </div>

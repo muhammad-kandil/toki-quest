@@ -13,18 +13,18 @@ import { ambience } from '../../audio/ambience';
 import { ENABLE_CUSTOMISATION, adventure, getShop, getTermPass, resource, shopItem } from '../content';
 import { DECOR_SLOTS, DECOR_SLOT_POS, type PowerupId } from '../dev/shopFixture';
 import {
-  band, choose, createSim, findEvent, findStudent, isLessonOver, liveEvents, peek, pickBadge,
+  band, choose, createSim, resolveOutcomeId, findEvent, findStudent, isLessonOver, liveEvents, peek, pickBadge,
   runToNext, teaserEntry, unresolvedEvents, type ChoiceResult, type SimState,
 } from '../engine/sim';
 import {
-  activeTargets, awardXp, eligibleEndings, cluesReady, offeredChoices, profileOf, resolveEnding, revealClue, seeded, startEncounter, triggerEvent, type Rand,
+  activeTargets, awardXp, drawPool, earnedBadges, isPoolEvent, liveOn, liveTargets, milestoneReached, opensPuzzle, unlockFlags, eligibleEndings, cluesReady, offeredChoices, profileOf, resolveEnding, revealClue, seeded, startEncounter, triggerEvent, type Rand,
 } from '../engine/mission';
 import { markShared, recordCompletion, type GameSave } from '../engine/save';
 import {
   POWERUPS, REWIND_DWELL_MS, applicable, assist, canUse, consume, owned, parentCallTargets, rewind, secondLook, withExtraTime, type PowerupPhase,
 } from '../engine/powerups';
 import { S, fmt } from '../strings';
-import { ResourceCard, asset, reducedMotion, useToast } from '../ui';
+import { ResourceCard, art, gradeOf, missionLine, reducedMotion, useToast } from '../ui';
 import { CommunityPanel, useShareText } from '../components/CommunityPanel';
 import { PathChips } from '../components/PathChips';
 import { StudentRows } from '../components/StudentRows';
@@ -90,7 +90,10 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
   const [last, setLast] = useState<(ChoiceResult & { event: string; choice: number; isNew: boolean; at: number }) | null>(null);
   const [step, setStep] = useState(0);
   const [seen, setSeen] = useState<number[]>([0]);
-  const [done, setDone] = useState<{ badge: string; gained: number; ending?: Ending; xp: number } | null>(null);
+  const [done, setDone] = useState<{ badge: string; badges: string[]; gained: number; ending?: Ending; xp: number } | null>(null);
+  const pendingPuzzle = useRef<{ ev: ClassEvent; i: number } | null>(null);
+  const puzzleBase = useRef<SimState | null>(null);
+  const hasSchedule = baseAdv.schedule.length > 0;
   const [used, setUsed] = useState<PowerupId[]>([]);
   const [solved, setSolved] = useState(false);
   const [homeLine, setHomeLine] = useState<string | null>(null);
@@ -149,15 +152,17 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
   const finish = (s: SimState, ending?: Ending) => {
     const final = untimed ? s : { ...s, t: adv.lessonMinutes };
     setSim(final);
-    const badge = (ending?.badge && adv.badges.find((b) => b.id === ending.badge)) || pickBadge(adv, final);
+    // Badges: union of the ending's badge, the puzzle's badge (if solved) and the first matching rule.
+    const badges = earnedBadges(adv, final, ending, pickBadge(adv, final)?.id);
+    const primary = badges[0] ?? '';
     let gained = 0;
     update((cur) => {
-      const r = recordCompletion(cur, adv, final, badge?.id ?? '', stages, used.length > 0, ending?.opens ?? []);
+      const r = recordCompletion(cur, adv, final, primary, stages, used.length > 0, ending?.opens ?? [], badges);
       gained = r.stagesGained;
       return r.save;
     });
     storeRun(adv.id, null);
-    setDone({ badge: badge?.id ?? '', gained, ending, xp: final.xp ?? 0 });
+    setDone({ badge: primary, badges, gained, ending, xp: final.xp ?? 0 });
     setActive(null);
     setPhase('closing');
     goStep(5);
@@ -176,12 +181,14 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
     scrollPanel();
   };
 
-  /** Open an encounter: queue it (so it is "live"), pick its evidence profile once. */
+  /** Open an encounter: queue it (so it is "live"), pick its evidence profile once. Board/bookshelf taps also draw a pool event. */
   const openEvent = (ev: ClassEvent) => {
     sfx.play('tap');
+    const isDrawObject = untimed && hasSchedule && adv.objects.some((o) => o.id === ev.on) && !(adv.puzzle && ev.choices.some((c) => resolvesTo(c) === adv.puzzle!.id));
     setSim((cur) => {
       let n = cur.queue.some((q) => q.event === ev.id) ? cur : { ...cur, queue: [...cur.queue, { event: ev.id, at: cur.t }] };
       n = startEncounter(n, ev, rand.current);
+      if (isDrawObject && !isPoolEvent(adv, ev)) n = drawPool(n, adv, rand.current).sim;
       return n;
     });
     setActive(ev.id);
@@ -199,12 +206,14 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
     });
   };
 
-  const pick = (ev: ClassEvent, i: number) => {
-    setHistory((h) => [...h, sim]);
-    const r = choose(sim, adv, ev.id, i, save.rewarded);
-    const isNew = !!r.discovered && !toolkitAtStart.current.includes(r.discovered) && !sim.found.includes(r.discovered);
+  /** Resolve a choice. A student encounter that resolves draws one pool event (content contract §3). */
+  const resolveChoice = (base: SimState, ev: ClassEvent, i: number) => {
+    setHistory((h) => [...h, base]);
+    const r = choose(base, adv, ev.id, i, save.rewarded);
+    const isNew = !!r.discovered && !toolkitAtStart.current.includes(r.discovered) && !base.found.includes(r.discovered);
     let n = r.sim;
     if (isNew && r.discovered) n = awardXp(n, `tool:${r.discovered}`, XP_TOOL, save.rewarded);
+    if (untimed && hasSchedule && adv.students.some((st) => st.id === ev.on) && !isPoolEvent(adv, ev)) n = drawPool(n, adv, rand.current).sim;
     setSim(n);
     setLast({ ...r, sim: n, event: ev.id, choice: i, isNew, at: Date.now() });
     setActive(null);
@@ -218,6 +227,19 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
       }
     } else sfx.play(r.outcome.tone === 'good' ? 'correct' : 'step');
     scrollPanel();
+  };
+  const resolvesTo = (c: ClassEvent['choices'][number]) => (typeof c.outcome === 'string' ? c.outcome : resolveOutcomeId(c, sim.flags));
+
+  const pick = (ev: ClassEvent, i: number) => {
+    // A choice whose outcome id equals puzzle.id opens the puzzle first; the outcome shows after it.
+    if (adv.puzzle && opensPuzzle(adv, resolvesTo(ev.choices[i])) && !solved) {
+      pendingPuzzle.current = { ev, i };
+      setActive(null);
+      setPhase('puzzle');
+      goStep(4);
+      return;
+    }
+    resolveChoice(sim, ev, i);
   };
 
   const backToClass = () => {
@@ -235,7 +257,11 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
 
   const tapTarget = (id: string) => {
     if (phase !== 'explore' || active) return;
-    if (untimed) {
+    if (untimed && hasSchedule) {
+      const ev = liveOn(sim, adv, id)[0];
+      if (ev) { openEvent(ev); return; }
+      if (adv.puzzle && id === adv.puzzle.id && !solved && !adv.events.some((e) => e.on === id && !sim.done.includes(e.id))) { sfx.play('tap'); setPhase('puzzle'); goStep(4); return; }
+    } else if (untimed) {
       if (adv.puzzle && id === adv.puzzle.id && !solved) { sfx.play('tap'); setPhase('puzzle'); goStep(4); return; }
       const ev = triggerEvent(sim, adv, rand.current, id);
       if (ev) { openEvent(ev); return; }
@@ -258,10 +284,21 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
     if (!adv.puzzle) return;
     const p = adv.puzzle;
     setSolved(true);
-    setSim((cur) => awardXp({ ...cur, flags: { ...cur.flags, ['puzzle:' + p.id]: true } }, `${adv.id}:puzzle:${p.id}`, p.xp, save.rewarded));
+    const withPuzzle = awardXp({ ...sim, flags: { ...sim.flags, ['puzzle:' + p.id]: true } }, `${adv.id}:puzzle:${p.id}`, p.xp, save.rewarded);
+    setSim(withPuzzle);
     sfx.play('badge');
     const b = adv.badges.find((x) => x.id === p.badge);
     if (b) toast(fmt(tx(S.badgeToast), { b: tx(b.title) }));
+    puzzleBase.current = withPuzzle;
+  };
+  /** Leaving the puzzle: if a choice opened it and it was solved, its outcome shows now. */
+  const closePuzzle = () => {
+    const pend = pendingPuzzle.current;
+    pendingPuzzle.current = null;
+    if (pend && puzzleBase.current) { const base = puzzleBase.current; puzzleBase.current = null; resolveChoice(base, pend.ev, pend.i); return; }
+    puzzleBase.current = null;
+    setPhase('explore');
+    goStep(1);
   };
 
   /* ---------- power-ups (customisation; one use each per mission) ---------- */
@@ -339,7 +376,9 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
 
   /* ---------- render pieces ---------- */
   const pulsing = phase === 'explore'
-    ? (untimed ? [...activeTargets(sim, adv), ...(adv.puzzle && !solved ? [adv.puzzle.id] : [])] : liveEvents(sim).map((e) => findEvent(adv, e)!.on))
+    ? (untimed
+      ? (hasSchedule ? liveTargets(sim, adv) : [...activeTargets(sim, adv), ...(adv.puzzle && !solved ? [adv.puzzle.id] : [])])
+      : liveEvents(sim).map((e) => findEvent(adv, e)!.on))
     : [];
   const whoName = (on: string) => {
     const s = findStudent(adv, on);
@@ -355,7 +394,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
     .filter((d) => d.item && d.pos) : [];
   const minsLeft = Math.max(0, adv.lessonMinutes - sim.t);
   const metCount = adv.students.filter((st) => adv.events.some((e) => e.on === st.id && (sim.done.includes(e.id) || !!sim.profiles?.[e.id]))).length;
-  const endingNow = untimed ? resolveEnding(adv, sim.flags).primary : undefined;
+  const endingNow = untimed && milestoneReached(sim, adv) ? resolveEnding(adv, sim.flags).primary : undefined;
   const film = adv.film ?? [];
   const sceneUrl = phase === 'film' && film[shot] ? film[shot].picture : adv.scene;
 
@@ -417,7 +456,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
                         <span className="t-clue__back" aria-hidden="true">
                           <span className="t-clue__glyph">{CLUE_GLYPH[kind]}</span>
                           <span className="t-clue__label">{tx(c.label)}</span>
-                          <span className="t-clue__hint">{tx(S.tapToLook)}</span>
+                          <span className="t-clue__hint">{c.text && tx(c.text) ? tx(c.text) : tx(S.tapToLook)}</span>
                         </span>
                         <span className="t-clue__face" aria-hidden="true">
                           <span className="t-clue__label">{tx(c.label)}</span>
@@ -514,7 +553,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
     panelBody = (
       <Suspense fallback={<div className="ts-loading" />}>
         <PuzzleBoard puzzle={adv.puzzle} solved={solved} onSolved={puzzleSolved}
-          badge={adv.badges.find((b) => b.id === adv.puzzle!.badge)} onClose={() => { setPhase('explore'); goStep(1); }} />
+          badge={adv.badges.find((b) => b.id === adv.puzzle!.badge)} onClose={closePuzzle} />
       </Suspense>
     );
   } else if (phase === 'ending') {
@@ -548,10 +587,13 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
     );
   } else if (phase === 'closing' && done) {
     const b = adv.badges.find((x) => x.id === done.badge) ?? adv.badges[adv.badges.length - 1];
-    const pb = adv.puzzle && sim.flags['puzzle:' + adv.puzzle.id] ? adv.badges.find((x) => x.id === adv.puzzle!.badge) : undefined;
     const teaser = teaserEntry(adv, { ...save.flags, ...sim.flags });
     const endWhy = done.ending ? tx(done.ending.title) : '';
-    const opens = (done.ending?.opens ?? (adv.unlocks ? [adv.unlocks] : [])).map((id) => ({ id, a: adventure(id), why: endWhy }));
+    const flagWhy = tx(S.openedByChoice);
+    const opens = [
+      ...(done.ending?.opens ?? (adv.unlocks ? [adv.unlocks] : [])).map((id) => ({ id, a: adventure(id), why: endWhy })),
+      ...unlockFlags(sim.flags).map((id) => ({ id, a: adventure(id), why: flagWhy })),
+    ].filter((o, i, arr) => arr.findIndex((y) => y.id === o.id) === i);
     const otherOpens = eligibleEndings(adv, sim.flags)
       .filter((e) => e.id !== done.ending?.id)
       .flatMap((e) => (e.opens ?? []).map((id) => ({ id, a: adventure(id), why: tx(e.title) })))
@@ -567,7 +609,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
             <p className="ts-hint">{tx(b.why)}</p>
           </div>
         )}
-        {pb && pb.id !== b?.id && <p className="ts-row ts-pbadge"><span className="t-medal t-medal--sm" aria-hidden="true">{pb.icon}</span><span>{tx(pb.title)}</span></p>}
+        {done.badges.slice(1).map((id) => { const ob = adv.badges.find((q) => q.id === id); return ob ? <p key={id} className="ts-row ts-pbadge" data-badge={id}><span className="t-medal t-medal--sm" aria-hidden="true">{ob.icon}</span><span>{tx(ob.title)}</span></p> : null; })}
         <h3>{tx(S.yourPath)}</h3>
         <PathChips adv={adv} path={sim.path} />
         <h3>{tx(S.toolsFound)}</h3>
@@ -620,7 +662,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
             <span className="ts-chev" aria-hidden="true">‹</span>
           </button>
           <div className="ts-adv__heading">
-            <div className="t-eyebrow ts-on-dark-eyebrow">{fmt(tx(S.missionN), { n: String(adv.number).padStart(2, '0') })} · {tx(adv.meta)}</div>
+            <div className="t-eyebrow ts-on-dark-eyebrow">{missionLine(fmt(tx(S.missionN), { n: String(adv.number).padStart(2, '0') }), tx(adv.meta))}</div>
             <h1 className="ts-adv__title">{tx(adv.title)}</h1>
           </div>
           {showClock && (
@@ -641,7 +683,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
       </div>
 
       <div className={'ts-scene' + (dim ? ' is-dim' : '')}>
-        <div className="ts-scene__bg" style={{ backgroundImage: `url("${asset(sceneUrl)}")` }} role="img" aria-label={tx(adv.title)} />
+        <div className="ts-scene__bg" style={{ backgroundImage: `url("${art(sceneUrl)}")` }} role="img" aria-label={tx(adv.title)} />
         {decor.map(({ slot, item, pos }) => (
           <span key={slot} className="ts-decor" style={{ left: pos!.x + '%', top: pos!.y + '%' }} title={tx(item!.name)} aria-hidden="true">{item!.icon}</span>
         ))}
@@ -650,7 +692,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
             <span className="t-mission__tag">{fmt(tx(S.missionN), { n: String(adv.number).padStart(2, '0') })}</span>
             <h2 className="t-mission__title">{tx(adv.title)}</h2>
             <ul className="t-mission__lines">{S.missionLines.map((l, i) => <li key={i}>{tx(l)}</li>)}</ul>
-            <p className="t-mission__meta">{tx(adv.meta)} · {tx(S.missionMeta)}</p>
+            <p className="t-mission__meta">{gradeOf(tx(adv.meta))} · {tx(S.missionMeta)}</p>
           </div>
         )}
         {phase === 'closing' && done?.ending && (

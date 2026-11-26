@@ -8,7 +8,7 @@ import { DECOR_SLOTS } from '../dev/shopFixture';
 import { MAX_ENERGY, isTired, type GameSave } from '../engine/save';
 import { band } from '../engine/sim';
 import { S, fmt } from '../strings';
-import { NoteIcon, asset, useToast } from '../ui';
+import { NoteIcon, asset, gradeOf, useToast } from '../ui';
 import type { Adventure, Location, LocationKind } from '../types';
 import type { Screen } from '../TeacherApp';
 import { LangToggle } from './TitleScreen';
@@ -133,14 +133,15 @@ export function CampusScreen({ save, go, onAdventure, onCoach, onReset }: {
           <div className="ts-hud-line">
             <div className="t-hud-card t-hud-card--pill ts-classes">
               <span className="ts-classes__label">{tx(S.classes)}</span>
-              {classes.map((a) => {
-                const c = save.completed[a.id];
+              {/* One chip per class (grade), toned by its latest finished lesson; insight = not started today. */}
+              {Array.from(new Set(classes.map((a) => gradeOf(tx(a.meta))))).map((g) => {
+                const done = classes.filter((a) => gradeOf(tx(a.meta)) === g && save.completed[a.id]);
+                const c = done.length ? save.completed[done[done.length - 1].id] : undefined;
                 const tone = !c ? 'insight' : (() => {
-                  const st = Object.values(c.students);
-                  const bs = st.map(band);
+                  const bs = Object.values(c.students).map(band);
                   return bs.every((b) => b === 'good') ? 'good' : bs.some((b) => b === 'poor') ? 'poor' : 'mixed';
                 })();
-                return <span key={a.id} className={`t-chip t-chip--dot t-chip--${tone}`}>{tx(a.meta).split('·')[0].trim()}</span>;
+                return <span key={g} className={`t-chip t-chip--dot t-chip--${tone}`}>{g}</span>;
               })}
             </div>
             <button type="button" className="t-btn t-btn--icon ts-settings-btn" aria-label={tx(S.settings)} onClick={() => { sfx.play('tap'); setSettings(true); }}>⚙</button>
@@ -173,7 +174,7 @@ export function CampusScreen({ save, go, onAdventure, onCoach, onReset }: {
             </span>
             <span className="ts-teacher__txt">
               <strong className="ts-teacher__name">{save.playerName || tx(S.teacher)}</strong>
-              <span className="ts-teacher__meta">{next ? tx(next.meta).split('·')[0].trim() : tx(S.teacher)}</span>
+              <span className="ts-teacher__meta">{next ? gradeOf(tx(next.meta)) : tx(S.teacher)}</span>
               <span className="ts-energy">
                 <span className="t-meter t-meter--pips" aria-hidden="true">{[0, 1, 2].map((i) => <i key={i} className={i < mood ? 'on' : ''} />)}</span>
                 <span className="ts-energy__word">{tx(S.energyMood[mood])}</span>

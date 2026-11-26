@@ -15,6 +15,8 @@ import { SHOP_FIXTURE } from '../../src/teacher/dev/shopFixture';
 import { canUse, consume, rewind, withExtraTime, assist, secondLook, parentCallTargets, applicable, ASSIST_OUTCOME } from '../../src/teacher/engine/powerups';
 import { validateAdventure } from '../../src/teacher/engine/validate';
 import { pickWeighted, seeded, triggerEvent, activeTargets, meets, startEncounter, profileOf, revealClue, cluesReady, offeredChoices, awardXp, checkPuzzle, resolveEnding } from '../../src/teacher/engine/mission';
+import { drawPool, earnedBadges, isPoolEvent, liveOn, liveTargets, milestoneReached, opensPuzzle, unlockFlags } from '../../src/teacher/engine/mission';
+import { ADVENTURES, RESOURCES } from '../../src/teacher/data';
 import type { Stage } from '../../src/teacher/types';
 import { FIXTURE_ADVENTURES, FIXTURE_RESOURCES } from './fixture-a1';
 import { FIXTURE_ADVENTURES as MISSIONS, FIXTURE_RESOURCES as NCLE } from '../../src/teacher/dev/fixture';
@@ -386,6 +388,55 @@ test('endings: eligible by flags, most relevant (lowest priority) first, others 
   assert.equal(e1.primary!.id, 'unfinished');
   assert.deepEqual(e1.others.map((e) => e.id), ['opportunity', 'ready']);
   assert.equal(resolveEnding(M, { readinessChecked: true }).primary!.id, 'ready');
+});
+
+/* ---------------- Real content (Hessa's missions) through the engine ---------------- */
+const R1 = ADVENTURES.find((a) => a.id === 'a1')!;
+
+test('real content validates against the engine (every mission)', () => {
+  const rid = RESOURCES.map((r) => r.id); const aid = ADVENTURES.map((a) => a.id);
+  for (const adv of ADVENTURES) assert.deepEqual(validateAdventure(adv, rid, aid), [], adv.id);
+});
+
+test('real m1: hotspots open from the schedule; own event before a pool event; pool draw after a student encounter', () => {
+  let s = createSim(R1);
+  assert.deepEqual(liveTargets(s, R1).sort(), ['ahmed', 'board', 'bookshelf', 'laptop', 'omar', 'sara']);
+  assert.equal(milestoneReached(s, R1), false);
+  const ahmed = findEvent(R1, 'ahmed')!;
+  s = startEncounter(s, ahmed, () => 0); // first profile: strong
+  assert.ok(s.flags['a1.ahmed:strong']);
+  const ch = offeredChoices(ahmed, s.flags);
+  assert.ok(ch.length >= 2 && ch.every((c) => !c.choice.ifFlag || c.choice.ifFlag === 'a1.ahmed:strong'));
+  s = choose(s, R1, 'ahmed', ch[0].index).sim;
+  assert.ok(unlockFlags(s.flags).includes('m2'), 'Assign → unlock:m2');
+  const d = drawPool(s, R1, () => 0);
+  assert.ok(d.drawn && isPoolEvent(R1, findEvent(R1, d.drawn)!), 'a pool event was drawn');
+  s = d.sim;
+  const on = findEvent(R1, d.drawn!)!.on;
+  const live = liveOn(s, R1, on);
+  assert.equal(live[live.length - 1].id, d.drawn, 'pool event comes after the hotspot’s own event');
+  assert.equal(drawPool({ ...s, done: R1.events.map((e) => e.id) }, R1, () => 0).drawn, undefined, 'none eligible → back to exploration');
+});
+
+test('real m1: laptop choice opens the puzzle (outcome id = puzzle.id); milestone; badge union; unlocks', () => {
+  const lap = findEvent(R1, 'laptop')!;
+  assert.ok(opensPuzzle(R1, resolveOutcomeId(lap.choices[0], {})));
+  let s = createSim(R1);
+  for (const id of ['ahmed', 'sara', 'omar']) {
+    const ev = findEvent(R1, id)!;
+    s = startEncounter(s, ev, () => 0);
+    s = choose(s, R1, id, offeredChoices(ev, s.flags)[0].index).sim;
+  }
+  assert.ok(milestoneReached(s, R1), 'all three students resolved + an ending eligible');
+  s = { ...s, flags: { ...s.flags, 'puzzle:journey': true } };
+  s = choose(s, R1, 'laptop', 0).sim;
+  const { primary } = resolveEnding(R1, s.flags);
+  const badges = earnedBadges(R1, s, primary, pickBadge(R1, s)?.id);
+  assert.ok(badges.includes('instructional-architect'), 'puzzle badge');
+  assert.equal(new Set(badges).size, badges.length, 'no duplicates');
+  const rec = recordCompletion(newSave('a1'), R1, s, badges[0], 12, false, primary?.opens ?? [], badges).save;
+  for (const m of [...(primary?.opens ?? []), ...unlockFlags(s.flags)]) assert.ok(rec.unlocked.includes(m), 'unlocked ' + m);
+  assert.ok(rec.flags[`__badge:a1:${badges[0]}`]);
 });
 
 console.log(`\nteacher engine: ${n} tests passed`);
