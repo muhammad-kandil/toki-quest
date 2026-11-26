@@ -17,6 +17,8 @@ ap.add_argument('--out', required=True)
 ap.add_argument('--force', action='store_true')
 ap.add_argument('--limit', type=int, default=0)
 ap.add_argument('--tashkeel', default='auto', choices=['auto', 'on', 'off'])
+ap.add_argument('--engine', default='local', choices=['local', 'gemini'])
+ap.add_argument('--budget-min', type=float, default=0, help='stop rendering after this many minutes (QA + index still written)')
 ap.add_argument('--redo', default='', help='regex: re-render clips whose text matches')
 ap.add_argument('--redo-slots', default='', help='comma list: re-render every clip of these voice slots')
 a = ap.parse_args()
@@ -42,7 +44,65 @@ def prep(text):
     return text
 
 # ---------- engines ----------
-if a.lang == 'en':
+if a.engine == 'gemini':
+    import base64, urllib.request, urllib.error
+    G = cast['gemini']
+    KEY = os.environ.get('GEMINI_API_KEY', '')
+    if not KEY:
+        sys.exit('GEMINI_API_KEY is not set')
+    API = 'https://generativelanguage.googleapis.com/v1beta'
+    def api(path, body=None):
+        req = urllib.request.Request(f'{API}/{path}', data=json.dumps(body).encode() if body else None,
+                                     headers={'content-type': 'application/json', 'x-goog-api-key': KEY})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.loads(r.read())
+    names = [m['name'].split('/')[-1] for m in api('models?pageSize=200').get('models', [])]
+    tts = [n for n in names if 'tts' in n]
+    pref = os.environ.get('GEMINI_TTS_MODEL') or next((n for n in tts if 'pro' in n), None) or (tts[0] if tts else None)
+    if not pref:
+        sys.exit('no TTS model available to this key: ' + ', '.join(names[:30]))
+    print('[gemini] TTS models:', tts, '-> using', pref, flush=True)
+    MOODS = {}
+    for c in script:
+        MOODS[c['key']] = c
+    def direction(clip):
+        slot = clip['slot']
+        who = 'teacher' if slot.startswith('teacher') else slot
+        persona = G['persona'][who]
+        bits = []
+        for m in (clip.get('mood') or '').split(':'):
+            if m and G['mood'].get(m):
+                bits.append(G['mood'][m])
+        mood = (' — ' + ', '.join(bits)) if bits else ''
+        return (f"You are voicing {persona}{mood}. {G['language'][a.lang]} "
+                f"Read ONLY the line between the markers, exactly as written, with no preamble.\n<<<\n{{text}}\n>>>")
+    CURRENT = {}
+    def synth(text, spec):
+        clip = CURRENT['clip']
+        prompt = direction(clip).replace('{text}', text)
+        body = {'contents': [{'parts': [{'text': prompt}]}],
+                'generationConfig': {'responseModalities': ['AUDIO'],
+                                     'speechConfig': {'voiceConfig': {'prebuiltVoiceConfig': {'voiceName': G['voices'][clip['slot']]}}}}}
+        for attempt in range(8):
+            try:
+                r = api(f'models/{pref}:generateContent', body)
+                part = r['candidates'][0]['content']['parts'][0]['inlineData']
+                pcm = np.frombuffer(base64.b64decode(part['data']), dtype='<i2').astype(np.float32) / 32768.0
+                rate = int(re.search(r'rate=(\d+)', part.get('mimeType', '')).group(1)) if 'rate=' in part.get('mimeType', '') else 24000
+                return pcm, rate
+            except urllib.error.HTTPError as e:
+                msg = e.read().decode('utf-8', 'replace')[:400]
+                if e.code == 429 and ('PerDay' in msg or 'per day' in msg.lower()):
+                    raise SystemExit('[gemini] daily quota reached: ' + msg)
+                wait = min(90, 5 * (2 ** attempt))
+                m = re.search(r'retryDelay": "(\d+)s', msg)
+                if m: wait = int(m.group(1)) + 1
+                print(f'  [gemini] HTTP {e.code}, retry in {wait}s: {msg[:160]}', flush=True)
+                time.sleep(wait)
+            except (KeyError, IndexError) as e:
+                print('  [gemini] no audio in response, retrying', flush=True); time.sleep(3)
+        raise RuntimeError('gemini failed repeatedly')
+elif a.lang == 'en':
     from kokoro_onnx import Kokoro
     kok = Kokoro(os.path.join(a.models, 'kokoro-v1.0.onnx'), os.path.join(a.models, 'voices-v1.0.bin'))
     def synth(text, spec):
@@ -97,6 +157,8 @@ def post(audio, sr, spec, path):
                         '-codec:a', 'libmp3lame', '-b:a', '40k', path], check=True)
 
 # ---------- Arabic: decide tashkeel per voice by ASR round trip ----------
+if a.engine == 'gemini':
+    a.tashkeel = 'off'   # Gemini reads undiacritised Arabic natively
 def asr_model():
     from faster_whisper import WhisperModel
     return WhisperModel('small', device='cpu', compute_type='int8', cpu_threads=os.cpu_count())
@@ -131,7 +193,7 @@ def transcribe(path):
     segs, _ = asr.transcribe(path, language=a.lang, beam_size=1, vad_filter=False)
     return ' '.join(s.text for s in segs).strip()
 
-if a.lang == 'ar' and a.tashkeel == 'auto':
+if a.engine == 'local' and a.lang == 'ar' and a.tashkeel == 'auto':
     sample = [c for c in script if len(c['text']) > 40][:12]
     for vname in VOICES:
         spec = {'voice': vname, 'speed': 1.0}
@@ -165,6 +227,8 @@ for i, c in enumerate(script):
 # ---------- QA: every clip, listened back ----------
 for c in script:
     path = os.path.join(outdir, c['key'] + '.mp3')
+    if not os.path.exists(path):
+        continue
     hyp = transcribe(path)
     dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', path],
                                capture_output=True, text=True).stdout or 0)
@@ -176,6 +240,7 @@ for c in script:
 # mispronunciations a listener hears, not transcription noise.
 def limit(slot):
     if a.lang == 'en': return 0.5
+    if a.engine == 'gemini': return 0.45
     return 0.3 if CAST[slot]['voice'] == 'emirati' else 0.6
 keep = [r['key'] for r in report if r['err'] <= limit(r['slot'])]
 want = {c['key'] for c in script}

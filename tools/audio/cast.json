@@ -142,5 +142,43 @@
     "ar": {
       "DLIS": "دي إل آي إس"
     }
+  },
+  "gemini": {
+    "_doc": "Gemini speech (generativelanguage API). Same prebuilt voice in both languages so a teacher sounds like the same person in EN and AR. 'style' is the acting direction; moods come from the conversation stance and how the line lands.",
+    "voices": {
+      "narrator": "Sulafat",
+      "toki": "Puck",
+      "teacher-f0": "Kore",
+      "teacher-f1": "Aoede",
+      "teacher-f2": "Despina",
+      "teacher-f3": "Gacrux",
+      "teacher-f4": "Leda",
+      "teacher-f5": "Vindemiatrix",
+      "teacher-m0": "Orus",
+      "teacher-m1": "Algieba",
+      "teacher-m2": "Iapetus",
+      "teacher-m3": "Schedar",
+      "teacher-m4": "Algenib",
+      "teacher-m5": "Umbriel"
+    },
+    "persona": {
+      "narrator": "a calm, warm narrator of a story about school coaching, unhurried and clear",
+      "toki": "Toki, a friendly, curious instructional coach talking to a teacher after a lesson: warm, respectful, plain-spoken, never preachy",
+      "teacher": "a schoolteacher in the UAE talking with a coach after the lesson"
+    },
+    "mood": {
+      "proud": "proud of the lesson and a little guarded",
+      "tired": "tired at the end of a long day, flat but polite",
+      "defensive": "defensive and a bit clipped, protecting how they teach",
+      "eager": "eager and open, quick to engage",
+      "opens": "now warming up and genuinely open",
+      "neutral": "polite but noncommittal",
+      "closes": "closing down, short and guarded",
+      "coach": ""
+    },
+    "language": {
+      "en": "Speak natural, conversational English.",
+      "ar": "Speak clear Modern Standard Arabic as an educated Emirati speaker would, with a light Gulf accent and natural pacing."
+    }
   }
 }

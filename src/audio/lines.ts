@@ -12,7 +12,8 @@ import type { SchoolVisitDefinition } from '../data/schoolVisitTypes';
 import type { ConversationDefinition } from '../data/conversationTypes';
 import { RISK_META } from '../data/levelTypes';
 
-export interface SpokenLine { text: Text; who: Speaker; teacher?: string }
+/** mood: acting direction for recorded voices (never part of the clip key). */
+export interface SpokenLine { text: Text; who: Speaker; teacher?: string; mood?: string }
 
 const join = (a: Text, b: Text): Text => ({ en: `${a.en}. ${b.en}`, ar: `${a.ar}. ${b.ar}` });
 
@@ -35,10 +36,10 @@ export const lines = {
     const teacher = c.teacherName.en;
     const out: SpokenLine[] = [];
     for (const turn of c.turns) {
-      out.push({ text: turn.teacherLine, who: 'teacher', teacher });
+      out.push({ text: turn.teacherLine, who: 'teacher', teacher, mood: c.stance });
       for (const o of turn.options) {
-        out.push({ text: o.label, who: 'toki' });
-        out.push({ text: o.reply, who: 'teacher', teacher });
+        out.push({ text: o.label, who: 'toki', mood: 'coach' });
+        out.push({ text: o.reply, who: 'teacher', teacher, mood: `${c.stance}:${o.effect}` });
       }
     }
     return out;

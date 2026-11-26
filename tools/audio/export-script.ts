@@ -35,7 +35,7 @@ async function main() {
   }
   for (const v of Object.values(SCHOOL_VISITS)) { add(`V${v.id}`, lines.visitIntro(v)); add(`V${v.id}`, lines.visitFinal(v)); }
 
-  const clips = new Map<string, { key: string; lang: string; slot: string; text: string; where: string[] }>();
+  const clips = new Map<string, { key: string; lang: string; slot: string; text: string; where: string[]; mood?: string; teacher?: string }>();
   for (const { line, where } of spoken) {
     for (const lang of ['en', 'ar'] as const) {
       const slot = voiceSlot(line.who, line.teacher);
@@ -44,7 +44,7 @@ async function main() {
       const key = clipKey(lang, slot, line.text[lang]);
       const c = clips.get(key);
       if (c) { if (!c.where.includes(where)) c.where.push(where); }
-      else clips.set(key, { key, lang, slot, text, where: [where] });
+      else clips.set(key, { key, lang, slot, text, where: [where], mood: line.mood, teacher: line.teacher });
     }
   }
   const out = [...clips.values()];
