@@ -1,0 +1,105 @@
+{
+ "composition": "Original score written for Toki's Coaching Quest (tools/audio/music/compose.py).",
+ "soundfont": "FluidR3_GM.sf2",
+ "soundfont_licence": "MIT (FluidR3_GM by Frank Wen, as packaged by Debian fluid-soundfont-gm)",
+ "renderer": "FluidSynth (LGPL-2.1, used as a build tool; not shipped)",
+ "pieces": {
+  "title": {
+   "bpm": 108,
+   "bars": 16,
+   "seconds": 35.56,
+   "instruments": [
+    "mtrumpet",
+    "vibes",
+    "marimba",
+    "abass",
+    "drums"
+   ]
+  },
+  "warm": {
+   "bpm": 104,
+   "bars": 16,
+   "seconds": 36.92,
+   "instruments": [
+    "clarinet",
+    "marimba",
+    "pizz",
+    "abass",
+    "drums"
+   ]
+  },
+  "map": {
+   "bpm": 112,
+   "bars": 16,
+   "seconds": 34.29,
+   "instruments": [
+    "mtrumpet",
+    "pizz",
+    "nylon",
+    "abass",
+    "drums"
+   ]
+  },
+  "thoughtful": {
+   "bpm": 100,
+   "bars": 16,
+   "seconds": 38.4,
+   "instruments": [
+    "flute",
+    "vibes",
+    "epiano",
+    "abass",
+    "drums"
+   ]
+  },
+  "serious": {
+   "bpm": 100,
+   "bars": 16,
+   "seconds": 38.4,
+   "instruments": [
+    "bassoon",
+    "pizz",
+    "marimba",
+    "abass",
+    "drums"
+   ]
+  },
+  "level-complete": {
+   "bpm": 108,
+   "seconds": 2.22,
+   "instruments": [
+    "marimba",
+    "vibes",
+    "vibes",
+    "vibes",
+    "pizz",
+    "drums"
+   ]
+  },
+  "badge": {
+   "bpm": 120,
+   "seconds": 2.0,
+   "instruments": [
+    "glock",
+    "vibes",
+    "vibes",
+    "vibes",
+    "marimba",
+    "drums"
+   ]
+  },
+  "world-complete": {
+   "bpm": 104,
+   "seconds": 4.62,
+   "instruments": [
+    "mtrumpet",
+    "clarinet",
+    "pizz",
+    "marimba",
+    "vibes",
+    "vibes",
+    "drums"
+   ]
+  }
+ }
+}

@@ -1,0 +1,562 @@
+{
+ "chatter-burst": {
+  "id": "863626",
+  "author": "pandy81",
+  "title": "863626",
+  "url": "https://freesound.org/people/pandy81/sounds/863626/",
+  "license": "CC0",
+  "seconds": 2.6,
+  "score": 0.886,
+  "labels": [
+   "Speech",
+   "Child speech, kid speaking",
+   "Whimper",
+   "Chuckle, chortle",
+   "Baby cry, infant cry"
+  ]
+ },
+ "kids-answer": {
+  "id": "853197",
+  "author": "Ismode",
+  "title": "853197",
+  "url": "https://freesound.org/people/Ismode/sounds/853197/",
+  "license": "CC0",
+  "seconds": 2.2,
+  "score": 0.496,
+  "labels": [
+   "Speech",
+   "Clip-clop",
+   "Animal",
+   "Horse",
+   "Biting"
+  ]
+ },
+ "kids-whisper": {
+  "id": "627211",
+  "author": "golovlev.sound",
+  "title": "627211",
+  "url": "https://freesound.org/people/golovlev.sound/sounds/627211/",
+  "license": "CC0",
+  "seconds": 1.8,
+  "score": 0.541,
+  "labels": [
+   "Speech",
+   "Animal",
+   "Slam",
+   "Snort",
+   "Music"
+  ]
+ },
+ "kids-cheer-soft": {
+  "id": "627219",
+  "author": "golovlev.sound",
+  "title": "627219",
+  "url": "https://freesound.org/people/golovlev.sound/sounds/627219/",
+  "license": "CC0",
+  "seconds": 2.4,
+  "score": 0.407,
+  "labels": [
+   "Speech",
+   "Crowd",
+   "Children shouting",
+   "Cheering",
+   "Whoop"
+  ]
+ },
+ "kids-clap": {
+  "id": "529455",
+  "author": "johntrap",
+  "title": "529455",
+  "url": "https://freesound.org/people/johntrap/sounds/529455/",
+  "license": "CC0",
+  "seconds": 2.0,
+  "score": 0.454,
+  "labels": [
+   "Clapping",
+   "Speech",
+   "Applause",
+   "Tap",
+   "Animal"
+  ]
+ },
+ "marker-squeak": {
+  "id": "335956",
+  "author": "newagesoup",
+  "title": "335956",
+  "url": "https://freesound.org/people/newagesoup/sounds/335956/",
+  "license": "CC0",
+  "seconds": 1.8,
+  "score": 0.542,
+  "labels": [
+   "Squeak",
+   "Mouse",
+   "Music",
+   "Squawk",
+   "Rodents, rats, mice"
+  ]
+ },
+ "whiteboard-wipe": {
+  "id": "232903",
+  "author": "Ottomaani138",
+  "title": "232903",
+  "url": "https://freesound.org/people/Ottomaani138/sounds/232903/",
+  "license": "CC0",
+  "seconds": 1.2,
+  "score": 0.243,
+  "labels": [
+   "Writing",
+   "Chopping (food)",
+   "Ping",
+   "Inside, small room",
+   "Knock"
+  ]
+ },
+ "pencil-write": {
+  "id": "444479",
+  "author": "parkersenk",
+  "title": "444479",
+  "url": "https://freesound.org/people/parkersenk/sounds/444479/",
+  "license": "CC0",
+  "seconds": 2.2,
+  "score": 0.905,
+  "labels": [
+   "Writing",
+   "Rub",
+   "Inside, small room",
+   "Toothbrush",
+   "Scratch"
+  ]
+ },
+ "crayons": {
+  "id": "407405",
+  "author": "florianreichelt",
+  "title": "407405",
+  "url": "https://freesound.org/people/florianreichelt/sounds/407405/",
+  "license": "CC0",
+  "seconds": 1.94,
+  "score": 0.44,
+  "labels": [
+   "Writing",
+   "Scratch",
+   "Silence",
+   "Inside, small room",
+   "Pant"
+  ]
+ },
+ "pen-click": {
+  "id": "147758",
+  "author": "bewareofkites20",
+  "title": "147758",
+  "url": "https://freesound.org/people/bewareofkites20/sounds/147758/",
+  "license": "CC0",
+  "seconds": 0.8,
+  "score": -0.008,
+  "labels": [
+   "Scissors",
+   "Finger snapping",
+   "Sound effect",
+   "Mechanisms",
+   "Gears"
+  ]
+ },
+ "paper-rustle": {
+  "id": "731484",
+  "author": "Spaghetto87",
+  "title": "731484",
+  "url": "https://freesound.org/people/Spaghetto87/sounds/731484/",
+  "license": "CC0",
+  "seconds": 1.6,
+  "score": 0.391,
+  "labels": [
+   "Crumpling, crinkling",
+   "Tearing",
+   "Crunch",
+   "Inside, small room",
+   "Crackle"
+  ]
+ },
+ "paper-flick": {
+  "id": "429403",
+  "author": "jackthemurray",
+  "title": "429403",
+  "url": "https://freesound.org/people/jackthemurray/sounds/429403/",
+  "license": "CC0",
+  "seconds": 1.14,
+  "score": 0.563,
+  "labels": [
+   "Tearing",
+   "Crunch",
+   "Crackle",
+   "Scrape",
+   "Crumpling, crinkling"
+  ]
+ },
+ "page-turn": {
+  "id": "271459",
+  "author": "bdunis4",
+  "title": "271459",
+  "url": "https://freesound.org/people/bdunis4/sounds/271459/",
+  "license": "CC0",
+  "seconds": 1.2,
+  "score": 0.469,
+  "labels": [
+   "Tearing",
+   "Inside, small room",
+   "Zipper (clothing)",
+   "Crumpling, crinkling",
+   "Speech"
+  ]
+ },
+ "book-close": {
+  "id": "412061",
+  "author": "Citlaly",
+  "title": "412061",
+  "url": "https://freesound.org/people/Citlaly/sounds/412061/",
+  "license": "CC0",
+  "seconds": 0.8,
+  "score": 0.072,
+  "labels": [
+   "Door",
+   "Sliding door",
+   "Tap",
+   "Slam",
+   "Scrape"
+  ]
+ },
+ "scissors": {
+  "id": "272035",
+  "author": "aldenroth2",
+  "title": "272035",
+  "url": "https://freesound.org/people/aldenroth2/sounds/272035/",
+  "license": "CC0",
+  "seconds": 1.36,
+  "score": 0.906,
+  "labels": [
+   "Tearing",
+   "Inside, small room",
+   "Crumpling, crinkling",
+   "Zipper (clothing)",
+   "Scrape"
+  ]
+ },
+ "stapler": {
+  "id": "412062",
+  "author": "Citlaly",
+  "title": "412062",
+  "url": "https://freesound.org/people/Citlaly/sounds/412062/",
+  "license": "CC0",
+  "seconds": 1.0,
+  "score": 0.001,
+  "labels": [
+   "Gunshot, gunfire",
+   "Cap gun",
+   "Mechanisms",
+   "Sound effect",
+   "Scissors"
+  ]
+ },
+ "box-rattle": {
+  "id": "262584",
+  "author": "sampson021",
+  "title": "262584",
+  "url": "https://freesound.org/people/sampson021/sounds/262584/",
+  "license": "CC0",
+  "seconds": 1.6,
+  "score": -0.011,
+  "labels": [
+   "Breaking",
+   "Coin (dropping)",
+   "Crack",
+   "Sound effect",
+   "Glass"
+  ]
+ },
+ "kg-blocks": {
+  "id": "873306",
+  "author": "Robo9418",
+  "title": "873306",
+  "url": "https://freesound.org/people/Robo9418/sounds/873306/",
+  "license": "CC0",
+  "seconds": 1.6,
+  "score": -0.101,
+  "labels": [
+   "Sound effect",
+   "Rattle",
+   "Ratchet, pawl",
+   "Coin (dropping)",
+   "Mechanisms"
+  ]
+ },
+ "chair-scrape": {
+  "id": "325278",
+  "author": "deleted_user_2104797",
+  "title": "325278",
+  "url": "https://freesound.org/people/deleted_user_2104797/sounds/325278/",
+  "license": "CC0",
+  "seconds": 1.2,
+  "score": 0.231,
+  "labels": [
+   "Scrape",
+   "Sound effect",
+   "Zipper (clothing)",
+   "Scratch",
+   "Silence"
+  ]
+ },
+ "footsteps-class": {
+  "id": "459964",
+  "author": "florianreichelt",
+  "title": "459964",
+  "url": "https://freesound.org/people/florianreichelt/sounds/459964/",
+  "license": "CC0",
+  "seconds": 2.0,
+  "score": 0.572,
+  "labels": [
+   "Walk, footsteps",
+   "Sound effect",
+   "Crunch",
+   "Shuffle",
+   "Tap"
+  ]
+ },
+ "door-close": {
+  "id": "537737",
+  "author": "steeltowngaming",
+  "title": "537737",
+  "url": "https://freesound.org/people/steeltowngaming/sounds/537737/",
+  "license": "CC0",
+  "seconds": 1.2,
+  "score": 0.943,
+  "labels": [
+   "Knock",
+   "Door",
+   "Thunk",
+   "Slam",
+   "Sound effect"
+  ]
+ },
+ "cough-soft": {
+  "id": "272029",
+  "author": "aldenroth2",
+  "title": "272029",
+  "url": "https://freesound.org/people/aldenroth2/sounds/272029/",
+  "license": "CC0",
+  "seconds": 0.86,
+  "score": 0.958,
+  "labels": [
+   "Throat clearing",
+   "Cough",
+   "Speech",
+   "Male speech, man speaking",
+   "Sound effect"
+  ]
+ },
+ "keyboard-typing": {
+  "id": "685984",
+  "author": "zrrion",
+  "title": "685984",
+  "url": "https://freesound.org/people/zrrion/sounds/685984/",
+  "license": "CC0",
+  "seconds": 2.4,
+  "score": 0.986,
+  "labels": [
+   "Typing",
+   "Computer keyboard",
+   "Typewriter",
+   "Sound effect",
+   "Speech"
+  ]
+ },
+ "mouse-click": {
+  "id": "534104",
+  "author": "pbimal",
+  "title": "534104",
+  "url": "https://freesound.org/people/pbimal/sounds/534104/",
+  "license": "CC0",
+  "seconds": 0.47,
+  "score": 0.469,
+  "labels": [
+   "Computer keyboard",
+   "Typing",
+   "Sound effect",
+   "Finger snapping",
+   "Rattle"
+  ]
+ },
+ "tablet-tap": {
+  "id": "777044",
+  "author": "RinshiFox",
+  "title": "777044",
+  "url": "https://freesound.org/people/RinshiFox/sounds/777044/",
+  "license": "CC0",
+  "seconds": 1.0,
+  "score": 0.203,
+  "labels": [
+   "Scissors",
+   "Finger snapping",
+   "Tick",
+   "Clicking",
+   "Tick-tock"
+  ]
+ },
+ "device-chime": {
+  "id": "878601",
+  "author": "Qvantor",
+  "title": "878601",
+  "url": "https://freesound.org/people/Qvantor/sounds/878601/",
+  "license": "CC0",
+  "seconds": 1.2,
+  "score": 0.012,
+  "labels": [
+   "Ding",
+   "Music",
+   "Ding-dong",
+   "Bell",
+   "Doorbell"
+  ]
+ },
+ "printer": {
+  "id": "595071",
+  "author": "JaredPaulOW",
+  "title": "595071",
+  "url": "https://freesound.org/people/JaredPaulOW/sounds/595071/",
+  "license": "CC0",
+  "seconds": 2.4,
+  "score": 0.208,
+  "labels": [
+   "Printer",
+   "Sliding door",
+   "Creak",
+   "Music",
+   "Mechanisms"
+  ]
+ },
+ "timer-beep": {
+  "id": "536421",
+  "author": "Rudmer_Rotteveel",
+  "title": "536421",
+  "url": "https://freesound.org/people/Rudmer_Rotteveel/sounds/536421/",
+  "license": "CC0",
+  "seconds": 1.22,
+  "score": 0.524,
+  "labels": [
+   "Alarm clock",
+   "Alarm",
+   "Beep, bleep",
+   "Ringtone",
+   "Sound effect"
+  ]
+ },
+ "stopwatch-tick": {
+  "id": "874974",
+  "author": "Robo9418",
+  "title": "874974",
+  "url": "https://freesound.org/people/Robo9418/sounds/874974/",
+  "license": "CC0",
+  "seconds": 12.0,
+  "score": 0.892,
+  "labels": [
+   "Tick",
+   "Tick-tock",
+   "Clock",
+   "Sound effect",
+   "Raindrop"
+  ]
+ },
+ "clock-tick": {
+  "id": "830193",
+  "author": "Filmscore",
+  "title": "830193",
+  "url": "https://freesound.org/people/Filmscore/sounds/830193/",
+  "license": "CC0",
+  "seconds": 16.0,
+  "score": 0.963,
+  "labels": [
+   "Tick-tock",
+   "Tick",
+   "Clock",
+   "Speech",
+   "Sound effect"
+  ]
+ },
+ "projector-hum": {
+  "id": "425225",
+  "author": "unascribed",
+  "title": "425225",
+  "url": "https://freesound.org/people/unascribed/sounds/425225/",
+  "license": "CC0",
+  "seconds": 20.0,
+  "score": -0.024,
+  "labels": [
+   "Writing",
+   "Inside, small room",
+   "Single-lens reflex camera",
+   "White noise",
+   "Speech"
+  ]
+ },
+ "points-chime": {
+  "id": "644963",
+  "author": "craigscottuk",
+  "title": "644963",
+  "url": "https://freesound.org/people/craigscottuk/sounds/644963/",
+  "license": "CC0",
+  "seconds": 1.0,
+  "score": 0.742,
+  "labels": [
+   "Ding",
+   "Clang",
+   "Sound effect",
+   "Ding-dong",
+   "Ringtone"
+  ]
+ },
+ "buzzer-soft": {
+  "id": "185560",
+  "author": "kast6453",
+  "title": "185560",
+  "url": "https://freesound.org/people/kast6453/sounds/185560/",
+  "license": "CC0",
+  "seconds": 0.9,
+  "score": 0.21,
+  "labels": [
+   "Tick-tock",
+   "Buzzer",
+   "Tick",
+   "Clock",
+   "Vehicle horn, car horn, honking"
+  ]
+ },
+ "glass-clink": {
+  "id": "705949",
+  "author": "LilMati",
+  "title": "705949",
+  "url": "https://freesound.org/people/LilMati/sounds/705949/",
+  "license": "CC0",
+  "seconds": 1.0,
+  "score": -0.033,
+  "labels": [
+   "Gargling",
+   "Gurgling",
+   "Liquid",
+   "Drip",
+   "Boiling"
+  ]
+ },
+ "coffee-cup": {
+  "id": "547489",
+  "author": "sidequesting",
+  "title": "547489",
+  "url": "https://freesound.org/people/sidequesting/sounds/547489/",
+  "license": "CC0",
+  "seconds": 1.0,
+  "score": 0.405,
+  "labels": [
+   "Chink, clink",
+   "Cutlery, silverware",
+   "Dishes, pots, and pans",
+   "Sound effect",
+   "Coin (dropping)"
+  ]
+ }
+}

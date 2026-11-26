@@ -1,0 +1,24 @@
+{
+ "loops": {
+  "title": {
+   "loopStart": 0.5,
+   "period": 35.555556
+  },
+  "warm": {
+   "loopStart": 0.5,
+   "period": 36.92263
+  },
+  "map": {
+   "loopStart": 0.5,
+   "period": 34.285714
+  },
+  "thoughtful": {
+   "loopStart": 0.5,
+   "period": 38.4
+  },
+  "serious": {
+   "loopStart": 0.5,
+   "period": 38.4
+  }
+ }
+}
