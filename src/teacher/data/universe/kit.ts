@@ -84,7 +84,8 @@ export interface UOutcome extends Outcome {
   /** Play this scenario next (not a draw), e.g. F01 → R05 Quiet Confidence. */
   triggers?: string;
 }
-export interface UScenario extends Omit<Scenario, 'events' | 'outcomes'> {
+export interface UScenario extends Omit<Scenario, 'events' | 'outcomes' | 'requires'> {
+  requires?: UCondition;
   events: UEvent[];
   outcomes: UOutcome[];
   /** R04 Time Squeeze: change the remaining draws of this phase. */
