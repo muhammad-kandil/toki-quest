@@ -48,6 +48,10 @@ export const A5: Adventure = {
       understanding: 3,
       engagement: 1,
       idle: t('Shamma has finished the story and is reading it again, backwards.', 'أنهت شمّة القصة، وتقرؤها الآن من آخرها.'),
+      homeNote: t(
+        'She reads everything at home, her brother\'s books included. School texts have felt easy since Grade 2.',
+        'تقرأ كل شيء في البيت، حتى كتب أخيها. ونصوص المدرسة تبدو لها سهلة منذ الصف الثاني.',
+      ),
     },
     {
       id: 'mahra',
@@ -57,6 +61,10 @@ export const A5: Adventure = {
       understanding: 0,
       engagement: 2,
       idle: t('Mahra is smiling and following along.', 'مهرة مبتسمة وتتابع مع الصف.'),
+      homeNote: t(
+        'Her older sister reads the class story to her every night, so Mahra knows it by heart before the lesson.',
+        'أختها الكبرى تقرأ لها قصة الصف كل ليلة، فتحفظها مهرة قبل الدرس.',
+      ),
       peek: {
         text: t(
           'Mahra\'s finger is on the page, but it isn\'t moving with the words. Her eyes are on the picture of the dhow.',
@@ -73,6 +81,10 @@ export const A5: Adventure = {
       understanding: 1,
       engagement: 1,
       idle: t('Rashid is mouthing the words to himself, very quietly.', 'راشد يحرّك شفتيه بالكلمات بهدوء شديد.'),
+      homeNote: t(
+        'He reads aloud to his little brother at home, where nobody laughs.',
+        'يقرأ بصوت مسموع لأخيه الصغير في البيت، حيث لا يضحك أحد.',
+      ),
     },
   ],
   objects: [

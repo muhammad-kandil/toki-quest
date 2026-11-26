@@ -45,6 +45,10 @@ export const A1: Adventure = {
       understanding: 0,
       engagement: 2,
       idle: t('Sara is working, slowly, rubbing out a lot.', 'سارة تعمل ببطء، وتمسح كثيرًا.'),
+      homeNote: t(
+        'Her older sister helps with homework most evenings, and explains fractions the way she learned them.',
+        'أختها الكبرى تساعدها في الواجبات معظم الأمسيات، وتشرح لها الكسور بالطريقة التي تعلّمتها هي.',
+      ),
       peek: {
         text: t('Sara\'s page: 1/4 + 2/4 = 3/8. Interesting…', 'في ورقة سارة: ١/٤ + ٢/٤ = ٣/٨. مثير للاهتمام…'),
         setFlag: 'a1.peekedSara',
@@ -58,6 +62,10 @@ export const A1: Adventure = {
       understanding: 3,
       engagement: 1,
       idle: t('Ahmed is working fast, and glancing at the clock.', 'أحمد يعمل بسرعة، وينظر إلى الساعة.'),
+      homeNote: t(
+        'Both his parents are teachers. At home, finishing fast is what gets noticed.',
+        'والداه معلّمان. وفي البيت، الإنهاء السريع هو ما يلفت الانتباه.',
+      ),
     },
     {
       id: 'omar',
@@ -67,6 +75,10 @@ export const A1: Adventure = {
       understanding: 1,
       engagement: 0,
       idle: t('Omar is at his table, pen still capped.', 'عمر على طاولته، وغطاء قلمه لم يُفتح بعد.'),
+      homeNote: t(
+        'His dad works night shifts, so mornings are rushed and Omar often arrives without breakfast.',
+        'والده يعمل في نوبات ليلية، فالصباح عندهم مستعجل، وكثيرًا ما يصل عمر دون أن يفطر.',
+      ),
       peek: {
         text: t(
           'In the margin of Omar\'s page: a neat fraction bar split into quarters, crossed out.',

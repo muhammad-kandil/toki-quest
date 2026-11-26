@@ -47,6 +47,10 @@ export const A3: Adventure = {
       understanding: 3,
       engagement: 2,
       idle: t('Reem is writing fast, the group sheet pulled towards her.', 'ريم تكتب بسرعة، وقد سحبت ورقة المجموعة نحوها.'),
+      homeNote: t(
+        'Her family expects top marks, and she worries a group mark could pull hers down.',
+        'عائلتها تنتظر منها أعلى الدرجات، وهي تخشى أن تُنزل درجة المجموعة درجتها.',
+      ),
     },
     {
       id: 'saeed',
@@ -56,6 +60,10 @@ export const A3: Adventure = {
       understanding: 1,
       engagement: 1,
       idle: t('Saeed is telling a joke. The table laughs.', 'سعيد يروي نكتة، والطاولة تضحك.'),
+      homeNote: t(
+        'He plays for a youth football club four evenings a week; homework happens in the car.',
+        'يلعب في نادٍ لكرة القدم للناشئين أربع أمسيات في الأسبوع، ويحلّ واجباته في السيارة.',
+      ),
     },
     {
       id: 'yousef',
@@ -65,6 +73,10 @@ export const A3: Adventure = {
       understanding: 1,
       engagement: 0,
       idle: t('Yousef is copying neatly from Reem\'s side of the page.', 'يوسف ينقل بخط مرتّب من جهة ريم في الورقة.'),
+      homeNote: t(
+        'His family arrived in the UAE last year. Arabic at home; English is still new.',
+        'وصلت عائلته إلى الإمارات العام الماضي. العربية في البيت، والإنجليزية ما زالت جديدة عليه.',
+      ),
       peek: {
         text: t(
           'Yousef\'s notebook: two lines in Arabic, "the break is short so we eat fast and we are tired". A real reason, not yet in English.',
@@ -81,6 +93,10 @@ export const A3: Adventure = {
       understanding: 2,
       engagement: 1,
       idle: t('Maitha starts to say something, then stops.', 'ميثاء تبدأ بقول شيء، ثم تتوقّف.'),
+      homeNote: t(
+        'Her grandmother lives with them, and Maitha reads to her every evening.',
+        'جدّتها تعيش معهم، وميثاء تقرأ لها كل مساء.',
+      ),
     },
   ],
   objects: [

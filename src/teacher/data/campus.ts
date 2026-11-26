@@ -20,5 +20,6 @@ export const LOCATIONS: Location[] = [
   { id: 'yard', kind: 'yard', name: t('Yard', 'الساحة'), x: 46, y: 64 },
   /* The contract has no 'canteen' kind; it is an ambient place like the yard. */
   { id: 'canteen', kind: 'yard', name: t('Canteen', 'المقصف'), x: 80, y: 72 },
+  { id: 'shop', kind: 'shop', name: t('School store', 'متجر المدرسة'), x: 62, y: 84 },
   { id: 'community', kind: 'community', name: t('Community board', 'لوحة المجتمع'), x: 22, y: 82 },
 ];

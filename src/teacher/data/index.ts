@@ -6,3 +6,5 @@ import { RESOURCES } from './resources';
 import { ADVENTURES } from './adventures';
 export const getResource = (id: string) => RESOURCES.find((r) => r.id === id);
 export const getAdventure = (id: string) => ADVENTURES.find((a) => a.id === id);
+export { SHOP_ITEMS } from './shop';
+export { TERM_PASS, END_OF_TERM } from './termPass';

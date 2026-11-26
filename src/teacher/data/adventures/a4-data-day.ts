@@ -50,6 +50,10 @@ export const A4: Adventure = {
         'Hamdan reads every question twice, his finger under each word.',
         'حمدان يقرأ كل سؤال مرتين، وإصبعه تحت كل كلمة.',
       ),
+      homeNote: t(
+        'Arabic at home. His father checks his homework every night and takes scores very seriously.',
+        'العربية لغة البيت. ووالده يراجع واجباته كل ليلة، ويأخذ الدرجات بجدية كبيرة.',
+      ),
       peek: {
         text: t(
           'Hamdan\'s quiz: 3 out of 10. The three he answered are right. The other seven are blank.',
@@ -66,6 +70,10 @@ export const A4: Adventure = {
       understanding: 1,
       engagement: 2,
       idle: t('Sara keeps looking at the group list on the board.', 'سارة تنظر إلى قائمة المجموعات على السبورة مرة بعد مرة.'),
+      homeNote: t(
+        'Her older sister helps with homework most evenings, and explains fractions the way she learned them.',
+        'أختها الكبرى تساعدها في الواجبات معظم الأمسيات، وتشرح لها الكسور بالطريقة التي تعلّمتها هي.',
+      ),
     },
     {
       id: 'omar',
@@ -75,6 +83,10 @@ export const A4: Adventure = {
       understanding: 1,
       engagement: 1,
       idle: t('Omar is working through the reteach sheet, quickly.', 'عمر يحلّ ورقة إعادة الشرح بسرعة.'),
+      homeNote: t(
+        'His dad works night shifts, so mornings are rushed and Omar often arrives without breakfast.',
+        'والده يعمل في نوبات ليلية، فالصباح عندهم مستعجل، وكثيرًا ما يصل عمر دون أن يفطر.',
+      ),
     },
   ],
   objects: [

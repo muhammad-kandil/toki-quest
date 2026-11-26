@@ -47,6 +47,10 @@ export const A2: Adventure = {
       understanding: 2,
       engagement: 0,
       idle: t('Noura is writing small, neat notes. She hasn\'t looked up.', 'نورة تكتب ملاحظات صغيرة مرتّبة، ولم ترفع رأسها.'),
+      homeNote: t(
+        'The eldest of five. At home she talks all the time; she is quiet only at school.',
+        'الكبرى بين خمسة إخوة. في البيت تتكلّم طوال الوقت، وهي هادئة في المدرسة فقط.',
+      ),
       peek: {
         text: t(
           'Noura\'s notebook: "Hot water: the bits move faster and knock the sugar apart." The best answer in the room, and nobody knows.',
@@ -63,6 +67,10 @@ export const A2: Adventure = {
       understanding: 1,
       engagement: 1,
       idle: t('Khalid is turning an empty beaker round and round.', 'خالد يدير كأسًا زجاجية فارغة بين يديه.'),
+      homeNote: t(
+        'His family moved from another emirate this summer. New school, new friends, new everything.',
+        'انتقلت عائلته من إمارة أخرى هذا الصيف. مدرسة جديدة، وأصدقاء جدد، وكل شيء جديد.',
+      ),
     },
     {
       id: 'omar',
@@ -72,6 +80,10 @@ export const A2: Adventure = {
       understanding: 1,
       engagement: 1,
       idle: t('Omar is watching the other tables\' experiments.', 'عمر يراقب تجارب الطاولات الأخرى.'),
+      homeNote: t(
+        'His dad works night shifts, so mornings are rushed and Omar often arrives without breakfast.',
+        'والده يعمل في نوبات ليلية، فالصباح عندهم مستعجل، وكثيرًا ما يصل عمر دون أن يفطر.',
+      ),
     },
     {
       id: 'ahmed',
@@ -81,6 +93,10 @@ export const A2: Adventure = {
       understanding: 2,
       engagement: 3,
       idle: t('Ahmed\'s hand is half up already, just in case.', 'يد أحمد مرفوعة إلى النصف، احتياطًا.'),
+      homeNote: t(
+        'Both his parents are teachers. At home, finishing fast is what gets noticed.',
+        'والداه معلّمان. وفي البيت، الإنهاء السريع هو ما يلفت الانتباه.',
+      ),
     },
   ],
   objects: [
