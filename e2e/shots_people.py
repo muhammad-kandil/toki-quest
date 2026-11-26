@@ -15,7 +15,7 @@ def run(lang):
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(900)
         pg.click('.title-screen__cta'); pg.wait_for_timeout(1500); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
         pg.screenshot(path=f'{OUT}/{prefix}-{lang}-map.jpg', type='jpeg', quality=82)
-        pg.click('.map__node--current'); pg.wait_for_timeout(2000); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
+        pg.click('.map__node--current'); pg.wait_for_timeout(2000); pg.wait_for_selector('.door, .story__btn--skip', timeout=8000); (pg.click('.story__btn--skip'), pg.wait_for_selector('.door', timeout=8000)) if pg.locator('.story__btn--skip').count() else None; pg.wait_for_timeout(500)
         pg.screenshot(path=f'{OUT}/{prefix}-{lang}-hub.jpg', type='jpeg', quality=82)
         pg.click('.door >> nth=0'); pg.wait_for_timeout(2600)
         pg.screenshot(path=f'{OUT}/{prefix}-{lang}-observe.jpg', type='jpeg', quality=82)

@@ -18,7 +18,7 @@ HASH = '#tgWebAppData=' + urllib.parse.quote(TG, safe='') + '&tgWebAppVersion=8.
 
 def play_level_one(pg):
     pg.click('.title-screen__cta'); pg.wait_for_timeout(900); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
-    pg.click('.map__node--current'); pg.wait_for_timeout(1500); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
+    pg.click('.map__node--current'); pg.wait_for_timeout(1500); pg.wait_for_selector('.door, .story__btn--skip', timeout=8000); (pg.click('.story__btn--skip'), pg.wait_for_selector('.door', timeout=8000)) if pg.locator('.story__btn--skip').count() else None; pg.wait_for_timeout(500)
     pg.locator('.door--available').first.click(); pg.wait_for_timeout(1500)
     pg.wait_for_selector('.evidence-spot', timeout=8000); pg.wait_for_timeout(900)
     spots = pg.locator('.evidence-spot')

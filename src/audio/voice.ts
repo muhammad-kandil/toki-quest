@@ -133,7 +133,7 @@ function playSynth(line: Line, lang: Lang, my: number): Promise<void> {
   });
 }
 
-async function run(lines: Line[], lang: Lang) {
+async function run(lines: Line[], lang: Lang, onDone?: () => void) {
   const my = ++gen;
   stopNow();
   await loadIndex(lang);
@@ -146,7 +146,7 @@ async function run(lines: Line[], lang: Lang) {
     if (my !== gen) return;
     await new Promise((r) => window.setTimeout(r, 180));   // a breath between speakers
   }
-  if (my === gen) sfx.duckRoom(false);
+  if (my === gen) { sfx.duckRoom(false); onDone?.(); }
 }
 
 function stopNow() {
@@ -186,9 +186,10 @@ export const voice = {
     if (!voice.isActive(lang)) return;
     void run([{ text, who, teacher }], lang);
   },
-  speakSequence(lines: Line[], lang: Lang) {
+  /** onDone fires when the last line finishes (not on cancel; not when voice is off). */
+  speakSequence(lines: Line[], lang: Lang, onDone?: () => void) {
     if (!voice.isActive(lang)) return;
-    void run(lines, lang);
+    void run(lines, lang, onDone);
   },
   cancel() { gen++; stopNow(); },
   subscribe(fn: () => void) { listeners.add(fn); return () => listeners.delete(fn); },

@@ -4,6 +4,7 @@ import { getSkinById } from '../data/skins';
 import { isWorldComplete, isWorldUnlocked, currentWorld as findCurrent } from '../data/progression';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
+import { STORY_UI } from '../i18n/storyUi';
 import { sfx } from '../audio/sfx';
 import { TopBar } from '../components/TopBar';
 import { PeoplePair } from '../components/PeopleGlyphs';
@@ -17,6 +18,7 @@ interface WorldMapScreenProps {
   onOpenSkins: () => void;
   onOpenBadges: () => void;
   onOpenBoard?: () => void;
+  onOpenStories?: () => void;
   onBack: () => void;
 }
 
@@ -29,7 +31,7 @@ type WorldState = 'locked' | 'current' | 'done' | 'soon';
  * as the road ahead — visible, named, locked — so the quest reads as
  * a journey with a horizon rather than a list that ends.
  */
-export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpenSkins, onOpenBadges, onOpenBoard, onBack }: WorldMapScreenProps) {
+export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpenSkins, onOpenBadges, onOpenBoard, onOpenStories, onBack }: WorldMapScreenProps) {
   const { tx, dir } = useLocale();
   const skin = getSkinById(skinId);
   const pathRef = useRef<SVGPathElement>(null);
@@ -199,6 +201,12 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
         <p className="map__progress">
           {fmt(tx({ en: '{done} of {total} worlds complete', ar: '{done} من {total} عوالم مكتملة' }), { done: doneCount, total: unlockedCount })}
         </p>
+        {onOpenStories && (
+          <button className="map__customize map__story" onClick={() => { sfx.play('tap'); onOpenStories(); }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M10 9.5v5l4.5-2.5z" fill="currentColor" /></svg>
+            <span>{tx(STORY_UI.story)}</span>
+          </button>
+        )}
         <button className="map__customize" onClick={() => { sfx.play('tap'); onOpenSkins(); }}>
           <img src={skin.image} alt="" />
           <span>{tx(UI.customizeToki)}</span>

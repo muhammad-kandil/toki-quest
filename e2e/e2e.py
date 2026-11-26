@@ -21,7 +21,7 @@ def run(lang):
         b=p.chromium.launch(); pg=b.new_page(viewport={'width':390,'height':844}, locale='ar' if lang=='ar' else 'en')
         errs=[]; failed=[]
         pg.on('pageerror',lambda e:errs.append(str(e)))
-        pg.on('response',lambda r:failed.append((r.url.split('/')[-1],r.status)) if r.status>=400 and '/audio/' not in r.url else None)
+        pg.on('response',lambda r:failed.append((r.url.split('/')[-1],r.status)) if r.status>=400 and '/audio/' not in r.url and '/story/' not in r.url else None)
         pg.goto(f'http://127.0.0.1:{PORT}/toki-quest/',wait_until='networkidle'); pg.wait_for_timeout(900)
         if lang=='ar' and pg.evaluate("document.documentElement.lang")!='ar':
             pg.click('.topbar__lang'); pg.wait_for_timeout(300)
@@ -30,7 +30,7 @@ def run(lang):
         pg.click('.title-screen__cta'); pg.wait_for_timeout(900); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
         print(f'[{lang}] map nodes:', pg.locator('.map__node').count(), 'toki on map:', pg.locator('.map__toki').count())
         pg.screenshot(path=f'{S}/{lang}-2-map.png')
-        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
+        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door, .story__btn--skip', timeout=8000); (pg.click('.story__btn--skip'), pg.wait_for_selector('.door', timeout=8000)) if pg.locator('.story__btn--skip').count() else None; pg.wait_for_timeout(500)
         print(f'[{lang}] world cards:', pg.locator('.door').count())
         pg.screenshot(path=f'{S}/{lang}-3-world.png')
         pg.click('.door--available'); pg.wait_for_timeout(1900)
@@ -64,7 +64,7 @@ def run(lang):
         pg.evaluate("""(()=>{const s=JSON.parse(localStorage.getItem('toki:save'));s.unlockedLevel=6;s.bestScores={1:125,2:125,3:125,4:125,5:125};localStorage.setItem('toki:save',JSON.stringify(s));})()""")
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
         pg.click('.title-screen__cta'); pg.wait_for_timeout(900); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
-        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
+        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door, .story__btn--skip', timeout=8000); (pg.click('.story__btn--skip'), pg.wait_for_selector('.door', timeout=8000)) if pg.locator('.story__btn--skip').count() else None; pg.wait_for_timeout(500)
         pg.click('.door--boss'); pg.wait_for_timeout(1900)
         pg.click('.beat__cta'); pg.wait_for_timeout(400)
         pg.screenshot(path=f'{S}/{lang}-9-boss.png')

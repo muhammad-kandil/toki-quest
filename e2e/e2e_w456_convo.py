@@ -58,7 +58,7 @@ def run(lang):
         pg = b.new_page(viewport={'width': 390, 'height': 844}, locale='ar' if lang == 'ar' else 'en')
         errs, failed = [], []
         pg.on('pageerror', lambda e: errs.append(str(e)))
-        pg.on('response', lambda r: failed.append((r.url.split('/')[-1], r.status)) if r.status >= 400 and '/audio/' not in r.url else None)
+        pg.on('response', lambda r: failed.append((r.url.split('/')[-1], r.status)) if r.status >= 400 and '/audio/' not in r.url and '/story/' not in r.url else None)
         done = {str(i): 100 for i in [1, 2, 3, 4, 5, 6, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35]}
         pg.goto(BASE, wait_until='networkidle')
         pg.wait_for_timeout(500)

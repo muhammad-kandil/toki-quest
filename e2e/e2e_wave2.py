@@ -50,7 +50,7 @@ def run(lang):
         pg.evaluate("(l)=>localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:true,unlockedLevel:1,bestScores:{},badges:[],selectedSkinId:'teal-classic',lang:l}))", lang)
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
         pg.click('.title-screen__cta'); pg.wait_for_timeout(1000); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
-        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
+        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door, .story__btn--skip', timeout=8000); (pg.click('.story__btn--skip'), pg.wait_for_selector('.door', timeout=8000)) if pg.locator('.story__btn--skip').count() else None; pg.wait_for_timeout(500)
         pg.click('.door--available'); pg.wait_for_timeout(1900)
         observe(pg)
 
@@ -95,7 +95,7 @@ def run(lang):
         pg.evaluate("(s)=>{const v=JSON.parse(localStorage.getItem('toki:save'));v.bestScores=s;localStorage.setItem('toki:save',JSON.stringify(v));}", done)
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
         pg.click('.title-screen__cta'); pg.wait_for_timeout(1000); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
-        pg.click('.map__node--current'); pg.wait_for_timeout(2000); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
+        pg.click('.map__node--current'); pg.wait_for_timeout(2000); pg.wait_for_selector('.door, .story__btn--skip', timeout=8000); (pg.click('.story__btn--skip'), pg.wait_for_selector('.door', timeout=8000)) if pg.locator('.story__btn--skip').count() else None; pg.wait_for_timeout(500)
         pg.click('.door--available'); pg.wait_for_timeout(2000)
         observe(pg)
         pg.click('.beat__cta'); pg.wait_for_timeout(500)  # file empty diagnosis → miss
