@@ -269,7 +269,8 @@
   color: var(--t-ink-2);
   margin: 0;
 }
-.teacher-app button { font-family: inherit; color: inherit; }
+/* No `.teacher-app button` font/colour rule: it would out-rank the t- classes (0,1,1 > 0,1,0).
+   Every button class below sets its own font-family and colour. */
 /* Focus: :focus fallback for iOS 12 (no :focus-visible) */
 .teacher-app button:focus,
 .teacher-app a:focus,
@@ -421,6 +422,7 @@
   height: calc(var(--t-pin-head) + var(--t-pin-tip));
   margin: 0; padding: 0; border: 0; background: none;
   -webkit-transform: translate(-50%, -100%); transform: translate(-50%, -100%);
+  font-family: var(--t-body); color: var(--t-ink);
   cursor: pointer;
 }
 /* ground shadow on the anchor point */
@@ -518,6 +520,7 @@
   margin: 0; padding: 0; border: 0; background: none;
   -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
   --t-hot-c: #ffffff;
+  font-family: var(--t-body); color: var(--t-on-dark);
 }
 .t-hot__ring {
   position: absolute; left: 0; top: 0; right: 0; bottom: 0;
@@ -1153,6 +1156,289 @@
 [dir='rtl'] .t-shop-card--powerup .t-shop-buy { right: auto; left: 12px; }
 .t-shop-card--powerup .t-shop-card__meta { padding-right: 92px; }
 [dir='rtl'] .t-shop-card--powerup .t-shop-card__meta { padding-right: 0; padding-left: 92px; }
+
+/* ================================================================== */
+/* MISSION (Alef proposal, docs/product/ALEF_PROPOSAL.md)              */
+/* No countdown, no mentor character. "Five minutes" is narrative.    */
+/* ================================================================== */
+.teacher-app {
+  --t-mission-plate: rgba(35, 27, 69, 0.9);
+  --t-mission-fade: linear-gradient(180deg, rgba(35, 27, 69, 0) 0%, rgba(35, 27, 69, 0.6) 22%, rgba(27, 21, 56, 0.95) 48%);
+  --t-clue-w: 104px;
+  --t-clue-h: 148px;
+  --t-clue-back: var(--t-indigo);
+  --t-clue-back-2: #4b379a;
+  --t-dur-flip: 480ms;
+  --t-laptop-bezel: #2b2150;
+  --t-laptop-screen: #f7f8fc;     /* the simplified Alef-style screen: cooler, app-like white */
+  --t-laptop-chrome: #e9ecf5;
+  --t-journey-col-gap: 6px;
+  --t-xp-bg: var(--t-indigo-soft);
+  --t-xp-ink: var(--t-indigo);
+  --t-tool-tile: 48px;
+}
+
+/* --- Mission start ------------------------------------------------ */
+.t-mission {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 120px var(--t-gutter) calc(20px + var(--t-safe-bottom));
+  background: var(--t-mission-fade);
+  color: var(--t-on-dark);
+  /* text sits on the painted shot: the fade is strong under every line */
+  text-align: center;
+}
+.t-mission__tag {               /* "MISSION 01 | The First Five Minutes" lock-up */
+  display: inline-block;
+  padding: 4px 4px 4px 12px;
+  border-radius: var(--t-r-pill);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: var(--t-fs-xs); font-weight: var(--t-fw-heavy);
+  letter-spacing: var(--t-track-eyebrow); text-transform: var(--t-case-eyebrow);
+  color: var(--t-orange);
+}
+.t-mission__tag b {
+  display: inline-block; margin-left: 8px; padding: 2px 10px;
+  border-radius: var(--t-r-pill); background: var(--t-orange); color: var(--t-indigo-deep);
+  letter-spacing: 0; text-transform: none; font-weight: var(--t-fw-heavy);
+}
+[dir='rtl'] .t-mission__tag { padding: 4px 12px 4px 4px; }
+[dir='rtl'] .t-mission__tag b { margin-left: 0; margin-right: 8px; }
+.t-mission .t-mission__title {
+  margin: 10px 0 0;
+  font-family: var(--t-display); font-weight: var(--t-fw-heavy);
+  font-size: 38px; line-height: 1.02; color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+.t-mission__lines { margin: 12px 0 0; padding: 0; list-style: none; }
+.t-mission__lines li {
+  display: inline-block; margin: 0 4px;
+  font-family: var(--t-display); font-weight: var(--t-fw-display); font-size: var(--t-fs-md); line-height: 1.3;
+  color: var(--t-on-dark-muted);
+}
+.t-mission__lines li:last-child { color: var(--t-teal); }
+.t-mission__meta { margin-top: 10px; font-size: var(--t-fs-xs); color: var(--t-on-dark-muted); }
+.t-mission .t-btn { margin-top: 18px; }
+
+/* --- Clue card (investigation) ------------------------------------ */
+/*   <button class="t-clue t-clue--notebook is-open">                 */
+/*     <span class="t-clue__inner">                                    */
+/*       <span class="t-clue__back">glyph + label + "Tap to look"</span>*/
+/*       <span class="t-clue__face">label + clue text</span>           */
+/*   kinds: --notebook --tablet --bubble --evidence                    */
+.t-clue {
+  position: relative; display: inline-block; vertical-align: top;
+  width: var(--t-clue-w); height: var(--t-clue-h);
+  margin: 0; padding: 0; border: 0; background: none;
+  -webkit-perspective: 800px; perspective: 800px;
+  font-family: var(--t-body); color: var(--t-ink);
+  text-align: left;
+}
+[dir='rtl'] .t-clue { text-align: right; }
+.t-clue__inner {
+  position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+  -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform var(--t-dur-flip) var(--t-ease); transition: transform var(--t-dur-flip) var(--t-ease);
+}
+.t-clue.is-open .t-clue__inner { -webkit-transform: rotateY(180deg); transform: rotateY(180deg); }
+.t-clue__back, .t-clue__face {
+  position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  border-radius: var(--t-r-md);
+  overflow: hidden;
+}
+.t-clue__back {
+  padding: 12px 8px;
+  background: var(--t-clue-back);
+  background-image: linear-gradient(160deg, var(--t-clue-back-2) 0%, var(--t-clue-back) 70%);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--t-elev-2);
+  color: #ffffff; text-align: center;
+}
+.t-clue__glyph {
+  display: block; width: 46px; height: 46px; margin: 4px auto 8px;
+  border-radius: 50%; background: rgba(255, 255, 255, 0.14);
+  font-family: var(--t-display); font-weight: var(--t-fw-heavy); font-size: 22px; line-height: 46px; color: var(--t-orange);
+}
+.t-clue__label { display: block; font-family: var(--t-display); font-weight: var(--t-fw-display); font-size: var(--t-fs-sm); line-height: 1.2; }
+.t-clue__hint { display: block; margin-top: 6px; font-size: var(--t-fs-2xs); color: var(--t-on-dark-muted); }
+.t-clue__face {
+  -webkit-transform: rotateY(180deg); transform: rotateY(180deg);
+  padding: 9px 9px 8px;
+  background: var(--t-panel);
+  border: 2px solid var(--t-clue-c, var(--t-line-2));
+  box-shadow: var(--t-elev-2);
+  color: var(--t-ink);
+}
+.t-clue__face .t-clue__label { color: var(--t-clue-ink, var(--t-ink-2)); font-size: var(--t-fs-2xs); font-family: var(--t-body); font-weight: var(--t-fw-heavy); letter-spacing: var(--t-track-eyebrow); text-transform: var(--t-case-eyebrow); }
+.t-clue__text { display: block; margin-top: 4px; font-size: var(--t-fs-xs); line-height: 1.35; }
+.t-clue--notebook { --t-clue-c: var(--t-orange); --t-clue-ink: var(--t-orange-deep); }
+.t-clue--tablet { --t-clue-c: var(--t-blue); --t-clue-ink: var(--t-blue-deep); }
+.t-clue--bubble { --t-clue-c: var(--t-teal); --t-clue-ink: var(--t-teal-deep); }
+.t-clue--evidence { --t-clue-c: var(--t-indigo); --t-clue-ink: var(--t-indigo); }
+/* speech-bubble clue gets a tail on its face */
+.t-clue--bubble .t-clue__face { border-radius: var(--t-r-md) var(--t-r-md) var(--t-r-md) 4px; }
+/* a clue card in the "new" state invites a tap (only the next unopened one) */
+.t-clue.is-next .t-clue__back { box-shadow: 0 0 0 3px var(--t-attention), var(--t-elev-2); }
+/* progress line under the clues: "2 of 3 clues" + pips */
+.t-clue-progress { font-size: var(--t-fs-xs); font-weight: var(--t-fw-strong); color: var(--t-muted); }
+.t-clue-progress .t-meter--pips { margin-left: 6px; --t-energy-pip-w: 16px; --t-energy-on: var(--t-orange); }
+.t-clue-progress .t-meter--pips > i.on { box-shadow: inset 0 -2px 0 var(--t-orange-shade); }
+[dir='rtl'] .t-clue-progress .t-meter--pips { margin-left: 0; margin-right: 6px; }
+/* choices locked until enough clues: dimmed + reason line */
+.t-choices-locked .t-btn--choice { opacity: 0.45; box-shadow: none; }
+.t-lock-note { font-size: var(--t-fs-xs); color: var(--t-muted); }
+
+/* --- Laptop puzzle: Build Your Learning Journey -------------------- */
+.t-laptop {
+  position: relative;
+  padding: 10px 8px 12px;
+  border-radius: 18px 18px 10px 10px;
+  background: var(--t-laptop-bezel);
+  box-shadow: var(--t-elev-3);
+}
+.t-laptop:after {               /* hinge / base lip */
+  content: ""; position: absolute; left: -10px; right: -10px; bottom: -10px; height: 10px;
+  border-radius: 0 0 14px 14px; background: #cfc9df;
+  box-shadow: inset 0 2px 0 #e8e4f1;
+}
+.t-laptop__screen {
+  position: relative; overflow: hidden;
+  border-radius: 8px;
+  background: var(--t-laptop-screen);
+  color: var(--t-ink);
+}
+.t-laptop__bar {                /* app chrome strip */
+  height: 26px; padding: 0 10px;
+  background: var(--t-laptop-chrome);
+  font-size: var(--t-fs-2xs); font-weight: var(--t-fw-strong); line-height: 26px; color: var(--t-muted);
+  white-space: nowrap; overflow: hidden;
+}
+.t-laptop__bar i { display: inline-block; width: 7px; height: 7px; margin-right: 4px; border-radius: 50%; background: #c9c3dc; vertical-align: 0; }
+.t-sim-label {                  /* honesty label: this is a simulation, not the platform */
+  display: inline-block; padding: 0 7px; border-radius: var(--t-r-pill);
+  background: var(--t-orange-soft); color: var(--t-orange-deep);
+  font-size: 10px; font-weight: var(--t-fw-heavy); line-height: 1.7;
+}
+.t-journey { display: table; table-layout: fixed; width: 100%; border-spacing: var(--t-journey-col-gap) 0; }
+.t-journey__col { display: table-cell; vertical-align: top; }
+.t-journey__head {
+  height: 48px; padding: 5px 4px 0;
+  border-radius: 8px 8px 0 0;
+  background: var(--t-stage-c); color: var(--t-indigo-deep);
+  font-family: var(--t-display); font-weight: var(--t-fw-display); font-size: 12px; line-height: 1.1; text-align: center;
+}
+.t-journey__head small { display: block; margin-top: 1px; font-family: var(--t-body); font-size: 9px; font-weight: var(--t-fw-heavy); line-height: 1.2; opacity: 0.75; }
+.t-journey__drop {
+  min-height: 210px; padding: 5px 4px;
+  border: 2px dashed var(--t-stage-c); border-top: 0;
+  border-radius: 0 0 8px 8px;
+  background: var(--t-stage-soft);
+}
+.t-journey__col--launch { --t-stage-c: var(--t-stage-launch); --t-stage-soft: var(--t-blue-soft); }
+.t-journey__col--facilitate { --t-stage-c: var(--t-stage-facilitate); --t-stage-soft: var(--t-teal-soft); }
+.t-journey__col--extend { --t-stage-c: var(--t-stage-extend); --t-stage-soft: var(--t-orange-soft); }
+.t-journey__drop.is-over { border-style: solid; background: #ffffff; }
+/* tap alternative: target button inside each column while a card is selected */
+.t-journey__target {
+  display: block; width: 100%; min-height: var(--t-tap); margin-top: 4px; padding: 0;
+  border: 2px solid var(--t-stage-c); border-radius: 8px;
+  background: #ffffff; color: var(--t-ink-2); font-family: var(--t-body);
+  font-size: var(--t-fs-2xs); font-weight: var(--t-fw-heavy);
+}
+/* practice card (draggable; tap selects) */
+.t-practice {
+  position: relative; display: block; width: 100%;
+  min-height: var(--t-tap);
+  margin: 0 0 5px; padding: 6px 7px 6px 16px;
+  border: 1px solid var(--t-line-2); border-radius: 8px;
+  background: #ffffff; box-shadow: var(--t-elev-1);
+  font-family: var(--t-body); font-size: 11px; font-weight: var(--t-fw-strong); line-height: 1.25; color: var(--t-ink);
+  text-align: left;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+[dir='rtl'] .t-practice { padding: 6px 16px 6px 7px; text-align: right; }
+.t-practice:before {            /* grip dots */
+  content: ""; position: absolute; left: 6px; top: 50%; width: 3px; height: 13px; margin-top: -6px;
+  background: radial-gradient(circle, var(--t-faint) 1.2px, transparent 1.6px) 0 0 / 3px 4.5px repeat-y;
+}
+[dir='rtl'] .t-practice:before { left: auto; right: 6px; }
+.t-practice.is-selected { border-color: var(--t-orange); box-shadow: 0 0 0 3px var(--t-orange-soft), var(--t-elev-2); }
+.t-practice.is-dragging { -webkit-transform: rotate(-3deg) scale(1.04); transform: rotate(-3deg) scale(1.04); box-shadow: var(--t-elev-3); z-index: var(--t-z-modal); }
+.t-practice.is-placed { border-left: 3px solid var(--t-stage-c); }
+[dir='rtl'] .t-practice.is-placed { border-left-width: 1px; border-right: 3px solid var(--t-stage-c); }
+.t-practice.is-fit { box-shadow: inset 0 0 0 2px var(--t-teal-soft), var(--t-elev-1); }    /* after "Check": fits */
+.t-practice.is-also:after {     /* after "Check": also fits elsewhere (practices recur) */
+  content: "also " attr(data-also); position: absolute; right: 4px; bottom: -7px;
+  padding: 0 5px; border-radius: var(--t-r-pill); background: var(--t-indigo-soft); color: var(--t-indigo);
+  font-size: 9px; font-weight: var(--t-fw-heavy); line-height: 1.5;
+}
+.t-practice-tray { padding: 8px 10px 4px; border-top: 1px solid var(--t-line); background: #ffffff; }
+.t-practice-tray .t-practice { display: inline-block; width: auto; max-width: 48%; margin: 0 4px 6px 0; vertical-align: top; }
+
+/* --- Ending ------------------------------------------------------- */
+.t-narration {                  /* closing narration over a picture */
+  font-family: var(--t-display); font-weight: var(--t-fw-display);
+  font-size: var(--t-fs-md); line-height: 1.35; color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+.t-xp {                         /* modest XP chip: never a headline */
+  display: inline-block; padding: 2px 10px;
+  border-radius: var(--t-r-pill); background: var(--t-xp-bg); color: var(--t-xp-ink);
+  font-family: var(--t-num); font-variant-numeric: tabular-nums;
+  font-size: var(--t-fs-sm); font-weight: var(--t-fw-display); line-height: 1.6;
+}
+.t-open-mission {               /* a "missions opened" choice */
+  position: relative; display: block; width: 100%;
+  min-height: 64px; margin: 0; padding: 10px 40px 10px 64px;
+  border: 1.5px solid var(--t-line); border-radius: var(--t-r-md);
+  background: var(--t-panel); box-shadow: var(--t-elev-1);
+  font-family: var(--t-body); text-align: left; color: var(--t-ink);
+}
+.t-open-mission strong { display: block; font-family: var(--t-display); font-size: var(--t-fs-md); font-weight: var(--t-fw-display); line-height: 1.2; }
+.t-open-mission small { display: block; font-size: var(--t-fs-xs); color: var(--t-muted); line-height: 1.3; }
+.t-open-mission__num {
+  position: absolute; left: 12px; top: 50%; width: 40px; height: 40px; margin-top: -20px;
+  border-radius: var(--t-r-sm); background: var(--t-indigo-soft); color: var(--t-indigo);
+  font-family: var(--t-num); font-weight: var(--t-fw-heavy); font-size: 16px; line-height: 40px; text-align: center;
+}
+.t-open-mission:after { content: "\203A"; position: absolute; right: 14px; top: 50%; margin-top: -14px; font-size: 26px; line-height: 26px; color: var(--t-faint); }
+.t-open-mission--first { border-color: var(--t-teal); box-shadow: 0 0 0 3px var(--t-teal-soft), var(--t-elev-1); }
+.t-open-mission--first .t-open-mission__num { background: var(--t-teal); color: var(--t-indigo-deep); }
+[dir='rtl'] .t-open-mission { padding: 10px 64px 10px 40px; text-align: right; }
+[dir='rtl'] .t-open-mission__num { left: auto; right: 12px; }
+[dir='rtl'] .t-open-mission:after { right: auto; left: 14px; content: "\2039"; }
+
+/* --- NCLE toolkit ------------------------------------------------- */
+.t-tool {
+  position: relative;
+  min-height: 92px; padding: 12px 12px 12px 72px;
+  border-radius: var(--t-r-md); border: 1.5px solid var(--t-line);
+  background: var(--t-panel); box-shadow: var(--t-elev-1);
+}
+[dir='rtl'] .t-tool { padding: 12px 72px 12px 12px; }
+.t-tool__tile {
+  position: absolute; left: 12px; top: 12px;
+  width: var(--t-tool-tile); height: var(--t-tool-tile);
+  border-radius: 14px;
+  background: var(--t-tool-c, var(--t-teal));
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12), inset 0 2px 0 rgba(255, 255, 255, 0.5);
+  color: var(--t-indigo-deep);
+  font-family: var(--t-display); font-weight: var(--t-fw-heavy); font-size: 21px; line-height: var(--t-tool-tile); text-align: center;
+}
+[dir='rtl'] .t-tool__tile { left: auto; right: 12px; }
+.t-tool--launch { --t-tool-c: var(--t-stage-launch); }
+.t-tool--facilitate { --t-tool-c: var(--t-stage-facilitate); }
+.t-tool--extend { --t-tool-c: var(--t-stage-extend); }
+.t-tool__name { display: block; font-family: var(--t-display); font-weight: var(--t-fw-display); font-size: var(--t-fs-md); line-height: 1.2; color: var(--t-ink); }
+.t-tool__what { display: block; margin-top: 2px; font-size: var(--t-fs-xs); line-height: 1.35; color: var(--t-muted); }
+.t-tool__monday { display: block; margin-top: 6px; padding: 5px 8px; border-radius: var(--t-r-xs); background: var(--t-good-soft); font-size: var(--t-fs-xs); line-height: 1.35; color: var(--t-ink); }
+.t-tool__monday b { color: var(--t-good-ink); }
+.t-tool__found { display: block; margin-top: 6px; font-size: var(--t-fs-2xs); font-weight: var(--t-fw-strong); color: var(--t-muted); }
+.t-tool--unfound { background: var(--t-panel-2); border-style: dashed; box-shadow: none; min-height: 72px; }
+.t-tool--unfound .t-tool__tile { background: var(--t-bg-2); color: var(--t-locked-ink); box-shadow: none; }
+.t-tool--unfound .t-tool__name { color: var(--t-muted); }
+.t-tool--later { opacity: 0.7; }
 
 /* ------------------------------------------------------------------ */
 /* Keyframes (transform / opacity only)                               */

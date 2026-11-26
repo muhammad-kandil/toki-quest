@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Investigation</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.phone { background: var(--t-bg); }
+/* scene band: the classroom picture, zoomed on the student being investigated */
+.band { position: absolute; left: 0; top: 0; right: 0; height: 268px; background: var(--t-indigo-deep) url(../../../public/art/scenes/L1.jpg) no-repeat; background-size: 760px auto; }
+.band:after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: linear-gradient(180deg, rgba(35,27,69,.55) 0%, rgba(35,27,69,0) 45%, rgba(35,27,69,.25) 100%); }
+.bar { position: absolute; z-index: var(--t-z-hud); left: var(--t-gutter); right: var(--t-gutter); top: calc(10px + var(--t-safe-top)); height: 44px; }
+.bar .t-btn--icon { position: absolute; left: 0; top: 0; }
+.bar .ttl { position: absolute; left: 56px; right: 0; top: 1px; color: #fff; }
+.bar .t-eyebrow { color: var(--t-teal); text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.bar h1 { color: #fff; font-size: 19px; line-height: 1.1; text-shadow: 0 1px 3px rgba(0,0,0,.45); }
+.bubble { position: absolute; z-index: var(--t-z-bubble); max-width: 210px; padding: 8px 12px; border-radius: 14px; background: #fffaf0; color: var(--t-ink); font-size: var(--t-fs-sm); font-weight: 600; line-height: 1.3; box-shadow: var(--t-elev-2); }
+.bubble b { display: block; font-size: var(--t-fs-2xs); color: var(--t-rose-deep); letter-spacing: var(--t-track-eyebrow); text-transform: var(--t-case-eyebrow); }
+.bubble:after { content: ""; position: absolute; left: 26px; bottom: -7px; width: 14px; height: 14px; background: #fffaf0; -webkit-transform: rotate(45deg); transform: rotate(45deg); }
+.panel { position: absolute; z-index: var(--t-z-sheet); left: 0; right: 0; top: 240px; bottom: 0; padding: 16px var(--t-gutter) calc(16px + var(--t-safe-bottom)); background: var(--t-bg); border-top-left-radius: var(--t-r-xl); border-top-right-radius: var(--t-r-xl); box-shadow: 0 -8px 30px rgba(35,27,69,.18); }
+.panel h2 { font-size: var(--t-fs-lg); color: var(--t-ink); }
+.panel .ask { margin: 2px 0 0; font-size: var(--t-fs-sm); color: var(--t-muted); line-height: 1.4; }
+.clues { margin-top: 12px; text-align: center; font-size: 0; }
+.clues .t-clue + .t-clue { margin-left: 12px; }
+[dir=rtl] .clues .t-clue + .t-clue { margin-left: 0; margin-right: 12px; }
+.prog { margin-top: 10px; text-align: center; }
+.choices { margin-top: 12px; }
+.t-lock-note { margin-top: 8px; text-align: center; }
+.tools { margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="phone teacher-app" id="app">
+  <div class="band" id="band"></div>
+  <div class="bar">
+    <button class="t-btn t-btn--icon" aria-label="Back to the classroom">&#8592;</button>
+    <div class="ttl"><div class="t-eyebrow" id="eyebrow">Investigation · Ahmed</div><h1 id="title">The Confidence Detective</h1></div>
+  </div>
+  <div class="bubble" id="bubble" style="left:118px;top:96px"><b id="who">Ahmed</b><span id="line">"Miss, I already know today's topic!"</span></div>
+
+  <section class="panel">
+    <h2 id="q">What's behind Ahmed's confidence?</h2>
+    <p class="ask" id="ask">Look at his work first. Each card is one piece of evidence.</p>
+    <div class="clues" id="clues"></div>
+    <div class="prog"><span class="t-clue-progress" id="prog"></span></div>
+    <div class="choices t-stack" id="choices"></div>
+    <div class="t-lock-note" id="lock"></div>
+  </section>
+</div>
+<script>
+var V = {
+  ahmed: {
+    pos: '0 -250px', clues: [
+      ['evidence', '&#10003;', 'Correct answer', 'Gets 3/4 &divide; 1/2 = 1&frac12; right, in under a minute.', true],
+      ['evidence', '&#8756;', 'Explanation', '"You flip the second one and times." He can\'t say why it works.', true],
+      ['evidence', '&#8599;', 'Application', 'Tap to look', false]],
+    locked: true,
+    choices: [['Give him a harder task', 'Extension · stretch his thinking'], ['Ask him to explain why', 'Questioning · test the reasoning'], ['Pair him with a classmate', 'Collaboration · explain to a peer']],
+    lock: 'Look at the last card before you decide. More evidence, better decisions.'
+  },
+  sara: {
+    eyebrow: 'Investigation · Sara', title: 'Find the Missing Piece', who: 'Sara', line: '"Miss, I still don\'t understand what we learned yesterday."',
+    q: 'What is Sara missing?', ask: 'Her notebook, her tablet and what she says all point the same way.', pos: '-150px -200px', bubble: 'left:150px;top:92px',
+    clues: [
+      ['notebook', '&#9636;', 'Notebook', 'Yesterday\'s page: 1/4 + 2/4 = 3/8, crossed out. Then nothing.', true],
+      ['tablet', '&#9645;', 'Tablet', 'Practice set: stopped at question 2 of 8.', true],
+      ['bubble', '&#8220;', 'What she says', '"I don\'t get why the bottom number stays the same."', true]],
+    locked: false,
+    choices: [['Go back to the missing idea', 'Readiness · same-size pieces first'], ['Ask her to talk one through', 'See Why · find the misconception'], ['Point her to Need Help', 'Task guidance · on her tablet']],
+    lock: ''
+  }
+};
+var v = V[location.search.indexOf('sara') > -1 ? 'sara' : 'ahmed'];
+function $(id) { return document.getElementById(id); }
+['eyebrow', 'title', 'who', 'line', 'q', 'ask'].forEach(function (k) { if (v[k]) $(k).textContent = v[k]; });
+if (v.bubble) $('bubble').setAttribute('style', v.bubble);
+$('band').style.backgroundPosition = v.pos;
+var open = 0, next = false;
+$('clues').innerHTML = v.clues.map(function (c) {
+  if (c[4]) open++;
+  var cls = 't-clue t-clue--' + c[0] + (c[4] ? ' is-open' : (!next ? ' is-next' : ''));
+  if (!c[4]) next = true;
+  return '<button class="' + cls + '" aria-pressed="' + c[4] + '"><span class="t-clue__inner">' +
+    '<span class="t-clue__back"><span class="t-clue__glyph">' + c[1] + '</span><span class="t-clue__label">' + c[2] + '</span><span class="t-clue__hint">Tap to look</span></span>' +
+    '<span class="t-clue__face"><span class="t-clue__label">' + c[2] + '</span><span class="t-clue__text">' + c[3] + '</span></span></span></button>';
+}).join('');
+$('prog').innerHTML = open + ' of ' + v.clues.length + ' clues<span class="t-meter t-meter--pips">' + v.clues.map(function (c) { return '<i' + (c[4] ? ' class="on"' : '') + '></i>'; }).join('') + '</span>';
+$('choices').innerHTML = v.choices.map(function (c) { return '<button class="t-btn t-btn--choice"' + (v.locked ? ' disabled' : '') + '><span><strong>' + c[0] + '</strong><small>' + c[1] + '</small></span></button>'; }).join('');
+if (v.locked) $('choices').className += ' t-choices-locked';
+$('lock').textContent = v.lock;
+</script>
+</body>
+</html>
