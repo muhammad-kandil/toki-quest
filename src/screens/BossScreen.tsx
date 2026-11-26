@@ -8,6 +8,7 @@ import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
 import { ambience } from '../audio/ambience';
+import { items } from '../audio/items';
 import { roomSound } from '../data/ambience';
 import { useVoice } from '../audio/useVoice';
 import { lines } from '../audio/lines';
@@ -39,7 +40,11 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
   const [phase, setPhase] = useState<Phase>('intro');
   const [auditIndex, setAuditIndex] = useState(0);
   const voiceCtl = useVoice();
-  useEffect(() => { ambience.set(phase === 'reveal' ? 'class-quiet' : roomSound(boss.id).lesson); }, [phase, boss.id]);
+  useEffect(() => {
+    ambience.set(phase === 'reveal' ? 'class-quiet' : roomSound(boss.id).lesson);
+    if (phase === 'reveal') items.leave(); else items.enterRoom(boss.id);
+  }, [phase, boss.id]);
+  useEffect(() => () => items.leave(), []);
   useEffect(() => {
     if (phase === 'intro') voiceCtl.speak(lines.bossIntro(boss).text[lang], 'narrator');
     // eslint-disable-next-line react-hooks/exhaustive-deps

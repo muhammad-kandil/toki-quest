@@ -41,6 +41,23 @@ best, and cuts a seamless loop. Which bed plays where is content:
 Credits: `public/audio/amb/credits.json`. Picks and runners-up:
 `tools/audio/reports/ambience-report.md`.
 
+## Item sounds (each room sounds like itself)
+
+`items.json` gives every classroom, World Challenge scene and School Visit
+context its own **signature** sounds (station timers and kit boxes in the
+Activity Overload, scissors and posters in the Output Illusion, a points
+chime in the gamified room, tablet taps and a fan hum in the devices
+room…), and every **evidence hotspot** the sound of what it is (the group
+table → kids talking over each other, the board → a marker squeak, the
+gradebook → a page turn). Sounds are a shared library of short CC0
+recordings (`assets`), fetched and checked by `items.py` like the beds;
+`rooms` says which play where. Run `npx vite-node tools/audio/check-items.ts`
+after changing level content: it fails if a room or hotspot has no sound.
+
+In the game (`src/audio/items.ts`) the signature sounds play over the room
+bed only while the lesson is on, and stop when the teacher conversation
+starts. Workflow input `items`: `all`, `none` (default) or a list of assets.
+
 ## Running it
 
 GitHub → Actions → *Render audio* → Run workflow.

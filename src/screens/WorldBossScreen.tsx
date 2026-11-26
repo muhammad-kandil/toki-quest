@@ -12,6 +12,7 @@ import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
 import { ambience } from '../audio/ambience';
+import { items } from '../audio/items';
 import { useVoice } from '../audio/useVoice';
 import { lines } from '../audio/lines';
 import './LevelScreen.css';
@@ -48,6 +49,10 @@ export function WorldBossScreen({ boss, heldBadges, onComplete }: {
     : /meeting|office|staff|leader|principal|department/i.test(place) ? 'staffroom'
     : /corridor|hall|yard|assembly/i.test(place) ? 'corridor' : 'class-working';
   useEffect(() => { ambience.set(bed); }, [bed]);
+  // Each scene is a different room of the school, with its own sounds.
+  const sceneKey = phase === 'scenes' && boss.scenes[sceneIdx] ? `${boss.id}:${boss.scenes[sceneIdx].id}` : null;
+  useEffect(() => { if (sceneKey) items.enterRoom(sceneKey); else items.leave(); }, [sceneKey]);
+  useEffect(() => () => items.leave(), []);
   useEffect(() => {
     if (phase === 'intro') voiceCtl.speak(lines.bossIntro(boss).text[lang], 'narrator');
     if (phase === 'reveal') { const f = lines.bossFinal(boss); if (f) voiceCtl.speak(f.text[lang], 'narrator'); }

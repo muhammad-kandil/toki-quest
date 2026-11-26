@@ -21,6 +21,7 @@ import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTy
 import { useLocale } from '../i18n/LocaleContext';
 import { useVoice } from '../audio/useVoice';
 import { ambience } from '../audio/ambience';
+import { items } from '../audio/items';
 import { roomSound } from '../data/ambience';
 import { UI, fmt } from '../i18n/ui';
 import type { Text } from '../i18n/types';
@@ -85,8 +86,13 @@ export function LevelScreen({ level, onComplete, heldBadges }: LevelScreenProps)
   useEffect(() => {
     ambience.set(afterLesson ? room.conversation ?? 'class-quiet' : room.lesson);
     if (!afterLesson && room.conversation) ambience.preload(room.conversation);
-  }, [afterLesson, room.lesson, room.conversation]);
-  useEffect(() => { const t = window.setTimeout(() => void ambience.shot('chair', 0.8), 700); return () => window.clearTimeout(t); }, []);
+    // This room's own sounds play during the lesson and stop when it ends.
+    if (afterLesson) items.leave(); else items.enterRoom(level.id);
+  }, [afterLesson, room.lesson, room.conversation, level.id]);
+  useEffect(() => {
+    const t = window.setTimeout(() => void ambience.shot('chair', 0.8), 700);
+    return () => { window.clearTimeout(t); items.leave(); };
+  }, []);
   const [outcomes, setOutcomes] = useState<Record<string, StepOutcome>>({});
   const [wrongIds, setWrongIds] = useState<string[]>([]);
   const [selectedRight, setSelectedRight] = useState<string | null>(null);

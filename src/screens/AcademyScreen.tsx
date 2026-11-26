@@ -21,6 +21,7 @@ const revealFace = (outcome: string | null | undefined) =>
 import { useLocale } from '../i18n/LocaleContext';
 import { useVoice } from '../audio/useVoice';
 import { ambience } from '../audio/ambience';
+import { items } from '../audio/items';
 import { roomSound } from '../data/ambience';
 import { UI, fmt } from '../i18n/ui';
 import { t, type Text } from '../i18n/types';
@@ -78,7 +79,11 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
   const [phase, setPhase] = useState<Phase>('observe');
   const room = roomSound(level.id);
   const afterLesson = phase === 'conversation' || phase === 'reveal';
-  useEffect(() => { ambience.set(afterLesson ? room.conversation ?? 'class-quiet' : room.lesson); }, [afterLesson, room.lesson, room.conversation]);
+  useEffect(() => {
+    ambience.set(afterLesson ? room.conversation ?? 'class-quiet' : room.lesson);
+    if (afterLesson) items.leave(); else items.enterRoom(level.id);
+  }, [afterLesson, room.lesson, room.conversation, level.id]);
+  useEffect(() => () => items.leave(), []);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [filed, setFiled] = useState(false);
   const [diagErr, setDiagErr] = useState<{ over: boolean; under: boolean } | null>(null);

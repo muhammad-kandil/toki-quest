@@ -3,6 +3,7 @@ import tokiWalking from '../assets/raw/toki-reaction-walking.png';
 import type { EvidenceSpot } from '../data/levelTypes';
 import { useLocale } from '../i18n/LocaleContext';
 import { sfx } from '../audio/sfx';
+import { items } from '../audio/items';
 import { EvidenceGlyph, kindFor } from '../components/PeopleGlyphs';
 import './SceneHeader.css';
 
@@ -56,7 +57,7 @@ export function SceneHeader({ image, alt, evidence, inspected, onInspect }: Scen
             className={`evidence-spot evidence-spot--${kind} ${done ? 'evidence-spot--done' : ''}`}
             data-kind={kind}
             style={{ left: `${spot.x}%`, top: `${spot.y}%`, animationDelay: `${i * 120}ms` }}
-            onClick={() => { sfx.play('discover'); onInspect?.(spot.id); }}
+            onClick={() => { sfx.play('discover'); items.spot(spot.id); onInspect?.(spot.id); }}
             aria-label={tx(spot.label)}
           >
             <span className="evidence-spot__ring" aria-hidden="true" />
