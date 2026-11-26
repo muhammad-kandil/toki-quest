@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { LeaveRoom } from './components/LeaveRoom';
 import { bootstrapTelegram } from './telegram/bootstrap';
 import { loadJSON, saveJSON, deleteValue } from './telegram/storage';
-import { reportProgress } from './telegram/progress';
+import { reportProgress, sendProfile, telegramFirstName } from './telegram/progress';
 import { TitleScreen } from './screens/TitleScreen';
 import { WorldMapScreen } from './screens/WorldMapScreen';
 import { HubScreen } from './screens/HubScreen';
@@ -13,12 +13,15 @@ import { AcademyScreen } from './screens/AcademyScreen';
 import { SchoolVisitScreen } from './screens/SchoolVisitScreen';
 import { SkinPickerScreen } from './screens/SkinPickerScreen';
 import { BadgesScreen } from './screens/BadgesScreen';
+import { NameScreen } from './screens/NameScreen';
+import { BoardScreen } from './screens/BoardScreen';
 import { getLevel, getWorldBoss, getAcademyLevel, getSchoolVisit, ensureWorldLoaded, BOSS, BOSS_ID } from './data/levels';
 import { WORLDS, getWorld } from './data/worlds';
 import { completedCount as countDone, currentWorld as findCurrentWorld } from './data/progression';
 import { DEFAULT_SKIN_ID } from './data/skins';
 import { LocaleProvider, detectInitialLang } from './i18n/LocaleContext';
 import { sfx } from './audio/sfx';
+import { ambience } from './audio/ambience';
 import type { Lang } from './i18n/types';
 
 interface SaveData {
@@ -33,6 +36,10 @@ interface SaveData {
   attempts?: Record<number, Record<string, number>>;
   /** Per level: how the coaching conversation ended, from the best-scoring run. */
   outcomes?: Record<number, 'restored' | 'partial' | 'unchanged'>;
+  /** The name the player chose (asked once before the first world). */
+  playerName?: string;
+  /** The player's choice to appear by name on the ranking. */
+  showOnBoard?: boolean;
 }
 
 const DEFAULT_SAVE: SaveData = {
@@ -43,14 +50,14 @@ const DEFAULT_SAVE: SaveData = {
   selectedSkinId: DEFAULT_SKIN_ID,
 };
 
-type Screen = 'loading' | 'title' | 'map' | 'world' | 'classroom' | 'boss' | 'worldboss' | 'academy' | 'visit' | 'skins' | 'badges';
+type Screen = 'loading' | 'title' | 'name' | 'map' | 'world' | 'classroom' | 'boss' | 'worldboss' | 'academy' | 'visit' | 'skins' | 'badges' | 'board';
 
 const IN_ROOM: Screen[] = ['classroom', 'boss', 'worldboss', 'academy', 'visit'];
 /** Where the hardware / browser Back button goes from each screen.
  *  'return' = wherever the overlay was opened from. Playtest finding:
  *  Back used to leave the app entirely (about:blank). */
 const BACK_TARGET: Partial<Record<Screen, Screen | 'return'>> = {
-  map: 'title', world: 'map', skins: 'return', badges: 'return',
+  map: 'title', world: 'map', skins: 'return', badges: 'return', board: 'map', name: 'return',
   classroom: 'world', boss: 'world', worldboss: 'world', academy: 'world', visit: 'world',
 };
 
@@ -97,7 +104,21 @@ function App() {
     if (screen === 'map') sfx.music(sfx.moodFor(findCurrentWorld(save.bestScores).number));
     else if (screen === 'world') sfx.music(sfx.moodFor(getWorld(activeWorld)?.number ?? 1));
     else sfx.music(null);
+    // The room under it: the yard outside on the title and map, the
+    // corridor in a world's hall. Rooms set their own sound.
+    if (screen === 'title' || screen === 'map') ambience.set('playground');
+    else if (screen === 'world') ambience.set('corridor');
+    else if (screen === 'skins' || screen === 'badges') ambience.set(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen, activeWorld]);
+
+  // The bell as Toki arrives in a world's hall — once per world per session.
+  const belled = useRef(new Set<string>());
+  useEffect(() => {
+    if (screen !== 'world' || belled.current.has(activeWorld)) return;
+    belled.current.add(activeWorld);
+    const t = window.setTimeout(() => void ambience.shot('bell', 0.7), 900);
+    return () => window.clearTimeout(t);
   }, [screen, activeWorld]);
 
   const persist = async (updated: SaveData) => {
@@ -147,7 +168,14 @@ function App() {
 
   const handleStart = async () => {
     await persist({ ...save, hasPlayedBefore: true });
-    setScreen('map');
+    if (!save.playerName) go('name', 'map');
+    else setScreen('map');
+  };
+
+  const handleSaveName = async (playerName: string, showOnBoard: boolean) => {
+    await persist({ ...save, hasPlayedBefore: true, playerName, showOnBoard });
+    sendProfile({ displayName: playerName, showOnBoard }, { badges: save.badges, bestScores: save.bestScores, lang });
+    setScreen(returnTo === 'board' ? 'board' : 'map');
   };
 
   const handleEnterClassroom = (id: number) => {
@@ -198,6 +226,18 @@ function App() {
         badgesCount={save.badges.length}
       />
     );
+  } else if (screen === 'name') {
+    content = (
+      <NameScreen
+        mode={save.playerName ? 'edit' : 'first'}
+        initialName={save.playerName ?? telegramFirstName() ?? ''}
+        initialShow={save.showOnBoard ?? true}
+        onSave={handleSaveName}
+        onBack={save.playerName ? () => setScreen(returnTo) : undefined}
+      />
+    );
+  } else if (screen === 'board') {
+    content = <BoardScreen myName={save.playerName ?? ''} onEditName={() => go('name', 'board')} onBack={() => setScreen('map')} />;
   } else if (screen === 'map') {
     content = (
       <WorldMapScreen
@@ -212,6 +252,7 @@ function App() {
         }}
         onOpenSkins={() => go('skins', 'map')}
         onOpenBadges={() => go('badges', 'map')}
+        onOpenBoard={() => setScreen('board')}
         onBack={() => setScreen('title')}
       />
     );

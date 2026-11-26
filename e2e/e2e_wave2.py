@@ -49,8 +49,8 @@ def run(lang):
         pg.goto(BASE + HASH, wait_until='networkidle'); pg.wait_for_timeout(700)
         pg.evaluate("(l)=>localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:true,unlockedLevel:1,bestScores:{},badges:[],selectedSkinId:'teal-classic',lang:l}))", lang)
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
-        pg.click('.title-screen__cta'); pg.wait_for_timeout(1000)
-        pg.click('.map__node--current'); pg.wait_for_timeout(1800)
+        pg.click('.title-screen__cta'); pg.wait_for_timeout(1000); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
+        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
         pg.click('.door--available'); pg.wait_for_timeout(1900)
         observe(pg)
 
@@ -94,8 +94,8 @@ def run(lang):
         done = {str(i): 100 for i in [1, 2, 3, 4, 5, 6, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35, 41, 42, 43, 44, 45, 51, 52, 53, 54, 55, 61, 62, 63, 64, 65]}
         pg.evaluate("(s)=>{const v=JSON.parse(localStorage.getItem('toki:save'));v.bestScores=s;localStorage.setItem('toki:save',JSON.stringify(v));}", done)
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
-        pg.click('.title-screen__cta'); pg.wait_for_timeout(1000)
-        pg.click('.map__node--current'); pg.wait_for_timeout(2000)
+        pg.click('.title-screen__cta'); pg.wait_for_timeout(1000); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
+        pg.click('.map__node--current'); pg.wait_for_timeout(2000); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
         pg.click('.door--available'); pg.wait_for_timeout(2000)
         observe(pg)
         pg.click('.beat__cta'); pg.wait_for_timeout(500)  # file empty diagnosis → miss

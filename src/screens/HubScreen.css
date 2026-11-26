@@ -312,21 +312,25 @@
 /* ---------- Toki walking ---------- */
 .hub__toki {
   position: absolute;
-  inset-inline-start: 0;
+  inset-inline-start: 4px;
   top: 0;
   width: 52px;
   height: 52px;
-  /* Each door row is roughly 76px tall incl. gap; align Toki to the
-     resting (first) door, then transition to the target row. */
-  transform: translateY(calc(var(--target-index, 0) * 76px + 14px));
-  transition: transform 850ms var(--ease-smooth);
+  z-index: 2;
+  /* --toki-y is measured from the real door (HubScreen), so Toki stops
+     level with the door he chose, whatever its height. */
+  transform: translateY(var(--toki-y, 14px));
+  transition: transform var(--walk-ms, 750ms) var(--ease-smooth);
+  pointer-events: none;
 }
 
 .hub__toki img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform-origin: 50% 90%;
+  object-position: 50% 100%;
+  transform-origin: 50% 92%;
+  filter: drop-shadow(0 4px 5px rgba(69, 43, 116, 0.22));
 }
 .hub__toki--idle img { animation: toki-breathe 3.4s ease-in-out infinite; }
 
@@ -341,31 +345,21 @@
   50% { transform: translateY(-4px) rotate(2deg); }
 }
 
-/* Toki "hiding" behind the left edge of the chosen card — a gradual
-   fade right where it's standing (already aligned to the card's left
-   edge), as if ducking behind it, rather than a shrink-in-place pop.
-   Reads as "went behind the card," then the full-screen wipe takes
-   over the actual scene transition. */
+/* Going in: Toki steps toward the door and gets smaller as he goes
+   through it — walking away from us, into the room — then the wipe. */
 .hub__toki--hiding {
-  animation: toki-hide-behind-card 500ms var(--ease-smooth) forwards;
+  transition: none;
+  animation: toki-enter-door 560ms cubic-bezier(.45, 0, .7, 1) forwards;
 }
-
-@keyframes toki-hide-behind-card {
-  0% {
-    opacity: 1;
-    transform: translateY(calc(var(--target-index, 0) * 76px + 14px)) translateX(0);
-  }
-  40% {
-    opacity: 0.7;
-    transform: translateY(calc(var(--target-index, 0) * 76px + 14px)) translateX(calc(var(--dir) * 6px));
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(calc(var(--target-index, 0) * 76px + 14px)) translateX(calc(var(--dir) * 10px));
-  }
+.hub__toki--hiding img { animation: none; }
+@keyframes toki-enter-door {
+  0%   { opacity: 1; transform: translateY(var(--toki-y)) translateX(0) scale(1); }
+  45%  { opacity: 1; transform: translateY(calc(var(--toki-y) - 2px)) translateX(calc(var(--dir, 1) * 22px)) scale(0.78); }
+  100% { opacity: 0; transform: translateY(calc(var(--toki-y) - 6px)) translateX(calc(var(--dir, 1) * 44px)) scale(0.36); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hub__toki { transition: none; }
   .hub__toki--hiding { animation: none; opacity: 0; }
 }
 

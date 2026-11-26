@@ -1,0 +1,33 @@
+.board__state, .board__note { font-size: var(--text-sm); color: var(--color-text-secondary); text-align: center; margin: var(--space-5) 0; }
+.board__note { margin: var(--space-2) 0 0; }
+.board__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.board__row {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: 12px var(--space-3);
+  background: var(--color-bg-elevated);
+  border: var(--stroke-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elev-1);
+  animation: badge-card-in 380ms var(--ease-bounce) backwards;
+}
+.board__row--me { border-color: var(--toki-teal); box-shadow: 0 0 0 3px rgba(43, 214, 184, 0.16), var(--elev-1); }
+.board__row--solo { margin-top: var(--space-4); }
+.board__rank {
+  flex: 0 0 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 15px;
+  background: #EEEAF7; color: var(--toki-indigo);
+}
+.board__row--r1 .board__rank { background: linear-gradient(145deg, #FFD978, #F5A623); color: #5A3A00; }
+.board__row--r2 .board__rank { background: linear-gradient(145deg, #F1F3F7, #C4CAD6); color: #39414F; }
+.board__row--r3 .board__rank { background: linear-gradient(145deg, #F4C6A0, #CD8A55); color: #4A2810; }
+.board__name { flex: 1 1 auto; min-width: 0; font-weight: 700; color: var(--color-text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board__name small { display: block; font-weight: 400; font-size: var(--text-xs, 12px); color: var(--color-text-secondary); }
+.board__total { font-family: var(--font-display); font-weight: 800; font-size: 18px; color: var(--toki-indigo); }
+.board__edit {
+  margin: var(--space-6) auto 0; display: flex; align-items: center; gap: var(--space-2);
+  padding: 10px 16px; border-radius: 999px;
+  border: var(--stroke-width) solid var(--color-border); background: var(--color-bg-elevated);
+  font: inherit; font-size: var(--text-sm); color: var(--color-text-secondary);
+}
+.board__edit-name { font-weight: 700; color: var(--color-text-primary); }

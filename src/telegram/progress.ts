@@ -59,10 +59,16 @@ export function canReport(): boolean {
   return !!URL && initData() !== null;
 }
 
+/** Last badges the game reported. Every request carries them, so a
+ *  request that is only feedback or a name never clears them server-side. */
+let knownBadges: string[] | null = null;
+
 function post(body: Record<string, unknown>): void {
   if (!URL) return;
   const data = initData();
   if (!data) return;
+  if (Array.isArray(body.badges)) knownBadges = body.badges as string[];
+  else if (knownBadges) body = { ...body, badges: knownBadges };
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 6000);
@@ -87,4 +93,58 @@ export function reportProgress(payload: ProgressPayload): void {
 /** One feedback event per level per device; same signed path as progress. */
 export function sendFeedback(feedback: FeedbackPayload): void {
   post({ feedback: { ...feedback, text: feedback.text?.slice(0, 240) || undefined } });
+}
+
+/* ------------------------------------------------------------------ */
+/* Name + ranking                                                       */
+/* ------------------------------------------------------------------ */
+
+export interface Profile { displayName: string; showOnBoard: boolean }
+
+/** The player's first name as Telegram signed it — a default, never sent back unasked. */
+export function telegramFirstName(): string | null {
+  const d = initData();
+  if (!d) return null;
+  try {
+    const u = JSON.parse(new URLSearchParams(d).get('user') ?? 'null');
+    const n = [u?.first_name, u?.last_name].filter(Boolean).join(' ').trim();
+    return n || null;
+  } catch {
+    return null;
+  }
+}
+
+export function sendProfile(p: Profile, current?: { badges: string[]; bestScores: Record<number, number>; lang?: string }): void {
+  post({ profile: p, ...(current ?? {}) });
+}
+
+export interface BoardRow { rank: number; name: string; total: number; rooms: number; me: boolean }
+export interface Board {
+  top: BoardRow[];
+  me: { rank: number; total: number; rooms: number; hidden: boolean; name: string } | null;
+  players: number;
+}
+
+/** null = not inside Telegram (or not configured); 'unavailable' = the
+ *  server didn't answer with a ranking (offline, or not deployed yet). */
+export async function fetchBoard(): Promise<Board | null | 'unavailable'> {
+  if (!URL) return null;
+  const data = initData();
+  if (!data) return null;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(URL, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ initData: data, action: 'board' }),
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    if (!res.ok) return 'unavailable';
+    const j = await res.json();
+    return j?.board ?? 'unavailable';
+  } catch {
+    return 'unavailable';
+  }
 }

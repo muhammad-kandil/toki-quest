@@ -59,7 +59,8 @@ Deno.serve(async (req) => {
   const scores = Object.entries(body.bestScores ?? {})
     .map(([k, v]) => [Number(k), Number(v)] as [number, number])
     .filter(([id, s]) => validLevel(id) && Number.isFinite(s) && s >= 0 && s <= 500);
-  const badges = Array.isArray(body.badges) ? body.badges.filter((b: unknown) => typeof b === "string" && (b as string).length < 40).slice(0, 16) : [];
+  const hasBadges = Array.isArray(body.badges);
+  const badges = hasBadges ? body.badges.filter((b: unknown) => typeof b === "string" && (b as string).length < 40).slice(0, 16) : [];
   const lang = body.lang === "ar" ? "ar" : body.lang === "en" ? "en" : null;
 
   // Telemetry (optional, validated shape; unknown keys ignored).
@@ -96,7 +97,18 @@ Deno.serve(async (req) => {
       }
     : null;
 
+  // Player's own name + ranking visibility (sent from the name screen).
+  const pr = body.profile;
+  const profile = pr && typeof pr === "object" && typeof pr.displayName === "string"
+    ? {
+        displayName: pr.displayName.replace(/[\u0000-\u001f<>]/g, "").replace(/\s+/g, " ").trim().slice(0, 40) || null,
+        showOnBoard: pr.showOnBoard !== false,
+      }
+    : null;
+  const wantBoard = body.action === "board";
+
   const sql = postgres(Deno.env.get("SUPABASE_DB_URL")!, { prepare: false, max: 1 });
+  let board: unknown = undefined;
   try {
     await sql.begin(async (tx) => {
       await tx`
@@ -104,7 +116,13 @@ Deno.serve(async (req) => {
         values (${user.id}, ${user.username ?? null}, ${user.first_name ?? null}, ${user.last_name ?? null}, ${lang}, ${tx.json(badges)}, now())
         on conflict (telegram_user_id) do update set
           username = excluded.username, first_name = excluded.first_name, last_name = excluded.last_name,
-          lang = coalesce(excluded.lang, public.toki_players.lang), badges = excluded.badges, last_seen_at = now()`;
+          lang = coalesce(excluded.lang, public.toki_players.lang),
+          badges = case when ${hasBadges} then excluded.badges else public.toki_players.badges end,
+          last_seen_at = now()`;
+      if (profile) {
+        await tx`update public.toki_players set display_name = ${profile.displayName}, show_on_board = ${profile.showOnBoard}
+                 where telegram_user_id = ${user.id}`;
+      }
       for (const [level_id, score] of scores) {
         const att = attemptsFor(level_id);
         const outcome = outcomeFor(level_id);
@@ -129,11 +147,31 @@ Deno.serve(async (req) => {
                   ${feedback.outcome}, ${feedback.attempts ? tx.json(feedback.attempts) : null})`;
       }
     });
+    if (wantBoard) {
+      // Top 20 among players who chose to appear, plus the caller's own
+      // row (always, even if hidden — they see their rank, others don't).
+      const rows = await sql`
+        select telegram_user_id, name, total, rooms, show_on_board,
+               rank() over (order by total desc) as rank
+        from public.v_toki_board where show_on_board or telegram_user_id = ${user.id}`;
+      const visible = rows.filter((r: any) => r.show_on_board);
+      const ranked = visible.map((r: any, i: number, arr: any[]) => ({
+        rank: 1 + arr.findIndex((x: any) => x.total === r.total), name: r.name, total: r.total, rooms: r.rooms,
+        me: String(r.telegram_user_id) === String(user.id),
+      }));
+      const mine = rows.find((r: any) => String(r.telegram_user_id) === String(user.id));
+      const myRank = mine ? 1 + rows.filter((r: any) => r.total > mine.total).length : null;
+      board = {
+        top: ranked.slice(0, 20),
+        me: mine ? { rank: myRank, total: mine.total, rooms: mine.rooms, hidden: !mine.show_on_board, name: mine.name } : null,
+        players: rows.length,
+      };
+    }
   } catch (e) {
     console.error("record-progress db error", e);
     return json(500, { error: "db" });
   } finally {
     await sql.end({ timeout: 2 });
   }
-  return json(200, { ok: true, levels: scores.length, feedback: !!feedback });
+  return json(200, { ok: true, levels: scores.length, feedback: !!feedback, profile: !!profile, ...(board ? { board } : {}) });
 });

@@ -13,9 +13,9 @@ def run(lang):
         pg.goto(f'http://127.0.0.1:{port}/toki-quest/', wait_until='networkidle')
         pg.evaluate("(s)=>localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:true,unlockedLevel:1,bestScores:s,badges:['drift-detective'],selectedSkinId:'teal-classic',lang:'%s'}))" % lang, DONE)
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(900)
-        pg.click('.title-screen__cta'); pg.wait_for_timeout(1500)
+        pg.click('.title-screen__cta'); pg.wait_for_timeout(1500); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
         pg.screenshot(path=f'{OUT}/{prefix}-{lang}-map.jpg', type='jpeg', quality=82)
-        pg.click('.map__node--current'); pg.wait_for_timeout(2000)
+        pg.click('.map__node--current'); pg.wait_for_timeout(2000); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
         pg.screenshot(path=f'{OUT}/{prefix}-{lang}-hub.jpg', type='jpeg', quality=82)
         pg.click('.door >> nth=0'); pg.wait_for_timeout(2600)
         pg.screenshot(path=f'{OUT}/{prefix}-{lang}-observe.jpg', type='jpeg', quality=82)

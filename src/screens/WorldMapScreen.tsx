@@ -16,6 +16,7 @@ interface WorldMapScreenProps {
   onEnterWorld: (worldId: string) => void;
   onOpenSkins: () => void;
   onOpenBadges: () => void;
+  onOpenBoard?: () => void;
   onBack: () => void;
 }
 
@@ -28,12 +29,13 @@ type WorldState = 'locked' | 'current' | 'done' | 'soon';
  * as the road ahead — visible, named, locked — so the quest reads as
  * a journey with a horizon rather than a list that ends.
  */
-export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpenSkins, onOpenBadges, onBack }: WorldMapScreenProps) {
+export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpenSkins, onOpenBadges, onOpenBoard, onBack }: WorldMapScreenProps) {
   const { tx, dir } = useLocale();
   const skin = getSkinById(skinId);
   const pathRef = useRef<SVGPathElement>(null);
   const [travelTo, setTravelTo] = useState<string | null>(null);
   const [tokiPos, setTokiPos] = useState<{ x: number; y: number } | null>(null);
+  const [entering, setEntering] = useState<string | null>(null);
 
   const worldState = (w: WorldDefinition): WorldState => {
     if (w.comingSoon) return 'soon';
@@ -47,10 +49,10 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
   const currentWorld = findCurrent(bestScores);
   // Toki rests beside the current school — on the left when the school
   // is near the right edge, and never so high that his head leaves the map.
-  const restNode = tokiPos ?? {
-    x: currentWorld.node.x > 60 ? currentWorld.node.x - 11 : currentWorld.node.x + 11,
-    y: Math.max(currentWorld.node.y - 1, 12),
-  };
+  // Rest: on the road just in front of the school, to its side — feet on
+  // the ground line, never on the roof.
+  const restOf = (n: { x: number; y: number }) => ({ x: n.x > 60 ? n.x - 12 : n.x + 12, y: Math.max(n.y + 3, 12) });
+  const restNode = tokiPos ?? restOf(currentWorld.node);
 
   // The road: a Catmull-Rom spline through every node (converted to
   // cubic beziers), so it winds naturally instead of hair-pinning.
@@ -83,16 +85,29 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
     const from = fractionAt(path, total, currentWorld.node);
     const to = fractionAt(path, total, w.node);
     const start = performance.now();
-    const ms = 900 + Math.abs(to - from) * 1800;
+    const ms = 380 + Math.abs(to - from) * 1700;
+    const rest = restOf(currentWorld.node);
+    const arrive = restOf(w.node);
     let lastStep = 0;
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
     const tick = (now: number) => {
       const k = Math.min(1, (now - start) / ms);
       const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
       const p = path.getPointAtLength(total * (from + (to - from) * e));
-      setTokiPos({ x: p.x, y: p.y });
+      // Step off the rest spot onto the road, follow it, and step off
+      // again in front of the new school — no jumps at either end.
+      const inK = Math.min(1, k / 0.15), outK = Math.max(0, (k - 0.85) / 0.15);
+      const x = lerp(lerp(rest.x, p.x, inK), arrive.x, outK);
+      const y = lerp(lerp(rest.y, p.y, inK), arrive.y, outK);
+      setTokiPos({ x, y });
       if (now - lastStep > 180) { sfx.play('step'); lastStep = now; }
-      if (k < 1) requestAnimationFrame(tick);
-      else setTimeout(() => onEnterWorld(w.id), 260);
+      if (k < 1) { requestAnimationFrame(tick); return; }
+      // Going in: Toki walks to the school's door and shrinks into it,
+      // as if walking away from us into the building.
+      sfx.play('door');
+      setEntering(w.id);
+      setTokiPos({ x: w.node.x, y: w.node.y + 1 });
+      setTimeout(() => onEnterWorld(w.id), reducedMotion() ? 120 : 600);
     };
     requestAnimationFrame(tick);
   };
@@ -102,7 +117,7 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
 
   return (
     <div className="map">
-      <TopBar onBack={onBack} badgesCount={badges.length} onOpenBadges={onOpenBadges} />
+      <TopBar onBack={onBack} badgesCount={badges.length} onOpenBadges={onOpenBadges} onOpenBoard={onOpenBoard} />
 
       <header className="map__header">
         <p className="map__eyebrow">{tx(UI.hubEyebrow)}</p>
@@ -157,7 +172,7 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
           return (
             <button
               key={w.id}
-              className={`map__node map__node--${st} ${travelTo === w.id ? 'map__node--target' : ''}`}
+              className={`map__node map__node--${st} ${travelTo === w.id ? 'map__node--target' : ''} ${entering === w.id ? 'map__node--entering' : ''}`}
               style={{ left: `${w.node.x}%`, top: `${w.node.y}%` }}
               onClick={() => handleWorld(w)}
               disabled={st === 'soon'}
@@ -173,8 +188,8 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
           );
         })}
 
-        <div className="map__toki" style={{ left: `${restNode.x}%`, top: `${restNode.y}%` }}>
-          <div className={`map__toki-inner ${travelTo ? 'map__toki-inner--walking' : 'map__toki-inner--idle'}`}>
+        <div className={`map__toki ${entering ? 'map__toki--entering' : ''}`} style={{ left: `${restNode.x}%`, top: `${restNode.y}%` }}>
+          <div className={`map__toki-inner ${entering ? '' : travelTo ? 'map__toki-inner--walking' : 'map__toki-inner--idle'}`}>
             <img src={skin.image} alt="" />
           </div>
         </div>
@@ -194,6 +209,10 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
 }
 
 /** Find the path fraction closest to a node (nodes lie on the path). */
+function reducedMotion(): boolean {
+  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
+}
+
 function fractionAt(path: SVGPathElement, total: number, node: { x: number; y: number }): number {
   let best = 0, bestD = Infinity;
   const steps = 200;

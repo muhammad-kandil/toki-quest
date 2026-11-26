@@ -1,0 +1,59 @@
+.name-screen { display: flex; flex-direction: column; }
+.name-screen .badges__title { font-size: var(--text-lg); line-height: 1.25; }
+.name-screen__toki {
+  width: 120px;
+  align-self: center;
+  margin: var(--space-3) 0 calc(-1 * var(--space-3));
+  position: relative;
+  z-index: 1;
+  animation: name-toki-in 520ms var(--ease-bounce) backwards;
+}
+@keyframes name-toki-in { from { opacity: 0; transform: translateY(16px) scale(0.9); } }
+.name-screen__card {
+  background: var(--color-bg-elevated);
+  border: var(--stroke-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elev-2);
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.name-screen__input {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-border);
+  background: #fff;
+  text-align: start;
+}
+.name-screen__input:focus { outline: none; border-color: var(--toki-teal); box-shadow: 0 0 0 4px rgba(43, 214, 184, 0.18); }
+.name-screen__hint { margin: 0; font-size: var(--text-sm); color: var(--color-text-secondary); }
+.name-screen__switch { display: flex; align-items: flex-start; gap: var(--space-3); cursor: pointer; padding-top: var(--space-2); }
+.name-screen__switch input { position: absolute; opacity: 0; pointer-events: none; }
+.name-screen__switch strong { display: block; font-size: var(--text-sm); color: var(--color-text-primary); }
+.name-screen__switch small { display: block; font-size: var(--text-xs, 12px); color: var(--color-text-secondary); margin-top: 2px; }
+.name-screen__track {
+  flex: 0 0 auto;
+  width: 44px; height: 26px; border-radius: 999px;
+  background: #D8D4E8;
+  position: relative;
+  transition: background 160ms;
+  margin-top: 1px;
+}
+.name-screen__thumb {
+  position: absolute; top: 3px; inset-inline-start: 3px;
+  width: 20px; height: 20px; border-radius: 50%; background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  transition: inset-inline-start 160ms, left 160ms, right 160ms;
+}
+.name-screen__switch input:checked + .name-screen__track { background: var(--toki-teal); }
+.name-screen__switch input:checked + .name-screen__track .name-screen__thumb { inset-inline-start: 21px; }
+.name-screen__switch input:focus-visible + .name-screen__track { box-shadow: 0 0 0 3px rgba(43, 214, 184, 0.35); }
+.name-screen__cta { margin-top: var(--space-2); width: 100%; }

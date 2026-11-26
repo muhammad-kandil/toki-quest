@@ -17,10 +17,10 @@ HASH = '#tgWebAppData=' + urllib.parse.quote(TG, safe='') + '&tgWebAppVersion=8.
 
 
 def play_level_one(pg):
-    pg.click('.title-screen__cta'); pg.wait_for_timeout(900)
-    pg.click('.map__node--current'); pg.wait_for_timeout(1500)
+    pg.click('.title-screen__cta'); pg.wait_for_timeout(900); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
+    pg.click('.map__node--current'); pg.wait_for_timeout(1500); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
     pg.locator('.door--available').first.click(); pg.wait_for_timeout(1500)
-    pg.wait_for_selector('.evidence-spot', timeout=4000)
+    pg.wait_for_selector('.evidence-spot', timeout=8000); pg.wait_for_timeout(900)
     spots = pg.locator('.evidence-spot')
     for i in range(spots.count()):
         spots.nth(i).click(); pg.wait_for_timeout(200)
@@ -102,11 +102,11 @@ def run(lang):
 
         # Replay: back to the world, open level 1 again, play to reveal — no card.
         pg.click('.beat__cta'); pg.wait_for_timeout(700)
-        pg.locator('.door').first.click(); pg.wait_for_timeout(1500)
+        pg.locator('.door').first.click(); pg.wait_for_timeout(3200)
         if pg.locator('.evidence-spot').count() == 0:
             # Replay prompt or level intro — press the first CTA
             if pg.locator('.beat__cta').count(): pg.click('.beat__cta'); pg.wait_for_timeout(800)
-        pg.wait_for_selector('.evidence-spot', timeout=4000)
+        pg.wait_for_selector('.evidence-spot', timeout=8000); pg.wait_for_timeout(900)
         spots = pg.locator('.evidence-spot')
         for i in range(spots.count()):
             spots.nth(i).click(); pg.wait_for_timeout(200)

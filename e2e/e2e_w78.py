@@ -23,15 +23,15 @@ def run(lang):
         b=p.chromium.launch(); pg=b.new_page(viewport={'width':390,'height':844}, locale='ar' if lang=='ar' else 'en')
         errs=[]; failed=[]
         pg.on('pageerror',lambda e:errs.append(str(e)))
-        pg.on('response',lambda r:failed.append((r.url.split('/')[-1],r.status)) if r.status>=400 else None)
+        pg.on('response',lambda r:failed.append((r.url.split('/')[-1],r.status)) if r.status>=400 and '/audio/' not in r.url else None)
         pg.goto(f'http://127.0.0.1:{PORT}/toki-quest/',wait_until='networkidle'); pg.wait_for_timeout(600)
         pg.evaluate("""(s)=>{localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:true,unlockedLevel:1,bestScores:s,badges:[],selectedSkinId:'teal-classic',lang:'%s'}))}"""%lang, DONE)
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
         print(f'[{lang}] lang/dir:', pg.evaluate("[document.documentElement.lang, document.documentElement.dir]"))
-        pg.click('.title-screen__cta'); pg.wait_for_timeout(900)
+        pg.click('.title-screen__cta'); pg.wait_for_timeout(900); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
         print(f'[{lang}] map current node is world 7:', pg.locator('.map__node--current').get_attribute('aria-label'))
         pg.screenshot(path=f'{S}/{lang}-w7-map.png')
-        pg.click('.map__node--current'); pg.wait_for_timeout(1800)
+        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
         print(f'[{lang}] W7 cards:', pg.locator('.door').count())
         pg.screenshot(path=f'{S}/{lang}-w7-hub.png')
 
@@ -85,7 +85,7 @@ def run(lang):
         pg.click('.topbar__btn >> nth=0'); pg.wait_for_timeout(800)
         print(f'[{lang}] map current node:', pg.locator('.map__node--current').get_attribute('aria-label'))
         pg.screenshot(path=f'{S}/{lang}-w8-map.png')
-        pg.click('.map__node--current'); pg.wait_for_timeout(1800)
+        pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
         print(f'[{lang}] W8 cards:', pg.locator('.door').count(), 'hint:', pg.locator('.hub__hint').inner_text())
         pg.screenshot(path=f'{S}/{lang}-w8-hub.png')
         pg.click('.door--available, .door--boss:not(:disabled)'); pg.wait_for_timeout(1900)

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { getCardInfo, getSchoolVisit, BOSS, BOSS_ID } from '../data/levels';
 import type { WorldDefinition } from '../data/worlds';
 import { isLevelUnlocked } from '../data/progression';
@@ -34,6 +34,23 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
   const { tx } = useLocale();
   const [walkingTo, setWalkingTo] = useState<number | null>(null);
   const [phase, setPhase] = useState<TransitionPhase>('idle');
+  // Toki lines up with the real door, whatever its height (two-line
+  // names, the challenge card): measured, not assumed.
+  const corridorRef = useRef<HTMLDivElement>(null);
+  const [doorY, setDoorY] = useState<number[]>([]);
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = corridorRef.current;
+      if (!el) return;
+      setDoorY([...el.querySelectorAll<HTMLElement>('.door')].map((d) => d.offsetTop + d.offsetHeight / 2));
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    const t = window.setTimeout(measure, 450);   // after the door-enter animation and font swap
+    return () => { window.removeEventListener('resize', measure); window.clearTimeout(t); };
+  }, [world.id]);
+  const TOKI_H = 52;
+  const tokiY = (i: number) => (doorY[i] ?? TOKI_H / 2 + 14) - TOKI_H * 0.62;
   const skin = getSkinById(skinId);
 
   const bossCard = (() => {
@@ -60,6 +77,8 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
     setWalkingTo(index);
     setPhase('walking');
     const steps = setInterval(() => sfx.play('step'), 170);
+    // Walk time follows the distance, so a far door is a longer walk.
+    const walkMs = Math.round(450 + Math.min(700, Math.abs(tokiY(index) - tokiY(0)) * 1.6));
     setTimeout(() => {
       clearInterval(steps);
       sfx.play('door');
@@ -68,8 +87,8 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
         sfx.play('wipe');
         setPhase('opening');
         setTimeout(() => onEnterClassroom(id), 420);
-      }, 500);
-    }, 750);
+      }, 560);
+    }, walkMs);
   };
 
   const bossUnlocked = !!world.bossId && isLevelUnlocked(world.bossId, bestScores);
@@ -92,7 +111,7 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
         </button>
       </header>
 
-      <div className={`hub__corridor ${walkingTo != null ? 'hub__corridor--walking' : ''}`}>
+      <div ref={corridorRef} className={`hub__corridor ${walkingTo != null ? 'hub__corridor--walking' : ''}`}>
         {cards.map((card, i) => {
           const state = doorState(card.id);
           const isTarget = walkingTo === i;
@@ -120,8 +139,8 @@ export function HubScreen({ world, bestScores, skinId, badgesCount, onEnterClass
         })}
 
         <div
-          className={`hub__toki ${walkingTo != null ? 'hub__toki--walking' : 'hub__toki--idle'} ${phase === 'hiding' ? 'hub__toki--hiding' : ''}`}
-          style={{ '--target-index': walkingTo ?? 0 } as React.CSSProperties}
+          className={`hub__toki ${walkingTo != null ? 'hub__toki--walking' : 'hub__toki--idle'} ${phase === 'hiding' || phase === 'opening' ? 'hub__toki--hiding' : ''}`}
+          style={{ '--toki-y': `${tokiY(walkingTo ?? 0)}px`, '--walk-ms': `${Math.round(450 + Math.min(700, Math.abs(tokiY(walkingTo ?? 0) - tokiY(0)) * 1.6))}ms` } as React.CSSProperties}
         >
           <img src={skin.image} alt="" />
         </div>

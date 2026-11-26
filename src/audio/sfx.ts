@@ -45,6 +45,9 @@ let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
 let musicBus: GainNode | null = null;
 let sfxBus: GainNode | null = null;
+let voiceBus: GainNode | null = null;
+let ambBus: GainNode | null = null;
+const AMB_GAIN = 0.9;
 let enabled = readPref();
 const listeners = new Set<(on: boolean) => void>();
 
@@ -82,6 +85,14 @@ function ensureCtx(): AudioContext | null {
     sfxBus = ctx!.createGain();
     sfxBus.gain.value = 1;
     sfxBus.connect(master);
+    // Recorded audio: voice-over clips and room recordings. These are
+    // already loudness-normalised, so they bypass the synth master trim.
+    voiceBus = ctx!.createGain();
+    voiceBus.gain.value = 1;
+    voiceBus.connect(ctx!.destination);
+    ambBus = ctx!.createGain();
+    ambBus.gain.value = AMB_GAIN;
+    ambBus.connect(ctx!.destination);
   } catch {
     ctx = null;
   }
@@ -89,9 +100,12 @@ function ensureCtx(): AudioContext | null {
 }
 
 /** Called on the first user gesture; resumes a suspended context (iOS). */
+const runningListeners = new Set<() => void>();
 function unlock() {
   const c = ensureCtx();
-  if (c && c.state === 'suspended') c.resume().then(() => { if (pendingMood) startBed(pendingMood); }).catch(() => {});
+  const fire = () => runningListeners.forEach((fn) => { try { fn(); } catch { /* ignore */ } });
+  if (c && c.state === 'suspended') c.resume().then(() => { if (pendingMood) startBed(pendingMood); fire(); }).catch(() => {});
+  else if (c) fire();
 }
 
 if (typeof window !== 'undefined') {
@@ -174,6 +188,14 @@ function duck(seconds: number, depth = 0.35) {
   g.cancelScheduledValues(now);
   g.setTargetAtTime(MUSIC_GAIN * depth, now, 0.04);
   g.setTargetAtTime(MUSIC_GAIN, now + seconds, 0.35);
+}
+
+/** Hold the room down while someone speaks; release when they stop. */
+function duckRoom(on: boolean) {
+  if (!ambBus || !ctx) return;
+  const now = ctx.currentTime;
+  ambBus.gain.cancelScheduledValues(now);
+  ambBus.gain.setTargetAtTime(on ? AMB_GAIN * 0.38 : AMB_GAIN, now, on ? 0.08 : 0.5);
 }
 
 const r = (a: number, b: number) => a + Math.random() * (b - a);
@@ -440,6 +462,17 @@ export const sfx = {
     if (!enabled) return;
     duck(seconds, depth);
   },
+  /** Shared graph for recorded audio (voice clips, room recordings). */
+  graph(): { ctx: AudioContext; voice: GainNode; amb: GainNode } | null {
+    const c = ensureCtx();
+    if (!c || !voiceBus || !ambBus) return null;
+    return { ctx: c, voice: voiceBus, amb: ambBus };
+  },
+  /** True once the context can actually make sound (after the first gesture on iOS). */
+  isRunning: () => !!ctx && ctx.state === 'running',
+  duckRoom(on: boolean) { duckRoom(on); },
+  /** Called when audio becomes able to play (first gesture). */
+  onRunning(fn: () => void) { runningListeners.add(fn); return () => runningListeners.delete(fn); },
   isEnabled: () => enabled,
   setEnabled(on: boolean) {
     enabled = on;

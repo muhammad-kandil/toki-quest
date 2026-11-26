@@ -11,6 +11,9 @@ import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
+import { ambience } from '../audio/ambience';
+import { useVoice } from '../audio/useVoice';
+import { lines } from '../audio/lines';
 import './LevelScreen.css';
 import './BossScreen.css';
 import './WorldBossScreen.css';
@@ -33,11 +36,24 @@ export function WorldBossScreen({ boss, heldBadges, onComplete }: {
   heldBadges: string[];
   onComplete: (r: LevelResult) => void;
 }) {
-  const { tx } = useLocale();
+  const { tx, lang } = useLocale();
   const [phase, setPhase] = useState<Phase>('intro');
   const [sceneIdx, setSceneIdx] = useState(0);
   const [sceneWrong, setSceneWrong] = useState<Call | null>(null);
   const [sceneShown, setSceneShown] = useState(false);
+  const voiceCtl = useVoice();
+  // Between scenes Toki is in the corridors; in a scene, the room's own sound.
+  const place = phase === 'scenes' ? boss.scenes[sceneIdx]?.place.en ?? '' : '';
+  const bed = phase !== 'scenes' ? 'corridor'
+    : /meeting|office|staff|leader|principal|department/i.test(place) ? 'staffroom'
+    : /corridor|hall|yard|assembly/i.test(place) ? 'corridor' : 'class-working';
+  useEffect(() => { ambience.set(bed); }, [bed]);
+  useEffect(() => {
+    if (phase === 'intro') voiceCtl.speak(lines.bossIntro(boss).text[lang], 'narrator');
+    if (phase === 'reveal') { const f = lines.bossFinal(boss); if (f) voiceCtl.speak(f.text[lang], 'narrator'); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+  useEffect(() => () => voiceCtl.cancel(), []); // eslint-disable-line react-hooks/exhaustive-deps
   const [sceneFirstTry, setSceneFirstTry] = useState<boolean[]>([]);
   const [wrongChoice, setWrongChoice] = useState<string | null>(null);
   const [attempts, setAttempts] = useState<Record<string, number>>({});

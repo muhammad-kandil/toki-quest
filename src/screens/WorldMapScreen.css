@@ -226,21 +226,38 @@
   position: absolute;
   width: 58px;
   height: 58px;
-  transform: translate(-50%, -92%);
+  transform: translate(-50%, -100%);
   z-index: 3;
   pointer-events: none;
   will-change: left, top;
 }
-.map__toki-inner { width: 100%; height: 100%; transform-origin: 50% 90%; }
+.map__toki-inner { width: 100%; height: 100%; transform-origin: 50% 96%; }
 .map__toki-inner img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: 50% 100%;   /* feet on the anchor, whatever the skin's shape */
   filter: drop-shadow(0 6px 8px rgba(69, 43, 116, 0.28));
   transform-origin: 50% 90%;
 }
 .map__toki-inner--idle img { animation: toki-breathe 3.4s ease-in-out infinite; }
 .map__toki-inner--walking img { animation: toki-walk 240ms ease-in-out infinite; }
+
+/* Entering a world: he walks up to the school's door and gets smaller —
+   walking away from us, into the building — then the hall opens. */
+.map__toki--entering {
+  transition: left 580ms cubic-bezier(.45, 0, .6, 1), top 580ms cubic-bezier(.45, 0, .6, 1);
+}
+.map__toki--entering .map__toki-inner {
+  transform: scale(0.3);
+  opacity: 0;
+  transition: transform 580ms cubic-bezier(.5, 0, .75, 1), opacity 320ms ease-in 260ms;
+}
+.map__toki--entering .map__toki-inner img { animation: toki-walk 240ms ease-in-out infinite; }
+.map__node--entering .map__school { filter: drop-shadow(0 0 10px rgba(43, 214, 184, 0.9)); }
+@media (prefers-reduced-motion: reduce) {
+  .map__toki--entering, .map__toki--entering .map__toki-inner { transition: none; }
+}
 .map__stage--travelling .map__node { pointer-events: none; }
 
 /* ---------- Footer ---------- */

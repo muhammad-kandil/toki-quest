@@ -11,8 +11,9 @@ import './TopBar.css';
  * title screen and the world map — never inside a classroom, where
  * the player should be looking at the room, not the chrome.
  */
-export function TopBar({ onBack, badgesCount, onOpenBadges }: {
+export function TopBar({ onBack, badgesCount, onOpenBadges, onOpenBoard }: {
   onBack?: () => void;
+  onOpenBoard?: () => void;
   badgesCount?: number;
   onOpenBadges?: () => void;
 }) {
@@ -31,6 +32,13 @@ export function TopBar({ onBack, badgesCount, onOpenBadges }: {
         )}
       </div>
       <div className="topbar__side topbar__side--end">
+        {onOpenBoard && (
+          <button className="topbar__btn topbar__btn--board" onClick={() => { play('tap'); onOpenBoard(); }} aria-label={tx(UI.board)} title={tx(UI.board)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 21V10h6v11M3 21v-6h6M15 21v-8h6v8M2 21h20" />
+            </svg>
+          </button>
+        )}
         {onOpenBadges && (
           <button className="topbar__btn topbar__btn--text" onClick={() => { play('tap'); onOpenBadges(); }}>
             <span className="topbar__dot" aria-hidden="true" />

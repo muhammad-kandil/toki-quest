@@ -7,6 +7,10 @@ import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
+import { ambience } from '../audio/ambience';
+import { roomSound } from '../data/ambience';
+import { useVoice } from '../audio/useVoice';
+import { lines } from '../audio/lines';
 import { useEffect } from 'react';
 import './LevelScreen.css';
 import './BossScreen.css';
@@ -31,9 +35,16 @@ type AuditCall = 'clean' | 'mutation';
  * twist land as earned insight rather than a scripted reveal.
  */
 export function BossScreen({ boss, onComplete }: BossScreenProps) {
-  const { tx } = useLocale();
+  const { tx, lang } = useLocale();
   const [phase, setPhase] = useState<Phase>('intro');
   const [auditIndex, setAuditIndex] = useState(0);
+  const voiceCtl = useVoice();
+  useEffect(() => { ambience.set(phase === 'reveal' ? 'class-quiet' : roomSound(boss.id).lesson); }, [phase, boss.id]);
+  useEffect(() => {
+    if (phase === 'intro') voiceCtl.speak(lines.bossIntro(boss).text[lang], 'narrator');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+  useEffect(() => () => voiceCtl.cancel(), []); // eslint-disable-line react-hooks/exhaustive-deps
   const [auditWrongCall, setAuditWrongCall] = useState<AuditCall | null>(null);
   const [auditFindingShown, setAuditFindingShown] = useState(false);
 

@@ -20,6 +20,8 @@ const revealFace = (outcome: string | null | undefined) =>
   outcome === 'unchanged' ? thoughtfulToki : outcome === 'partial' ? affirmingToki : celebratingToki;
 import { useLocale } from '../i18n/LocaleContext';
 import { useVoice } from '../audio/useVoice';
+import { ambience } from '../audio/ambience';
+import { roomSound } from '../data/ambience';
 import { UI, fmt } from '../i18n/ui';
 import { t, type Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
@@ -74,6 +76,9 @@ export function AcademyScreen({ level, heldBadges, onComplete }: {
   const { tx } = useLocale();
   const voiceCtl = useVoice();
   const [phase, setPhase] = useState<Phase>('observe');
+  const room = roomSound(level.id);
+  const afterLesson = phase === 'conversation' || phase === 'reveal';
+  useEffect(() => { ambience.set(afterLesson ? room.conversation ?? 'class-quiet' : room.lesson); }, [afterLesson, room.lesson, room.conversation]);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [filed, setFiled] = useState(false);
   const [diagErr, setDiagErr] = useState<{ over: boolean; under: boolean } | null>(null);

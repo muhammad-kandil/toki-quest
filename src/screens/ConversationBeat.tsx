@@ -55,7 +55,7 @@ export function ConversationBeat({ conversation, onDone }: {
     const fresh = transcript.slice(spokenUpTo.current);
     spokenUpTo.current = transcript.length;
     if (!fresh.length) return;
-    voiceCtl.speakSequence(fresh.map((l) => ({ text: tx(l.text), who: l.who })));
+    voiceCtl.speakSequence(fresh.map((l) => ({ text: tx(l.text), who: l.who, teacher: l.who === 'teacher' ? conversation.teacherName.en : undefined })));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transcript.length]);
   useEffect(() => () => voiceCtl.cancel(), []); // eslint-disable-line react-hooks/exhaustive-deps

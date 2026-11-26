@@ -14,9 +14,9 @@ def run(lang):
         if lang == 'ar':
             pg.click('.topbar__lang'); pg.wait_for_timeout(300)
         dbg = lambda: pg.evaluate("JSON.parse(JSON.stringify(window.__tokiSfx))")
-        pg.click('.title-screen__cta'); pg.wait_for_timeout(1500)
+        pg.click('.title-screen__cta'); pg.wait_for_timeout(1500); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
         d = dbg(); print(f'[{lang}] title→map: music={d["music"]} cues={d["cues"]}')
-        pg.click('.map__node--current'); pg.wait_for_timeout(2200)
+        pg.click('.map__node--current'); pg.wait_for_timeout(2200); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
         d = dbg(); print(f'[{lang}] map→hub: music={d["music"]} travel={d["cues"].get("travel")} steps={d["cues"].get("step")}')
         pg.click('.door--available'); pg.wait_for_timeout(2200)
         d = dbg(); print(f'[{lang}] hub→classroom: music={d["music"]} door={d["cues"].get("door")} wipe={d["cues"].get("wipe")}')

@@ -12,6 +12,8 @@ import tokiHero from '../assets/raw/toki-face-teal-hero.png';
 import { TokiAvatar } from '../components/TokiAvatar';
 import { useLocale } from '../i18n/LocaleContext';
 import { useVoice } from '../audio/useVoice';
+import { ambience } from '../audio/ambience';
+import { VISIT_SOUND } from '../data/ambience';
 import { UI, fmt } from '../i18n/ui';
 import { t, type Text } from '../i18n/types';
 import { sfx } from '../audio/sfx';
@@ -78,6 +80,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
   const voiceCtl = useVoice();
   const [phase, setPhase] = useState<Phase>('intro');
   const [activeId, setActiveId] = useState<string | null>(null);
+  useEffect(() => { ambience.set(activeId ? VISIT_SOUND[activeId] ?? 'class-working' : 'corridor'); }, [activeId]);
   const [calls, setCalls] = useState<Record<string, { firstTry: boolean; done: boolean }>>({});
   const [wrongCall, setWrongCall] = useState<ImpactCall | null>(null);
   const [shown, setShown] = useState(false);

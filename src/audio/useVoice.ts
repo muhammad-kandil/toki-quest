@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react';
-import { voice, type Speaker } from './voice';
+import { voice, type Speaker, type Line } from './voice';
 import { useLocale } from '../i18n/LocaleContext';
 
 /**
- * React binding for Read aloud. `available` is false when the device
- * has no speech engine or no voice for the current language — callers
- * hide the toggle in that case rather than show a dead switch.
+ * React binding for voice-over. `available` is false only when there is
+ * neither a recorded clip set nor a device voice for the language.
  */
 export function useVoice() {
   const { lang } = useLocale();
   const [, bump] = useState(0);
   useEffect(() => {
+    voice.prepare(lang);
     const off = voice.subscribe(() => bump((n) => n + 1));
     return () => { off(); };
-  }, []);
+  }, [lang]);
   return {
-    available: voice.isSupported() && voice.isAvailable(lang),
-    on: voice.isEnabled(),
-    toggle: () => voice.setEnabled(!voice.isEnabled()),
-    speak: (text: string, who: Speaker = 'narrator') => voice.speak(text, lang, who),
-    speakSequence: (lines: { text: string; who?: Speaker }[]) => voice.speakSequence(lines, lang),
+    available: voice.isAvailable(lang),
+    on: voice.isEnabled(lang),
+    toggle: () => voice.setEnabled(!voice.isEnabled(lang)),
+    speak: (text: string, who: Speaker = 'narrator', teacher?: string) => voice.speak(text, lang, who, teacher),
+    speakSequence: (lines: Line[]) => voice.speakSequence(lines, lang),
     cancel: voice.cancel,
   };
 }

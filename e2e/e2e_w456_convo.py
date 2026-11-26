@@ -58,7 +58,7 @@ def run(lang):
         pg = b.new_page(viewport={'width': 390, 'height': 844}, locale='ar' if lang == 'ar' else 'en')
         errs, failed = [], []
         pg.on('pageerror', lambda e: errs.append(str(e)))
-        pg.on('response', lambda r: failed.append((r.url.split('/')[-1], r.status)) if r.status >= 400 else None)
+        pg.on('response', lambda r: failed.append((r.url.split('/')[-1], r.status)) if r.status >= 400 and '/audio/' not in r.url else None)
         done = {str(i): 100 for i in [1, 2, 3, 4, 5, 6, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35]}
         pg.goto(BASE, wait_until='networkidle')
         pg.wait_for_timeout(500)
@@ -70,7 +70,7 @@ def run(lang):
                 pg.evaluate("(s)=>localStorage.setItem('toki:save',JSON.stringify(s))", save)
                 pg.goto(BASE, wait_until='networkidle')
                 pg.wait_for_timeout(500)
-                pg.click('.title-screen__cta'); pg.wait_for_timeout(1200)
+                pg.click('.title-screen__cta'); pg.wait_for_timeout(1200); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
                 pg.locator('.map__node').nth(w - 1).click(); pg.wait_for_timeout(1800)
                 pg.click('.door--available'); pg.wait_for_timeout(2000)
                 pg.wait_for_selector('.evidence-spot', timeout=5000)

@@ -62,8 +62,8 @@ def play_level1(pg, lang, voice_on):
         warm = pg.evaluate("window.__voiceLog.spoken.length")
         assert warm >= 1 and pg.evaluate("window.__voiceLog.spoken[0].volume") == 0, 'no warm-up utterance on toggle'
         pg.evaluate("window.__voiceLog.spoken.length = 0; window.__voiceLog.events.length = 0; window.__voiceLog.cancels = 0")
-    pg.click('.title-screen__cta'); pg.wait_for_timeout(1200)
-    pg.click('.map__node--current'); pg.wait_for_timeout(1800)
+    pg.click('.title-screen__cta'); pg.wait_for_timeout(1200); (pg.fill('.name-screen__input','Tester'), pg.click('.name-screen__cta'), pg.wait_for_timeout(900)) if pg.locator('.name-screen__input').count() else None
+    pg.click('.map__node--current'); pg.wait_for_timeout(1800); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
     pg.click('.door--available'); pg.wait_for_timeout(2000)
     spoken = lambda: pg.evaluate("window.__voiceLog.spoken.map(s=>({text:s.text.slice(0,60), lang:s.lang, pitch:s.pitch, overlap:s.overlap}))")
     scenario_text = pg.locator('.beat__scenario').inner_text()
