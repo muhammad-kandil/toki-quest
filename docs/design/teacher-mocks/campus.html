@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Campus with HUD</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+/* Mock-only layout. Everything visual comes from theme.css tokens. */
+.campus { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: var(--t-bg) url(../../../public/art/map/background.jpg) center / cover no-repeat; }
+.bld { position: absolute; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); filter: drop-shadow(0 10px 8px rgba(59, 42, 120, 0.25)); }
+.bld img { width: 100%; }
+.bld--flip img { -webkit-transform: scaleX(-1); transform: scaleX(-1); }
+.board { position: absolute; width: 54px; height: 40px; margin: -20px 0 0 -27px; border-radius: 6px; background: #c98f4e; border: 4px solid #8a5a2b; box-shadow: 0 8px 10px rgba(59, 42, 120, 0.25); }
+.board:after { content: ""; position: absolute; left: 6px; top: 5px; width: 18px; height: 12px; background: #fff3dc; box-shadow: 22px 4px 0 #dceafb; }
+.route { position: absolute; left: 0; top: 0; z-index: var(--t-z-pins); pointer-events: none; }
+
+/* Ms. Mariam on the map */
+.mariam { position: absolute; z-index: var(--t-z-avatar); width: 50px; height: 50px; margin: -50px 0 0 -25px; }
+.mariam:before { content: ""; position: absolute; left: 7px; bottom: -6px; width: 36px; height: 10px; border-radius: 50%; background: var(--t-ground-shadow); }
+.mariam .t-portrait { width: 50px; height: 50px; border-color: #fff; box-shadow: 0 0 0 3px var(--t-teal), var(--t-elev-2); }
+.mariam b { position: absolute; left: 50%; top: -20px; -webkit-transform: translateX(-50%); transform: translateX(-50%); padding: 0 7px; border-radius: var(--t-r-pill); background: var(--t-teal); color: var(--t-indigo-deep); font-size: var(--t-fs-2xs); font-weight: 800; line-height: 1.6; white-space: nowrap; }
+.face { background-image: url(../../../public/story/busy-classroom/w1-open-4.jpg); background-size: 430px auto; background-position: -325px -190px; }
+
+/* HUD */
+.hud-top { position: absolute; z-index: var(--t-z-hud); left: var(--t-gutter); right: var(--t-gutter); top: calc(10px + var(--t-safe-top)); }
+.hud-top .t-hud-card--pill { float: left; }
+.hud-top .end { float: right; }
+.hud-top .end > * { display: inline-block; vertical-align: middle; margin-left: 8px; }
+[dir=rtl] .hud-top .t-hud-card--pill { float: right; }
+[dir=rtl] .hud-top .end { float: left; }
+[dir=rtl] .hud-top .end > * { margin-left: 0; margin-right: 8px; }
+.row2 { clear: both; padding-top: 8px; }
+.row2:after, .hud-top:after { content: ""; display: table; clear: both; }
+.classes { font-size: var(--t-fs-xs); font-weight: 600; line-height: 24px; }
+.classes .lbl { color: var(--t-muted); margin: 0 6px 0 4px; }
+[dir=rtl] .classes .lbl { margin: 0 4px 0 6px; }
+.classes .t-chip { margin-left: 4px; }
+[dir=rtl] .classes .t-chip { margin-left: 0; margin-right: 4px; }
+.tool { font-size: var(--t-fs-sm); font-weight: 600; line-height: 24px; }
+.tool .ico { display: inline-block; width: 24px; height: 24px; margin-right: 6px; border-radius: 50%; background: var(--t-orange); color: var(--t-indigo-deep); text-align: center; font-family: var(--t-display); font-weight: 800; }
+[dir=rtl] .tool .ico { margin-right: 0; margin-left: 6px; }
+.tool .t-num { font-size: 17px; font-weight: 800; color: var(--t-indigo); margin-left: 4px; }
+[dir=rtl] .tool .t-num { margin-left: 0; margin-right: 6px; }
+
+.hud-bottom { position: absolute; z-index: var(--t-z-hud); left: var(--t-gutter); right: var(--t-gutter); bottom: calc(14px + var(--t-safe-bottom)); }
+.teacher { float: left; width: 218px; --t-energy-pip-w: 18px; height: var(--t-hud-card-h); padding-left: 72px; }
+.teacher .t-portrait { position: absolute; left: 10px; top: 12px; }
+.teacher h3 { font-size: var(--t-fs-md); line-height: 1.1; margin-top: 1px; }
+.teacher .meta { font-size: var(--t-fs-xs); color: var(--t-muted); line-height: 1.3; }
+.teacher .energy { margin-top: 5px; font-size: var(--t-fs-2xs); font-weight: 600; color: var(--t-teal-deep); line-height: 1; }
+.teacher .energy .t-meter { display: inline-block; vertical-align: middle; margin-right: 6px; }
+.cal { float: right; width: 128px; padding-left: 6px; padding-right: 6px; height: var(--t-hud-card-h); text-align: center; padding-top: 8px; }
+.cal .t-eyebrow { color: var(--t-orange-deep); letter-spacing: .03em; white-space: nowrap; }
+.cal .day { font-family: var(--t-display); font-weight: 800; font-size: 22px; line-height: 1.05; color: var(--t-indigo); }
+.cal .per { font-size: var(--t-fs-xs); font-weight: 600; color: var(--t-ink); line-height: 1.3; }
+.cal .per i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--t-bg-2); margin: 0 2px 1px; vertical-align: middle; }
+.cal .per i.on { background: var(--t-orange); }
+[dir=rtl] .teacher { float: right; padding-left: 12px; padding-right: 72px; }
+[dir=rtl] .teacher .t-portrait { left: auto; right: 10px; }
+[dir=rtl] .teacher .energy .t-meter { margin-right: 0; margin-left: 6px; }
+[dir=rtl] .cal { float: left; }
+.stand-in { position: absolute; z-index: var(--t-z-hud); left: 0; right: 0; bottom: 98px; text-align: center; font-size: 10px; color: rgba(35,27,69,.7); }
+</style>
+</head>
+<body>
+<div class="phone teacher-app" id="app">
+  <div class="campus" aria-label="School campus">
+    <div class="bld" style="left:88px;top:214px;width:130px"><img src="../../../public/art/schools/w2.png" alt=""></div>
+    <div class="bld bld--flip" style="left:300px;top:226px;width:136px"><img src="../../../public/art/schools/w2.png" alt=""></div>
+    <div class="bld" style="left:196px;top:382px;width:176px"><img src="../../../public/art/schools/w1.png" alt=""></div>
+    <div class="bld bld--flip" style="left:84px;top:482px;width:128px"><img src="../../../public/art/schools/w1.png" alt=""></div>
+    <div class="bld" style="left:318px;top:478px;width:124px"><img src="../../../public/art/schools/w1.png" alt=""></div>
+    <div class="bld bld--flip" style="left:294px;top:652px;width:124px;opacity:.9"><img src="../../../public/art/schools/w2.png" alt=""></div>
+    <div class="board" style="left:118px;top:650px"></div>
+
+    <!-- walking route: Ms. Mariam to the next pin -->
+    <svg class="route" width="390" height="844" viewBox="0 0 390 844" aria-hidden="true">
+      <path d="M138 292 C 158 318, 176 318, 192 322" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 11" opacity=".95"/>
+    </svg>
+
+    <button class="t-pin" style="left:88px;top:170px"><span class="t-pin__head">&#9733;</span><span class="t-pin__label" data-t="office">Principal's office</span></button>
+    <button class="t-pin" style="left:300px;top:180px"><span class="t-pin__head">&#9636;</span><span class="t-pin__label" data-t="library">Library · Notebook</span></button>
+    <button class="t-pin t-pin--next" style="left:196px;top:322px"><span class="t-pin__flag" data-t="next">Next lesson</span><span class="t-pin__head">5</span><span class="t-pin__label" data-t="g5">Grade 5 classroom</span></button>
+    <button class="t-pin" style="left:84px;top:440px"><span class="t-pin__head">&#9749;</span><span class="t-pin__label" data-t="staff">Staff room · Toolkit</span></button>
+    <button class="t-pin t-pin--done" style="left:318px;top:438px"><span class="t-pin__head">4<span class="t-pin__badge">&#10003;</span></span><span class="t-pin__label" data-t="g4">Grade 4 classroom</span></button>
+    <button class="t-pin t-pin--locked" aria-disabled="true" style="left:294px;top:612px"><span class="t-pin__head">6<span class="t-pin__badge t-pin__badge--lock"></span></span><span class="t-pin__label" data-t="g6">Grade 6 · Day 4</span></button>
+    <button class="t-pin" style="left:118px;top:622px"><span class="t-pin__head">&#9993;</span><span class="t-pin__label" data-t="community">Community board</span></button>
+
+    <div class="mariam" style="left:132px;top:290px"><b data-t="you">You</b><span class="t-portrait face" role="img" aria-label="Ms. Mariam"></span></div>
+  </div>
+
+  <!-- HUD: nothing here can be spent -->
+  <div class="hud-top">
+    <div class="t-hud-card t-hud-card--pill classes"><span class="lbl" data-t="classes">Classes</span><span class="t-chip t-chip--good t-chip--dot">G4</span><span class="t-chip t-chip--insight t-chip--dot" data-t="g5chip">G5 · today</span></div>
+    <div class="end">
+      <button class="t-btn t-btn--icon" aria-label="Settings">&#9881;</button>
+    </div>
+    <div class="row2">
+      <div class="t-hud-card t-hud-card--pill tool"><span class="ico">&#9636;</span><span data-t="toolkit">Toolkit</span><span class="t-num">3</span></div>
+      <div class="end"><button class="t-pass-btn" data-t="pass">Term Pass 6/12</button><span class="t-notes-chip" aria-label="4 thank-you notes"><span class="t-notes-icon"></span>4</span></div>
+    </div>
+  </div>
+
+  <div class="stand-in" data-t="standin">Stand-in art: final isometric campus is public/art/campus.jpg</div>
+
+  <div class="hud-bottom">
+    <div class="t-hud-card teacher">
+      <span class="t-portrait face"></span>
+      <h3 data-t="name">Ms. Mariam</h3>
+      <div class="meta" data-t="meta">Grade 5 · Math</div>
+      <div class="energy"><span class="t-meter t-meter--pips" role="img" aria-label="Energy 2 of 3"><i class="on"></i><i class="on"></i><i></i></span><span data-t="energy">Energy 2/3</span></div>
+    </div>
+    <div class="t-hud-card cal">
+      <div class="t-eyebrow" data-t="term">Term 1 · Week 1</div>
+      <div class="day" data-t="day">Day 3</div>
+      <div class="per"><i class="on"></i><i></i><i></i> <span data-t="period">Morning</span></div>
+    </div>
+  </div>
+</div>
+<script>
+// ?ar renders the Arabic / RTL variant from the same markup
+if (location.search.indexOf('ar') > -1) {
+  var AR = { office: 'مكتب المديرة', library: 'المكتبة · الدفتر', next: 'الدرس التالي', g5: 'فصل الصف الخامس', staff: 'غرفة المعلمين · الأدوات', g4: 'فصل الصف الرابع', g6: 'الصف السادس · اليوم ٤', community: 'لوحة المجتمع', you: 'أنتِ', classes: 'الفصول', g5chip: 'الخامس · اليوم', toolkit: 'الأدوات', pass: 'جواز الفصل ٦/١٢', name: 'أ. مريم', meta: 'الصف الخامس · رياضيات', energy: 'الطاقة ٢/٣', term: 'الفصل ١ · الأسبوع ١', day: 'اليوم ٣', period: 'صباحًا', standin: 'رسم مؤقت: الحرم النهائي في public/art/campus.jpg' };
+  document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
+  var app = document.getElementById('app'); app.setAttribute('dir', 'rtl'); app.setAttribute('data-lang', 'ar');
+  [].forEach.call(document.querySelectorAll('[data-t]'), function (el) { if (AR[el.getAttribute('data-t')]) el.firstChild.nodeValue = AR[el.getAttribute('data-t')]; });
+}
+</script>
+</body>
+</html>

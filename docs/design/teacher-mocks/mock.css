@@ -1,0 +1,16 @@
+/* Mock harness only (not shipped): self-hosted fonts from node_modules and a 390×844 phone frame.
+   The app loads the same fonts through @fontsource imports in src/main.tsx. */
+@font-face { font-family: "Baloo 2"; font-weight: 600; src: url(../../../node_modules/@fontsource/baloo-2/files/baloo-2-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Baloo 2"; font-weight: 700; src: url(../../../node_modules/@fontsource/baloo-2/files/baloo-2-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "Baloo 2"; font-weight: 800; src: url(../../../node_modules/@fontsource/baloo-2/files/baloo-2-latin-800-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 400; src: url(../../../node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 500; src: url(../../../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; src: url(../../../node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Baloo Bhaijaan 2"; font-weight: 700; src: url(../../../node_modules/@fontsource/baloo-bhaijaan-2/files/baloo-bhaijaan-2-arabic-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "Baloo Bhaijaan 2"; font-weight: 800; src: url(../../../node_modules/@fontsource/baloo-bhaijaan-2/files/baloo-bhaijaan-2-arabic-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 400; src: url(../../../node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 600; src: url(../../../node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-600-normal.woff2) format("woff2"); }
+
+html, body { margin: 0; background: #d9d3c6; }
+* { box-sizing: border-box; }
+.phone { position: relative; width: 390px; height: 844px; margin: 0 auto; overflow: hidden; }

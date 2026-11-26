@@ -1,8 +1,1184 @@
-/* Teacher game design tokens. Owned by the UI designer; the engine uses only these variables. */
+/*
+  MS. MARIAM'S SCHOOL — TEACHER GAME DESIGN TOKENS
+  Owned by the UI designer (docs/design/TEACHER_UI.md is the spec).
+  The engine uses ONLY these variables and the `t-` utility classes below;
+  no ad-hoc hex codes in screens.
+
+  Look: a sunlit painted campus (warm sand neutrals, indigo shadows),
+  white cards with indigo ink, teal = brand / good, orange = "look here",
+  rose = needs care, blue = insight. Light theme only (the campus is daytime).
+
+  iOS 12 floor (Telegram Mini App on old iPhones):
+  no flex `gap`, no aspect-ratio, no :is/:where, no color-mix, no `inset`
+  shorthand, no margin-inline/padding-inline. RTL via [dir=rtl] overrides.
+  Custom properties, calc(), env(), max(), grid, transforms are fine.
+*/
+
 .teacher-app {
-  --t-bg: #f3efe6; --t-ink: #231b45; --t-muted: #6b6290; --t-panel: #ffffff; --t-line: #e2dcef;
-  --t-indigo: #3b2a78; --t-teal: #2ad7be; --t-orange: #f5a623; --t-rose: #e8566b; --t-blue: #4a8fe0;
-  --t-radius: 16px; --t-shadow: 0 6px 18px rgba(35,27,69,.12);
+  /* ================================================================ */
+  /* COLOUR — base (names kept from the stub)                         */
+  /* ================================================================ */
+  --t-bg: #f3efe6;            /* warm sand page */
+  --t-bg-2: #ebe4d6;          /* deeper sand: wells, inactive tracks */
+  --t-ink: #231b45;           /* primary text (16:1 on white, 14:1 on sand) */
+  --t-ink-2: #3b2a78;         /* headings, icons */
+  --t-muted: #5e5584;         /* secondary text (6.8:1 white, 5.9:1 sand) */
+  --t-faint: #8c84ab;         /* decorative only, never body text */
+  --t-panel: #ffffff;         /* cards */
+  --t-panel-2: #faf7f1;       /* inset rows inside cards */
+  --t-line: #e2dcef;          /* hairlines */
+  --t-line-2: #cfc6e3;        /* stronger borders, ghost buttons */
+  --t-on-dark: #ffffff;       /* text on indigo / scene scrims */
+  --t-on-dark-muted: #d9d2f2;
+
+  /* Brand */
+  --t-indigo: #3b2a78;
+  --t-indigo-deep: #231b45;
+  --t-indigo-soft: #ece8f7;
+  --t-teal: #2ad7be;
+  --t-teal-deep: #0b7466;     /* teal as TEXT (5.7:1 white, 4.9:1 sand) */
+  --t-teal-shade: #17ad96;    /* lit-button underside */
+  --t-teal-soft: #d6f7f1;
+  --t-orange: #f5a623;
+  --t-orange-deep: #8a5200;   /* orange as TEXT (6.4:1 white) */
+  --t-orange-shade: #c98410;
+  --t-orange-soft: #fdecc9;
+  --t-rose: #e8566b;
+  --t-rose-deep: #b8324a;
+  --t-rose-soft: #fbdde2;
+  --t-blue: #4a8fe0;
+  --t-blue-deep: #2a64b0;
+  --t-blue-soft: #dceafb;
+
+  /* Overlays on the painted scene/campus */
+  --t-scrim: rgba(35, 27, 69, 0.55);       /* modal backdrop */
+  --t-scrim-soft: rgba(35, 27, 69, 0.28);  /* scene dim behind a sheet */
+  --t-scene-label: rgba(35, 27, 69, 0.82); /* name tags on the picture */
+  --t-glass: rgba(255, 255, 255, 0.9);     /* HUD cards over the campus */
+  --t-caption-fade: linear-gradient(180deg, rgba(35, 27, 69, 0) 0%, rgba(35, 27, 69, 0.88) 70%);
+  --t-top-fade: linear-gradient(180deg, rgba(35, 27, 69, 0.45) 0%, rgba(35, 27, 69, 0) 100%);
+
+  /* ================================================================ */
+  /* STATE — outcomes, students, classes (Outcome.tone)               */
+  /* each: fill (ring / bar), ink (text on white), soft (tinted bg)   */
+  /* ================================================================ */
+  --t-good: var(--t-teal);       --t-good-ink: var(--t-teal-deep);     --t-good-soft: var(--t-teal-soft);
+  --t-mixed: var(--t-orange);    --t-mixed-ink: var(--t-orange-deep);  --t-mixed-soft: var(--t-orange-soft);
+  --t-poor: var(--t-rose);       --t-poor-ink: var(--t-rose-deep);     --t-poor-soft: var(--t-rose-soft);
+  --t-insight: var(--t-blue);    --t-insight-ink: var(--t-blue-deep);  --t-insight-soft: var(--t-blue-soft);
+  /* "Needs you" attention colour (event pulse, next pin) */
+  --t-attention: var(--t-orange);
+  /* Locked / unavailable */
+  --t-locked: #b9b2cf;
+  --t-locked-ink: #6f6890;
+
+  /* Lesson stages (AlefResource.stage) */
+  --t-stage-launch: var(--t-blue);
+  --t-stage-facilitate: var(--t-teal);
+  --t-stage-extend: var(--t-orange);
+
+  /* Event kinds (ClassEvent.kind) — chip ink colours */
+  --t-kind-needs-help: var(--t-rose-deep);
+  --t-kind-early-finisher: var(--t-teal-deep);
+  --t-kind-low-participation: var(--t-blue-deep);
+  --t-kind-new-event: var(--t-indigo);
+  --t-kind-unexpected: var(--t-orange-deep);
+
+  /* ================================================================ */
+  /* TYPE                                                             */
+  /* ================================================================ */
   --t-display: "Baloo 2", "Baloo Bhaijaan 2", system-ui, sans-serif;
-  --t-body: Inter, "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --t-body: Inter, "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+  --t-num: var(--t-display);           /* clocks, counts (tabular) */
+
+  /* Scale (px, phone-first; body is 15) */
+  --t-fs-2xs: 11px;   /* eyebrows, pin labels, rail steps */
+  --t-fs-xs: 12px;    /* meta, chips */
+  --t-fs-sm: 13px;    /* secondary copy, choice sub-lines */
+  --t-fs-base: 15px;  /* body */
+  --t-fs-md: 17px;    /* choice titles, card titles */
+  --t-fs-lg: 20px;    /* sheet headings */
+  --t-fs-xl: 24px;    /* screen titles */
+  --t-fs-2xl: 30px;   /* reward headline */
+  --t-fs-3xl: 40px;   /* title screen */
+
+  --t-fw-body: 400;
+  --t-fw-medium: 500;
+  --t-fw-strong: 600;
+  --t-fw-display: 700;
+  --t-fw-heavy: 800;
+
+  --t-lh-tight: 1.15;   /* display */
+  --t-lh-snug: 1.3;     /* short UI labels */
+  --t-lh-body: 1.5;
+  --t-track-eyebrow: 0.08em;
+  --t-case-eyebrow: uppercase;
+
+  /* ================================================================ */
+  /* SPACE (4px base)                                                 */
+  /* ================================================================ */
+  --t-s-1: 4px;
+  --t-s-2: 8px;
+  --t-s-3: 12px;
+  --t-s-4: 16px;   /* screen gutter */
+  --t-s-5: 20px;
+  --t-s-6: 24px;
+  --t-s-7: 32px;
+  --t-s-8: 48px;
+  --t-gutter: 16px;
+  --t-safe-top: env(safe-area-inset-top, 0px);
+  --t-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --t-tap: 44px;   /* minimum touch target */
+
+  /* ================================================================ */
+  /* RADII                                                            */
+  /* ================================================================ */
+  --t-r-xs: 8px;
+  --t-r-sm: 12px;
+  --t-radius: 16px;    /* default card (kept name) */
+  --t-r-md: 16px;
+  --t-r-lg: 22px;      /* sheets, HUD cards */
+  --t-r-xl: 28px;      /* sheet top corners */
+  --t-r-pill: 999px;
+
+  /* ================================================================ */
+  /* ELEVATION — lit from the top, shadows lean indigo (art bible)    */
+  /* ================================================================ */
+  --t-edge-light: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --t-elev-1: var(--t-edge-light), 0 1px 2px rgba(35, 27, 69, 0.08), 0 3px 8px rgba(35, 27, 69, 0.08);
+  --t-elev-2: var(--t-edge-light), 0 2px 4px rgba(35, 27, 69, 0.10), 0 8px 20px rgba(35, 27, 69, 0.14);
+  --t-elev-3: var(--t-edge-light), 0 4px 8px rgba(35, 27, 69, 0.12), 0 18px 40px rgba(35, 27, 69, 0.22);
+  --t-elev-pressed: inset 0 2px 3px rgba(35, 27, 69, 0.12);
+  --t-shadow: var(--t-elev-2);           /* kept name */
+  --t-ground-shadow: rgba(35, 27, 69, 0.28); /* ellipse under pins / Ms. Mariam */
+
+  /* Lit primary button */
+  --t-btn-fill: linear-gradient(180deg, #4fe6cf 0%, #2ad7be 55%, #22c4ac 100%);
+  --t-btn-edge: var(--t-edge-light), 0 3px 0 var(--t-teal-shade), 0 8px 18px rgba(23, 173, 150, 0.3);
+  --t-btn-edge-pressed: inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 1px 0 var(--t-teal-shade);
+  /* Medal (reward) */
+  --t-medal-fill: radial-gradient(circle at 35% 30%, #ffe0a0 0%, #f5a623 55%, #b8730a 100%);
+
+  /* ================================================================ */
+  /* MOTION — calm; UI < 400ms; only Ms. Mariam's walk is longer      */
+  /* ================================================================ */
+  --t-dur-xs: 120ms;   /* press feedback */
+  --t-dur-s: 200ms;    /* chip / toggle */
+  --t-dur-m: 280ms;    /* card, sheet content */
+  --t-dur-l: 400ms;    /* sheet in, screen change */
+  --t-dur-xl: 560ms;   /* resource card reveal, medal */
+  --t-dur-walk: 900ms; /* Ms. Mariam pin-to-pin (scaled by distance, max 1400ms) */
+  --t-dur-pulse: 1600ms; /* needs-you / next-pin pulse period */
+  --t-stagger: 50ms;
+  --t-ease: cubic-bezier(0.2, 0, 0, 1);
+  --t-ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --t-ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --t-ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --t-ease-walk: cubic-bezier(0.45, 0, 0.25, 1);
+
+  /* ================================================================ */
+  /* Z-LAYERS                                                         */
+  /* ================================================================ */
+  --t-z-scene: 0;
+  --t-z-pins: 10;
+  --t-z-avatar: 20;      /* Ms. Mariam on the campus */
+  --t-z-bubble: 25;      /* speech bubbles, captions */
+  --t-z-hud: 30;
+  --t-z-sheet: 40;
+  --t-z-modal: 50;       /* resource card, reward */
+  --t-z-toast: 60;
+
+  /* ================================================================ */
+  /* HUD                                                              */
+  /* ================================================================ */
+  --t-hud-top-h: 44px;          /* top strip: classes + toolkit + settings */
+  --t-hud-card-h: 76px;         /* bottom teacher / calendar cards */
+  --t-hud-portrait: 52px;
+  --t-hud-pad: 10px;
+  --t-hud-bg: var(--t-glass);
+  --t-hud-border: rgba(255, 255, 255, 0.95);
+  --t-energy-on: var(--t-teal);
+  --t-energy-off: var(--t-bg-2);
+  --t-energy-pip-w: 22px;
+  --t-energy-pip-h: 8px;
+
+  /* ================================================================ */
+  /* PINS (campus places) and HOTSPOTS (students/objects in a scene)  */
+  /* ================================================================ */
+  --t-pin-head: 44px;           /* = tap target */
+  --t-pin-tip: 10px;
+  --t-pin-bg: var(--t-panel);
+  --t-pin-ink: var(--t-indigo);
+  --t-pin-ring: var(--t-indigo);
+  --t-pin-ring-w: 3px;
+  --t-pin-next-bg: var(--t-orange);
+  --t-pin-next-ink: var(--t-indigo-deep);
+  --t-pin-done-bg: var(--t-teal);
+  --t-pin-done-ink: var(--t-indigo-deep);
+  --t-pin-locked-bg: #e7e3f0;
+  --t-pin-locked-ink: var(--t-locked-ink);
+  --t-pin-label-bg: var(--t-scene-label);
+  --t-pin-label-ink: var(--t-on-dark);
+  --t-hot-size: 48px;           /* student ring */
+  --t-hot-obj: 42px;            /* object ring (dashed) */
+  --t-hot-ring-w: 3px;
+  --t-hot-bg: rgba(35, 27, 69, 0.5);
+}
+
+/* ------------------------------------------------------------------ */
+/* Arabic: Baloo Bhaijaan 2 / IBM Plex Sans Arabic; taller lines,     */
+/* slightly larger small sizes; no tracking or uppercase.             */
+/* Works whether lang is set on <html> or on the app root.            */
+/* ------------------------------------------------------------------ */
+:root[data-lang='ar'] .teacher-app,
+.teacher-app[data-lang='ar'],
+.teacher-app:lang(ar) {
+  --t-display: "Baloo Bhaijaan 2", "Baloo 2", system-ui, sans-serif;
+  --t-body: "IBM Plex Sans Arabic", Inter, system-ui, sans-serif;
+  --t-fs-2xs: 12px;
+  --t-fs-xs: 13px;
+  --t-fs-sm: 14px;
+  --t-fs-base: 16px;
+  --t-lh-tight: 1.35;
+  --t-lh-snug: 1.45;
+  --t-lh-body: 1.7;
+  --t-track-eyebrow: 0;
+  --t-case-eyebrow: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                               */
+/* ------------------------------------------------------------------ */
+.teacher-app {
+  position: relative;
+  min-height: 100%;
+  background: var(--t-bg);
+  color: var(--t-ink);
+  font-family: var(--t-body);
+  font-size: var(--t-fs-base);
+  line-height: var(--t-lh-body);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+.teacher-app h1,
+.teacher-app h2,
+.teacher-app h3 {
+  font-family: var(--t-display);
+  font-weight: var(--t-fw-display);
+  line-height: var(--t-lh-tight);
+  color: var(--t-ink-2);
+  margin: 0;
+}
+.teacher-app button { font-family: inherit; color: inherit; }
+/* Focus: :focus fallback for iOS 12 (no :focus-visible) */
+.teacher-app button:focus,
+.teacher-app a:focus,
+.teacher-app [tabindex]:focus { outline: 3px solid var(--t-orange); outline-offset: 2px; }
+.teacher-app button:focus:not(:focus-visible) { outline: none; }
+
+.t-eyebrow {
+  font-size: var(--t-fs-2xs);
+  font-weight: var(--t-fw-strong);
+  letter-spacing: var(--t-track-eyebrow);
+  text-transform: var(--t-case-eyebrow);
+  color: var(--t-teal-deep);
+}
+.t-num { font-family: var(--t-num); font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------------ */
+/* t-card                                                             */
+/* ------------------------------------------------------------------ */
+.t-card {
+  background: var(--t-panel);
+  border: 1px solid var(--t-line);
+  border-radius: var(--t-radius);
+  box-shadow: var(--t-elev-1);
+  padding: var(--t-s-4);
+}
+.t-card--raised { box-shadow: var(--t-elev-2); }
+.t-card--inset { background: var(--t-panel-2); box-shadow: none; }
+/* tone stripe on the start edge: t-card--good / --mixed / --poor / --insight */
+.t-card--good, .t-card--mixed, .t-card--poor, .t-card--insight { border-left-width: 5px; }
+.t-card--good { border-left-color: var(--t-good); }
+.t-card--mixed { border-left-color: var(--t-mixed); }
+.t-card--poor { border-left-color: var(--t-poor); }
+.t-card--insight { border-left-color: var(--t-insight); }
+[dir='rtl'] .t-card--good, [dir='rtl'] .t-card--mixed, [dir='rtl'] .t-card--poor, [dir='rtl'] .t-card--insight {
+  border-left-width: 1px; border-left-color: var(--t-line); border-right-width: 5px;
+}
+[dir='rtl'] .t-card--good { border-right-color: var(--t-good); }
+[dir='rtl'] .t-card--mixed { border-right-color: var(--t-mixed); }
+[dir='rtl'] .t-card--poor { border-right-color: var(--t-poor); }
+[dir='rtl'] .t-card--insight { border-right-color: var(--t-insight); }
+
+/* ------------------------------------------------------------------ */
+/* t-btn (primary, lit teal) / t-btn--ghost / t-btn--choice           */
+/* ------------------------------------------------------------------ */
+.t-btn {
+  display: -webkit-inline-box; display: -webkit-inline-flex; display: inline-flex;
+  -webkit-box-align: center; -webkit-align-items: center; align-items: center;
+  -webkit-box-pack: center; -webkit-justify-content: center; justify-content: center;
+  min-height: var(--t-tap);
+  padding: 10px 22px;
+  border: 0;
+  border-radius: var(--t-r-pill);
+  background: var(--t-teal);
+  background-image: var(--t-btn-fill);
+  box-shadow: var(--t-btn-edge);
+  color: var(--t-indigo-deep);
+  font-family: var(--t-display);
+  font-size: var(--t-fs-md);
+  font-weight: var(--t-fw-display);
+  line-height: 1.1;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform var(--t-dur-xs) var(--t-ease), box-shadow var(--t-dur-xs) var(--t-ease);
+  transition: transform var(--t-dur-xs) var(--t-ease), box-shadow var(--t-dur-xs) var(--t-ease);
+}
+.t-btn:active { -webkit-transform: translateY(2px); transform: translateY(2px); box-shadow: var(--t-btn-edge-pressed); }
+.t-btn[disabled] { background: var(--t-bg-2); background-image: none; box-shadow: none; color: var(--t-locked-ink); cursor: default; }
+.t-btn--block { display: -webkit-box; display: -webkit-flex; display: flex; width: 100%; }
+.t-btn--ghost {
+  background: transparent; background-image: none;
+  border: 1.5px solid var(--t-line-2);
+  box-shadow: none;
+  color: var(--t-ink-2);
+}
+.t-btn--ghost:active { background: var(--t-indigo-soft); box-shadow: none; }
+.t-btn--ghost.t-btn--on-dark { border-color: rgba(255, 255, 255, 0.6); color: var(--t-on-dark); }
+.t-btn > * + * { margin-left: var(--t-s-2); }
+[dir='rtl'] .t-btn > * + * { margin-left: 0; margin-right: var(--t-s-2); }
+
+/* Choice row inside the event sheet: title + sub on the start side, minutes chip on the end */
+.t-btn--choice {
+  display: -webkit-box; display: -webkit-flex; display: flex;
+  -webkit-box-pack: justify; -webkit-justify-content: space-between; justify-content: space-between;
+  width: 100%;
+  min-height: 58px;
+  padding: 10px 14px;
+  border-radius: var(--t-radius);
+  background: var(--t-panel); background-image: none;
+  border: 1.5px solid var(--t-line);
+  box-shadow: var(--t-elev-1);
+  text-align: left;
+  font-family: var(--t-body);
+  font-size: var(--t-fs-base);
+}
+[dir='rtl'] .t-btn--choice { text-align: right; }
+.t-btn--choice:active { border-color: var(--t-teal); box-shadow: var(--t-elev-pressed); }
+.t-btn--choice strong { display: block; font-family: var(--t-display); font-size: var(--t-fs-md); font-weight: var(--t-fw-display); line-height: var(--t-lh-snug); color: var(--t-ink); }
+.t-btn--choice small { display: block; font-size: var(--t-fs-sm); color: var(--t-muted); line-height: var(--t-lh-snug); }
+
+/* Round icon button (back, settings) */
+.t-btn--icon {
+  width: var(--t-tap); height: var(--t-tap); min-height: 0; padding: 0;
+  border-radius: 50%;
+  background: var(--t-glass); background-image: none;
+  box-shadow: var(--t-elev-1);
+  font-size: 18px; color: var(--t-ink-2);
+}
+
+/* ------------------------------------------------------------------ */
+/* t-chip — small labels: event kind, minutes, stage, class status    */
+/* ------------------------------------------------------------------ */
+.t-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--t-r-pill);
+  background: var(--t-indigo-soft);
+  color: var(--t-ink-2);
+  font-size: var(--t-fs-xs);
+  font-weight: var(--t-fw-strong);
+  line-height: 1.4;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.t-chip--good { background: var(--t-good-soft); color: var(--t-good-ink); }
+.t-chip--mixed { background: var(--t-mixed-soft); color: var(--t-mixed-ink); }
+.t-chip--poor { background: var(--t-poor-soft); color: var(--t-poor-ink); }
+.t-chip--insight { background: var(--t-insight-soft); color: var(--t-insight-ink); }
+.t-chip--time { background: var(--t-panel-2); color: var(--t-orange-deep); border: 1px solid var(--t-orange-soft); font-family: var(--t-num); font-variant-numeric: tabular-nums; }
+.t-chip--placeholder { background: transparent; border: 1px dashed var(--t-line-2); color: var(--t-muted); font-weight: var(--t-fw-medium); }
+.t-chip--dot:before {
+  content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: currentColor; margin-right: 6px; vertical-align: 1px;
+}
+[dir='rtl'] .t-chip--dot:before { margin-right: 0; margin-left: 6px; }
+
+/* ------------------------------------------------------------------ */
+/* t-pin — a campus place. Position the root at the pin's (x%,y%):    */
+/*   style="left:X%;top:Y%"; the tip sits on that point.              */
+/*   <button class="t-pin t-pin--next">                               */
+/*     <span class="t-pin__head">glyph</span>                         */
+/*     <span class="t-pin__label">Grade 5 classroom</span>            */
+/*     <span class="t-pin__flag">Next</span>  (optional)              */
+/*   </button>                                                        */
+/* ------------------------------------------------------------------ */
+.t-pin {
+  position: absolute;
+  z-index: var(--t-z-pins);
+  width: var(--t-pin-head);
+  height: calc(var(--t-pin-head) + var(--t-pin-tip));
+  margin: 0; padding: 0; border: 0; background: none;
+  -webkit-transform: translate(-50%, -100%); transform: translate(-50%, -100%);
+  cursor: pointer;
+}
+/* ground shadow on the anchor point */
+.t-pin:before {
+  content: ""; position: absolute; left: 50%; bottom: -4px;
+  width: 26px; height: 8px; margin-left: -13px; border-radius: 50%;
+  background: var(--t-ground-shadow);
+}
+.t-pin__head {
+  position: absolute; left: 0; top: 0;
+  width: var(--t-pin-head); height: var(--t-pin-head);
+  border-radius: 50% 50% 50% 50%;
+  background: var(--t-pin-bg);
+  border: var(--t-pin-ring-w) solid var(--t-pin-ring);
+  color: var(--t-pin-ink);
+  box-shadow: var(--t-elev-2);
+  font-family: var(--t-display); font-size: 19px; font-weight: var(--t-fw-heavy);
+  line-height: calc(var(--t-pin-head) - 2 * var(--t-pin-ring-w));
+  text-align: center;
+}
+/* tip: a rotated square under the head */
+.t-pin__head:after {
+  content: ""; position: absolute; left: 50%; bottom: -8px;
+  width: 12px; height: 12px; margin-left: -6px;
+  background: inherit;
+  border-right: var(--t-pin-ring-w) solid var(--t-pin-ring);
+  border-bottom: var(--t-pin-ring-w) solid var(--t-pin-ring);
+  -webkit-transform: rotate(45deg); transform: rotate(45deg);
+  border-bottom-right-radius: 3px;
+}
+.t-pin__label {
+  position: absolute; left: 50%; top: 100%;
+  margin-top: 8px;
+  -webkit-transform: translateX(-50%); transform: translateX(-50%);
+  padding: 2px 9px;
+  border-radius: var(--t-r-pill);
+  background: var(--t-pin-label-bg);
+  color: var(--t-pin-label-ink);
+  font-size: var(--t-fs-2xs); font-weight: var(--t-fw-strong); line-height: 1.5;
+  white-space: nowrap;
+}
+.t-pin__flag {
+  position: absolute; left: 50%; bottom: 100%;
+  margin-bottom: 6px;
+  -webkit-transform: translateX(-50%); transform: translateX(-50%);
+  padding: 1px 8px;
+  border-radius: var(--t-r-pill);
+  background: var(--t-indigo);
+  color: var(--t-on-dark);
+  font-size: var(--t-fs-2xs); font-weight: var(--t-fw-heavy); line-height: 1.5;
+  white-space: nowrap;
+}
+/* States */
+.t-pin--next { --t-pin-bg: var(--t-pin-next-bg); --t-pin-ink: var(--t-pin-next-ink); --t-pin-ring: #ffffff; }
+.t-pin--next .t-pin__head { box-shadow: var(--t-elev-3); }
+.t-pin--next .t-pin__head:before { /* pulse ring (transform + opacity only) */
+  content: ""; position: absolute; left: -9px; top: -9px; right: -9px; bottom: -9px;
+  border-radius: 50%; border: 3px solid var(--t-attention);
+  -webkit-animation: t-pulse var(--t-dur-pulse) var(--t-ease) infinite; animation: t-pulse var(--t-dur-pulse) var(--t-ease) infinite;
+}
+.t-pin--done { --t-pin-bg: var(--t-pin-done-bg); --t-pin-ink: var(--t-pin-done-ink); --t-pin-ring: #ffffff; }
+.t-pin--locked { --t-pin-bg: var(--t-pin-locked-bg); --t-pin-ink: var(--t-pin-locked-ink); --t-pin-ring: #ffffff; cursor: default; }
+.t-pin--locked .t-pin__head { box-shadow: var(--t-elev-1); }
+.t-pin--locked .t-pin__label { background: rgba(35, 27, 69, 0.55); }
+/* small corner badge on a pin head (done check, lock) */
+.t-pin__badge {
+  position: absolute; right: -6px; top: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--t-indigo); color: var(--t-on-dark);
+  border: 2px solid #fff;
+  font-size: 11px; line-height: 16px; text-align: center; font-weight: var(--t-fw-heavy);
+}
+[dir='rtl'] .t-pin__badge { right: auto; left: -6px; }
+/* CSS padlock (no emoji): body + shackle */
+.t-pin__badge--lock:before {
+  content: ""; position: absolute; left: 4px; top: 8px; width: 8px; height: 6px;
+  border-radius: 1.5px; background: #ffffff;
+}
+.t-pin__badge--lock:after {
+  content: ""; position: absolute; left: 5px; top: 3px; width: 4px; height: 6px;
+  border: 1.5px solid #ffffff; border-bottom: 0; border-radius: 3px 3px 0 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* t-hot — a student or object on the classroom picture              */
+/*   <button class="t-hot t-hot--mixed t-hot--needs" style="left;top">*/
+/*     <span class="t-hot__ring">S</span>                             */
+/*     <span class="t-hot__flag">!</span>                             */
+/*     <span class="t-hot__name">Sara</span>                          */
+/*   </button>   t-hot--object = dashed ring for objects              */
+/* ------------------------------------------------------------------ */
+.t-hot {
+  position: absolute; z-index: var(--t-z-pins);
+  width: var(--t-hot-size); height: var(--t-hot-size);
+  margin: 0; padding: 0; border: 0; background: none;
+  -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
+  --t-hot-c: #ffffff;
+}
+.t-hot__ring {
+  position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  border: var(--t-hot-ring-w) solid var(--t-hot-c);
+  background: var(--t-hot-bg);
+  color: var(--t-on-dark);
+  font-family: var(--t-display); font-size: 18px; font-weight: var(--t-fw-heavy);
+  line-height: calc(var(--t-hot-size) - 2 * var(--t-hot-ring-w));
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(35, 27, 69, 0.35);
+}
+.t-hot__name {
+  position: absolute; left: 50%; top: 100%; margin-top: 4px;
+  -webkit-transform: translateX(-50%); transform: translateX(-50%);
+  padding: 1px 8px; border-radius: var(--t-r-xs);
+  background: var(--t-scene-label); color: var(--t-on-dark);
+  font-size: var(--t-fs-2xs); font-weight: var(--t-fw-strong); line-height: 1.5; white-space: nowrap;
+}
+.t-hot__flag {
+  position: absolute; right: -8px; top: -8px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--t-attention); color: var(--t-indigo-deep);
+  border: 2px solid #fff;
+  font-family: var(--t-display); font-size: 13px; font-weight: var(--t-fw-heavy); line-height: 18px; text-align: center;
+}
+[dir='rtl'] .t-hot__flag { right: auto; left: -8px; }
+.t-hot--good { --t-hot-c: var(--t-good); }
+.t-hot--mixed { --t-hot-c: var(--t-mixed); }
+.t-hot--poor { --t-hot-c: var(--t-poor); }
+.t-hot--object { width: var(--t-hot-obj); height: var(--t-hot-obj); }
+.t-hot--object .t-hot__ring { border-style: dashed; line-height: calc(var(--t-hot-obj) - 2 * var(--t-hot-ring-w)); font-size: 16px; }
+/* needs you: the ring breathes and an outer ring pulses */
+.t-hot--needs .t-hot__ring:before {
+  content: ""; position: absolute; left: -10px; top: -10px; right: -10px; bottom: -10px;
+  border-radius: 50%; border: 3px solid var(--t-attention);
+  -webkit-animation: t-pulse var(--t-dur-pulse) var(--t-ease) infinite; animation: t-pulse var(--t-dur-pulse) var(--t-ease) infinite;
+}
+.t-hot--active .t-hot__ring { border-color: #ffffff; background: var(--t-indigo); box-shadow: 0 0 0 4px var(--t-attention), 0 4px 12px rgba(35, 27, 69, 0.4); }
+.t-hot--quiet { opacity: 0.6; }   /* while a sheet is open, other students step back */
+
+/* ------------------------------------------------------------------ */
+/* t-hud-card — glass cards over the campus / scene                   */
+/* ------------------------------------------------------------------ */
+.t-hud-card {
+  position: relative;
+  min-height: var(--t-tap);
+  padding: var(--t-hud-pad) 12px;
+  border-radius: var(--t-r-lg);
+  background: var(--t-hud-bg);
+  border: 1px solid var(--t-hud-border);
+  box-shadow: var(--t-elev-2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  color: var(--t-ink);
+}
+.t-hud-card--pill { border-radius: var(--t-r-pill); padding: 6px 12px 6px 8px; min-height: 36px; }
+[dir='rtl'] .t-hud-card--pill { padding: 6px 8px 6px 12px; }
+.t-hud-card--dark { background: rgba(35, 27, 69, 0.86); border-color: rgba(255, 255, 255, 0.12); color: var(--t-on-dark); }
+.t-portrait {
+  display: block;
+  width: var(--t-hud-portrait); height: var(--t-hud-portrait);
+  border-radius: 50%;
+  border: 3px solid var(--t-teal);
+  background: var(--t-indigo-soft) center 18% / cover no-repeat;
+  box-shadow: 0 2px 6px rgba(35, 27, 69, 0.2);
+}
+
+/* ------------------------------------------------------------------ */
+/* t-meter — progress bar; t-meter--pips for energy (0–3)             */
+/*   <div class="t-meter"><i class="t-meter__fill" style="width:40%">  */
+/*   <div class="t-meter t-meter--pips"><i class="on"></i>×3</div>    */
+/* ------------------------------------------------------------------ */
+.t-meter {
+  position: relative; height: 8px; overflow: hidden;
+  border-radius: var(--t-r-pill);
+  background: var(--t-bg-2);
+}
+.t-meter__fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  border-radius: var(--t-r-pill);
+  background: var(--t-teal);
+  -webkit-transition: width var(--t-dur-l) var(--t-ease); transition: width var(--t-dur-l) var(--t-ease);
+}
+[dir='rtl'] .t-meter__fill { left: auto; right: 0; }
+.t-meter--mixed .t-meter__fill { background: var(--t-mixed); }
+.t-meter--poor .t-meter__fill { background: var(--t-poor); }
+.t-meter--time .t-meter__fill { background: var(--t-orange); }
+.t-meter--pips { height: auto; overflow: visible; background: none; font-size: 0; white-space: nowrap; }
+.t-meter--pips > i {
+  display: inline-block; width: var(--t-energy-pip-w); height: var(--t-energy-pip-h);
+  margin-right: 4px; border-radius: var(--t-r-pill);
+  background: var(--t-energy-off);
+  -webkit-transition: background-color var(--t-dur-s) var(--t-ease); transition: background-color var(--t-dur-s) var(--t-ease);
+}
+[dir='rtl'] .t-meter--pips > i { margin-right: 0; margin-left: 4px; }
+.t-meter--pips > i.on { background: var(--t-energy-on); box-shadow: inset 0 -2px 0 var(--t-teal-shade); }
+
+/* ------------------------------------------------------------------ */
+/* t-rail — the 7-step loop (Watch … Unlock)                          */
+/*   <ol class="t-rail"><li class="is-done">Watch</li><li class="is-now">… */
+/* ------------------------------------------------------------------ */
+.t-rail {
+  display: table; table-layout: fixed; width: 100%;
+  margin: 0; padding: 0; list-style: none;
+  border-spacing: 2px 0;
+}
+.t-rail > li {
+  display: table-cell;
+  padding-top: 7px;
+  border-top: 4px solid rgba(255, 255, 255, 0.45);
+  font-size: 10px; font-weight: var(--t-fw-medium); line-height: 1.2; letter-spacing: -0.01em;
+  text-align: center; color: var(--t-on-dark-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.t-rail > li.is-done { border-top-color: var(--t-teal); color: var(--t-on-dark); }
+.t-rail > li.is-now { border-top-color: var(--t-orange); color: #ffffff; font-weight: var(--t-fw-heavy); }
+/* on a light surface */
+.t-rail--light > li { border-top-color: var(--t-line); color: var(--t-muted); }
+.t-rail--light > li.is-done { color: var(--t-teal-deep); }
+.t-rail--light > li.is-now { color: var(--t-orange-deep); }
+
+/* ------------------------------------------------------------------ */
+/* t-sheet — bottom sheet (event panel, outcome, place panels)       */
+/* ------------------------------------------------------------------ */
+.t-sheet {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  z-index: var(--t-z-sheet);
+  padding: 10px var(--t-gutter) calc(var(--t-s-4) + var(--t-safe-bottom));
+  background: var(--t-bg);
+  border-top-left-radius: var(--t-r-xl); border-top-right-radius: var(--t-r-xl);
+  box-shadow: 0 -8px 30px rgba(35, 27, 69, 0.22);
+  -webkit-animation: t-sheet-in var(--t-dur-l) var(--t-ease-enter) both; animation: t-sheet-in var(--t-dur-l) var(--t-ease-enter) both;
+}
+.t-sheet__grip { width: 40px; height: 5px; margin: 0 auto 10px; border-radius: 3px; background: var(--t-line-2); }
+.t-stack > * + * { margin-top: var(--t-s-2); }       /* flex-gap substitute */
+.t-stack--3 > * + * { margin-top: var(--t-s-3); }
+
+/* ------------------------------------------------------------------ */
+/* t-toast                                                            */
+/* ------------------------------------------------------------------ */
+.t-toast {
+  position: fixed; left: 50%; bottom: calc(24px + var(--t-safe-bottom));
+  z-index: var(--t-z-toast);
+  max-width: 340px;
+  -webkit-transform: translateX(-50%); transform: translateX(-50%);
+  padding: 10px 16px 10px 12px;
+  border-radius: var(--t-r-pill);
+  background: var(--t-indigo-deep); color: var(--t-on-dark);
+  box-shadow: var(--t-elev-3);
+  font-size: var(--t-fs-sm); font-weight: var(--t-fw-strong); line-height: var(--t-lh-snug);
+  white-space: nowrap;
+  -webkit-animation: t-toast-in var(--t-dur-m) var(--t-ease-spring) both; animation: t-toast-in var(--t-dur-m) var(--t-ease-spring) both;
+}
+.t-toast__icon {
+  display: inline-block; width: 24px; height: 24px; margin-right: 8px; border-radius: 50%;
+  background: var(--t-orange); color: var(--t-indigo-deep);
+  text-align: center; line-height: 24px; font-family: var(--t-display); font-weight: var(--t-fw-heavy); vertical-align: middle;
+}
+[dir='rtl'] .t-toast { padding: 10px 12px 10px 16px; }
+[dir='rtl'] .t-toast__icon { margin-right: 0; margin-left: 8px; }
+
+/* ------------------------------------------------------------------ */
+/* t-medal — reward badge                                             */
+/* ------------------------------------------------------------------ */
+.t-medal {
+  position: relative; display: block;
+  width: 128px; height: 128px; margin: 0 auto;
+  border-radius: 50%;
+  background: var(--t-orange); background-image: var(--t-medal-fill);
+  border: 5px solid #ffffff;
+  box-shadow: 0 0 0 3px var(--t-orange), var(--t-elev-3);
+  color: var(--t-indigo);
+  font-family: var(--t-display); font-size: 48px; font-weight: var(--t-fw-heavy);
+  line-height: 118px; text-align: center;
+  -webkit-animation: t-medal-in var(--t-dur-xl) var(--t-ease-spring) both; animation: t-medal-in var(--t-dur-xl) var(--t-ease-spring) both;
+}
+.t-medal--sm { width: 56px; height: 56px; border-width: 3px; box-shadow: 0 0 0 2px var(--t-orange), var(--t-elev-1); font-size: 22px; line-height: 50px; -webkit-animation: none; animation: none; }
+.t-medal--locked { background: var(--t-bg-2); background-image: none; box-shadow: 0 0 0 2px var(--t-line-2); color: var(--t-locked-ink); }
+
+/* ================================================================== */
+/* TERM PASS — reward track (battle-pass layout, our rules):          */
+/* no currency, no paid lane, no countdown. Progress = lessons        */
+/* finished this term. Two lanes: Classroom (start) | Professional    */
+/* (end); numbered diamond nodes on a centre rail.                    */
+/* ================================================================== */
+.teacher-app {
+  --t-gold: #f2b53a;
+  --t-gold-light: #ffe29a;
+  --t-gold-deep: #a86a06;
+  --t-gold-ink: #5a3a00;
+  --t-ribbon-fill: linear-gradient(180deg, #ffd978 0%, #f5b43a 52%, #dc9410 100%);
+  --t-ribbon-edge: inset 0 2px 0 rgba(255, 255, 255, 0.7), inset 0 -3px 0 rgba(140, 80, 0, 0.35), 0 6px 16px rgba(140, 80, 0, 0.28);
+  --t-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 46%);
+  --t-lane-classroom: var(--t-orange);
+  --t-lane-classroom-soft: #fff3dc;
+  --t-lane-classroom-line: #f8d79a;
+  --t-lane-pro: var(--t-indigo);
+  --t-lane-pro-soft: #efeafb;
+  --t-lane-pro-line: #d5cbf0;
+  --t-pass-rail-w: 8px;
+  --t-pass-node: 32px;        /* diamond edge (rotated square) */
+  --t-pass-row-h: 136px;      /* one tier: card | node | card */
+  --t-pass-card-h: 124px;
+  --t-pass-col: 46px;         /* centre column */
+  --t-claim-fill: linear-gradient(180deg, #5ef0d9 0%, #2ad7be 50%, #17b9a2 100%);
+  --t-claim-edge: inset 0 2px 0 rgba(255, 255, 255, 0.8), 0 3px 0 #0f8f7d, 0 6px 12px rgba(15, 143, 125, 0.3);
+  --t-cert-paper: #fffaf0;
+  --t-cert-border: var(--t-gold);
+}
+
+/* Banner: gold ribbon with folded tails (tails sit behind via negative z in an isolated parent) */
+.t-pass-banner {
+  position: relative; z-index: 0;
+  margin: 0 24px;
+  padding: 8px 16px 10px;
+  border-radius: var(--t-r-sm);
+  background: var(--t-gold); background-image: var(--t-ribbon-fill);
+  box-shadow: var(--t-ribbon-edge);
+  color: var(--t-gold-ink);
+  text-align: center;
+}
+.t-pass-banner:before, .t-pass-banner:after {
+  content: ""; position: absolute; top: 12px; bottom: -9px; width: 26px; z-index: -1;
+  background: var(--t-orange-shade);
+}
+.t-pass-banner:before { left: -16px; border-radius: 6px 0 0 6px; -webkit-transform: skewY(-10deg); transform: skewY(-10deg); }
+.t-pass-banner:after { right: -16px; border-radius: 0 6px 6px 0; -webkit-transform: skewY(10deg); transform: skewY(10deg); }
+.t-pass-banner h1, .t-pass-banner h2 { color: var(--t-indigo-deep); font-size: var(--t-fs-xl); text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
+.t-pass-banner small { display: block; font-size: var(--t-fs-xs); font-weight: var(--t-fw-strong); color: var(--t-gold-ink); line-height: 1.3; }
+
+/* Lane headers */
+.t-pass-lanes { display: table; table-layout: fixed; width: 100%; }
+.t-pass-lanes > * { display: table-cell; vertical-align: middle; text-align: center; }
+.t-pass-lanes > .t-pass-mid { width: var(--t-pass-col); }
+.t-pass-lane-head {
+  padding: 5px 4px; border-radius: var(--t-r-sm);
+  font-family: var(--t-display); font-weight: var(--t-fw-display); font-size: var(--t-fs-md); line-height: 1.2;
+}
+.t-pass-lane-head small { display: block; font-family: var(--t-body); font-size: var(--t-fs-2xs); font-weight: var(--t-fw-medium); }
+.t-pass-lane-head--classroom { background: var(--t-lane-classroom-soft); color: var(--t-orange-deep); }
+.t-pass-lane-head--pro { background: var(--t-lane-pro-soft); color: var(--t-indigo); }
+
+/* Track: rows of [card | rail+node | card] */
+.t-pass-rail { position: relative; }
+.t-pass-rail:before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%;
+  width: var(--t-pass-rail-w); margin-left: -4px;
+  border-radius: 4px; background: var(--t-bg-2);
+  box-shadow: inset 0 1px 2px rgba(35, 27, 69, 0.15);
+}
+.t-pass-rail__fill {   /* style="height: N%" = progress so far */
+  position: absolute; top: 0; left: 50%;
+  width: var(--t-pass-rail-w); margin-left: -4px;
+  border-radius: 4px; background: var(--t-teal);
+  box-shadow: inset -2px 0 0 var(--t-teal-shade);
+}
+.t-pass-row { position: relative; display: table; table-layout: fixed; width: 100%; height: var(--t-pass-row-h); }
+.t-pass-row > * { display: table-cell; vertical-align: middle; }
+.t-pass-row > .t-pass-mid { width: var(--t-pass-col); text-align: center; }
+
+/* Node: numbered diamond = lessons finished needed for the tier */
+.t-pass-node {
+  position: relative; display: inline-block;
+  width: var(--t-pass-node); height: var(--t-pass-node);
+  -webkit-transform: rotate(45deg); transform: rotate(45deg);
+  border-radius: 7px;
+  background: var(--t-panel); border: 3px solid var(--t-line-2);
+  box-shadow: var(--t-elev-1);
+}
+.t-pass-node > span {
+  display: block; -webkit-transform: rotate(-45deg); transform: rotate(-45deg);
+  font-family: var(--t-num); font-weight: var(--t-fw-heavy); font-size: 15px;
+  line-height: calc(var(--t-pass-node) - 6px); text-align: center; color: var(--t-locked-ink);
+}
+.t-pass-node--reached { background: var(--t-teal); border-color: #fff; box-shadow: 0 0 0 2px var(--t-teal-shade), var(--t-elev-1); }
+.t-pass-node--reached > span { color: var(--t-indigo-deep); }
+.t-pass-node--current { background: var(--t-orange); border-color: #fff; box-shadow: 0 0 0 3px var(--t-orange-shade), var(--t-elev-2); }
+.t-pass-node--current > span { color: var(--t-indigo-deep); }
+
+/* Reward card: glossy tile. Lane: --classroom / --pro. State: --locked / --reachable / --claimed */
+.t-pass-card {
+  position: relative; overflow: hidden;
+  height: var(--t-pass-card-h);
+  padding: 8px 6px 0;
+  border-radius: var(--t-r-md);
+  background: var(--t-panel);
+  border: 2px solid var(--t-line);
+  box-shadow: var(--t-elev-2);
+  text-align: center;
+}
+.t-pass-card:before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 55%;
+  background: var(--t-gloss); pointer-events: none;
+}
+.t-pass-card--classroom { background: var(--t-lane-classroom-soft); border-color: var(--t-lane-classroom-line); }
+.t-pass-card--pro { background: var(--t-lane-pro-soft); border-color: var(--t-lane-pro-line); }
+.t-pass-card__art {
+  position: relative; display: block; width: 36px; height: 36px; margin: 0 auto 4px;
+  border-radius: var(--t-r-sm); background: #fff; box-shadow: var(--t-elev-1);
+  font-family: var(--t-display); font-weight: var(--t-fw-heavy); font-size: 18px; line-height: 36px; color: var(--t-indigo);
+}
+.t-pass-card--classroom .t-pass-card__art { color: var(--t-orange-deep); }
+.t-pass-card__title {
+  position: relative; display: block;
+  font-size: var(--t-fs-xs); font-weight: var(--t-fw-strong); line-height: 1.25; color: var(--t-ink);
+  overflow: hidden; max-height: 2.5em;
+}
+.t-pass-card__state {
+  position: absolute; right: 5px; top: 5px; z-index: 1;
+  width: 22px; height: 22px; border-radius: 50%;
+  font-size: 12px; font-weight: var(--t-fw-heavy); line-height: 22px; text-align: center;
+}
+[dir='rtl'] .t-pass-card__state { right: auto; left: 5px; }
+.t-pass-card__note { position: absolute; left: 0; right: 0; bottom: 8px; font-size: var(--t-fs-2xs); font-weight: var(--t-fw-strong); color: var(--t-muted); }
+.t-pass-card--locked { background: var(--t-panel-2); border-color: var(--t-line); box-shadow: var(--t-elev-1); }
+.t-pass-card--locked .t-pass-card__art { opacity: 0.45; }
+.t-pass-card--locked .t-pass-card__title { color: var(--t-muted); }
+.t-pass-card--locked .t-pass-card__state { background: var(--t-bg-2); color: var(--t-locked-ink); }
+.t-pass-card--reachable { border-color: var(--t-teal); box-shadow: 0 0 0 3px var(--t-teal-soft), var(--t-elev-2); }
+.t-pass-card--claimed .t-pass-card__state { background: var(--t-teal); color: var(--t-indigo-deep); }
+.t-pass-card--claimed .t-pass-card__note { color: var(--t-teal-deep); }
+
+/* Claim: brand-teal (our "green"). The whole card is the tap target; claiming spends nothing. */
+.t-pass-claim {
+  position: absolute; left: 7px; right: 7px; bottom: 7px;
+  height: 30px; min-height: 0; padding: 0;
+  border: 0; border-radius: var(--t-r-pill);
+  background: var(--t-teal); background-image: var(--t-claim-fill);
+  box-shadow: var(--t-claim-edge);
+  color: var(--t-indigo-deep);
+  font-family: var(--t-display); font-size: var(--t-fs-sm); font-weight: var(--t-fw-heavy); line-height: 30px;
+}
+.t-pass-claim:active { -webkit-transform: translateY(2px); transform: translateY(2px); box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.1), 0 1px 0 #0f8f7d; }
+
+/* End-of-term card (pinned under the track) */
+.t-pass-end {
+  position: relative;
+  padding: 12px 14px;
+  border-radius: var(--t-r-lg);
+  background: var(--t-indigo); background-image: linear-gradient(160deg, #4b379a 0%, #3b2a78 55%, #2b1f5c 100%);
+  color: var(--t-on-dark);
+  box-shadow: var(--t-elev-3);
+}
+.t-pass-end h3 { color: #ffffff; font-size: var(--t-fs-md); }
+.t-pass-end p { margin: 0; font-size: var(--t-fs-sm); color: var(--t-on-dark-muted); line-height: var(--t-lh-snug); }
+
+/* Term certificate */
+.t-certificate {
+  position: relative;
+  padding: 24px 20px 20px;
+  background: var(--t-cert-paper);
+  border-radius: var(--t-r-sm);
+  border: 2px solid var(--t-cert-border);
+  box-shadow: inset 0 0 0 6px var(--t-cert-paper), inset 0 0 0 7px rgba(242, 181, 58, 0.6), var(--t-elev-3);
+  text-align: center;
+  color: var(--t-ink);
+}
+.t-certificate__seal {
+  display: block; width: 76px; height: 76px; margin: 0 auto 10px;
+  border-radius: 50%; background: var(--t-gold); background-image: var(--t-medal-fill);
+  border: 4px solid #fff; box-shadow: 0 0 0 2px var(--t-gold), var(--t-elev-2);
+  font-family: var(--t-display); font-size: 30px; font-weight: var(--t-fw-heavy); line-height: 68px; color: var(--t-indigo);
+}
+.t-certificate__name { font-family: var(--t-display); font-size: var(--t-fs-2xl); font-weight: var(--t-fw-display); line-height: var(--t-lh-tight); color: var(--t-indigo); }
+.t-certificate__rule { height: 2px; width: 60%; margin: 8px auto; background: var(--t-gold); border-radius: 1px; }
+.t-certificate__list { margin: 0; padding: 0; list-style: none; text-align: left; }
+[dir='rtl'] .t-certificate__list { text-align: right; }
+.t-certificate__list > li { padding: 7px 0; border-top: 1px solid var(--t-line); font-size: var(--t-fs-sm); line-height: var(--t-lh-snug); }
+.t-certificate__list > li:first-child { border-top: 0; }
+.t-certificate__list b { color: var(--t-ink-2); }
+
+/* ================================================================== */
+/* THANK-YOU NOTES + CAMPUS SHOP (client decision 2026-11-26)         */
+/* Notes are earned only (Term Pass tiers, end-of-term bundle) and    */
+/* buy only cosmetics: Classroom decor and Toki outfits. Alef         */
+/* resources and story chapters are never priced. The notes chip is   */
+/* SECONDARY in the HUD: small, no animation on idle, no "+" button.  */
+/* ================================================================== */
+.teacher-app {
+  --t-note-paper: #fffaf0;
+  --t-note-edge: var(--t-orange-deep);
+  --t-note-flap: #fde3b0;
+  --t-note-heart: var(--t-rose);
+  --t-notes-chip-h: 32px;
+  --t-shop-tab-h: 40px;
+  --t-shop-card-art-h: 104px;
+  --t-shop-card-r: var(--t-r-md);
+  --t-shop-owned: var(--t-teal-deep);
+  --t-shop-using-bg: var(--t-teal-soft);
+  --t-shop-short: var(--t-muted);       /* price you can't afford yet: muted, never red */
+  --t-slot-line: rgba(255, 255, 255, 0.9);
+  --t-slot-bg: rgba(42, 215, 190, 0.18);
+  --t-dur-buy: 720ms;                   /* note hand-over + stamp */
+}
+
+/* The note: a folded card (no coin). Size by font-size: 1em = icon width. */
+.t-notes-icon {
+  position: relative; display: inline-block; vertical-align: middle;
+  width: 20px; height: 15px;
+  border: 2px solid var(--t-note-edge); border-radius: 3px;
+  background: var(--t-note-paper);
+}
+.t-notes-icon:before {                 /* envelope-style flap */
+  content: ""; position: absolute; left: 1px; right: 1px; top: 0; height: 7px;
+  background: linear-gradient(to bottom right, transparent 48%, var(--t-note-edge) 49%, var(--t-note-edge) 56%, transparent 57%) left / 50% 100% no-repeat,
+              linear-gradient(to bottom left, transparent 48%, var(--t-note-edge) 49%, var(--t-note-edge) 56%, transparent 57%) right / 50% 100% no-repeat,
+              var(--t-note-flap);
+}
+.t-notes-icon:after {                  /* small heart seal */
+  content: ""; position: absolute; left: 50%; top: 4px; width: 6px; height: 6px; margin-left: -3px;
+  background: var(--t-note-heart); border-radius: 50% 50% 0 50%;
+  -webkit-transform: rotate(45deg); transform: rotate(45deg);
+}
+.t-notes-icon--lg { width: 44px; height: 32px; border-width: 3px; border-radius: 5px; }
+.t-notes-icon--lg:before { height: 15px; }
+.t-notes-icon--lg:after { top: 9px; width: 11px; height: 11px; margin-left: -5px; }
+
+/* HUD balance chip (sits next to the Term Pass button) */
+.t-notes-chip {
+  display: inline-block; vertical-align: middle;
+  height: var(--t-notes-chip-h); padding: 0 10px 0 8px;
+  border-radius: var(--t-r-pill);
+  background: var(--t-glass); border: 1px solid var(--t-hud-border);
+  box-shadow: var(--t-elev-1);
+  font-family: var(--t-num); font-variant-numeric: tabular-nums;
+  font-size: var(--t-fs-sm); font-weight: var(--t-fw-display); line-height: var(--t-notes-chip-h);
+  color: var(--t-ink-2); white-space: nowrap;
+}
+.t-notes-chip .t-notes-icon { margin: -2px 6px 0 0; }
+[dir='rtl'] .t-notes-chip { padding: 0 8px 0 10px; }
+[dir='rtl'] .t-notes-chip .t-notes-icon { margin: -2px 0 0 6px; }
+.t-notes-chip--gain { -webkit-animation: t-chip-gain var(--t-dur-l) var(--t-ease-spring); animation: t-chip-gain var(--t-dur-l) var(--t-ease-spring); }
+
+/* Term Pass HUD button (primary; the notes chip is its smaller neighbour) */
+.t-pass-btn {
+  display: inline-block; vertical-align: middle;
+  height: 36px; padding: 0 12px;
+  border: 0; border-radius: var(--t-r-pill);
+  background: var(--t-gold); background-image: var(--t-ribbon-fill); box-shadow: var(--t-ribbon-edge);
+  color: var(--t-indigo-deep);
+  font-family: var(--t-display); font-size: var(--t-fs-sm); font-weight: var(--t-fw-heavy); line-height: 36px; white-space: nowrap;
+}
+
+/* Shop: tabs */
+.t-shop-tabs { display: -webkit-box; display: -webkit-flex; display: flex; padding: 4px; border-radius: var(--t-r-pill); background: var(--t-bg-2); }
+.t-shop-tab {
+  -webkit-box-flex: 1; -webkit-flex: 1 1 0; flex: 1 1 0; min-width: 0;
+  height: var(--t-shop-tab-h); padding: 0 6px;
+  border: 0; border-radius: var(--t-r-pill); background: transparent;
+  font-family: var(--t-display); font-size: var(--t-fs-sm); font-weight: var(--t-fw-display); color: var(--t-muted);
+  text-align: center; vertical-align: middle;
+}
+.t-shop-tab.is-on { background: var(--t-panel); color: var(--t-indigo); box-shadow: var(--t-elev-1); }
+
+/* Shop: grid (2 columns with float + margins; no grid gap needed) */
+.t-shop-grid:after { content: ""; display: table; clear: both; }
+.t-shop-grid > * { float: left; width: calc(50% - 6px); margin-bottom: 12px; }
+.t-shop-grid > *:nth-child(2n) { margin-left: 12px; }
+[dir='rtl'] .t-shop-grid > * { float: right; }
+[dir='rtl'] .t-shop-grid > *:nth-child(2n) { margin-left: 0; margin-right: 12px; }
+
+/* Shop: item card */
+.t-shop-card {
+  position: relative; overflow: hidden;
+  border-radius: var(--t-shop-card-r);
+  background: var(--t-panel); border: 1.5px solid var(--t-line);
+  box-shadow: var(--t-elev-1);
+}
+.t-shop-card__art {
+  position: relative; height: var(--t-shop-card-art-h);
+  background: var(--t-lane-classroom-soft);
+  text-align: center; line-height: var(--t-shop-card-art-h);
+  font-family: var(--t-display); font-size: 40px; font-weight: var(--t-fw-heavy); color: var(--t-orange-deep);
+}
+.t-shop-card__art:before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 50%; background: var(--t-gloss); }
+.t-shop-card--toki .t-shop-card__art { background: var(--t-teal-soft); color: var(--t-teal-deep); }
+.t-shop-card__body { padding: 8px 10px 10px; }
+.t-shop-card__name { display: block; min-height: 2.6em; font-size: var(--t-fs-sm); font-weight: var(--t-fw-strong); line-height: 1.3; color: var(--t-ink); }
+.t-shop-card__tag {                    /* "New", "From Term Pass" */
+  position: absolute; left: 8px; top: 8px; z-index: 1;
+  padding: 0 7px; border-radius: var(--t-r-pill); background: var(--t-indigo); color: #fff;
+  font-size: var(--t-fs-2xs); font-weight: var(--t-fw-heavy); line-height: 1.6;
+}
+[dir='rtl'] .t-shop-card__tag { left: auto; right: 8px; }
+/* Action button inside the card: Buy (price) / Owned → Use / In use */
+.t-shop-buy {
+  display: block; width: 100%; height: var(--t-tap); margin-top: 6px; padding: 0;
+  border: 0; border-radius: var(--t-r-pill);
+  background: var(--t-teal); background-image: var(--t-claim-fill); box-shadow: var(--t-claim-edge);
+  color: var(--t-indigo-deep);
+  font-family: var(--t-num); font-size: var(--t-fs-md); font-weight: var(--t-fw-heavy); line-height: var(--t-tap);
+  text-align: center;
+}
+.t-shop-buy .t-notes-icon { margin: -3px 6px 0 0; }
+[dir='rtl'] .t-shop-buy .t-notes-icon { margin: -3px 0 0 6px; }
+.t-shop-buy--short { background: var(--t-bg-2); background-image: none; box-shadow: none; color: var(--t-shop-short); }
+.t-shop-buy--use { background: transparent; background-image: none; box-shadow: none; border: 1.5px solid var(--t-teal); color: var(--t-teal-deep); font-family: var(--t-display); }
+.t-shop-buy--inuse { background: var(--t-shop-using-bg); background-image: none; box-shadow: none; color: var(--t-teal-deep); font-family: var(--t-display); }
+.t-shop-card--owned .t-shop-card__art:after {   /* corner check */
+  content: "\2713"; position: absolute; right: 8px; top: 8px; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--t-teal); color: var(--t-indigo-deep); border: 2px solid #fff;
+  font-family: var(--t-body); font-size: 12px; line-height: 20px;
+}
+[dir='rtl'] .t-shop-card--owned .t-shop-card__art:after { right: auto; left: 8px; }
+.t-shop-card--inuse { border-color: var(--t-teal); box-shadow: 0 0 0 3px var(--t-teal-soft), var(--t-elev-1); }
+
+/* Buy moment: the note is handed over (flies into the art), then a soft "Yours" stamp */
+.t-shop-note-fly { position: absolute; z-index: var(--t-z-modal); -webkit-animation: t-note-hand var(--t-dur-buy) var(--t-ease) both; animation: t-note-hand var(--t-dur-buy) var(--t-ease) both; }
+.t-shop-stamp {
+  position: absolute; left: 50%; top: 50%; z-index: 2;
+  margin: -22px 0 0 -46px; width: 92px; height: 44px;
+  border: 3px solid var(--t-teal-deep); border-radius: var(--t-r-sm);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--t-teal-deep); font-family: var(--t-display); font-size: 20px; font-weight: var(--t-fw-heavy); line-height: 38px; text-align: center;
+  -webkit-transform: rotate(-8deg); transform: rotate(-8deg);
+  -webkit-animation: t-stamp-in var(--t-dur-m) var(--t-ease-spring) both; animation: t-stamp-in var(--t-dur-m) var(--t-ease-spring) both;
+}
+
+/* Place-it preview: slots on the classroom picture */
+.t-shop-slot {
+  position: absolute; z-index: var(--t-z-pins);
+  border: 2.5px dashed var(--t-slot-line); border-radius: var(--t-r-md);
+  background: var(--t-slot-bg);
+  -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
+}
+.t-shop-slot.is-on { border-style: solid; border-color: var(--t-teal); background: rgba(42, 215, 190, 0.28); box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6); }
+.t-shop-slot__label {
+  position: absolute; left: 50%; top: 100%; margin-top: 6px;
+  -webkit-transform: translateX(-50%); transform: translateX(-50%);
+  padding: 1px 8px; border-radius: var(--t-r-pill); background: var(--t-scene-label); color: #fff;
+  font-size: var(--t-fs-2xs); font-weight: var(--t-fw-strong); line-height: 1.5; white-space: nowrap;
+}
+
+@-webkit-keyframes t-note-hand { 0% { opacity: 0; -webkit-transform: translateY(30px) rotate(-10deg) scale(.8); } 35% { opacity: 1; -webkit-transform: translateY(0) rotate(0) scale(1.1); } 100% { opacity: 0; -webkit-transform: translateY(-60px) rotate(8deg) scale(.5); } }
+@keyframes t-note-hand { 0% { opacity: 0; transform: translateY(30px) rotate(-10deg) scale(.8); } 35% { opacity: 1; transform: translateY(0) rotate(0) scale(1.1); } 100% { opacity: 0; transform: translateY(-60px) rotate(8deg) scale(.5); } }
+@-webkit-keyframes t-stamp-in { 0% { opacity: 0; -webkit-transform: rotate(-8deg) scale(1.6); } 100% { opacity: 1; -webkit-transform: rotate(-8deg) scale(1); } }
+@keyframes t-stamp-in { 0% { opacity: 0; transform: rotate(-8deg) scale(1.6); } 100% { opacity: 1; transform: rotate(-8deg) scale(1); } }
+@-webkit-keyframes t-chip-gain { 50% { -webkit-transform: scale(1.12); } }
+@keyframes t-chip-gain { 50% { transform: scale(1.12); } }
+
+/* ================================================================== */
+/* POWER-UPS (consumables; one use of each kind per lesson)           */
+/*   <span class="t-powerup t-powerup--rewind"><b>&#8634;</b></span>   */
+/*   kinds: --rewind --time --assistant --look --parent               */
+/*   glyph style = HUD icon discs: white disc, indigo glyph, kind ring */
+/* ================================================================== */
+.teacher-app {
+  --t-pu-size: 44px;          /* icon disc = tap target in the tray */
+  --t-pu-ring-w: 3px;
+  --t-pu-rewind: var(--t-blue);
+  --t-pu-time: var(--t-orange);
+  --t-pu-assistant: var(--t-teal);
+  --t-pu-look: var(--t-indigo);
+  --t-pu-parent: var(--t-rose);
+  --t-pu-used: var(--t-locked);
+}
+.t-powerup {
+  position: relative; display: inline-block; vertical-align: middle;
+  width: var(--t-pu-size); height: var(--t-pu-size);
+  margin: 0; padding: 0;
+  border-radius: 50%;
+  background: var(--t-panel);
+  border: var(--t-pu-ring-w) solid var(--t-pu-c, var(--t-indigo));
+  box-shadow: var(--t-elev-1);
+  color: var(--t-indigo);
+  font-family: var(--t-display); font-weight: var(--t-fw-heavy); font-size: 18px;
+  line-height: calc(var(--t-pu-size) - 2 * var(--t-pu-ring-w));
+  text-align: center;
+}
+.t-powerup > b { font-weight: inherit; }
+.t-powerup--rewind { --t-pu-c: var(--t-pu-rewind); }
+.t-powerup--time { --t-pu-c: var(--t-pu-time); font-size: 16px; letter-spacing: -0.02em; }
+.t-powerup--assistant { --t-pu-c: var(--t-pu-assistant); font-size: 14px; }
+.t-powerup--look { --t-pu-c: var(--t-pu-look); }
+.t-powerup--parent { --t-pu-c: var(--t-pu-parent); }
+.t-powerup--lg { --t-pu-size: 52px; font-size: 22px; }
+.t-powerup--lg.t-powerup--time, .t-powerup--lg.t-powerup--assistant { font-size: 17px; }
+/* count badge (how many you own) */
+.t-powerup__count {
+  position: absolute; right: -6px; bottom: -4px;
+  min-width: 20px; height: 20px; padding: 0 5px;
+  border-radius: var(--t-r-pill);
+  background: var(--t-indigo); color: #fff; border: 2px solid #fff;
+  font-family: var(--t-num); font-size: 11px; font-weight: var(--t-fw-heavy); line-height: 16px;
+}
+[dir='rtl'] .t-powerup__count { right: auto; left: -6px; }
+/* used this lesson / none left: greyed, glyph faded, check badge */
+.t-powerup.is-used, .t-powerup[disabled] {
+  --t-pu-c: var(--t-pu-used);
+  background: var(--t-bg-2); color: var(--t-locked-ink); box-shadow: none; cursor: default;
+}
+.t-powerup.is-used > b { opacity: 0.45; }
+.t-powerup.is-used .t-powerup__count { background: var(--t-locked-ink); }
+
+/* In-lesson tray: a small glass strip at the bottom-end of the scene, above the class strip.
+   Shows only kinds the teacher owns. Collapses to one "power-ups" disc on small screens if needed. */
+.t-powerup-tray {
+  position: absolute; z-index: var(--t-z-hud);
+  right: var(--t-gutter);
+  padding: 5px 6px;
+  border-radius: var(--t-r-pill);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--t-hud-border);
+  box-shadow: var(--t-elev-2);
+  -webkit-backdrop-filter: blur(8px);
+  white-space: nowrap; font-size: 0;
+}
+[dir='rtl'] .t-powerup-tray { right: auto; left: var(--t-gutter); }
+.t-powerup-tray > * + * { margin-left: 6px; }
+[dir='rtl'] .t-powerup-tray > * + * { margin-left: 0; margin-right: 6px; }
+.t-powerup-tray__label {
+  display: inline-block; vertical-align: middle; padding: 0 4px 0 6px;
+  font-size: var(--t-fs-2xs); font-weight: var(--t-fw-strong); line-height: 1.2; color: var(--t-muted);
+  white-space: normal; width: 52px;
+}
+/* in the tray the disc is drawn at 38px; an invisible ring keeps the 44px target */
+.t-powerup-tray .t-powerup { --t-pu-size: 38px; font-size: 16px; }
+.t-powerup-tray .t-powerup--time, .t-powerup-tray .t-powerup--assistant { font-size: 13px; }
+.t-powerup-tray .t-powerup:after { content: ""; position: absolute; left: -6px; top: -6px; right: -6px; bottom: -6px; border-radius: 50%; }
+.t-powerup-tray .t-powerup__count { min-width: 18px; height: 18px; font-size: 10px; line-height: 14px; padding: 0 4px; }
+/* armed: the teacher tapped a power-up and now picks a target / confirms */
+.t-powerup.is-armed { box-shadow: 0 0 0 4px var(--t-attention), var(--t-elev-2); -webkit-transform: translateY(-3px); transform: translateY(-3px); }
+
+/* Shop row for a power-up (full-width list, not the 2-col grid) */
+.t-shop-card--powerup { padding: 12px 12px 12px 76px; min-height: 104px; }
+.t-shop-card--powerup > .t-powerup { position: absolute; left: 12px; top: 14px; }
+[dir='rtl'] .t-shop-card--powerup { padding: 12px 76px 12px 12px; }
+[dir='rtl'] .t-shop-card--powerup > .t-powerup { left: auto; right: 12px; }
+.t-shop-card--powerup .t-shop-card__name { min-height: 0; font-family: var(--t-display); font-size: var(--t-fs-md); font-weight: var(--t-fw-display); }
+.t-shop-card__what { display: block; margin-top: 1px; font-size: var(--t-fs-xs); line-height: 1.35; color: var(--t-muted); }
+.t-shop-card__meta { display: block; margin-top: 6px; font-size: var(--t-fs-2xs); font-weight: var(--t-fw-strong); color: var(--t-teal-deep); }
+.t-shop-card--powerup .t-shop-buy { position: absolute; right: 12px; bottom: 12px; width: 84px; height: 36px; line-height: 36px; font-size: var(--t-fs-sm); margin: 0; }
+[dir='rtl'] .t-shop-card--powerup .t-shop-buy { right: auto; left: 12px; }
+.t-shop-card--powerup .t-shop-card__meta { padding-right: 92px; }
+[dir='rtl'] .t-shop-card--powerup .t-shop-card__meta { padding-right: 0; padding-left: 92px; }
+
+/* ------------------------------------------------------------------ */
+/* Keyframes (transform / opacity only)                               */
+/* ------------------------------------------------------------------ */
+@-webkit-keyframes t-pulse { 0% { -webkit-transform: scale(0.85); opacity: 0.9; } 100% { -webkit-transform: scale(1.35); opacity: 0; } }
+@keyframes t-pulse { 0% { transform: scale(0.85); opacity: 0.9; } 100% { transform: scale(1.35); opacity: 0; } }
+@-webkit-keyframes t-sheet-in { from { -webkit-transform: translateY(100%); } to { -webkit-transform: translateY(0); } }
+@keyframes t-sheet-in { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@-webkit-keyframes t-toast-in { from { opacity: 0; -webkit-transform: translate(-50%, 12px); } to { opacity: 1; -webkit-transform: translate(-50%, 0); } }
+@keyframes t-toast-in { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@-webkit-keyframes t-medal-in { 0% { opacity: 0; -webkit-transform: scale(0.4) rotate(-12deg); } 100% { opacity: 1; -webkit-transform: none; } }
+@keyframes t-medal-in { 0% { opacity: 0; transform: scale(0.4) rotate(-12deg); } 100% { opacity: 1; transform: none; } }
+@-webkit-keyframes t-card-reveal { 0% { opacity: 0; -webkit-transform: translateY(24px) scale(0.96); } 100% { opacity: 1; -webkit-transform: none; } }
+@keyframes t-card-reveal { 0% { opacity: 0; transform: translateY(24px) scale(0.96); } 100% { opacity: 1; transform: none; } }
+.t-reveal { -webkit-animation: t-card-reveal var(--t-dur-xl) var(--t-ease-spring) both; animation: t-card-reveal var(--t-dur-xl) var(--t-ease-spring) both; }
+
+/* Reduced motion: no pulses, no travel; state is still shown by colour + flag */
+@media (prefers-reduced-motion: reduce) {
+  .teacher-app {
+    --t-dur-walk: 0ms;
+    --t-dur-l: 1ms; --t-dur-xl: 1ms; --t-dur-m: 1ms;
+  }
+  .teacher-app *, .teacher-app *:before, .teacher-app *:after {
+    -webkit-animation-duration: 1ms !important; animation-duration: 1ms !important;
+    -webkit-animation-iteration-count: 1 !important; animation-iteration-count: 1 !important;
+    -webkit-transition-duration: 1ms !important; transition-duration: 1ms !important;
+  }
+  .t-pin--next .t-pin__head:before, .t-hot--needs .t-hot__ring:before { opacity: 1; -webkit-transform: scale(1.1); transform: scale(1.1); }
 }
