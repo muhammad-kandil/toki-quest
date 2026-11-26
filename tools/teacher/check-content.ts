@@ -32,8 +32,9 @@
  *  - timed missions (samples) use the clock model of the original demo.
  * Exit code 1 on any error.
  */
-import { RESOURCES, LOCATIONS, ADVENTURES, SHOP_ITEMS, TERM_PASS, END_OF_TERM } from '../../src/teacher/data';
-import { SAMPLE_ADVENTURES } from '../../src/teacher/data/adventures';
+import { RESOURCES, LOCATIONS, SHOP_ITEMS, TERM_PASS, END_OF_TERM, UNIVERSE, TOOL_STATUS } from '../../src/teacher/data';
+import { SAMPLE_ADVENTURES, LEGACY_MISSIONS as ADVENTURES } from '../../src/teacher/data/adventures';
+import { checkUniverse } from './check-universe';
 import type { Adventure, ClassEvent, Choice } from '../../src/teacher/types';
 
 const errors: string[] = [];
@@ -383,9 +384,10 @@ function simulate(a: Adventure, ai: number) {
   );
 }
 
-console.log(`NCLE tools ${RESOURCES.length} · places ${LOCATIONS.length} · missions ${ADVENTURES.length} · samples ${SAMPLE_ADVENTURES.length}`);
+console.log(`NCLE tools ${RESOURCES.length} · places ${LOCATIONS.length} · legacy missions ${ADVENTURES.length} · samples ${SAMPLE_ADVENTURES.length}`);
 ADVENTURES.forEach((a, i) => simulate(a, i));
 SAMPLE_ADVENTURES.forEach((a) => simulate(a, ADVENTURES.length));
+checkUniverse(UNIVERSE, RESOURCES, TOOL_STATUS, err, warn);
 for (const w of warns) console.log('warn  ' + w);
 for (const e of errors) console.log('ERROR ' + e);
 console.log(errors.length ? `\n${errors.length} error(s)` : '\nContent OK');

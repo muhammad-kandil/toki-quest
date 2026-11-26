@@ -170,7 +170,7 @@ export const L01: UScenario = scenario({
       ],
     },
     {
-      id: 'laptop', kind: 'new-event', on: 'laptop', interaction: 'sort',
+      id: 'laptop', kind: 'new-event', on: 'laptop',
       line: T(['Build Your Learning Journey', 'ابني رحلة التعلّم']),
       ask: T(['A simplified, illustrative planning view: place today\'s practices in the three lesson stages.', 'عرض تخطيط مبسّط وتوضيحي: ضعي ممارسات اليوم في مراحل الدرس الثلاث.']),
       choices: [ch(['Open the planner', 'افتحي المخطّط'], ['Planning puzzle', 'لغز التخطيط'], 'journey', { minutes: 0 })],

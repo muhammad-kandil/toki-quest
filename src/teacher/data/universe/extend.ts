@@ -144,7 +144,7 @@ export const E04: UScenario = scenario({
     },
   ],
   outcomes: [
-    uout('e4Route', 'good', ['A next step for each', 'خطوة تالية لكل واحد'], ['Ahmed gets an enrichment route, Sara reinforcement, and the students who stopped at yesterday\'s step start there.', 'يحصل أحمد على مسار إثرائي، وسارة على التعزيز، ويبدأ الطلاب الذين توقّفوا عند خطوة الأمس من هناك.'], [fx('ahmed', 0, 1), fx('sara', 0, 1)], { xp: 30, discover: 'pathways', setFlag: 'u.usedEvidence', studentDelta: [{ id: 'ahmed', key: 'readiness', delta: 1 }] }),
+    uout('e4Route', 'good', ['A next step for each', 'خطوة تالية لكل واحد'], ['Ahmed gets an enrichment route, Sara reinforcement, and the students who stopped at yesterday\'s step start there.', 'يحصل أحمد على مسار إثرائي، وسارة على التعزيز، ويبدأ الطلاب الذين توقّفوا عند خطوة الأمس من هناك.'], [fx('ahmed', 0, 1), fx('sara', 0, 1)], { xp: 30, discover: 'pathways', setFlag: 'u.usedEvidence', closesNeeds: ['ahmed-evidence'], studentDelta: [{ id: 'ahmed', key: 'readiness', delta: 1 }] }),
     uout('e4Same', 'mixed', ['One step for all', 'خطوة واحدة للجميع'], ['Fair and simple. For a third of the class it repeats today; for another third it skips a step.', 'عادل وبسيط. لكنه يكرّر درس اليوم لثلث الصف، ويقفز خطوة لثلث آخر.'], [], { xp: 30 }),
   ],
 });

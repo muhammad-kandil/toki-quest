@@ -38,7 +38,7 @@ export const F01: UScenario = scenario({
     },
   ],
   outcomes: [
-    uout('f1Respond', 'good', ['The thinking, visible', 'التفكير، مرئيًا'], ['"Is 10 dirhams for 4 cheaper per box?" The totals group recalculates. And one of the "no answer" boards turns out to be Omar\'s, half-finished and right.', '«هل ١٠ دراهم لأربع علب أرخص للعلبة؟» تعيد مجموعة المجموع الحساب. وتتبيّن أن إحدى السبورات «دون إجابة» هي سبورة عمر، نصفها مكتوب وصحيح.'], [fx('sara', 1, 0), fx('omar', 0, 1)], { xp: 30, discover: 'present-mode', setFlag: 'u.evidence', triggers: 'R05' }),
+    uout('f1Respond', 'good', ['The thinking, visible', 'التفكير، مرئيًا'], ['"Is 10 dirhams for 4 cheaper per box?" The totals group recalculates. And one of the "no answer" boards turns out to be Omar\'s, half-finished and right.', '«هل ١٠ دراهم لأربع علب أرخص للعلبة؟» تعيد مجموعة المجموع الحساب. وتتبيّن أن إحدى السبورات «دون إجابة» هي سبورة عمر، نصفها مكتوب وصحيح.'], [fx('sara', 1, 0), fx('omar', 0, 1)], { xp: 30, discover: 'present-mode', setFlag: 'u.evidence', closesNeeds: ['class-mis'], triggers: 'R05' }),
     uout('f1Volunteers', 'mixed', ['Three right answers', 'ثلاث إجابات صحيحة'], ['Three hands, three right answers. The five comparing totals stay hidden.', 'ثلاث أيادٍ، وثلاث إجابات صحيحة. ويبقى الخمسة الذين قارنوا المجموع مخفيين.'], [], { xp: 30, opensNeeds: ['class-mis'] }),
   ],
 });

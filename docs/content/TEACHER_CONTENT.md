@@ -1,11 +1,186 @@
-# Teacher content: "Every Classroom Has a Story"
+# Teacher content: "Every Classroom Has a Story | لكل صفّ حكاية"
+
+Owner: Hessa (game & learning design). Authority: `docs/product/GAME_PACKAGE.md`
+(supersedes ALEF_PROPOSAL.md and the seven-mission structure below).
+Content: `src/teacher/data/universe.ts` (assembly) and `src/teacher/data/universe/`
+(kit, launch, facilitate, extend, random). Validate with
+`npx vite-node tools/teacher/check-content.ts` (runs `check-universe.ts`).
+
+## The universe
+
+One persistent Grade 7 classroom (Math: yesterday equivalent ratios, today unit
+rates). Ms. Mariam; Ahmed, Sara, Omar. No mentor character, no ability labels
+(the validator rejects "weak/strong/low/high group/student" wording). Rule in
+every scenario: **evidence first → instructional decision → Alef tool →
+classroom consequence.**
+
+Session: opening film (first session) → **L01** hub → after-launch draw →
+mid-lesson draws → late-lesson draws → ending. 5–8 minutes; simulated sessions
+play 4–10 scenarios (median 7). No countdown (`timed: false`), no streaks, no
+energy, no penalties.
+
+| Code | Scenario | Phase | Interaction (non-MCQ) | Tools discovered | Needs |
+|---|---|---|---|---|---|
+| L01 | The First Five Minutes (hub) | Launch | investigate ×4 + sequence puzzle | Assign, See Why, AI Helper, Practice, Teams, Present Mode | opens any of the four |
+| L02 | What Do We Know? | Launch | pattern (tap response patterns) | Present Mode | may open class-mis |
+| L03 | Ready for More | Launch | compare (profiles coherent with L01) | Assign, See Why | closes/opens ahmed-evidence |
+| L04 | Find the Missing Piece | Launch | match evidence → interpretation | Need Help, See Why | requires sara-gap |
+| L05 | Choose the Right Start | Launch | sort activities by purpose | Assign | — |
+| F01 | Make Thinking Visible | F&S | pattern (live class view) | Present Mode | closes class-mis; triggers R05 |
+| F02 | Everyone Has a Voice | F&S | match students → roles | Teams | closes/opens omar-voice |
+| F03 | The Mid-Lesson Pivot ⟲ | F&S | pattern (class view, state-coherent profiles) | Class Progress | closes/opens class-mis |
+| F04 | Help Without Giving It Away | F&S | progressive hints | Need Help, See Why, AI Helper | requires sara-gap |
+| F05 | Practice With Purpose | F&S | order a practice sequence | Practice | closes sara-gap |
+| F06 | The Energy Dip | F&S | sort game ideas by purpose | Gamification | closes omar-voice |
+| E01 | Exit With Evidence ⟲ | E&A | match questions → what they check | Exit Ticket | — |
+| E02 | Show What You Learned | E&A | reveal and compare two pages | Show My Learning | — |
+| E03 | Ready for the Exam | E&A | pattern (results by topic) | Exam Prep Assessment | — |
+| E04 | The Next Best Step | E&A | match evidence → route | Pathways | closes ahmed-evidence |
+| E05 | Tomorrow's Plan ⟲ | E&A | assemble plan from evidence cards | Class Progress, Assign | — |
+| R01 | The Unexpected Helper | random | — (after `u.ahmed:secure` / `u.stretch`) | — | — |
+| R02 | The Misconception Ripple | random | — (after a misconception flag) | — | opens class-mis; forces F03's shared-mistake view |
+| R03 | One More Question | random | — (late) | — | — |
+| R04 | Time Squeeze | random | — | — | `budgetDelta −1`: fewer draws, same sound decisions |
+| R05 | Quiet Confidence | random (triggered) | — (Omar participation ≤ 1) | — | closes omar-voice |
+| R06 | Second Chance | random | choices per open need | — | closes any one open need |
+
+⟲ = reconvergence node (`reconverge: true`).
+
+**Evidence profiles (L01)** · Ahmed: secure 35 / fragile explanation 35 /
+transfer difficulty 30 · Sara: missing prerequisite 30 / misconception 25 /
+needs another explanation 25 / ready for independent practice 20 · Omar:
+unclear purpose 30 / confidence 25 / participation barrier 25 / distraction 20.
+L03, L04 and F03 draw only profiles consistent with earlier state (`ifFlag`).
+
+**Needs** (persist across sessions until closed): `ahmed-evidence`,
+`sara-gap`, `omar-voice`, `class-mis`. Every need has at least two ways to
+close; R06 can close any. Sara's thread (L01 → L04 → F04 → F05, or R06) is
+always recoverable.
+
+**Pools** (base weights, each 100): after-launch L02 20 · L03 20 · L04 20 ·
+L05 15 · F01 10 · R01 5 · R02 5 · R04 5 — mid-lesson F01 15 · F02 15 · F03 20 ·
+F04 15 · F05 10 · F06 10 · R01 5 · R02 5 · R04 5 — late-lesson E01 25 · E02 15 ·
+E03 10 · E04 20 · E05 15 · R01 5 · R03 5 · R06 5.
+
+**Arc:** after-launch 1 scenario draw, mid-lesson 3 (ends on F03), late-lesson 2
+(ends on E05). Random events are bonus draws, at most one per phase. I chose
+1 / 3 / 2 instead of 2 / 3 / 2 because it reproduces both of the package's
+example seeds exactly. With L01 as the hub, sessions stay at 5–8 minutes.
+
+**Endings:** END-B The Unfinished Puzzle (any need open, priority 1, follow-up
+for next session) · END-D Evidence to Action (`u.evidence` + `u.usedEvidence`,
+priority 2, strongest) · END-C An Unexpected Opportunity (`u.peerVoice` or
+`u.quietConfidence`, priority 3) · END-A Purposeful Launch (always, priority 4,
+fallback, so there is no dead end). Other eligible endings are offered as choices.
+
+**Simulation (validator):** 3,000 chains × 5 sessions, random choices: every
+scenario, outcome and ending reached; every session ends. Random play ends
+mostly on END-B, because needs persist and random choices defer often.
+A sound-choice player in a first session: END-D 55 %, END-B 40 % (usually Sara's
+diagnosed gap, to be closed next session), END-C 4 %, END-A 1 %. Both example
+seeds play as forced paths: `L01 → L03 → R01 → F01 → F03 → E01 → E05 → END-D`
+(exact) and `L01 → L04 → F04 → F05 → R02 → F03 → E01 … → END-B`.
+
+## Universe engine contract (what the content assumes)
+
+1. L01: every event that no outcome opens via `next` is a hotspot. The three
+   student hotspots must all be resolved (the milestone); objects are optional.
+   In other scenarios, the events that no `next` opens are played in order.
+2. Investigation: candidate profiles = those whose `ifFlag` is set; if none,
+   those without `ifFlag`. Weighted draw, then set `setFlag`. Choices show when
+   `ifFlag` is unset or set, and when `ifUnresolved` is unset or that need is open.
+3. Interactions run before the choices. Their answers come from the evidence
+   on the cards, and the outcome follows the choice, not the interaction score.
+   Every drag has a tap/select-and-place alternative.
+4. Draws: drop pool entries that fail `requires`, are on cooldown, repeat the
+   last code, or are a second random in this phase. Normalise the weights and
+   pick with the seeded PRNG. A phase ends when its draws are used, when its
+   `endsOn` node is played, or when nothing is eligible. Cooldowns tick each
+   draw and persist across sessions.
+5. Applying an outcome: `setFlag` (session-scoped), `opensNeeds`/`closesNeeds`
+   and `studentDelta` (persistent, clamped 0–3), `next` (follow-up event in the
+   scenario), `triggers` (play that scenario next if its `requires` hold; it
+   is not a draw). Then apply the scenario-level `opensNeeds`/`closesNeeds`/
+   `studentDelta`.
+6. `budgetDelta` (R04) adds to the current phase's remaining draws.
+7. Ending: the eligible ending with the lowest `priority`; the others are
+   offered as choices.
+8. XP: 30 per resolved investigation or decision outcome, 50 per first tool
+   discovery (engine, from `discover`), 100 for the L01 planning puzzle. Once
+   per outcome; repeats get nothing; a different evidence path earns
+   exploration credit.
+
+## Contract additions needed (used in content, typed in `universe/kit.ts` as subtypes)
+
+| Field | On | Why |
+|---|---|---|
+| `interaction?: 'investigate'\|'compare'\|'match'\|'sort'\|'order'\|'hint'\|'pattern'\|'plan'` | ClassEvent | non-MCQ interaction type (accepted by the coordinator) |
+| `task?: Task` (`cards`, `targets`, `answer`, `order`, `hints`, `patterns`, `note`) | ClassEvent | the data each interaction needs; answers set by the evidence |
+| `ifFlag?: string` | EvidenceProfile | keeps evidence coherent across scenarios (L03, L04, F03) |
+| `ifUnresolved?: string` | Choice | R06 offers a choice per open need |
+| `opensNeeds? / closesNeeds? / studentDelta?` | Outcome | the package's need/student changes depend on the choice, not only on completing a scenario |
+| `triggers?: string` | Outcome | R05 is in no pool; F01's outcome triggers it |
+| `budgetDelta?: number` | Scenario | R04 changes the budget |
+| `anyUnresolved?: string[]` | UniverseCondition | END-B and R06: "any need open" |
+| `endsOn?: string[]` on arc steps; random events as bonus draws | Universe.arc | reproduces the package's example paths |
+| `TOOL_STATUS` (verified-public / needs-internal-validation) | AlefResource (`status?`) | the package's product boundary |
+| session-scoped `flags` | UniverseSave | conditions read flags; the save has no flags field (fine if flags are session-only, as assumed) |
+
+## NCLE tools and product boundary (`resources.ts`, all `placeholder: true`)
+
+Publicly verified capability (`TOOL_STATUS: 'verified-public'`): **Present
+Mode**, **flexible assignment** (Assign; label/UI to validate), **live classroom
+analytics** (Class Progress; label to validate), **gamified assessment**
+(Gamification), **Alef Pathways**. Needs internal validation: Teams, Exit
+Ticket, Show My Learning, Exam Prep Assessment, AI Helper, Need Help, See Why,
+Practice. No screen is reproduced or invented. The "Build Your Learning
+Journey" planner and every class view are labelled abstract simulations.
+
+## Picture briefs
+
+**Classroom** (`public/teacher/scenes/classroom.jpg`, portrait 2:3, used by
+every scenario): a Grade 7 classroom in a UAE public school, morning light from
+a window on the left, students in uniform consistent with the existing art.
+Omar by the window (18/44); Sara front-left (34/58) with notebook and tablet;
+Ahmed centre-right (64/50) with tablet open; interactive board top-centre
+(50/16), clean; laptop open on the teacher's desk lower-right (82/64);
+bookshelf on the left wall (10/30) with an atlas and a globe. Keep the bottom
+30 % calm (sheet area). No text on the board, so it works in both languages.
+
+**Opening** (`public/teacher/film/open-01…05.jpg`): OPEN-01 Ms. Mariam (Emirati,
+abaya and shayla, lanyard, tote) at the door, morning corridor · OPEN-02 the
+three students through behaviour, not labels: Ahmed opening his tablet before
+sitting, Sara flicking back pages, Omar at the window · OPEN-03 close group
+shot for the three lines · OPEN-04 Ms. Mariam at her desk, a beat of thought
+("Five minutes before we begin. Where should I start?") · OPEN-05 wide
+pull-back into the classroom as above.
+
+## To verify (universe)
+
+U1 tool names EN/AR and stages · U2 Present Mode shows open responses / polls on
+the board (L02, F01) · U3 flexible assignment can give different starts or tasks
+to different students (L03, L05, E05) · U4 live classroom analytics show who has
+finished, most-missed questions and for whom (F03, E05) · U5 gamified assessment
+can make every team answer and reward reasons (F06) · U6 Pathways routes
+learners to readiness / reinforcement / enrichment (E04) · U7 Need Help, See
+Why and AI Helper as described in L04/F04 (hint without the answer) · U8 Practice
+can give an ordered set (F05) · U9 Exit Ticket, Show My Learning, Exam Prep
+Assessment as in E01–E03 · U10 Teams roles (F02) · U11 Grade 7 Math unit rates
+as the showcase lesson.
+
+---
+
+# Legacy mission content (superseded by the universe above)
+
+Kept for reference; the missions are exported as `LEGACY_MISSIONS` and no longer
+shown to players (`ADVENTURES` is empty).
 
 Owner: Hessa (game & learning design). Source of truth for `src/teacher/data/**`.
 Authority: `docs/product/ALEF_PROPOSAL.md` wins over every earlier brief.
 Validate with `npx vite-node tools/teacher/check-content.ts` (static checks
 plus 8,000 simulated plays per mission).
 
-## Principles applied
+### Principles applied
 
 - The player helps **Ms. Mariam**, a UAE public-school teacher. No mentor or
   DLIS character appears in mission content.
@@ -27,7 +202,7 @@ plus 8,000 simulated plays per mission).
 - Every choice is a real option a teacher would consider; deferring is
   allowed and honest ("Noted, not yet solved"), never shamed.
 
-## Engine contract (what the content assumes)
+### Engine contract (missions) (what the content assumes)
 
 1. Untimed missions: every `schedule` event is a hotspot, open from the start.
    The player chooses the order and may skip objects.
@@ -53,7 +228,7 @@ plus 8,000 simulated plays per mission).
 8. Choice `resource` is not used in missions; tools are discovered through
    `Outcome.discover`.
 
-## The term at a glance
+### The term at a glance
 
 Seven missions, one Grade 7 class (Ms. Mariam teaches its Math and Science).
 Endings and `unlock:` flags open the next missions; a player can follow
@@ -94,7 +269,7 @@ M05 reads `a1.peerVoice` (Omar's voice in M01); M07 reads `m2.stretch`,
 `m4.closed`, `m5.allVoices`. Each changes an outcome, never which choices
 are offered.
 
-## Arabic conventions
+### Arabic conventions
 
 Natural MSA as a Gulf teacher writes it; Arabic-Indic digits and `٪`; «» for
 quotes; Ms. Mariam addressed in the feminine (اختاري، انظري); "Try it Monday"
@@ -103,7 +278,7 @@ short childlike student lines (أستاذة، خلّصت). «ألف» in guillem
 names are translated descriptively (وضع العرض، اعرف السبب) and must be
 replaced by Alef's official Arabic names once verified.
 
-## NCLE tools (`resources.ts`, all `placeholder: true`)
+### NCLE tools (`resources.ts`, all `placeholder: true`)
 
 | Tool | Stage (proposed) | First mission | What the game says it does (proposal only) |
 |---|---|---|---|
@@ -121,7 +296,7 @@ replaced by Alef's official Arabic names once verified.
 | Exam Prep Assessment | Extend | M07 | assessment for exam preparation |
 | Pathways | Extend | M07 | different routes through learning |
 
-## To verify (every product claim in the content)
+### To verify (every product claim in the content)
 
 Alef product specialists sign off each line; until then `placeholder: true`.
 V1–V12 are below; mission-specific claims V13–V41 close each mission
@@ -148,7 +323,7 @@ Science are the right showcase subjects; V43 the Arabic tool names.
 ---
 
 <a id="m01"></a>
-## Mission 01 · The First Five Minutes (MVP)
+### Mission 01 · The First Five Minutes (MVP)
 
 `a1` · Grade 7 · Math (yesterday: equivalent ratios; today: unit rates) ·
 Ahmed, Sara, Omar · laptop, board, bookshelf · 5–8 min, untimed.
@@ -248,7 +423,7 @@ Film `public/teacher/film/m01-1…5.jpg` (portrait 2:3, same art style):
 ---
 
 <a id="m02"></a>
-## Mission 02 · Beyond the Expected
+### Mission 02 · Beyond the Expected
 
 `m2` · Grade 7 · Math (percentages, discounts) · Ahmed, Reem, Khalid ·
 opened by `unlock:m2` (Ahmed's ready profile in M01).
@@ -299,7 +474,7 @@ recorder) inside a group · V17 Practice gives a short targeted set
 ---
 
 <a id="m03"></a>
-## Mission 03 · Bring Learning to Life
+### Mission 03 · Bring Learning to Life
 
 `m3` · Grade 7 · Science (falling objects, air resistance) · Sara, Hamdan,
 Noura · opened by M01 "Ready to Learn".
@@ -347,7 +522,7 @@ Assign can give one student an extension question mid-lesson.
 ---
 
 <a id="m04"></a>
-## Mission 04 · Bridging the Gap
+### Mission 04 · Bridging the Gap
 
 `m4` · Grade 7 · Math (proportions) · Sara, Omar, Maitha · opened by M01
 "The Unfinished Puzzle" or `unlock:m4` (Sara's bridge in M01).
@@ -395,7 +570,7 @@ Practice can target a specific prerequisite (simplifying, times-table facts)
 ---
 
 <a id="m05"></a>
-## Mission 05 · Everyone Has a Voice
+### Mission 05 · Everyone Has a Voice
 
 `m5` · Grade 7 · Science (food chains, review) · Omar, Noura, Saeed ·
 opened by M01 "An Unexpected Opportunity".
@@ -441,7 +616,7 @@ Teams supports roles such as reporter, summariser, leader.
 ---
 
 <a id="m06"></a>
-## Mission 06 · Reading the Evidence
+### Mission 06 · Reading the Evidence
 
 `m6` · Grade 7 · Math (ratios and proportions, end of lesson) · Ahmed,
 Sara, Omar · opened by endings of M02–M05.
@@ -489,7 +664,7 @@ tomorrow's task before they leave.
 ---
 
 <a id="m07"></a>
-## Mission 07 · Ready for the Test
+### Mission 07 · Ready for the Test
 
 `m7` · Grade 7 · Math (end of the ratios unit, test next week) · Ahmed,
 Sara, Omar · opened by endings of M02–M06 · the term's last mission (its
@@ -544,7 +719,7 @@ route.
 
 ---
 
-## Shop and Term Pass (customisation)
+### Shop and Term Pass (customisation)
 
 `shop.ts`: 10 outfits, 14 accessories, 5 power-ups; prices in thank-you
 notes, earned only from the Term Pass (`termPass.ts`, 12 steps, one per
@@ -559,7 +734,7 @@ shop brief), but the proposal says the teacher game needs no Toki. Product
 to decide: keep Toki as a cosmetic-only companion, or retarget those items
 to Ms. Mariam / the classroom.
 
-## Internal sample
+### Internal sample
 
 `adventures/sample-g5-fractions.ts` is the approved Grade 5 fractions demo
 ported to the schema (timed). Not registered in `ADVENTURES`; validated as a
