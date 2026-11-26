@@ -8,6 +8,9 @@ on:
       ambience:
         description: "Fetch room recordings (all | none | comma list of beds)"
         default: "all"
+      items:
+        description: "Fetch per-room item sounds (all | none | comma list of assets in items.json)"
+        default: "none"
       redo:
         description: "Re-render clips whose text matches this regex (e.g. Ms\\.)"
         default: ""
@@ -111,8 +114,28 @@ jobs:
             public/audio/amb
             tools/audio/out/ambience-report.md
 
+  items:
+    if: inputs.items != 'none' && inputs.items != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q numpy soundfile transformers
+      - run: python tools/audio/items.py --out public/audio/items ${{ inputs.items != 'all' && format('--only {0}', inputs.items) || '' }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: items
+          path: |
+            public/audio/items
+            tools/audio/out/items-report.md
+
   commit:
-    needs: [voice, ambience]
+    needs: [voice, ambience, items]
     if: always() && !cancelled()
     runs-on: ubuntu-latest
     steps:
@@ -126,6 +149,7 @@ jobs:
             if [ -d art/voice-$l/public/audio/voice/$l ]; then rm -rf public/audio/voice/$l; mkdir -p public/audio/voice; cp -r art/voice-$l/public/audio/voice/$l public/audio/voice/$l; mkdir -p tools/audio/reports; cp art/voice-$l/tools/audio/out/render-$l.json tools/audio/reports/; fi
           done
           if [ -d art/ambience/public/audio/amb ]; then mkdir -p public/audio/amb; cp -r art/ambience/public/audio/amb/. public/audio/amb/; mkdir -p tools/audio/reports; cp art/ambience/tools/audio/out/ambience-report.md tools/audio/reports/; fi
+          if [ -d art/items/public/audio/items ]; then mkdir -p public/audio/items; cp -r art/items/public/audio/items/. public/audio/items/; mkdir -p tools/audio/reports; cp art/items/tools/audio/out/items-report.md tools/audio/reports/; fi
           du -sh public/audio/* || true
       - name: Commit
         run: |

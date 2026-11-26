@@ -1,0 +1,2575 @@
+{
+ "_doc": "Per-room sound design. `assets` are short real recordings (Freesound CC0) fetched and verified by tools/audio/items.py into public/audio/items/<asset>.mp3, with the same search/classify rules as beds.json; add `pick` to pin a reviewed Freesound id. `rooms` maps a room key to its sounds: a level id ('2'), a world-challenge scene ('25:markbook') or a School Visit context ('85:kg'). `signature` layers play over the room's bed while the player is in it: `every: [min, max]` seconds between sporadic one-shots, or `loop: true` for a quiet loop; `gain` is relative to the room bed. `spots` give each evidence hotspot (by id) the one-shot it plays when tapped. Calm register: soft, short, no laughter tracks, no intelligible words.",
+ "assets": {
+  "chatter-burst": {
+   "desc": "a group of children talking over each other, short",
+   "kind": "oneshot",
+   "queries": [
+    "kids talking group",
+    "children chatter classroom",
+    "kids group discussion"
+   ],
+   "want": [
+    "Child speech, kid speaking",
+    "Hubbub, speech noise, speech babble",
+    "Chatter",
+    "Children playing",
+    "Speech"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Laughter",
+    "Giggle",
+    "Screaming",
+    "Singing",
+    "Vehicle"
+   ],
+   "lufs": -27,
+   "maxlen": 2.6
+  },
+  "kids-answer": {
+   "desc": "children answering a teacher, a few voices, no words standing out",
+   "kind": "oneshot",
+   "queries": [
+    "children answering question classroom",
+    "kids raising hands classroom",
+    "students answering teacher"
+   ],
+   "want": [
+    "Child speech, kid speaking",
+    "Speech",
+    "Chatter",
+    "Children playing"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Laughter",
+    "Giggle",
+    "Screaming",
+    "Singing",
+    "Vehicle"
+   ],
+   "lufs": -28,
+   "maxlen": 2.2
+  },
+  "kids-whisper": {
+   "desc": "one or two children whispering",
+   "kind": "oneshot",
+   "queries": [
+    "children whispering",
+    "kids whisper"
+   ],
+   "want": [
+    "Whispering",
+    "Child speech, kid speaking",
+    "Speech"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Laughter",
+    "Giggle",
+    "Screaming",
+    "Singing",
+    "Vehicle"
+   ],
+   "lufs": -30,
+   "maxlen": 1.8
+  },
+  "kids-cheer-soft": {
+   "desc": "a small class cheering softly",
+   "kind": "oneshot",
+   "queries": [
+    "children cheering",
+    "kids yay classroom",
+    "children happy cheer short"
+   ],
+   "want": [
+    "Cheering",
+    "Children shouting",
+    "Child speech, kid speaking",
+    "Applause",
+    "Crowd"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Screaming",
+    "Laughter",
+    "Vehicle"
+   ],
+   "lufs": -30,
+   "maxlen": 2.4
+  },
+  "kids-clap": {
+   "desc": "children clapping briefly",
+   "kind": "oneshot",
+   "queries": [
+    "children clapping",
+    "kids applause short"
+   ],
+   "want": [
+    "Clapping",
+    "Applause",
+    "Children shouting"
+   ],
+   "avoid": [
+    "Music",
+    "Screaming",
+    "Vehicle"
+   ],
+   "lufs": -30,
+   "maxlen": 2.0
+  },
+  "adult-murmur": {
+   "desc": "an adult talking in the distance, indistinct",
+   "kind": "oneshot",
+   "queries": [
+    "walla adults indistinct",
+    "indistinct talking man distant",
+    "murmur adult voices room"
+   ],
+   "want": [
+    "Speech",
+    "Male speech, man speaking",
+    "Female speech, woman speaking",
+    "Conversation",
+    "Hubbub, speech noise, speech babble"
+   ],
+   "avoid": [
+    "Music",
+    "Child speech, kid speaking",
+    "Laughter",
+    "Vehicle",
+    "Television"
+   ],
+   "lufs": -30,
+   "maxlen": 2.4
+  },
+  "marker-squeak": {
+   "desc": "whiteboard marker writing",
+   "kind": "oneshot",
+   "queries": [
+    "whiteboard marker writing",
+    "marker on whiteboard"
+   ],
+   "want": [
+    "Squeak",
+    "Writing",
+    "Scrape",
+    "Rub"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -28,
+   "maxlen": 1.8
+  },
+  "whiteboard-wipe": {
+   "desc": "wiping a mini whiteboard",
+   "kind": "oneshot",
+   "queries": [
+    "whiteboard eraser wipe",
+    "wiping whiteboard"
+   ],
+   "want": [
+    "Rub",
+    "Scrape",
+    "Writing"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -30,
+   "maxlen": 1.2
+  },
+  "pencil-write": {
+   "desc": "pencil writing on paper",
+   "kind": "oneshot",
+   "queries": [
+    "pencil writing paper",
+    "writing with pencil"
+   ],
+   "want": [
+    "Writing",
+    "Scratch",
+    "Rub"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -30,
+   "maxlen": 2.2
+  },
+  "crayons": {
+   "desc": "crayons scribbling on paper",
+   "kind": "oneshot",
+   "queries": [
+    "crayon drawing paper",
+    "crayons scribbling"
+   ],
+   "want": [
+    "Writing",
+    "Scratch",
+    "Rub"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -30,
+   "maxlen": 2.0
+  },
+  "pen-click": {
+   "desc": "a ballpoint pen click",
+   "kind": "oneshot",
+   "queries": [
+    "pen click",
+    "ballpoint pen clicking"
+   ],
+   "want": [
+    "Clicking",
+    "Tap",
+    "Tick"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -28,
+   "maxlen": 0.8
+  },
+  "paper-rustle": {
+   "desc": "handling a sheet or poster",
+   "kind": "oneshot",
+   "queries": [
+    "paper rustle",
+    "poster paper handling"
+   ],
+   "want": [
+    "Rustle",
+    "Crumpling, crinkling",
+    "Tearing"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -28,
+   "maxlen": 1.6
+  },
+  "paper-flick": {
+   "desc": "flicking through a pile of papers",
+   "kind": "oneshot",
+   "queries": [
+    "flipping through papers",
+    "paper stack flick"
+   ],
+   "want": [
+    "Rustle",
+    "Crumpling, crinkling",
+    "Tearing"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -28,
+   "maxlen": 1.4
+  },
+  "page-turn": {
+   "desc": "turning a book or notebook page",
+   "kind": "oneshot",
+   "queries": [
+    "book page turn",
+    "turning page notebook"
+   ],
+   "want": [
+    "Rustle",
+    "Tearing",
+    "Crumpling, crinkling"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -29,
+   "maxlen": 1.2
+  },
+  "book-close": {
+   "desc": "closing an exercise book",
+   "kind": "oneshot",
+   "queries": [
+    "book closing",
+    "notebook close"
+   ],
+   "want": [
+    "Thump, thud",
+    "Slam",
+    "Clapping",
+    "Tap"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -28,
+   "maxlen": 0.8
+  },
+  "scissors": {
+   "desc": "scissors cutting paper",
+   "kind": "oneshot",
+   "queries": [
+    "scissors cutting paper",
+    "cutting paper scissors"
+   ],
+   "want": [
+    "Scissors",
+    "Tearing",
+    "Scrape"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -28,
+   "maxlen": 1.6
+  },
+  "stapler": {
+   "desc": "stapling papers",
+   "kind": "oneshot",
+   "queries": [
+    "stapler",
+    "stapling paper"
+   ],
+   "want": [
+    "Clicking",
+    "Tap",
+    "Mechanisms",
+    "Thump, thud"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -28,
+   "maxlen": 1.0
+  },
+  "box-rattle": {
+   "desc": "rummaging in a box of classroom materials",
+   "kind": "oneshot",
+   "queries": [
+    "box of toys rattle",
+    "rummaging plastic box",
+    "craft materials box"
+   ],
+   "want": [
+    "Rattle",
+    "Rummage",
+    "Clatter",
+    "Shuffle",
+    "Rustle"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -29,
+   "maxlen": 1.6
+  },
+  "kg-blocks": {
+   "desc": "wooden blocks being stacked",
+   "kind": "oneshot",
+   "queries": [
+    "wooden blocks toys",
+    "stacking wooden blocks"
+   ],
+   "want": [
+    "Wood",
+    "Clatter",
+    "Knock",
+    "Tap"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -29,
+   "maxlen": 1.6
+  },
+  "chair-scrape": {
+   "desc": "a chair scraping as a student moves",
+   "kind": "oneshot",
+   "queries": [
+    "chair scrape floor",
+    "chair drag classroom"
+   ],
+   "want": [
+    "Scrape",
+    "Squeak",
+    "Wood",
+    "Creak"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -30,
+   "maxlen": 1.2
+  },
+  "footsteps-class": {
+   "desc": "a few steps across a classroom floor",
+   "kind": "oneshot",
+   "queries": [
+    "footsteps classroom",
+    "walking indoor footsteps"
+   ],
+   "want": [
+    "Walk, footsteps",
+    "Inside, small room"
+   ],
+   "avoid": [
+    "Music",
+    "Speech",
+    "Vehicle",
+    "Run"
+   ],
+   "lufs": -30,
+   "maxlen": 2.0
+  },
+  "door-close": {
+   "desc": "a classroom door closing gently",
+   "kind": "oneshot",
+   "queries": [
+    "classroom door close",
+    "door closing gently"
+   ],
+   "want": [
+    "Door",
+    "Slam",
+    "Knock"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -30,
+   "maxlen": 1.2
+  },
+  "cough-soft": {
+   "desc": "a soft single cough",
+   "kind": "oneshot",
+   "queries": [
+    "soft cough",
+    "single cough"
+   ],
+   "want": [
+    "Cough",
+    "Throat clearing"
+   ],
+   "avoid": [
+    "Music",
+    "Sneeze",
+    "Laughter"
+   ],
+   "lufs": -32,
+   "maxlen": 0.9
+  },
+  "keyboard-typing": {
+   "desc": "typing on a laptop keyboard",
+   "kind": "oneshot",
+   "queries": [
+    "laptop keyboard typing",
+    "keyboard typing"
+   ],
+   "want": [
+    "Typing",
+    "Computer keyboard",
+    "Clicking"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -29,
+   "maxlen": 2.4
+  },
+  "mouse-click": {
+   "desc": "a couple of mouse clicks",
+   "kind": "oneshot",
+   "queries": [
+    "mouse click",
+    "computer mouse clicking"
+   ],
+   "want": [
+    "Clicking",
+    "Tap",
+    "Computer keyboard"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -29,
+   "maxlen": 0.8
+  },
+  "tablet-tap": {
+   "desc": "fingers tapping a tablet screen",
+   "kind": "oneshot",
+   "queries": [
+    "tapping touchscreen",
+    "tablet screen tap"
+   ],
+   "want": [
+    "Tap",
+    "Clicking",
+    "Finger snapping"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -30,
+   "maxlen": 1.0
+  },
+  "device-chime": {
+   "desc": "a soft app notification chime",
+   "kind": "oneshot",
+   "queries": [
+    "soft notification chime",
+    "app notification sound gentle"
+   ],
+   "want": [
+    "Chime",
+    "Ding",
+    "Ding-dong",
+    "Bell",
+    "Glockenspiel"
+   ],
+   "avoid": [
+    "Music",
+    "Speech",
+    "Alarm",
+    "Siren",
+    "Vehicle"
+   ],
+   "lufs": -30,
+   "maxlen": 1.2
+  },
+  "printer": {
+   "desc": "a printer printing a page",
+   "kind": "oneshot",
+   "queries": [
+    "printer printing",
+    "laser printer page"
+   ],
+   "want": [
+    "Printer",
+    "Mechanisms",
+    "Whir"
+   ],
+   "avoid": [
+    "Music",
+    "Musical instrument",
+    "Speech",
+    "Laughter",
+    "Vehicle",
+    "Screaming"
+   ],
+   "lufs": -31,
+   "maxlen": 2.4
+  },
+  "timer-beep": {
+   "desc": "a classroom timer beeping, short",
+   "kind": "oneshot",
+   "queries": [
+    "kitchen timer beep",
+    "digital timer beep"
+   ],
+   "want": [
+    "Beep, bleep",
+    "Alarm clock",
+    "Buzzer"
+   ],
+   "avoid": [
+    "Music",
+    "Siren",
+    "Speech",
+    "Vehicle"
+   ],
+   "lufs": -30,
+   "maxlen": 1.4
+  },
+  "stopwatch-tick": {
+   "desc": "a stopwatch ticking",
+   "kind": "loop",
+   "queries": [
+    "stopwatch ticking",
+    "clock ticking fast"
+   ],
+   "want": [
+    "Tick",
+    "Tick-tock",
+    "Clock"
+   ],
+   "avoid": [
+    "Music",
+    "Speech"
+   ],
+   "lufs": -33,
+   "loop": 12
+  },
+  "clock-tick": {
+   "desc": "a wall clock ticking in a quiet room",
+   "kind": "loop",
+   "queries": [
+    "wall clock ticking",
+    "clock tick quiet room"
+   ],
+   "want": [
+    "Tick-tock",
+    "Tick",
+    "Clock"
+   ],
+   "avoid": [
+    "Music",
+    "Speech"
+   ],
+   "lufs": -34,
+   "loop": 16
+  },
+  "projector-hum": {
+   "desc": "projector / laptop fan hum",
+   "kind": "loop",
+   "queries": [
+    "projector fan hum",
+    "computer fan hum room"
+   ],
+   "want": [
+    "Mechanical fan",
+    "Hum",
+    "Air conditioning",
+    "Inside, small room"
+   ],
+   "avoid": [
+    "Music",
+    "Speech",
+    "Vehicle"
+   ],
+   "lufs": -38,
+   "loop": 20
+  },
+  "points-chime": {
+   "desc": "a light points ding, like a quiz app",
+   "kind": "oneshot",
+   "queries": [
+    "correct answer ding",
+    "game point ding soft"
+   ],
+   "want": [
+    "Ding",
+    "Chime",
+    "Bell",
+    "Glockenspiel"
+   ],
+   "avoid": [
+    "Music",
+    "Speech",
+    "Siren",
+    "Alarm"
+   ],
+   "lufs": -29,
+   "maxlen": 1.0
+  },
+  "buzzer-soft": {
+   "desc": "a quiz buzzer, short and not harsh",
+   "kind": "oneshot",
+   "queries": [
+    "quiz buzzer",
+    "game show buzzer short"
+   ],
+   "want": [
+    "Buzzer",
+    "Beep, bleep"
+   ],
+   "avoid": [
+    "Music",
+    "Speech",
+    "Siren",
+    "Vehicle"
+   ],
+   "lufs": -31,
+   "maxlen": 0.9
+  },
+  "glass-clink": {
+   "desc": "lab glassware clinking",
+   "kind": "oneshot",
+   "queries": [
+    "beaker glass clink",
+    "lab glassware"
+   ],
+   "want": [
+    "Glass",
+    "Chink, clink"
+   ],
+   "avoid": [
+    "Music",
+    "Speech"
+   ],
+   "lufs": -30,
+   "maxlen": 1.0
+  },
+  "coffee-cup": {
+   "desc": "a mug set down on a table",
+   "kind": "oneshot",
+   "queries": [
+    "coffee cup on table",
+    "mug clink"
+   ],
+   "want": [
+    "Dishes, pots, and pans",
+    "Chink, clink",
+    "Glass",
+    "Cutlery, silverware"
+   ],
+   "avoid": [
+    "Music",
+    "Speech"
+   ],
+   "lufs": -30,
+   "maxlen": 1.0
+  }
+ },
+ "rooms": {
+  "1": {
+   "signature": [
+    {
+     "asset": "kids-answer",
+     "every": [
+      7,
+      14
+     ],
+     "gain": 0.55
+    },
+    {
+     "asset": "marker-squeak",
+     "every": [
+      15,
+      30
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "group-table": {
+     "asset": "chatter-burst"
+    },
+    "board": {
+     "asset": "marker-squeak"
+    },
+    "teacher": {
+     "asset": "adult-murmur"
+    }
+   }
+  },
+  "2": {
+   "signature": [
+    {
+     "asset": "timer-beep",
+     "every": [
+      18,
+      30
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "box-rattle",
+     "every": [
+      9,
+      16
+     ],
+     "gain": 0.5
+    },
+    {
+     "asset": "chair-scrape",
+     "every": [
+      12,
+      22
+     ],
+     "gain": 0.45
+    }
+   ],
+   "spots": {
+    "station": {
+     "asset": "box-rattle"
+    },
+    "objective": {
+     "asset": "marker-squeak"
+    },
+    "tracker": {
+     "asset": "pen-click"
+    }
+   }
+  },
+  "3": {
+   "signature": [
+    {
+     "asset": "scissors",
+     "every": [
+      8,
+      15
+     ],
+     "gain": 0.5
+    },
+    {
+     "asset": "paper-rustle",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.45
+    }
+   ],
+   "spots": {
+    "poster": {
+     "asset": "paper-rustle"
+    },
+    "student": {
+     "asset": "kids-answer"
+    },
+    "rubric": {
+     "asset": "paper-flick"
+    }
+   }
+  },
+  "4": {
+   "signature": [
+    {
+     "asset": "paper-flick",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "stapler",
+     "every": [
+      20,
+      35
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "pen-click",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "gradebook": {
+     "asset": "page-turn"
+    },
+    "planner": {
+     "asset": "paper-flick"
+    },
+    "students": {
+     "asset": "chatter-burst"
+    }
+   }
+  },
+  "5": {
+   "signature": [
+    {
+     "asset": "points-chime",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "buzzer-soft",
+     "every": [
+      16,
+      28
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "kids-cheer-soft",
+     "every": [
+      20,
+      35
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "leaderboard": {
+     "asset": "points-chime"
+    },
+    "round": {
+     "asset": "buzzer-soft"
+    },
+    "back-row": {
+     "asset": "kids-whisper"
+    }
+   }
+  },
+  "6": {
+   "signature": [
+    {
+     "asset": "chatter-burst",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "marker-squeak",
+     "every": [
+      18,
+      28
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "tablet-tap",
+     "every": [
+      20,
+      30
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "21": {
+   "signature": [
+    {
+     "asset": "paper-flick",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "pencil-write",
+     "every": [
+      9,
+      15
+     ],
+     "gain": 0.45
+    }
+   ],
+   "spots": {
+    "pile": {
+     "asset": "paper-flick"
+    },
+    "ticket": {
+     "asset": "pencil-write"
+    },
+    "tomorrow": {
+     "asset": "page-turn"
+    }
+   }
+  },
+  "22": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "pen-click",
+     "every": [
+      15,
+      25
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "essay": {
+     "asset": "page-turn"
+    },
+    "student": {
+     "asset": "kids-whisper"
+    },
+    "next": {
+     "asset": "paper-flick"
+    }
+   }
+  },
+  "23": {
+   "signature": [
+    {
+     "asset": "mouse-click",
+     "every": [
+      9,
+      16
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "keyboard-typing",
+     "every": [
+      16,
+      28
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "projector-hum",
+     "loop": true,
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "chart": {
+     "asset": "mouse-click"
+    },
+    "plan": {
+     "asset": "page-turn"
+    },
+    "groups": {
+     "asset": "chair-scrape"
+    }
+   }
+  },
+  "24": {
+   "signature": [
+    {
+     "asset": "clock-tick",
+     "loop": true,
+     "gain": 0.3
+    },
+    {
+     "asset": "pencil-write",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "cough-soft",
+     "every": [
+      25,
+      40
+     ],
+     "gain": 0.3
+    }
+   ],
+   "spots": {
+    "test": {
+     "asset": "paper-flick"
+    },
+    "student": {
+     "asset": "kids-answer"
+    },
+    "board": {
+     "asset": "marker-squeak"
+    }
+   }
+  },
+  "31": {
+   "signature": [
+    {
+     "asset": "tablet-tap",
+     "every": [
+      7,
+      12
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "device-chime",
+     "every": [
+      18,
+      30
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "dashboard": {
+     "asset": "mouse-click"
+    },
+    "student": {
+     "asset": "tablet-tap"
+    },
+    "teacher": {
+     "asset": "adult-murmur"
+    }
+   }
+  },
+  "32": {
+   "signature": [
+    {
+     "asset": "tablet-tap",
+     "every": [
+      6,
+      11
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "projector-hum",
+     "loop": true,
+     "gain": 0.3
+    }
+   ],
+   "spots": {
+    "row1": {
+     "asset": "tablet-tap"
+    },
+    "row3": {
+     "asset": "kids-whisper"
+    },
+    "teacher": {
+     "asset": "adult-murmur"
+    }
+   }
+  },
+  "33": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      14,
+      24
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "mouse-click",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "report": {
+     "asset": "paper-rustle"
+    },
+    "plan": {
+     "asset": "page-turn"
+    },
+    "alef": {
+     "asset": "device-chime"
+    }
+   }
+  },
+  "34": {
+   "signature": [
+    {
+     "asset": "keyboard-typing",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "device-chime",
+     "every": [
+      20,
+      32
+     ],
+     "gain": 0.3
+    }
+   ],
+   "spots": {
+    "essay": {
+     "asset": "paper-flick"
+    },
+    "student": {
+     "asset": "keyboard-typing"
+    },
+    "history": {
+     "asset": "mouse-click"
+    }
+   }
+  },
+  "41": {
+   "signature": [
+    {
+     "asset": "crayons",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "kids-cheer-soft",
+     "every": [
+      18,
+      30
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "kids-clap",
+     "every": [
+      25,
+      40
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "drawing": {
+     "asset": "crayons"
+    },
+    "answer": {
+     "asset": "kids-answer"
+    },
+    "tally": {
+     "asset": "pencil-write"
+    }
+   }
+  },
+  "42": {
+   "signature": [
+    {
+     "asset": "adult-murmur",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "cough-soft",
+     "every": [
+      22,
+      36
+     ],
+     "gain": 0.3
+    }
+   ],
+   "spots": {
+    "feedback": {
+     "asset": "adult-murmur"
+    },
+    "after": {
+     "asset": "chair-scrape"
+    },
+    "student": {
+     "asset": "kids-whisper"
+    }
+   }
+  },
+  "43": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "pen-click",
+     "every": [
+      16,
+      26
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "margin": {
+     "asset": "pencil-write"
+    },
+    "student": {
+     "asset": "kids-whisper"
+    },
+    "next": {
+     "asset": "page-turn"
+    }
+   }
+  },
+  "44": {
+   "signature": [
+    {
+     "asset": "pencil-write",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "page-turn",
+     "every": [
+      14,
+      24
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "green": {
+     "asset": "pen-click"
+    },
+    "pattern": {
+     "asset": "page-turn"
+    },
+    "student": {
+     "asset": "kids-answer"
+    }
+   }
+  },
+  "51": {
+   "signature": [
+    {
+     "asset": "kids-answer",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.5
+    },
+    {
+     "asset": "marker-squeak",
+     "every": [
+      18,
+      30
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "question": {
+     "asset": "adult-murmur"
+    },
+    "student": {
+     "asset": "kids-answer"
+    },
+    "reasons": {
+     "asset": "pencil-write"
+    }
+   }
+  },
+  "52": {
+   "signature": [
+    {
+     "asset": "kids-answer",
+     "every": [
+      9,
+      16
+     ],
+     "gain": 0.5
+    },
+    {
+     "asset": "chatter-burst",
+     "every": [
+      20,
+      32
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "three": {
+     "asset": "kids-answer"
+    },
+    "middle": {
+     "asset": "kids-whisper"
+    },
+    "quiet": {
+     "asset": "pencil-write"
+    }
+   }
+  },
+  "53": {
+   "signature": [
+    {
+     "asset": "kids-answer",
+     "every": [
+      4,
+      8
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "stopwatch-tick",
+     "loop": true,
+     "gain": 0.25
+    }
+   ],
+   "spots": {
+    "timer": {
+     "asset": "stopwatch-tick"
+    },
+    "explanation": {
+     "asset": "adult-murmur"
+    },
+    "student": {
+     "asset": "kids-answer"
+    }
+   }
+  },
+  "54": {
+   "signature": [
+    {
+     "asset": "kids-answer",
+     "every": [
+      6,
+      10
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "chair-scrape",
+     "every": [
+      20,
+      30
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "hands": {
+     "asset": "kids-answer"
+    },
+    "late": {
+     "asset": "kids-whisper"
+    },
+    "answer": {
+     "asset": "kids-answer"
+    }
+   }
+  },
+  "61": {
+   "signature": [
+    {
+     "asset": "paper-flick",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "pencil-write",
+     "every": [
+      9,
+      15
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "sheets": {
+     "asset": "paper-rustle"
+    },
+    "bronze": {
+     "asset": "pencil-write"
+    },
+    "gold": {
+     "asset": "page-turn"
+    }
+   }
+  },
+  "62": {
+   "signature": [
+    {
+     "asset": "clock-tick",
+     "loop": true,
+     "gain": 0.3
+    },
+    {
+     "asset": "timer-beep",
+     "every": [
+      25,
+      40
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "fast": {
+     "asset": "pencil-write"
+    },
+    "slow": {
+     "asset": "kids-whisper"
+    },
+    "timer": {
+     "asset": "timer-beep"
+    }
+   }
+  },
+  "63": {
+   "signature": [
+    {
+     "asset": "chatter-burst",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "chair-scrape",
+     "every": [
+      20,
+      30
+     ],
+     "gain": 0.4
+    }
+   ],
+   "spots": {
+    "chart": {
+     "asset": "paper-rustle"
+    },
+    "sparrow": {
+     "asset": "kids-whisper"
+    },
+    "eagle": {
+     "asset": "kids-answer"
+    }
+   }
+  },
+  "64": {
+   "signature": [
+    {
+     "asset": "adult-murmur",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "kids-whisper",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "support": {
+     "asset": "adult-murmur"
+    },
+    "confident": {
+     "asset": "chatter-burst"
+    },
+    "book": {
+     "asset": "page-turn"
+    }
+   }
+  },
+  "71": {
+   "signature": [
+    {
+     "asset": "chatter-burst",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "tablet-tap",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "marker-squeak",
+     "every": [
+      20,
+      30
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "board": {
+     "asset": "marker-squeak"
+    },
+    "groups": {
+     "asset": "chatter-burst"
+    },
+    "ticket": {
+     "asset": "paper-flick"
+    },
+    "file": {
+     "asset": "page-turn"
+    }
+   }
+  },
+  "72": {
+   "signature": [
+    {
+     "asset": "pencil-write",
+     "every": [
+      6,
+      11
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "page-turn",
+     "every": [
+      15,
+      25
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "cough-soft",
+     "every": [
+      25,
+      40
+     ],
+     "gain": 0.3
+    }
+   ],
+   "spots": {
+    "explain": {
+     "asset": "adult-murmur"
+    },
+    "whiteboards": {
+     "asset": "whiteboard-wipe"
+    },
+    "books": {
+     "asset": "page-turn"
+    },
+    "alef": {
+     "asset": "mouse-click"
+    }
+   }
+  },
+  "73": {
+   "signature": [
+    {
+     "asset": "chatter-burst",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "device-chime",
+     "every": [
+      15,
+      25
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "timer-beep",
+     "every": [
+      25,
+      40
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "questions": {
+     "asset": "adult-murmur"
+    },
+    "alef": {
+     "asset": "tablet-tap"
+    },
+    "diag": {
+     "asset": "paper-flick"
+    },
+    "ticket": {
+     "asset": "pencil-write"
+    }
+   }
+  },
+  "74": {
+   "signature": [
+    {
+     "asset": "pencil-write",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "book-close",
+     "every": [
+      18,
+      28
+     ],
+     "gain": 0.35
+    }
+   ],
+   "spots": {
+    "criteria": {
+     "asset": "marker-squeak"
+    },
+    "check": {
+     "asset": "whiteboard-wipe"
+    },
+    "books": {
+     "asset": "book-close"
+    },
+    "students": {
+     "asset": "footsteps-class"
+    }
+   }
+  },
+  "25:staff-meeting": {
+   "signature": [
+    {
+     "asset": "coffee-cup",
+     "every": [
+      18,
+      30
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "page-turn",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "adult-murmur",
+     "every": [
+      15,
+      25
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "25:grade-4": {
+   "signature": [
+    {
+     "asset": "kids-answer",
+     "every": [
+      9,
+      16
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "pencil-write",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    }
+   ]
+  },
+  "25:markbook": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "pen-click",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "25:parents": {
+   "signature": [
+    {
+     "asset": "adult-murmur",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "footsteps-class",
+     "every": [
+      14,
+      24
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "25:reteach": {
+   "signature": [
+    {
+     "asset": "marker-squeak",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "kids-answer",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.4
+    }
+   ]
+  },
+  "35:tour": {
+   "signature": [
+    {
+     "asset": "footsteps-class",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "adult-murmur",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "35:grade-5": {
+   "signature": [
+    {
+     "asset": "tablet-tap",
+     "every": [
+      7,
+      12
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "pencil-write",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "35:grade-8": {
+   "signature": [
+    {
+     "asset": "glass-clink",
+     "every": [
+      10,
+      18
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "tablet-tap",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "35:writing": {
+   "signature": [
+    {
+     "asset": "keyboard-typing",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "device-chime",
+     "every": [
+      20,
+      30
+     ],
+     "gain": 0.3
+    }
+   ]
+  },
+  "35:data-meeting": {
+   "signature": [
+    {
+     "asset": "mouse-click",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "projector-hum",
+     "loop": true,
+     "gain": 0.3
+    },
+    {
+     "asset": "coffee-cup",
+     "every": [
+      20,
+      30
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "45:audit": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      7,
+      12
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "pen-click",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "45:grade-3": {
+   "signature": [
+    {
+     "asset": "pencil-write",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "kids-whisper",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "45:award": {
+   "signature": [
+    {
+     "asset": "kids-clap",
+     "every": [
+      14,
+      24
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "adult-murmur",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "45:grade-9": {
+   "signature": [
+    {
+     "asset": "pencil-write",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "marker-squeak",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "45:peer": {
+   "signature": [
+    {
+     "asset": "chatter-burst",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "paper-flick",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "55:rubric": {
+   "signature": [
+    {
+     "asset": "paper-flick",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "pen-click",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "55:grade-6": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "kids-answer",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.4
+    }
+   ]
+  },
+  "55:grade-2": {
+   "signature": [
+    {
+     "asset": "kids-answer",
+     "every": [
+      6,
+      11
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "crayons",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "55:dept": {
+   "signature": [
+    {
+     "asset": "coffee-cup",
+     "every": [
+      18,
+      30
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "page-turn",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "adult-murmur",
+     "every": [
+      15,
+      25
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "55:grade-11": {
+   "signature": [
+    {
+     "asset": "marker-squeak",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "kids-answer",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "65:template": {
+   "signature": [
+    {
+     "asset": "keyboard-typing",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "mouse-click",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "65:kg": {
+   "signature": [
+    {
+     "asset": "kg-blocks",
+     "every": [
+      6,
+      11
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "chatter-burst",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "65:grade-5": {
+   "signature": [
+    {
+     "asset": "pencil-write",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "paper-flick",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "65:ta": {
+   "signature": [
+    {
+     "asset": "paper-rustle",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "footsteps-class",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "65:grade-9": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      9,
+      15
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "kids-whisper",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "75:objectives": {
+   "signature": [
+    {
+     "asset": "marker-squeak",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "kids-answer",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "75:messy": {
+   "signature": [
+    {
+     "asset": "whiteboard-wipe",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "chatter-burst",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "75:data": {
+   "signature": [
+    {
+     "asset": "coffee-cup",
+     "every": [
+      18,
+      30
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "page-turn",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "adult-murmur",
+     "every": [
+      15,
+      25
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "75:marking": {
+   "signature": [
+    {
+     "asset": "pen-click",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "page-turn",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    }
+   ]
+  },
+  "75:plenary": {
+   "signature": [
+    {
+     "asset": "kids-answer",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "chair-scrape",
+     "every": [
+      16,
+      26
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "85:math": {
+   "signature": [
+    {
+     "asset": "pencil-write",
+     "every": [
+      8,
+      14
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "marker-squeak",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "85:science": {
+   "signature": [
+    {
+     "asset": "glass-clink",
+     "every": [
+      9,
+      15
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "pencil-write",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "85:english": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      9,
+      15
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "kids-whisper",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "85:arabic": {
+   "signature": [
+    {
+     "asset": "page-turn",
+     "every": [
+      10,
+      16
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "kids-answer",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.4
+    }
+   ]
+  },
+  "85:kg": {
+   "signature": [
+    {
+     "asset": "kg-blocks",
+     "every": [
+      6,
+      11
+     ],
+     "gain": 0.45
+    },
+    {
+     "asset": "chatter-burst",
+     "every": [
+      12,
+      20
+     ],
+     "gain": 0.35
+    }
+   ]
+  },
+  "85:leadership": {
+   "signature": [
+    {
+     "asset": "coffee-cup",
+     "every": [
+      16,
+      26
+     ],
+     "gain": 0.4
+    },
+    {
+     "asset": "printer",
+     "every": [
+      22,
+      34
+     ],
+     "gain": 0.35
+    },
+    {
+     "asset": "adult-murmur",
+     "every": [
+      14,
+      22
+     ],
+     "gain": 0.35
+    }
+   ]
+  }
+ }
+}
