@@ -1,0 +1,39 @@
+{
+  "_doc": "Which real voice plays each slot. en = Kokoro-82M v1.0 voices (Apache-2.0). ar = Piper voices: 'emirati' = vadimbelsky/arabic-emirati-female-piper (MIT), 'kareem' = rhasspy ar_JO-kareem-medium. pitch = semitones, speed > 1 is faster. Changing a slot here re-renders only that slot's clips if you also delete them, or everything with force=true.",
+  "en": {
+    "narrator":   { "voice": "bf_emma",     "speed": 0.95 },
+    "toki":       { "voice": "am_puck",     "speed": 1.0 },
+    "teacher-f0": { "voice": "af_heart",    "speed": 1.0 },
+    "teacher-f1": { "voice": "af_bella",    "speed": 1.0 },
+    "teacher-f2": { "voice": "bf_isabella", "speed": 1.0 },
+    "teacher-f3": { "voice": "af_sarah",    "speed": 1.0 },
+    "teacher-f4": { "voice": "af_nicole",   "speed": 1.0 },
+    "teacher-f5": { "voice": "bf_lily",     "speed": 1.0 },
+    "teacher-m0": { "voice": "am_michael",  "speed": 1.0 },
+    "teacher-m1": { "voice": "bm_george",   "speed": 1.0 },
+    "teacher-m2": { "voice": "am_adam",     "speed": 1.0 },
+    "teacher-m3": { "voice": "bm_lewis",    "speed": 1.0 },
+    "teacher-m4": { "voice": "am_eric",     "speed": 1.0 },
+    "teacher-m5": { "voice": "bm_daniel",   "speed": 1.0 }
+  },
+  "ar": {
+    "narrator":   { "voice": "emirati", "speed": 0.95, "pitch": -0.5 },
+    "toki":       { "voice": "kareem",  "speed": 1.03, "pitch": 1.5 },
+    "teacher-f0": { "voice": "emirati", "speed": 1.0,  "pitch": 0 },
+    "teacher-f1": { "voice": "emirati", "speed": 1.04, "pitch": 1.0 },
+    "teacher-f2": { "voice": "emirati", "speed": 0.97, "pitch": -1.25 },
+    "teacher-f3": { "voice": "emirati", "speed": 1.02, "pitch": 0.6 },
+    "teacher-f4": { "voice": "emirati", "speed": 0.98, "pitch": -0.6 },
+    "teacher-f5": { "voice": "emirati", "speed": 1.05, "pitch": 1.6 },
+    "teacher-m0": { "voice": "kareem",  "speed": 1.0,  "pitch": -1.0 },
+    "teacher-m1": { "voice": "kareem",  "speed": 0.97, "pitch": -2.2 },
+    "teacher-m2": { "voice": "kareem",  "speed": 1.03, "pitch": -0.3 },
+    "teacher-m3": { "voice": "kareem",  "speed": 0.98, "pitch": -1.6 },
+    "teacher-m4": { "voice": "kareem",  "speed": 1.02, "pitch": -2.8 },
+    "teacher-m5": { "voice": "kareem",  "speed": 1.0,  "pitch": 0.4 }
+  },
+  "replace": {
+    "en": { "DLIS": "D.L.I.S.", "DLISs": "D.L.I.S.s", "Alef": "Aleph", "Toki": "Toki" },
+    "ar": { "DLIS": "دي إل آي إس" }
+  }
+}
