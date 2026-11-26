@@ -1,5 +1,10 @@
 name: Voice bake-off
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      engines:
+        description: "Engines to run (comma list): baseline,chatterbox,qwen,gemini"
+        default: "gemini"
 permissions: { contents: write }
 concurrency: { group: bakeoff, cancel-in-progress: true }
 jobs:
@@ -21,13 +26,22 @@ jobs:
           curl -sSLO https://huggingface.co/vadimbelsky/arabic-emirati-female-piper/resolve/main/arabic-emirati-female-model.onnx.json
           curl -sSLO https://huggingface.co/rhasspy/piper-voices/resolve/main/ar/ar_JO/kareem/medium/ar_JO-kareem-medium.onnx
           curl -sSLO https://huggingface.co/rhasspy/piper-voices/resolve/main/ar/ar_JO/kareem/medium/ar_JO-kareem-medium.onnx.json
-      - run: python tools/audio/bakeoff.py --engine baseline
+      - name: Keep earlier bake-off results
+        run: git fetch -q origin bakeoff && git checkout origin/bakeoff -- bakeoff || true
+      - if: contains(inputs.engines, 'baseline')
+        run: python tools/audio/bakeoff.py --engine baseline
+      - name: Gemini (the engine behind Vids voice-overs)
+        if: contains(inputs.engines, 'gemini')
+        env: { GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}" }
+        run: python tools/audio/bakeoff.py --engine gemini
       - name: Chatterbox (MIT)
+        if: contains(inputs.engines, 'chatterbox')
         continue-on-error: true
         run: |
           pip install -q chatterbox-tts
           python tools/audio/bakeoff.py --engine chatterbox
       - name: Qwen3-TTS (Apache-2.0)
+        if: contains(inputs.engines, 'qwen')
         continue-on-error: true
         run: |
           pip install -q qwen-tts

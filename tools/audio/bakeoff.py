@@ -100,6 +100,48 @@ elif a.engine == 'qwen':
                 return wavs[0], sr
             run_variant('qwen', 'customvoice', lang, role, gen)
 
+elif a.engine == 'gemini':
+    import base64, urllib.request, urllib.error
+    KEY = os.environ.get('GEMINI_API_KEY', '')
+    if not KEY:
+        print('GEMINI_API_KEY is not set: add the repository secret'); sys.exit(2)
+    API = 'https://generativelanguage.googleapis.com/v1beta'
+    def api(path, body=None):
+        req = urllib.request.Request(f'{API}/{path}', data=json.dumps(body).encode() if body else None,
+                                     headers={'content-type': 'application/json', 'x-goog-api-key': KEY})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.loads(r.read())
+    try:
+        names = [m['name'].split('/')[-1] for m in api('models?pageSize=200').get('models', [])]
+    except urllib.error.HTTPError as e:
+        print('key rejected:', e.code, e.read().decode()[:300]); sys.exit(3)
+    tts = [n for n in names if 'tts' in n]
+    img = [n for n in names if 'image' in n]
+    print('TTS models:', tts); print('image models:', img)
+    G = json.load(open('tools/audio/cast.json'))['gemini']
+    MOOD = {'narrator': '', 'toki': '', 'teacher-f': 'proud of the lesson and a little guarded', 'teacher-m': 'defensive and a bit clipped, protecting how they teach'}
+    VOICE = {'narrator': G['voices']['narrator'], 'toki': G['voices']['toki'], 'teacher-f': G['voices']['teacher-f1'], 'teacher-m': G['voices']['teacher-m0']}
+    for model in sorted(tts, key=lambda n: ('pro' not in n, n))[:2]:
+        for lang in ['ar', 'en']:
+            for role in LINES[lang]:
+                who = 'teacher' if role.startswith('teacher') else role
+                def gen(t, role=role, who=who, lang=lang, model=model):
+                    mood = (' — ' + MOOD[role]) if MOOD[role] else ''
+                    prompt = (f"You are voicing {G['persona'][who]}{mood}. {G['language'][lang]} "
+                              f"Read ONLY the line between the markers, exactly as written, with no preamble.\n<<<\n{t}\n>>>")
+                    body = {'contents': [{'parts': [{'text': prompt}]}], 'generationConfig': {'responseModalities': ['AUDIO'],
+                            'speechConfig': {'voiceConfig': {'prebuiltVoiceConfig': {'voiceName': VOICE[role]}}}}}
+                    for attempt in range(6):
+                        try:
+                            r = api(f'models/{model}:generateContent', body)
+                            part = r['candidates'][0]['content']['parts'][0]['inlineData']
+                            pcm = np.frombuffer(base64.b64decode(part['data']), dtype='<i2').astype(np.float32) / 32768.0
+                            return pcm, 24000
+                        except urllib.error.HTTPError as e:
+                            msg = e.read().decode()[:300]; print('  http', e.code, msg[:160]); time.sleep(min(60, 6 * (attempt + 1)))
+                    raise RuntimeError('gemini failed')
+                run_variant('gemini', model, lang, role, gen)
+
 elif a.engine == 'baseline':
     # The voices in the game today — and the timbre references for the
     # Chatterbox "cast" variant (our own synthetic voices, no real person).
