@@ -18,6 +18,7 @@ ap.add_argument('--force', action='store_true')
 ap.add_argument('--limit', type=int, default=0)
 ap.add_argument('--tashkeel', default='auto', choices=['auto', 'on', 'off'])
 ap.add_argument('--redo', default='', help='regex: re-render clips whose text matches')
+ap.add_argument('--redo-slots', default='', help='comma list: re-render every clip of these voice slots')
 a = ap.parse_args()
 
 script = [c for c in json.load(open('tools/audio/out/script.json')) if c['lang'] == a.lang]
@@ -152,7 +153,8 @@ report, t0, done = [], time.time(), 0
 for i, c in enumerate(script):
     path = os.path.join(outdir, c['key'] + '.mp3')
     spec = CAST[c['slot']]
-    if not a.force and os.path.exists(path) and not (a.redo and re.search(a.redo, c['text'])):
+    redo = (a.redo and re.search(a.redo, c['text'])) or (c['slot'] in a.redo_slots.split(','))
+    if not a.force and os.path.exists(path) and not redo:
         continue
     au, sr = synth(prep(c['text']), spec)
     post(au, sr, spec, path)
@@ -169,8 +171,13 @@ for c in script:
     report.append({'key': c['key'], 'slot': c['slot'], 'where': c['where'], 'err': round(err(c['text'], hyp), 3),
                    'dur': round(dur, 2), 'cps': round(len(c['text']) / max(dur, 0.1), 1), 'ref': c['text'], 'hyp': hyp})
 
-LIMIT = 0.5 if a.lang == 'en' else 0.6   # beyond this a clip is dropped; the device voice reads that line
-keep = [r['key'] for r in report if r['err'] <= LIMIT]
+# Beyond the limit a clip is dropped and the device voice reads that line.
+# The Emirati female voice is held to a stricter bar: its errors are
+# mispronunciations a listener hears, not transcription noise.
+def limit(slot):
+    if a.lang == 'en': return 0.5
+    return 0.3 if CAST[slot]['voice'] == 'emirati' else 0.6
+keep = [r['key'] for r in report if r['err'] <= limit(r['slot'])]
 want = {c['key'] for c in script}
 for f in os.listdir(outdir):
     k = f[:-4]

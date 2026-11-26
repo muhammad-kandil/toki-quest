@@ -11,6 +11,9 @@ on:
       redo:
         description: "Re-render clips whose text matches this regex (e.g. Ms\\.)"
         default: ""
+      redo_slots:
+        description: "Re-render every clip of these voice slots (e.g. narrator)"
+        default: ""
       force:
         description: "Re-render every voice clip"
         type: boolean
@@ -71,7 +74,7 @@ jobs:
           ls -la
       - name: Render + listen back
         if: contains(inputs.voice, matrix.lang)
-        run: python tools/audio/render_voice.py --lang ${{ matrix.lang }} --models models --out public/audio/voice ${{ inputs.force && '--force' || '' }} ${{ inputs.redo != '' && format('--redo "{0}"', inputs.redo) || '' }}
+        run: python tools/audio/render_voice.py --lang ${{ matrix.lang }} --models models --out public/audio/voice ${{ inputs.force && '--force' || '' }} ${{ inputs.redo != '' && format('--redo "{0}"', inputs.redo) || '' }} ${{ inputs.redo_slots != '' && format('--redo-slots {0}', inputs.redo_slots) || '' }}
       - uses: actions/upload-artifact@v4
         if: contains(inputs.voice, matrix.lang)
         with:
