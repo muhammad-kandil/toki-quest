@@ -17,6 +17,7 @@ ap.add_argument('--out', required=True)
 ap.add_argument('--force', action='store_true')
 ap.add_argument('--limit', type=int, default=0)
 ap.add_argument('--tashkeel', default='auto', choices=['auto', 'on', 'off'])
+ap.add_argument('--redo', default='', help='regex: re-render clips whose text matches')
 a = ap.parse_args()
 
 script = [c for c in json.load(open('tools/audio/out/script.json')) if c['lang'] == a.lang]
@@ -29,7 +30,8 @@ if a.limit:
 
 def prep(text):
     for k, v in REPL.items():
-        text = re.sub(r'\b%s\b' % re.escape(k), v, text)
+        pat = (r'\b' + re.escape(k) + (r'\b' if k[-1].isalnum() else '')) if k[0].isalnum() else re.escape(k)
+        text = re.sub(pat, v, text)
     if a.lang == 'ar':
         from num2words import num2words
         text = text.translate(str.maketrans('٠١٢٣٤٥٦٧٨٩', '0123456789'))
@@ -103,7 +105,16 @@ def norm_ar(s):
     s = AR_STRIP.sub(' ', s)
     s = re.sub('[إأآا]', 'ا', s).replace('ى', 'ي').replace('ة', 'ه')
     return re.sub(r'\s+', ' ', s).strip()
+NUM = None
 def norm_en(s):
+    global NUM
+    s = s.replace('’', "'").replace('‘', "'")
+    try:
+        from num2words import num2words
+        s = re.sub(r'\d+(\.\d+)?', lambda m: num2words(float(m.group(0)) if '.' in m.group(0) else int(m.group(0))), s)
+    except Exception:
+        pass
+    s = s.replace('-', ' ')
     return re.sub(r'\s+', ' ', re.sub(r"[^a-z0-9' ]", ' ', s.lower())).strip()
 
 def err(ref, hyp):
@@ -141,7 +152,7 @@ report, t0, done = [], time.time(), 0
 for i, c in enumerate(script):
     path = os.path.join(outdir, c['key'] + '.mp3')
     spec = CAST[c['slot']]
-    if not a.force and os.path.exists(path):
+    if not a.force and os.path.exists(path) and not (a.redo and re.search(a.redo, c['text'])):
         continue
     au, sr = synth(prep(c['text']), spec)
     post(au, sr, spec, path)
