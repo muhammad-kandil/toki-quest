@@ -55,11 +55,17 @@ else:
     }
     _tash = None
     def tashkeel(t):
+        """Add short vowels (CATT encoder-decoder, Apache-2.0) sentence by
+        sentence; the model is trained on sentence-length input."""
         global _tash
         if _tash is None:
-            from libtashkeel import tashkeel as _t
-            _tash = _t
-        return _tash(t)
+            from catt_tashkeel import CATTEncoderDecoder
+            _tash = CATTEncoderDecoder()
+        parts = re.split(r'([.!?؟،,:;"]\s*)', t)
+        texts = [p for p in parts[::2]]
+        seps = parts[1::2] + ['']
+        done = _tash.do_tashkeel_batch([x if x.strip() else x for x in texts], verbose=False)
+        return ''.join((d if x.strip() else x) + sp for d, x, sp in zip(done, texts, seps))
     TASH = {}  # per voice: decided by A/B below when --tashkeel auto
     def synth(text, spec):
         v = VOICES[spec['voice']]

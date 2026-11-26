@@ -51,7 +51,7 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg espeak-ng >/dev/null
           pip install -q numpy soundfile jiwer faster-whisper num2words
-          if [ "${{ matrix.lang }}" = en ]; then pip install -q kokoro-onnx; else pip install -q piper-tts libtashkeel; fi
+          if [ "${{ matrix.lang }}" = en ]; then pip install -q kokoro-onnx; else pip install -q piper-tts onnxruntime tqdm && pip install -q --no-deps catt-tashkeel; fi
       - name: Models
         if: contains(inputs.voice, matrix.lang)
         run: |
