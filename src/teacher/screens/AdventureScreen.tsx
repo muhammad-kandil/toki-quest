@@ -27,6 +27,9 @@ import { S, fmt } from '../strings';
 import { ResourceCard, art, gradeOf, missionLine, reducedMotion, useToast } from '../ui';
 import { CommunityPanel, useShareText } from '../components/CommunityPanel';
 import { PathChips } from '../components/PathChips';
+import { InteractionView } from '../components/Interactions';
+import { interactionOf } from '../engine/interactions';
+import { track } from '../analytics';
 import { StudentRows } from '../components/StudentRows';
 import type { Adventure, ClassEvent, Ending, Outcome } from '../types';
 
@@ -62,7 +65,22 @@ function makeRand(): Rand {
   return Math.random;
 }
 
+/** Universe session: this screen plays one Scenario (Adventure-shaped) and reports back. */
+export interface ScenarioMode {
+  rand: Rand;
+  /** Phase label for the card, e.g. "Launch". */
+  label: string;
+  /** Session flags the scenario starts with. */
+  flags: Record<string, boolean>;
+  /** Header line, e.g. "Session 2 · Launch". */
+  eyebrow: string;
+  /** 0 launch · 1 facilitate · 2 extend (the rail). */
+  phaseIndex: number;
+  onDone: (sim: SimState) => void;
+}
+
 interface Props {
+  scenario?: ScenarioMode;
   adv: Adventure;
   save: GameSave;
   update: (fn: (s: GameSave) => GameSave) => void;
@@ -73,18 +91,18 @@ interface Props {
   onOpen: (id: string) => void;
 }
 
-export default function AdventureScreen({ adv: baseAdv, save, update, registerBack, onExit, onReplay, onPass, onOpen }: Props) {
+export default function AdventureScreen({ scenario, adv: baseAdv, save, update, registerBack, onExit, onReplay, onPass, onOpen }: Props) {
   const { tx, lang } = useLocale();
   const toast = useToast();
   const stages = getTermPass().stages.length;
   const untimed = baseAdv.timed === false;
-  const rand = useRef<Rand>(makeRand());
-  const saved = useRef<SavedRun | null>(loadRun(baseAdv.id));
+  const rand = useRef<Rand>(scenario?.rand ?? makeRand());
+  const saved = useRef<SavedRun | null>(scenario ? null : loadRun(baseAdv.id));
   const [adv, setAdv] = useState<Adventure>(baseAdv);
   const hasFilm = !!baseAdv.film?.length;
   const [phase, setPhase] = useState<Phase>(hasFilm ? 'film' : 'mission');
   const [shot, setShot] = useState(0);
-  const [sim, setSim] = useState<SimState>(() => createSim(baseAdv, save.flags));
+  const [sim, setSim] = useState<SimState>(() => createSim(baseAdv, scenario ? scenario.flags : save.flags));
   const [history, setHistory] = useState<SimState[]>([]);
   const [active, setActive] = useState<string | null>(null);
   const [last, setLast] = useState<(ChoiceResult & { event: string; choice: number; isNew: boolean; at: number }) | null>(null);
@@ -119,10 +137,11 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
   /* ---------- pause / resume (no penalty) ---------- */
   const inPlay = phase === 'explore' || phase === 'result' || phase === 'puzzle';
   const snapshot = useRef<SavedRun | null>(null);
-  snapshot.current = inPlay || phase === 'ending' ? { v: 1, sim, used, solved, minutes: adv.lessonMinutes - baseAdv.lessonMinutes } : null;
+  snapshot.current = !scenario && (inPlay || phase === 'ending') ? { v: 1, sim, used, solved, minutes: adv.lessonMinutes - baseAdv.lessonMinutes } : null;
   useEffect(() => { if (snapshot.current) storeRun(adv.id, snapshot.current); }, [sim, used, solved, phase]); // eslint-disable-line react-hooks/exhaustive-deps
   const pauseAndExit = () => {
     if (snapshot.current) { storeRun(adv.id, snapshot.current); toast(tx(S.pausedToast)); }
+    else if (scenario && inPlay) toast(tx(S.pausedToast));
     onExit();
   };
   useEffect(() => {
@@ -143,6 +162,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
   /* ---------- lesson ---------- */
   const startPlay = () => {
     sfx.play('step');
+    track('scenario_enter', { scenario: (baseAdv as Adventure & { code?: string }).code ?? adv.id });
     storeRun(adv.id, null);
     saved.current = null;
     setPhase('explore');
@@ -199,6 +219,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
 
   const clue = (ev: ClassEvent, clueId: string) => {
     sfx.play('discover');
+    track('evidence_reveal', { event: ev.id, clue: clueId });
     setSim((cur) => {
       let n = revealClue(cur, ev.id, clueId);
       if (cluesReady(n, ev) && !cluesReady(cur, ev)) n = awardXp(n, `${adv.id}:inv:${ev.id}`, 0, save.rewarded);
@@ -211,6 +232,8 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
     setHistory((h) => [...h, base]);
     const r = choose(base, adv, ev.id, i, save.rewarded);
     const isNew = !!r.discovered && !toolkitAtStart.current.includes(r.discovered) && !base.found.includes(r.discovered);
+    track('choice_commit', { event: ev.id, choice: i, outcome: r.outcome.id });
+    if (isNew && r.discovered) track('tool_discovered', { tool: r.discovered, event: ev.id });
     let n = r.sim;
     if (isNew && r.discovered) n = awardXp(n, `tool:${r.discovered}`, XP_TOOL, save.rewarded);
     if (untimed && hasSchedule && adv.students.some((st) => st.id === ev.on) && !isPoolEvent(adv, ev)) n = drawPool(n, adv, rand.current).sim;
@@ -257,6 +280,7 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
 
   const tapTarget = (id: string) => {
     if (phase !== 'explore' || active) return;
+    track('hotspot_tap', { target: id });
     if (untimed && hasSchedule) {
       const ev = liveOn(sim, adv, id)[0];
       if (ev) { openEvent(ev); return; }
@@ -395,6 +419,9 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
   const minsLeft = Math.max(0, adv.lessonMinutes - sim.t);
   const metCount = adv.students.filter((st) => adv.events.some((e) => e.on === st.id && (sim.done.includes(e.id) || !!sim.profiles?.[e.id]))).length;
   const endingNow = untimed && milestoneReached(sim, adv) ? resolveEnding(adv, sim.flags).primary : undefined;
+  /** Scenario milestone: every student hotspot event resolved (no student hotspots: every hotspot). */
+  const studentHot = adv.schedule.filter((q) => adv.students.some((st) => st.id === findEvent(adv, q.event)?.on));
+  const scenarioComplete = (studentHot.length ? studentHot : adv.schedule).every((q) => sim.done.includes(q.event));
   const film = adv.film ?? [];
   const sceneUrl = phase === 'film' && film[shot] ? film[shot].picture : adv.scene;
 
@@ -422,14 +449,16 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
         ) : (
           <button type="button" className="t-btn t-btn--block ts-mission__start" onClick={startPlay}>{tx(S.startPlaying)}</button>
         )}
-        {hasFilm && <button type="button" className="ts-link" onClick={() => { setShot(0); setPhase('film'); }}>{tx(S.watchFilm)}</button>}
+        {hasFilm && !scenario && <button type="button" className="ts-link" onClick={() => { setShot(0); setPhase('film'); }}>{tx(S.watchFilm)}</button>}
       </div>
     );
   } else if (phase === 'explore' && active) {
     const ev = findEvent(adv, active)!;
     const prof = profileOf(sim, ev);
     const revealed = sim.clues?.[ev.id] ?? [];
-    const ready = cluesReady(sim, ev);
+    const inter = interactionOf(ev);
+    const interDone = !!sim.clues?.[ev.id]?.includes('__done');
+    const ready = !inter || inter.type === 'investigate' ? cluesReady(sim, ev) : interDone;
     const offer = offeredChoices(ev, sim.flags);
     panelBody = (
       <div className="t-stack--3">
@@ -475,6 +504,11 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
             </>
           );
         })()}
+        {inter && inter.type !== 'investigate' && (
+          <InteractionView it={inter} done={interDone} rand={rand.current}
+            onEvidence={(id) => track('evidence_reveal', { event: ev.id, clue: id })}
+            onDone={() => setSim((cur) => revealClue(cur, ev.id, '__done'))} />
+        )}
         {(
           <div className={'t-stack ts-choices' + (ready ? '' : ' t-choices-locked')}>
             {ev.investigate && <h3 className="ts-h-md">{tx(S.whatNow)}</h3>}
@@ -501,7 +535,10 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
               return <span key={x.id} className={'t-chip ' + (looked ? 't-chip--good t-chip--dot' : 't-chip--placeholder')}>{x.name} · {looked ? tx(S.lookedInto) : tx(S.isNew)}</span>;
             })}
           </div>
-          {endingNow && (
+          {scenario && scenarioComplete && (
+            <button type="button" className={'t-btn t-btn--block ts-scn__continue' + (pulsing.length ? ' t-btn--ghost' : '')} onClick={() => { sfx.play('step'); scenario.onDone(sim); }}>{tx(S.continueLesson)}</button>
+          )}
+          {!scenario && endingNow && (
             <button type="button" className={'t-btn t-btn--block ts-adv__begin' + (pulsing.length ? ' t-btn--ghost' : '')} onClick={() => toEnding(sim)}>{tx(S.beginLesson)}</button>
           )}
         </div>
@@ -653,16 +690,20 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
     <main className={'ts-adv' + (untimed ? ' is-untimed' : '')} data-phase={phase}>
       <div className="ts-adv__bar">
         <ol className="t-rail" aria-label={tx(S.steps)}>
-          {S.loop6.map((l, i) => (
-            <li key={i} className={i === step ? 'is-now' : seen.includes(i) ? 'is-done' : ''} aria-current={i === step ? 'step' : undefined}>{tx(l)}</li>
-          ))}
+          {scenario
+            ? (['launch', 'facilitate', 'extend'] as const).map((p, i) => (
+              <li key={p} className={i === scenario.phaseIndex ? 'is-now' : i < scenario.phaseIndex ? 'is-done' : ''} aria-current={i === scenario.phaseIndex ? 'step' : undefined}>{tx(S.stageShort[p])}</li>
+            ))
+            : S.loop6.map((l, i) => (
+              <li key={i} className={i === step ? 'is-now' : seen.includes(i) ? 'is-done' : ''} aria-current={i === step ? 'step' : undefined}>{tx(l)}</li>
+            ))}
         </ol>
         <div className="ts-adv__top">
           <button type="button" className="t-btn t-btn--icon ts-leave" onClick={pauseAndExit} aria-label={inPlay ? tx(S.pauseExit) : tx(S.back)}>
             <span className="ts-chev" aria-hidden="true">‹</span>
           </button>
           <div className="ts-adv__heading">
-            <div className="t-eyebrow ts-on-dark-eyebrow">{missionLine(fmt(tx(S.missionN), { n: String(adv.number).padStart(2, '0') }), tx(adv.meta))}</div>
+            <div className="t-eyebrow ts-on-dark-eyebrow">{scenario ? scenario.eyebrow : missionLine(fmt(tx(S.missionN), { n: String(adv.number).padStart(2, '0') }), tx(adv.meta))}</div>
             <h1 className="ts-adv__title">{tx(adv.title)}</h1>
           </div>
           {showClock && (
@@ -689,10 +730,10 @@ export default function AdventureScreen({ adv: baseAdv, save, update, registerBa
         ))}
         {phase === 'mission' && (
           <div className="t-mission ts-mission">
-            <span className="t-mission__tag">{fmt(tx(S.missionN), { n: String(adv.number).padStart(2, '0') })}</span>
+            <span className="t-mission__tag">{scenario ? scenario.label : fmt(tx(S.missionN), { n: String(adv.number).padStart(2, '0') })}</span>
             <h2 className="t-mission__title">{tx(adv.title)}</h2>
             <ul className="t-mission__lines">{S.missionLines.map((l, i) => <li key={i}>{tx(l)}</li>)}</ul>
-            <p className="t-mission__meta">{gradeOf(tx(adv.meta))} · {tx(S.missionMeta)}</p>
+            <p className="t-mission__meta">{scenario ? tx(adv.intro[0] ?? adv.meta) : `${gradeOf(tx(adv.meta))} · ${tx(S.missionMeta)}`}</p>
           </div>
         )}
         {phase === 'closing' && done?.ending && (

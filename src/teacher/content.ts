@@ -12,7 +12,8 @@ import { SHOP_FIXTURE, type PowerupId, type ShopItem, type ShopSlot } from './de
 import { isSellable } from './engine/shop';
 import { validateAdventure } from './engine/validate';
 import { t } from '../i18n/types';
-import type { Adventure, AlefResource, Location } from './types';
+import { UNIVERSE_FIXTURE } from './dev/universeFixture';
+import type { Adventure, AlefResource, Location, Universe } from './types';
 
 /**
  * Customisation (Term Pass, Campus Shop, Thank-you notes, power-ups).
@@ -133,6 +134,21 @@ function adaptPass(): TermPass | undefined {
 const REAL_PASS = adaptPass();
 /** Term Pass stages/rewards: data/termPass.ts, else the dev fixture. */
 export const getTermPass = (): TermPass => REAL_PASS ?? TERM_PASS_FIXTURE;
+
+/* ------------------------------------------------------------------ */
+/* Classroom universe: data/universe.ts (UNIVERSE) when it lands       */
+/* ------------------------------------------------------------------ */
+const universeModule = import.meta.glob<{ UNIVERSE?: Universe }>('./data/universe.ts', { eager: true });
+const DATA_UNIVERSE = universeModule['./data/universe.ts']?.UNIVERSE;
+export const USING_UNIVERSE_FIXTURE = !(DATA_UNIVERSE && DATA_UNIVERSE.scenarios?.length);
+/** The classroom universe: real data, else the dev fixture. */
+export const getUniverse = (): Universe => (USING_UNIVERSE_FIXTURE ? UNIVERSE_FIXTURE : DATA_UNIVERSE!);
+/** The campus classroom that holds the universe (first classroom location). */
+export const universeClassroom = (): Location | undefined => {
+  const u = getUniverse();
+  const where = u.scenarios.find((s) => s.code === u.entry)?.location;
+  return locations().find((l) => l.id === where && l.kind === 'classroom') ?? locations().find((l) => l.kind === 'classroom');
+};
 
 /** Community link from Alef. Empty until Alef shares it → "coming soon". */
 export const COMMUNITY_URL = '';

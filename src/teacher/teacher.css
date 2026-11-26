@@ -289,3 +289,61 @@ textarea.ts-input { min-height: 84px; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   .ts-flip, .ts-bubble { -webkit-animation: none !important; animation: none !important; }
 }
+
+/* ---------------- Interactions (non-MCQ) ---------------- */
+.ts-int > * + * { margin-top: 10px; }
+.ts-int__prompt { margin: 0; font-weight: var(--t-fw-strong); }
+.ts-nudge { box-shadow: 0 0 0 3px var(--t-orange-soft), var(--t-elev-1) !important; border-color: var(--t-orange) !important; }
+.ts-compare { display: -webkit-box; display: -webkit-flex; display: flex; }
+.ts-compare__item { -webkit-box-flex: 1; -webkit-flex: 1 1 0; flex: 1 1 0; min-width: 0; min-height: 96px; text-align: left; font-family: var(--t-body); color: var(--t-ink); cursor: pointer; }
+[dir='rtl'] .ts-compare__item { text-align: right; }
+.ts-compare__item + .ts-compare__item { margin-left: 8px; }
+[dir='rtl'] .ts-compare__item + .ts-compare__item { margin-left: 0; margin-right: 8px; }
+.ts-compare__item.is-open { border-color: var(--t-teal); }
+.ts-compare__text { display: block; margin-top: 4px; font-family: var(--t-display); font-size: var(--t-fs-md); }
+.ts-hints { margin: 0; padding: 0; list-style: none; }
+.ts-hints > li + li { margin-top: 6px; }
+.ts-match { display: -webkit-box; display: -webkit-flex; display: flex; }
+.ts-match__col { -webkit-box-flex: 1; -webkit-flex: 1 1 0; flex: 1 1 0; min-width: 0; }
+.ts-match__col + .ts-match__col { margin-left: 8px; }
+[dir='rtl'] .ts-match__col + .ts-match__col { margin-left: 0; margin-right: 8px; }
+.ts-match .t-practice { min-height: var(--t-tap); }
+.ts-match__mean[disabled] { opacity: 0.7; }
+.ts-match__arrow { display: block; margin-top: 3px; color: var(--t-teal-deep); font-weight: var(--t-fw-medium); }
+.ts-buckets { display: table; table-layout: fixed; width: 100%; border-spacing: 6px 0; }
+.ts-bucket { display: table-cell; vertical-align: top; border: 2px dashed var(--t-line-2); border-radius: var(--t-r-sm); background: var(--t-panel-2); }
+.ts-bucket__head { padding: 6px; border-bottom: 1px solid var(--t-line); font-family: var(--t-display); font-weight: var(--t-fw-display); font-size: var(--t-fs-sm); text-align: center; color: var(--t-ink-2); }
+.ts-bucket__body { min-height: 96px; padding: 6px; }
+.ts-tray-cards { border-radius: var(--t-r-sm); }
+.ts-order { margin: 0; padding: 0; list-style: none; }
+.ts-order__row { display: -webkit-box; display: -webkit-flex; display: flex; -webkit-box-align: center; -webkit-align-items: center; align-items: center; margin-bottom: 6px; }
+.ts-order__n { -webkit-flex-shrink: 0; flex-shrink: 0; width: 28px; height: 28px; margin-right: 8px; border-radius: 50%; background: var(--t-indigo-soft); color: var(--t-indigo); text-align: center; line-height: 28px; font-size: var(--t-fs-sm); font-weight: var(--t-fw-heavy); }
+[dir='rtl'] .ts-order__n { margin-right: 0; margin-left: 8px; }
+.ts-order__item { -webkit-box-flex: 1; -webkit-flex: 1 1 auto; flex: 1 1 auto; margin: 0; }
+.ts-order__here { -webkit-flex-shrink: 0; flex-shrink: 0; width: var(--t-tap); min-width: var(--t-tap); padding: 0; margin-left: 6px; }
+[dir='rtl'] .ts-order__here { margin-left: 0; margin-right: 6px; }
+.ts-pattern { display: -webkit-box; display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap; padding: 8px 4px; }
+.ts-cell { width: calc(33.333% - 8px); min-height: 64px; margin: 4px; padding: 6px; border: 2px solid var(--t-line); border-radius: var(--t-r-sm); background: var(--t-panel); font-family: var(--t-body); color: var(--t-ink); text-align: center; cursor: pointer; }
+.ts-cell.is-on { border-color: var(--t-orange); background: var(--t-orange-soft); }
+.ts-cell__who { display: block; font-size: var(--t-fs-xs); color: var(--t-muted); }
+.ts-cell__ans { display: block; font-size: var(--t-fs-lg); font-weight: var(--t-fw-heavy); color: var(--t-ink-2); }
+.ts-pattern__laptop { margin: 0 6px 12px; }
+.ts-film__text { margin: 0; font-family: var(--t-display); font-size: var(--t-fs-md); }
+.ts-followup { margin: 0; }
+
+/* ---------------- Accessibility ---------------- */
+.ts-switch-row { display: -webkit-box; display: -webkit-flex; display: flex; -webkit-box-align: center; -webkit-align-items: center; align-items: center; }
+.ts-switch-row__txt { -webkit-box-flex: 1; -webkit-flex: 1 1 auto; flex: 1 1 auto; min-width: 0; margin-right: 12px; }
+[dir='rtl'] .ts-switch-row__txt { margin-right: 0; margin-left: 12px; }
+.ts-switch { position: relative; -webkit-flex-shrink: 0; flex-shrink: 0; width: 76px; height: var(--t-tap); padding: 0 10px 0 40px; border: 2px solid var(--t-line-2); border-radius: var(--t-r-pill); background: var(--t-bg-2); font-family: var(--t-display); font-weight: var(--t-fw-display); font-size: var(--t-fs-sm); color: var(--t-muted); cursor: pointer; }
+.ts-switch__knob { position: absolute; left: 4px; top: 50%; width: 30px; height: 30px; margin-top: -15px; border-radius: 50%; background: var(--t-panel); box-shadow: var(--t-elev-1); }
+.ts-switch.is-on { background: var(--t-teal-soft); border-color: var(--t-teal); color: var(--t-teal-deep); padding: 0 40px 0 10px; }
+.ts-switch.is-on .ts-switch__knob { left: auto; right: 4px; background: var(--t-teal); }
+.teacher-app.ts-reduce-motion *, .teacher-app.ts-reduce-motion *:before, .teacher-app.ts-reduce-motion *:after {
+  -webkit-animation-duration: 1ms !important; animation-duration: 1ms !important;
+  -webkit-animation-iteration-count: 1 !important; animation-iteration-count: 1 !important;
+  -webkit-transition-duration: 1ms !important; transition-duration: 1ms !important;
+}
+.teacher-app.ts-large-text {
+  --t-fs-2xs: 13px; --t-fs-xs: 14px; --t-fs-sm: 16px; --t-fs-base: 18px; --t-fs-md: 20px; --t-fs-lg: 23px; --t-fs-xl: 27px;
+}

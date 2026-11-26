@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLocale } from '../../i18n/LocaleContext';
 import { sfx } from '../../audio/sfx';
 import { adventures, getTermPass, resource, resources } from '../content';
-import { MAX_ENERGY, markTried, rest, toggleSaved, type GameSave } from '../engine/save';
+import { markTried, toggleSaved, type GameSave } from '../engine/save';
 import { S, fmt } from '../strings';
 import { SubHeader, copyText, useToast } from '../ui';
 import type { Stage } from '../types';
@@ -13,17 +13,11 @@ const STAGES: Stage[] = ['launch', 'facilitate', 'extend'];
 export function StaffRoomScreen({ save, update, onBack }: { save: GameSave; update: (fn: (s: GameSave) => GameSave) => void; onBack: () => void }) {
   const { tx } = useLocale();
   const toast = useToast();
-  const [line, setLine] = useState<string | null>(null);
   const [filter, setFilter] = useState<Stage | null>(null);
   const stages = getTermPass().stages.length;
   const all = resources();
   const found = all.filter((r) => save.toolkit.includes(r.id));
 
-  const doRest = () => {
-    sfx.play('tap');
-    setLine(tx(S.restLine[(save.day + save.toolkit.length) % S.restLine.length]));
-    update(rest);
-  };
   const tried = (id: string) => {
     let credited = false;
     update((s) => { const r = markTried(s, id, stages); credited = r.credited; return r.save; });
@@ -114,18 +108,6 @@ export function StaffRoomScreen({ save, update, onBack }: { save: GameSave; upda
           )}
         </section>
 
-        <section className="t-card t-stack">
-          <div className="ts-row ts-row--between">
-            <span className="ts-energy">
-              <span className="t-meter t-meter--pips" aria-hidden="true">{[0, 1, 2].map((i) => <i key={i} className={i < save.energy ? 'on' : ''} />)}</span>
-              <span className="ts-energy__word">{tx(S.energyMood[Math.max(0, Math.min(3, save.energy))])}</span>
-            </span>
-            <button type="button" className="t-btn ts-staff__rest" disabled={save.energy >= MAX_ENERGY} onClick={doRest}>
-              {save.energy >= MAX_ENERGY ? tx(S.rested) : tx(S.rest)}
-            </button>
-          </div>
-          {line && <p className="ts-colleague">{line}</p>}
-        </section>
       </div>
     </main>
   );

@@ -3,12 +3,12 @@ import { useLocale } from '../../i18n/LocaleContext';
 import { useSound } from '../../audio/useSound';
 import { sfx } from '../../audio/sfx';
 import { SKINS } from '../../data/skins';
-import { adventures, adventuresAt, locations, getTermPass, ENABLE_CUSTOMISATION, TOKI_IN_TEACHER_GAME, USING_FIXTURE, shopItem } from '../content';
+import { adventures, adventuresAt, locations, getTermPass, universeClassroom, ENABLE_CUSTOMISATION, TOKI_IN_TEACHER_GAME, USING_FIXTURE, shopItem } from '../content';
 import { DECOR_SLOTS } from '../dev/shopFixture';
-import { MAX_ENERGY, isTired, type GameSave } from '../engine/save';
-import { band } from '../engine/sim';
+import type { GameSave } from '../engine/save';
+import type { UState } from '../engine/universe';
 import { S, fmt } from '../strings';
-import { NoteIcon, asset, gradeOf, useToast } from '../ui';
+import { NoteIcon, asset, useToast } from '../ui';
 import type { Adventure, Location, LocationKind } from '../types';
 import type { Screen } from '../TeacherApp';
 import { LangToggle } from './TitleScreen';
@@ -39,14 +39,18 @@ export function mariamRing(save: GameSave): string | undefined {
   return it?.colour;
 }
 
-export function CampusScreen({ save, go, onAdventure, onCoach, onReset }: {
-  save: GameSave; go: (s: Screen) => void; onAdventure: (id: string) => void; onCoach: () => void; onReset: () => void;
+/** Campus places in the universe build: the classroom (the universe), staff room, library, community, shop. */
+const UNIVERSE_KINDS: LocationKind[] = ['staffroom', 'library', 'community', 'shop'];
+
+export function CampusScreen({ save, ustate, go, onSession, onCoach, onReset }: {
+  save: GameSave; ustate: UState; go: (s: Screen) => void; onSession: () => void; onCoach: () => void; onReset: () => void;
 }) {
   const { tx } = useLocale();
   const toast = useToast();
   const [settings, setSettings] = useState(false);
-  const next = nextAdventure(save);
-  const locs = locations();
+  const next = undefined as Adventure | undefined;
+  const room = universeClassroom();
+  const locs = locations().filter((l) => (room && l.id === room.id) || UNIVERSE_KINDS.includes(l.kind));
   const tp = getTermPass();
   const tokiItem = save.placed.toki ? shopItem(save.placed.toki) : undefined;
   const skin = SKINS.find((k) => k.id === (tokiItem?.skin ?? 'teal-classic')) ?? SKINS[0];
@@ -68,29 +72,17 @@ export function CampusScreen({ save, go, onAdventure, onCoach, onReset }: {
   const open = (loc: Location) => {
     sfx.play('tap');
     switch (loc.kind) {
-      case 'classroom': {
-        const st = pinState(loc, save, next);
-        if (st === 'locked') { toast(tx(S.lockedWhy)); return; }
-        if (isTired(save)) toast(tx(S.tiredHint));
-        const here = adventuresAt(loc.id);
-        const target = st === 'next' ? next!
-          : here.find((a) => save.unlocked.includes(a.id) && !save.completed[a.id]) ?? [...here].reverse().find((a) => save.completed[a.id]) ?? here[0];
-        if (target) onAdventure(target.id);
-        return;
-      }
+      case 'classroom': onSession(); return;
       case 'staffroom': go('staffroom'); return;
       case 'library': go('library'); return;
       case 'community': go('community'); return;
-      case 'office': go('office'); return;
       case 'shop': go('shop'); return;
-      case 'yard': toast(tx(S.yardMoment)); return;
+      default: toast(tx(S.yardMoment)); return;
     }
   };
 
-  const mood = Math.max(0, Math.min(MAX_ENERGY, save.energy));
   const initial = (save.playerName || 'M').trim().charAt(0).toUpperCase();
   const ring = mariamRing(save);
-  const classes = adventures().filter((a) => save.unlocked.includes(a.id));
 
   return (
     <main className="ts-campus">
@@ -100,7 +92,7 @@ export function CampusScreen({ save, go, onAdventure, onCoach, onReset }: {
             ? <img className="ts-map__art" src={asset('art/campus.jpg')} alt="" />
             : <FallbackCampus locs={locs} />}
           {locs.map((l) => {
-            const st = pinState(l, save, next);
+            const st: PinState = l.kind === 'classroom' ? 'next' : pinState(l, save, next);
             const cls = 't-pin' + (st === 'next' ? ' t-pin--next' : st === 'done' ? ' t-pin--done' : st === 'locked' ? ' t-pin--locked' : '')
               + (st === 'next' && !pulse ? ' ts-pin--still' : '') + (l.x < 16 ? ' ts-pin--start' : l.x > 84 ? ' ts-pin--end' : '');
             return (
@@ -110,8 +102,8 @@ export function CampusScreen({ save, go, onAdventure, onCoach, onReset }: {
                 <span className="t-pin__head" aria-hidden="true">{KIND_GLYPH[l.kind]}</span>
                 {st === 'locked' && <span className="t-pin__badge t-pin__badge--lock" aria-hidden="true" />}
                 {st === 'done' && <span className="t-pin__badge" aria-hidden="true">✓</span>}
-                <span className="t-pin__label">{tx(l.name)}</span>
-                {st === 'next' && <span className="t-pin__flag">{tx(S.nextLesson)}</span>}
+                <span className="t-pin__label">{l.kind === 'classroom' ? tx(S.classroomPin) : tx(l.name)}</span>
+                {st === 'next' && <span className="t-pin__flag">{ustate.inSession ? tx(S.resumeFlag) : fmt(tx(S.sessionN), { n: ustate.session })}</span>}
               </button>
             );
           })}
@@ -132,17 +124,8 @@ export function CampusScreen({ save, go, onAdventure, onCoach, onReset }: {
         <div className="ts-hud-top">
           <div className="ts-hud-line">
             <div className="t-hud-card t-hud-card--pill ts-classes">
-              <span className="ts-classes__label">{tx(S.classes)}</span>
-              {/* One chip per class (grade), toned by its latest finished lesson; insight = not started today. */}
-              {Array.from(new Set(classes.map((a) => gradeOf(tx(a.meta))))).map((g) => {
-                const done = classes.filter((a) => gradeOf(tx(a.meta)) === g && save.completed[a.id]);
-                const c = done.length ? save.completed[done[done.length - 1].id] : undefined;
-                const tone = !c ? 'insight' : (() => {
-                  const bs = Object.values(c.students).map(band);
-                  return bs.every((b) => b === 'good') ? 'good' : bs.some((b) => b === 'poor') ? 'poor' : 'mixed';
-                })();
-                return <span key={g} className={`t-chip t-chip--dot t-chip--${tone}`}>{g}</span>;
-              })}
+              <span className="ts-classes__label">{tx(S.universeName)}</span>
+              <span className="t-chip t-chip--dot t-chip--insight">{fmt(tx(S.sessionN), { n: ustate.session })}</span>
             </div>
             <button type="button" className="t-btn t-btn--icon ts-settings-btn" aria-label={tx(S.settings)} onClick={() => { sfx.play('tap'); setSettings(true); }}>⚙</button>
           </div>
@@ -174,30 +157,27 @@ export function CampusScreen({ save, go, onAdventure, onCoach, onReset }: {
             </span>
             <span className="ts-teacher__txt">
               <strong className="ts-teacher__name">{save.playerName || tx(S.teacher)}</strong>
-              <span className="ts-teacher__meta">{next ? gradeOf(tx(next.meta)) : tx(S.teacher)}</span>
-              <span className="ts-energy">
-                <span className="t-meter t-meter--pips" aria-hidden="true">{[0, 1, 2].map((i) => <i key={i} className={i < mood ? 'on' : ''} />)}</span>
-                <span className="ts-energy__word">{tx(S.energyMood[mood])}</span>
-              </span>
+              <span className="ts-teacher__meta">{tx(S.gradeSeven)}</span>
+              <span className="ts-teacher__meta">{fmt(tx(S.toolkitFound), { n: save.toolkit.length })}</span>
             </span>
           </div>
           <div className="t-hud-card ts-clock">
-            <span className="t-eyebrow">{tx(S.termName)}</span>
-            <span className="ts-clock__day t-num">{fmt(tx(S.day), { n: save.day })}</span>
+            <span className="t-eyebrow">{tx(S.gradeSeven)}</span>
+            <span className="ts-clock__day t-num">{fmt(tx(S.sessionN), { n: ustate.session })}</span>
             <span className="ts-clock__period">
-              {(['morning', 'midday', 'afternoon'] as const).map((p) => <i key={p} className={p === save.period ? 'is-on' : ''} />)}
-              {tx(S.period[save.period])}
+              {(['launch', 'facilitate', 'extend'] as const).map((p) => <i key={p} className={ustate.inSession && p === ustate.phase ? 'is-on' : ''} />)}
+              {ustate.inSession ? tx(S.stageShort[ustate.phase]) : fmt(tx(S.sessionsDone), { n: ustate.history.length })}
             </span>
           </div>
         </div>
       </div>
 
-      {settings && <Settings onClose={() => setSettings(false)} onCoach={onCoach} onReset={onReset} />}
+      {settings && <Settings onClose={() => setSettings(false)} onCoach={onCoach} onReset={onReset} onA11y={() => { setSettings(false); go('a11y'); }} />}
     </main>
   );
 }
 
-function Settings({ onClose, onCoach, onReset }: { onClose: () => void; onCoach: () => void; onReset: () => void }) {
+function Settings({ onClose, onCoach, onReset, onA11y }: { onClose: () => void; onCoach: () => void; onReset: () => void; onA11y: () => void }) {
   const { tx } = useLocale();
   const { on, toggle } = useSound();
   const [armed, setArmed] = useState(false);
@@ -213,6 +193,7 @@ function Settings({ onClose, onCoach, onReset }: { onClose: () => void; onCoach:
             <span>{tx(S.sound)}</span>
             <button type="button" className="t-btn t-btn--ghost" aria-pressed={on} onClick={toggle}>{on ? tx(S.on) : tx(S.off)}</button>
           </div>
+          <button type="button" className="t-btn t-btn--ghost t-btn--block ts-open-a11y" onClick={onA11y}>{tx(S.a11yTitle)}</button>
           <button type="button" className="t-btn t-btn--ghost t-btn--block" onClick={onCoach}>{tx(S.switchToCoach)}</button>
           <button type="button" className={'t-btn t-btn--ghost t-btn--block' + (armed ? ' ts-danger' : '')}
             onClick={() => { if (armed) onReset(); else { setArmed(true); window.setTimeout(() => setArmed(false), 4000); } }}>
