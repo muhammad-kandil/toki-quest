@@ -14,7 +14,8 @@ import numpy as np, soundfile as sf
 ap = argparse.ArgumentParser()
 ap.add_argument('--out', required=True)
 ap.add_argument('--only', default='')
-ap.add_argument('--per-query', type=int, default=4)
+ap.add_argument('--per-query', type=int, default=3)
+ap.add_argument('--max-cands', type=int, default=8)
 a = ap.parse_args()
 BEDS = {k: v for k, v in json.load(open('tools/audio/beds.json')).items() if not k.startswith('_')}
 if a.only:
@@ -59,6 +60,8 @@ def decode(path, sr=16000):
     return np.frombuffer(raw, np.float32)
 
 from transformers import pipeline
+import torch
+torch.set_num_threads(os.cpu_count() or 4)
 clf = pipeline('audio-classification', model='MIT/ast-finetuned-audioset-10-10-0.4593', top_k=40)
 
 def classify(path):
@@ -66,7 +69,9 @@ def classify(path):
     if len(x) < 16000:
         return {}, 0.0
     win, scores, n = 16000 * 10, {}, 0
-    for s in range(0, max(1, len(x) - win // 2), win)[:6]:
+    starts = list(range(0, max(1, len(x) - win // 2), win))
+    if len(starts) > 3: starts = [starts[0], starts[len(starts) // 2], starts[-1]]
+    for s in starts:
         seg = x[s: s + win]
         for r in clf({'raw': seg, 'sampling_rate': 16000}):
             scores[r['label']] = scores.get(r['label'], 0) + r['score']
@@ -125,7 +130,7 @@ with tempfile.TemporaryDirectory() as tmp:
                 print('search fail', q, e)
             time.sleep(1.5)
         rows = []
-        for sid, user, prev, q in cands:
+        for sid, user, prev, q in cands[: a.max_cands]:
             p = os.path.join(tmp, f'{sid}.mp3')
             try:
                 open(p, 'wb').write(get(prev, binary=True))
