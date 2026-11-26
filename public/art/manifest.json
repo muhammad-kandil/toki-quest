@@ -1,6 +1,21 @@
 {
- "scenes": [],
+ "scenes": [
+  "B25",
+  "B6",
+  "L1",
+  "L2",
+  "L21",
+  "L22",
+  "L23",
+  "L24",
+  "L3",
+  "L4",
+  "L5"
+ ],
  "toki": {},
- "schools": [],
- "map": false
+ "schools": [
+  1,
+  2
+ ],
+ "map": true
 }
