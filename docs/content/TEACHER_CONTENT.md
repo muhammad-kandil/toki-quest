@@ -53,6 +53,47 @@ plus 8,000 simulated plays per mission).
 8. Choice `resource` is not used in missions; tools are discovered through
    `Outcome.discover`.
 
+## The term at a glance
+
+Seven missions, one Grade 7 class (Ms. Mariam teaches its Math and Science).
+Endings and `unlock:` flags open the next missions; a player can follow
+any path and every mission is reachable (checked by the validator).
+
+```mermaid
+flowchart LR
+  M1[M01 The First Five Minutes] -->|Ahmed ready: unlock:m2| M2[M02 Beyond the Expected]
+  M1 -->|Ready to Learn| M3[M03 Bring Learning to Life]
+  M1 -->|Unfinished Puzzle / Sara bridged| M4[M04 Bridging the Gap]
+  M1 -->|Unexpected Opportunity| M5[M05 Everyone Has a Voice]
+  M2 -->|More Than More / Team| M6[M06 Reading the Evidence]
+  M2 -->|Ceiling Lifts| M7[M07 Ready for the Test]
+  M3 --> M6 & M7
+  M4 --> M6 & M7
+  M5 --> M6 & M7
+  M6 --> M7
+```
+
+| Mission | Subject | Students | NCLE tools discovered | Outcomes |
+|---|---|---|---|---|
+| M01 | Math, unit rates | Ahmed, Sara, Omar | Assign, Present Mode, See Why, Need Help, AI Helper, Practice, Teams | 40 |
+| M02 | Math, discounts | Ahmed, Reem, Khalid | Assign, Teams, See Why, Practice, Present Mode | 32 |
+| M03 | Science, falling objects | Sara, Hamdan, Noura | Present Mode, See Why, AI Helper, Need Help, Teams, Assign | 34 |
+| M04 | Math, proportions | Sara, Omar, Maitha | Practice, Need Help, AI Helper, Teams, See Why, Assign, Present Mode | 33 |
+| M05 | Science, food chains | Omar, Noura, Saeed | Teams, Gamification, Present Mode, See Why | 32 |
+| M06 | Math, end of lesson | Ahmed, Sara, Omar | Exit Ticket, Class Progress, See Why, Practice, Assign, Teams | 35 |
+| M07 | Math, end of unit | Ahmed, Sara, Omar | Exam Prep Assessment, Pathways, Show My Learning, Practice, Teams, See Why | 38 |
+
+Each mission: opening film, 3 students as weighted-profile investigations
+(3–4 profiles, 2 profile-gated choices each), 3 hotspot objects (one may be
+an investigation of the whole class), 4 weighted pool events, 3 endings by
+priority, 3 badges, a flag-dependent teaser, a takeaway, 2 example
+community posts. XP per run: 90–220 (M01 with the puzzle), 90–120 elsewhere.
+
+**Cross-mission continuity:** M04 reads `unlock:m4` (Sara bridged in M01);
+M05 reads `a1.peerVoice` (Omar's voice in M01); M07 reads `m2.stretch`,
+`m4.closed`, `m5.allVoices`. Each changes an outcome, never which choices
+are offered.
+
 ## Arabic conventions
 
 Natural MSA as a Gulf teacher writes it; Arabic-Indic digits and `٪`; «» for
@@ -83,6 +124,10 @@ replaced by Alef's official Arabic names once verified.
 ## To verify (every product claim in the content)
 
 Alef product specialists sign off each line; until then `placeholder: true`.
+V1–V12 are below; mission-specific claims V13–V41 close each mission
+section (M02 V13–17, M03 V18–22, M04 V23–27, M05 V28–31, M06 V32–36,
+M07 V37–41). Also to verify across all missions: V42 Grade 7 Math and
+Science are the right showcase subjects; V43 the Arabic tool names.
 
 **General**
 - V1. Official English and Arabic names of all 13 NCLE tools.
@@ -199,29 +244,6 @@ Film `public/teacher/film/m01-1…5.jpg` (portrait 2:3, same art style):
    held up) and Omar (quiet, looking at the window); used for all three lines.
 4. Ms. Mariam at her desk, looking out over the room, a beat of thought.
 5. Wide pull-back: the whole classroom as in the scene picture.
-
----
-
-## Shop and Term Pass (customisation)
-
-`shop.ts`: 10 outfits, 14 accessories, 5 power-ups; prices in thank-you
-notes, earned only from the Term Pass (`termPass.ts`, 12 steps, one per
-finished mission or replay) and the end-of-term bundle. One term earns 54
-notes plus 5 gifted items; the 24 cosmetics cost 56 after gifts, so a full
-term buys most cosmetics and about three power-ups, never everything.
-Professional rewards (NCLE tool cards, story chapters, planner pages,
-spotlights) are never priced.
-
-Open issue: the shop includes Toki outfits and accessories (per the earlier
-shop brief), but the proposal says the teacher game needs no Toki. Product
-to decide: keep Toki as a cosmetic-only companion, or retarget those items
-to Ms. Mariam / the classroom.
-
-## Internal sample
-
-`adventures/sample-g5-fractions.ts` is the approved Grade 5 fractions demo
-ported to the schema (timed). Not registered in `ADVENTURES`; validated as a
-sample. Flags renamed `g5.*`; resources mapped to the nearest NCLE tool.
 
 ---
 
@@ -463,3 +485,82 @@ V34 Class Progress shows who completed a task and which questions were
 most missed · V35 Class Progress can show one student their own progress
 over time (no comparison with others) · V36 Assign can give a student
 tomorrow's task before they leave.
+
+---
+
+<a id="m07"></a>
+## Mission 07 · Ready for the Test
+
+`m7` · Grade 7 · Math (end of the ratios unit, test next week) · Ahmed,
+Sara, Omar · opened by endings of M02–M06 · the term's last mission (its
+endings open nothing).
+
+**Teacher's learning goal:** one revision for everyone fits nobody. Let
+students show what they can do (Show My Learning), find where each stands
+(Exam Prep Assessment), and give each a route (Pathways). Growth is shown,
+not only gaps.
+
+The **laptop is an investigation of the class** (Exam Prep Assessment): by
+topic / question type / student, with profiles *one shared weak topic* 40 ·
+*different gap per student* 35 · *mostly ready* 25.
+
+**Callbacks:** Ahmed's stretch route reads `m2.stretch` (*Beyond the
+expected, again*); Sara's Show My Learning reads `m4.closed` (*From a
+missing piece to this*); Omar's reads `m5.allVoices` (*He explains it out
+loud*).
+
+| Student | Profiles (weight) → choices |
+|---|---|
+| Ahmed (Show My Learning / prep / words) | ready 40 → stretch route (Pathways) · revise with class — one gap 30 → percentages route then stretch (Pathways) · another full prep (`m7.gap`) — anxious 30 → show what he can do (Show My Learning) · more papers |
+| Sara (Show My Learning / prep / her list) | grown 40 → show how far (Show My Learning) · "you'll be fine" — real gap 30 → percentages route (Pathways) · revise all (`m7.gap`) — fear 30 → low-stakes practice test (Exam Prep) · "don't worry" |
+| Omar (Show My Learning / prep / margin) | knows more than tests show 40 → comic beside test answers (Show My Learning) · "try harder" (`m7.gap`) — behind 30 → catch-up route (Pathways) · same revision (`m7.gap`) — word problems 30 → Practice: numbers then question · skip long ones (`m7.gap`) |
+
+Board: students choose their route from evidence (Pathways) vs same
+revision (`m7.gap`). Bookshelf: the "Week 1" box (`m7.week1`, badge Look How
+Far). Pool: Ahmed's revision video (learning 35) · Sara and Omar revise
+together (collaboration 25) · "skip the hard ones" (misconception 20) ·
+tablet updates (management 15).
+
+Endings: **Still Building** (`m7.gap`, p1) · **Every Student, a Route**
+(`m7.plan`, p2, badge Ready for the Test) · **Ready for the Test** (no gap,
+p3).
+
+**Scene brief (`teacher/scenes/m07.jpg`):** the Grade 7 room the week before
+a test: a "Test: next Tuesday" note on the board, revision sheets on desks.
+Ahmed centre-right (62/50) flicking through a textbook fast; Sara
+front-left (34/58) with a long handwritten list; Omar by the window
+(18/44), ratio tables in his margin, half covered by his hand. A box marked
+"Week 1" on the top shelf (10/30). **Film** `m07-1…3`: (1) the calendar or
+board with the test date; (2) the three students, each with their worry;
+(3) Ms. Mariam with the class results, thinking.
+
+**To verify:** V37 Show My Learning lets students show learning in a format
+such as a short video or a drawn explanation · V38 Exam Prep Assessment
+results can be read by topic, question type and student · V39 Exam Prep
+Assessment can be used as low-stakes practice (marks not recorded) · V40
+Pathways can give different students different routes (e.g. catch-up,
+targeted, stretch) · V41 students can see their own results and choose a
+route.
+
+---
+
+## Shop and Term Pass (customisation)
+
+`shop.ts`: 10 outfits, 14 accessories, 5 power-ups; prices in thank-you
+notes, earned only from the Term Pass (`termPass.ts`, 12 steps, one per
+finished mission or replay) and the end-of-term bundle. One term earns 54
+notes plus 5 gifted items; the 24 cosmetics cost 56 after gifts, so a full
+term buys most cosmetics and about three power-ups, never everything.
+Professional rewards (NCLE tool cards, story chapters, planner pages,
+spotlights) are never priced.
+
+Open issue: the shop includes Toki outfits and accessories (per the earlier
+shop brief), but the proposal says the teacher game needs no Toki. Product
+to decide: keep Toki as a cosmetic-only companion, or retarget those items
+to Ms. Mariam / the classroom.
+
+## Internal sample
+
+`adventures/sample-g5-fractions.ts` is the approved Grade 5 fractions demo
+ported to the schema (timed). Not registered in `ADVENTURES`; validated as a
+sample. Flags renamed `g5.*`; resources mapped to the nearest NCLE tool.
