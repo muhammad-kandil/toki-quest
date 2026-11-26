@@ -369,3 +369,49 @@ AI Helper can explain an English word in a maths question · V25 AI Helper
 can explain a previous lesson's idea to a student who missed it · V26
 Practice can target a specific prerequisite (simplifying, times-table facts)
 · V27 Assign can give one student today's task or a stretch problem.
+
+---
+
+<a id="m05"></a>
+## Mission 05 · Everyone Has a Voice
+
+`m5` · Grade 7 · Science (food chains, review) · Omar, Noura, Saeed ·
+opened by M01 "An Unexpected Opportunity".
+
+**Teacher's learning goal:** participation is designed. Thinking time, a
+partner or team first, and roles bring in quiet voices; a dominant voice is
+given a listening job; Gamification is used on purpose (everyone answers,
+reasons score) rather than as a speed race the usual students win.
+
+**Continuity:** if Omar's voice moved someone in M01 (`a1.peerVoice`), his
+team choice gives *"Like last time"* (u+1, e+2).
+
+| Student | Profiles (weight) → choices |
+|---|---|
+| Omar (margin / face / words) | confidence 40 → tell your team first (Teams) · call on him (`m5.fewVoices`) — science words 30 → picture word bank (Present Mode) · own words first — loves games, guesses 30 → game round needing "why" (Gamification) · quick quiz |
+| Noura (notes / table / words) | very quiet 40 → reporter with rehearsal (Teams) · call on her — prefers writing 30 → write then read one line · push gently — leads small groups 30 → group leader (Teams) · present to class |
+| Saeed (hand / answers / others) | dominates 40 → summariser role (Teams) · let him answer (`m5.fewVoices`) — answers for others 30 → coach him to ask · keep helping — confident, half wrong 30 → See Why · praise (`m5.fewVoices`) |
+
+Objects: laptop (team rounds with thinking time vs speed buzzer, both
+Gamification), board (talk rule via Present Mode vs hands up), bookshelf
+(name sticks). Pool: Noura's whispered link (learning 35) · Saeed's team
+disagrees (collaboration 25) · food-chain arrows backwards (misconception
+20) · game too loud (management 15).
+
+Endings: **The Same Voices** (`m5.fewVoices`, p1) → m6 · **Everyone Has a
+Voice** (`m5.allVoices`, p2, badge) → m7 · **A Voice Found** (no
+`fewVoices`, p3) → m6, m7.
+
+**Scene brief (`teacher/scenes/m05.jpg`):** Grade 7 room arranged in team
+tables for a review game. Omar by the window (18/44) with a neat food chain
+in his margin; Noura front-left (36/60) with full notes, hand down; Saeed
+centre-right (66/48) hand up high. Board shows "Sun → grass → gazelle → ?"
+with simple pictures. A small box on the shelf (10/30). **Film**
+`m05-1…3`: (1) the board and team tables before the game; (2) Saeed eager,
+Omar resigned, Noura holding up her notebook; (3) Ms. Mariam at the laptop
+choosing the game format.
+
+**To verify:** V28 Gamification can run team rounds where every team answers
+(not only first-to-buzz) · V29 Gamification can include a reasoning ("why")
+step · V30 Present Mode can show a picture word bank or a talk rule · V31
+Teams supports roles such as reporter, summariser, leader.
