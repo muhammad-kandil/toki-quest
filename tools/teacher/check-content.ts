@@ -55,7 +55,7 @@ const uniq = (ids: string[], what: string) => {
 
 /* ---------- catalog + campus ---------- */
 uniq(RESOURCES.map((r) => r.id), 'resource');
-if (RESOURCES.length < 12 || RESOURCES.length > 16) err(`resources: ${RESOURCES.length} (want 12–16)`);
+if (RESOURCES.length < 12 || RESOURCES.length > 20) err(`resources: ${RESOURCES.length} (want 12–20)`);
 for (const r of RESOURCES) {
   walkTexts(r, `resource ${r.id}`);
   if (!['launch', 'facilitate', 'extend'].includes(r.stage)) err(`resource ${r.id}: bad stage`);

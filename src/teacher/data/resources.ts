@@ -86,6 +86,21 @@ export const RESOURCES: AlefResource[] = [
     ),
     placeholder: true,
   },
+  {
+    id: 'levelled-texts',
+    stage: 'launch',
+    icon: '≣',
+    title: t('Levelled reading texts', 'نصوص قرائية متدرّجة'),
+    what: t(
+      'The same story or topic written at three reading levels, so every reader works on the same ideas at a level they can actually read.',
+      'القصة أو الموضوع نفسه مكتوبًا بثلاثة مستويات قرائية، فيعمل كل قارئ على الأفكار نفسها بمستوى يستطيع قراءته فعلًا.',
+    ),
+    monday: t(
+      'Try it Monday: give three tables the same story at three levels, then discuss it together as one class.',
+      'جرّبها يوم الاثنين: أعطِ ثلاث طاولات القصة نفسها بثلاثة مستويات، ثم ناقشوها معًا كصف واحد.',
+    ),
+    placeholder: true,
+  },
 
   /* ---------------- Facilitate & Synthesise ---------------- */
   {
@@ -208,6 +223,21 @@ export const RESOURCES: AlefResource[] = [
     ),
     placeholder: true,
   },
+  {
+    id: 'hinge-question',
+    stage: 'facilitate',
+    icon: '⋔',
+    title: t('Hinge question', 'سؤال المفصل'),
+    what: t(
+      'One well-chosen question mid-lesson whose wrong answers show the exact misunderstanding. It tells you in two minutes whether to move on, reteach, or split the class.',
+      'سؤال واحد مختار بعناية في منتصف الدرس، تكشف إجاباته الخاطئة سوء الفهم بدقة. يخبرك في دقيقتين هل تتابع، أم تعيد الشرح، أم تقسم الصف.',
+    ),
+    monday: t(
+      'Try it Monday: write one multiple-choice question where each wrong option matches a common mistake, and ask it halfway through.',
+      'جرّبه يوم الاثنين: اكتب سؤال اختيار من متعدد يطابق فيه كل خيار خاطئ خطأً شائعًا، واطرحه في منتصف الدرس.',
+    ),
+    placeholder: true,
+  },
 
   /* ---------------- Extend & Assess ---------------- */
   {
@@ -252,6 +282,36 @@ export const RESOURCES: AlefResource[] = [
     monday: t(
       'Try it Monday: before you group by a score, look at the questions behind the three lowest scores.',
       'جرّبها يوم الاثنين: قبل أن تقسّم الطلاب حسب الدرجة، انظر إلى الأسئلة وراء أدنى ثلاث درجات.',
+    ),
+    placeholder: true,
+  },
+  {
+    id: 'exit-ticket',
+    stage: 'extend',
+    icon: '⇥',
+    title: t('Exit ticket', 'بطاقة الخروج'),
+    what: t(
+      'One or two questions every student answers alone in the last minutes. It shows what the lesson actually taught, to you and to anyone who asks.',
+      'سؤال أو سؤالان يجيب عنهما كل طالب بمفرده في الدقائق الأخيرة. تُظهر ما تعلّمه الطلاب فعلًا في الدرس، لك ولكل من يسأل.',
+    ),
+    monday: t(
+      'Try it Monday: stop five minutes early, ask one question, and sort the answers into three piles before tomorrow.',
+      'جرّبها يوم الاثنين: أنهِ الدرس قبل موعده بخمس دقائق، واطرح سؤالًا واحدًا، وصنّف الإجابات في ثلاث أكوام قبل الغد.',
+    ),
+    placeholder: true,
+  },
+  {
+    id: 'progress-over-time',
+    stage: 'extend',
+    icon: '↑',
+    title: t('Progress over time', 'التقدّم عبر الزمن'),
+    what: t(
+      'A student\'s work from the start of term beside their work now. Students see their own growth, which a single score cannot show them.',
+      'عمل الطالب في بداية الفصل بجانب عمله الآن. فيرى الطالب تقدّمه بنفسه، وهذا ما لا تُظهره درجة واحدة.',
+    ),
+    monday: t(
+      'Try it Monday: keep one piece of work from week one in every student\'s folder, and hand it back to them in week ten.',
+      'جرّبها يوم الاثنين: احتفظ بعمل واحد من الأسبوع الأول في ملف كل طالب، وأعده إليه في الأسبوع العاشر.',
     ),
     placeholder: true,
   },
