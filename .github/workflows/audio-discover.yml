@@ -4,27 +4,24 @@ jobs:
   discover:
     runs-on: ubuntu-latest
     steps:
-      - name: Arabic + English voices on Hugging Face (piper)
+      - name: Arabic voices detail
         run: |
-          curl -s "https://huggingface.co/api/models/rhasspy/piper-voices/tree/main/ar" | python3 -c "import json,sys;[print(x['path']) for x in json.load(sys.stdin)]"
-          curl -s "https://huggingface.co/api/models/rhasspy/piper-voices/tree/main/ar/ar_JO" | python3 -c "import json,sys;[print(x['path']) for x in json.load(sys.stdin)]"
-          curl -s "https://huggingface.co/rhasspy/piper-voices/raw/main/ar/ar_JO/kareem/medium/MODEL_CARD" | head -30
-      - name: Other Arabic TTS on HF (permissive)
+          for r in vadimbelsky/arabic-emirati-female-piper csukuangfj/vits-piper-ar_JO-SA_dii-high; do echo "== $r"; curl -s "https://huggingface.co/api/models/$r" | python3 -c "import json,sys;m=json.load(sys.stdin);print(m.get('cardData'));[print(' ',s['rfilename']) for s in m.get('siblings',[])]"; curl -s "https://huggingface.co/$r/raw/main/README.md" | head -40; done
+      - name: Freesound page shape
         run: |
-          for q in arabic-tts "tts ar" "piper ar" "kokoro arabic" "vits arabic" "arabic female tts"; do echo "== $q"; curl -s "https://huggingface.co/api/models?search=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$q")&pipeline_tag=text-to-speech&sort=downloads&limit=15&full=true" | python3 -c "
+          curl -sL -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36" -o fs.html -w "%{http_code} %{size_download}\n" "https://freesound.org/search/?q=classroom+children&f=license%3A%22Creative+Commons+0%22"
+          grep -oE 'previews/[^"]+' fs.html | head -5; grep -oE '/people/[^/]+/sounds/[0-9]+/' fs.html | sort -u | head -10; head -c 600 fs.html
+          curl -s -o /dev/null -w "api no token: %{http_code}\n" "https://freesound.org/apiv2/search/text/?query=classroom"
+      - name: Wikimedia Commons audio
+        run: |
+          for q in "classroom" "school children" "children talking" "children playground" "school corridor" "school bell" "pupils" "chatter children" "crowd children" "kindergarten"; do echo "== $q"; curl -s "https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$q filetype:audio")&gsrlimit=12&prop=imageinfo&iiprop=url|size|extmetadata&iiextmetadatafilter=LicenseShortName|Artist&format=json" | python3 -c "
           import json,sys
-          for m in json.load(sys.stdin):
-              lic=[t for t in m.get('tags',[]) if t.startswith('license:')]
-              print(' ',m['id'],m.get('downloads'),lic)"; done
-      - name: Kokoro reachable
-        run: curl -sI https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX/resolve/main/onnx/model_q8f16.onnx | head -3; curl -s -o /dev/null -w "%{http_code}\n" -L https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
-      - name: Freesound CC0 search (HTML)
+          d=json.load(sys.stdin).get('query',{}).get('pages',{})
+          for p in d.values():
+              ii=p['imageinfo'][0]; md=ii.get('extmetadata',{})
+              print(' ',p['title'][:70],'|',md.get('LicenseShortName',{}).get('value'),'|',round(ii['size']/1e6,1),'MB')"; done
+      - name: HF audio datasets with freesound clips
         run: |
-          for q in "classroom children" "classroom ambience" "school children talking" "students group work" "school corridor" "school playground" "pencil writing classroom" "quiet classroom" "staff room" "school bell"; do
-            echo "== $q"
-            curl -sL -A "Mozilla/5.0" "https://freesound.org/search/?q=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$q")&f=license:%22Creative+Commons+0%22&s=Downloads+desc" | grep -oE 'https://cdn.freesound.org/previews/[0-9]+/[0-9]+_[0-9]+-hq\.mp3' | sort -u | head -6
-          done
-      - name: BigSoundBank + Wikimedia
-        run: |
-          curl -sL -A "Mozilla/5.0" "https://bigsoundbank.com/search?q=classroom" | grep -oE 'href="[^"]*(classroom|school|children)[^"]*"' | sort -u | head -15
-          curl -s "https://commons.wikimedia.org/w/api.php?action=query&list=search&srnamespace=6&srsearch=classroom%20ambience%20filetype:audio&format=json&srlimit=15" | python3 -c "import json,sys;[print(x['title']) for x in json.load(sys.stdin)['query']['search']]"
+          for q in FSD50K freesound "school ambience" "classroom audio"; do echo "== $q"; curl -s "https://huggingface.co/api/datasets?search=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$q")&limit=10&full=true" | python3 -c "
+          import json,sys
+          for m in json.load(sys.stdin): print(' ',m['id'],m.get('downloads'),[t for t in m.get('tags',[]) if t.startswith('license:')])"; done
