@@ -153,8 +153,9 @@ Deno.serve(async (req) => {
       const rows = await sql`
         select telegram_user_id, name, total, rooms, show_on_board,
                rank() over (order by total desc) as rank
-        from public.v_toki_board where show_on_board or telegram_user_id = ${user.id}`;
-      const visible = rows.filter((r: any) => r.show_on_board);
+        from public.v_toki_board where show_on_board or telegram_user_id = ${user.id}
+        order by total desc, name`;
+      const visible = rows.filter((r: any) => r.show_on_board).sort((a: any, b: any) => b.total - a.total);
       const ranked = visible.map((r: any, i: number, arr: any[]) => ({
         rank: 1 + arr.findIndex((x: any) => x.total === r.total), name: r.name, total: r.total, rooms: r.rooms,
         me: String(r.telegram_user_id) === String(user.id),
