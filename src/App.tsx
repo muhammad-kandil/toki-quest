@@ -40,6 +40,9 @@ interface SaveData {
   playerName?: string;
   /** The player's choice to appear by name on the ranking. */
   showOnBoard?: boolean;
+  /** The world Toki last stood at on the map; a newer current world
+   *  means a world was just completed and he walks over to it. */
+  lastWalkedTo?: string;
 }
 
 const DEFAULT_SAVE: SaveData = {
@@ -254,6 +257,8 @@ function App() {
         onOpenBadges={() => go('badges', 'map')}
         onOpenBoard={() => setScreen('board')}
         onBack={() => setScreen('title')}
+        walkFrom={save.lastWalkedTo}
+        onArrived={(id) => { if (save.lastWalkedTo !== id) void persist({ ...save, lastWalkedTo: id }); }}
       />
     );
   } else if (screen === 'world') {
