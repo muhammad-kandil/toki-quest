@@ -9,6 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test:teacher": "vite-node tools/teacher/engine.test.ts && vite-node tools/teacher/universe.test.ts",
+    "check:teacher": "vite-node tools/teacher/check-content.ts",
+    "ci:teacher": "npm run check:teacher && npm run test:teacher",
     "e2e:teacher": "node tools/teacher/e2e.mjs"
   },
   "dependencies": {

@@ -11,7 +11,7 @@
 import type {
   Adventure, Phase, PoolId, Scenario, StudentVars, Universe, UniverseCondition, UniverseEnding, UniverseSave,
 } from '../types';
-import { pickWeighted, type Rand } from './mission';
+import { needFlag, pickWeighted, type Rand } from './mission';
 
 /* ---------------- state ---------------- */
 
@@ -21,16 +21,21 @@ import { pickWeighted, type Rand } from './mission';
  * whether a session is in progress.
  */
 export interface UState extends UniverseSave {
+  /** Session-scoped flags (reset each session). */
   flags: Record<string, boolean>;
-  arc: { step: number; drawn: number };
+  /** Arc pointer: current step, scenario draws left in it (null = not started), whether its one random event was used. */
+  arc: ArcPos;
   inSession: boolean;
+  /** Scenario an outcome triggered (played next if its requires hold; not a draw). */
+  trigger?: string;
 }
+export interface ArcPos { step: number; left: number | null; randomUsed: boolean }
+/** How the scenario being played was reached. */
+export interface Draw { code: string; arc: ArcPos; via: 'entry' | 'draw' | 'trigger' }
 
 export const XP_EXPLORE = 10; // a genuinely new evidence path in a scenario already played
 export const XP_TOOL = 50;    // first discovery of an NCLE tool
-export const RECOVERY_CODE = 'R06';
-/** R06 Second Chance weight multiplier while needs are unresolved (no unrecoverable state, still not guaranteed). */
-export const RECOVERY_BOOST = 4;
+const ARC0: ArcPos = { step: 0, left: null, randomUsed: false };
 
 /* ---------------- seeded PRNG ---------------- */
 
@@ -73,7 +78,7 @@ export function newUniverseState(u: Universe, key: string, seedOverride?: number
   return {
     contentVersion: u.version, key, seed: seedOverride ?? sessionSeed(key, u.version, 1), session: 1, phase: 'launch',
     visited: [], history: [], outcomes: {}, tools: [], unresolved: [], students, cooldowns: {}, xp: 0, rewarded: [], collectibles: [],
-    flags: {}, arc: { step: 0, drawn: 0 }, inSession: false,
+    flags: {}, arc: { ...ARC0 }, inSession: false,
   };
 }
 
@@ -100,6 +105,7 @@ export function normalizeUniverse(raw: unknown, u: Universe, key: string): UStat
     history: arr(r.history), outcomes: obj(r.outcomes), tools: arr(r.tools), unresolved: arr(r.unresolved),
     students, xp: typeof r.xp === 'number' && r.xp > 0 ? r.xp : 0, rewarded: arr(r.rewarded), collectibles: arr(r.collectibles),
     a11y: obj(r.a11y),
+    cooldowns: obj(r.cooldowns), // persist across sessions
   };
   s.seed = typeof r.seed === 'number' ? r.seed >>> 0 : sessionSeed(s.key!, u.version, s.session);
   if (sameVersion && r.inSession) {
@@ -107,8 +113,8 @@ export function normalizeUniverse(raw: unknown, u: Universe, key: string): UStat
     s.inSession = true;
     s.visited = arr<string>(r.visited).filter((c) => u.scenarios.some((x) => x.code === c));
     s.flags = obj(r.flags);
-    s.cooldowns = obj(r.cooldowns);
-    s.arc = r.arc && typeof r.arc.step === 'number' ? r.arc : base.arc;
+    s.arc = r.arc && typeof r.arc.step === 'number' && 'randomUsed' in r.arc ? r.arc : { ...ARC0 };
+    s.trigger = typeof r.trigger === 'string' ? r.trigger : undefined;
     s.phase = (['launch', 'facilitate', 'extend'] as Phase[]).includes(r.phase as Phase) ? (r.phase as Phase) : 'launch';
     s.resume = r.resume;
   }
@@ -126,6 +132,7 @@ export function meetsU(c: UniverseCondition | undefined, s: UState): boolean {
   if (c.notVisited && c.notVisited.some((v) => s.visited.includes(v))) return false;
   if (c.unresolved && !c.unresolved.every((n) => s.unresolved.includes(n))) return false;
   if (c.resolved && c.resolved.some((n) => s.unresolved.includes(n))) return false;
+  if (c.anyUnresolved && !c.anyUnresolved.some((n) => s.unresolved.includes(n))) return false;
   if (c.student) {
     for (const q of c.student) {
       const v = s.students[q.id]?.[q.key];
@@ -143,12 +150,11 @@ export const scenarioByCode = (u: Universe, code: string) => u.scenarios.find((x
 /* ---------------- drawing ---------------- */
 
 /**
- * Candidates in a pool, after removing: missing scenarios, failed
- * prerequisites, cooldowns, an immediate repeat, scenarios already played
- * this session (random events may recur, just not back to back), and
- * contradictions (a recovery-only event when nothing is unresolved).
+ * Candidates in a pool (TEACHER_CONTENT.md "Universe engine contract" §4):
+ * drop entries that fail `requires`, are on cooldown, repeat the last code,
+ * or are a second random event in this phase.
  */
-export function eligibleInPool(s: UState, u: Universe, pool: PoolId): { sc: Scenario; weight: number }[] {
+export function eligibleInPool(s: UState, u: Universe, pool: PoolId, randomUsed = s.arc.randomUsed): { sc: Scenario; weight: number }[] {
   const p = u.pools.find((x) => x.id === pool);
   if (!p) return [];
   const last = s.visited[s.visited.length - 1];
@@ -156,45 +162,54 @@ export function eligibleInPool(s: UState, u: Universe, pool: PoolId): { sc: Scen
   for (const e of p.entries) {
     const sc = scenarioByCode(u, e.code);
     if (!sc || e.weight <= 0) continue;
-    if (!meetsU(sc.requires, s)) continue;
     if ((s.cooldowns[sc.code] ?? 0) > 0) continue;
     if (last === sc.code) continue;
-    if (sc.kind === 'scenario' && s.visited.includes(sc.code)) continue;
-    const onlyCloses = (sc.closesNeeds?.length ?? 0) > 0 && !(sc.opensNeeds?.length);
-    if (sc.kind === 'random' && onlyCloses && !sc.closesNeeds!.some((n) => s.unresolved.includes(n))) continue;
-    let weight = e.weight;
-    if (sc.code === RECOVERY_CODE && s.unresolved.length) weight *= RECOVERY_BOOST;
-    out.push({ sc, weight });
+    if (sc.kind === 'random' && randomUsed) continue;
+    if (!meetsU(sc.requires, s)) continue;
+    out.push({ sc, weight: e.weight });
   }
   return out;
 }
 
-/** The next scenario of this session, or null when the arc is complete (time for the ending). */
-export function drawNext(s: UState, u: Universe): { code: string; arc: UState['arc'] } | null {
-  let step = s.arc.step;
-  let drawn = s.arc.drawn;
+/**
+ * The next scenario drawn from the arc, or null when the arc is complete.
+ * A phase ends when its draws are used, when its `endsOn` node is played, or
+ * when nothing is eligible. Random events are bonus draws (one per phase).
+ */
+export function drawNext(s: UState, u: Universe): Draw | null {
+  let { step, left, randomUsed } = s.arc;
   while (step < u.arc.length) {
     const a = u.arc[step];
-    if (drawn >= a.draws) { step++; drawn = 0; continue; }
-    const cand = eligibleInPool(s, u, a.pool);
-    if (!cand.length) { step++; drawn = 0; continue; } // none eligible → move on (never stuck)
-    const pick = pickWeighted(cand, (c) => c.weight, drawRand(s.seed, s.visited.length));
-    if (!pick) { step++; drawn = 0; continue; }
-    return { code: pick.sc.code, arc: { step, drawn: drawn + 1 } };
+    if (left === null) left = a.draws;
+    if (left <= 0) { step++; left = null; randomUsed = false; continue; }
+    const cand = eligibleInPool(s, u, a.pool, randomUsed);
+    const pick = cand.length ? pickWeighted(cand, (c) => c.weight, drawRand(s.seed, s.visited.length)) : undefined;
+    if (!pick) { step++; left = null; randomUsed = false; continue; }
+    const random = pick.sc.kind === 'random';
+    return { code: pick.sc.code, via: 'draw', arc: { step, left: random ? left : left - 1, randomUsed: randomUsed || random } };
   }
   return null;
 }
 
-/** Start a session (the entry hub is always first). */
+/** Start a session (the entry hub is always first). Cooldowns, needs, students persist. */
 export function startSession(s: UState, u: Universe): UState {
-  return { ...s, inSession: true, visited: [], flags: {}, cooldowns: {}, arc: { step: 0, drawn: 0 }, phase: 'launch', resume: { code: u.entry, step: 'start' } };
+  return { ...s, inSession: true, visited: [], flags: {}, arc: { ...ARC0 }, trigger: undefined, phase: 'launch', resume: { code: u.entry, step: 'start' } };
 }
 
-/** The scenario to play now: the entry hub first, then draws. */
-export function currentCode(s: UState, u: Universe): { code: string; arc: UState['arc'] } | null {
-  if (!s.visited.includes(u.entry)) return { code: u.entry, arc: s.arc };
+/** The scenario to play now: the entry hub, then a triggered scenario (if its requires hold), then draws. */
+export function currentCode(s: UState, u: Universe): Draw | null {
+  if (!s.visited.includes(u.entry)) return { code: u.entry, arc: s.arc, via: 'entry' };
+  if (s.trigger) {
+    const t = scenarioByCode(u, s.trigger);
+    if (t && meetsU(t.requires, s)) return { code: t.code, arc: s.arc, via: 'trigger' };
+    return drawNext({ ...s, trigger: undefined }, u);
+  }
   return drawNext(s, u);
 }
+
+/** Session flags for a scenario: the session's flags plus one `need:<id>` per open need (for choices' ifUnresolved). */
+export const scenarioFlags = (s: UState): Record<string, boolean> =>
+  ({ ...s.flags, ...Object.fromEntries(s.unresolved.map((n) => [needFlag(n), true])) });
 
 /* ---------------- playing a scenario ---------------- */
 
@@ -236,11 +251,14 @@ export interface ScenarioResult {
 }
 
 /**
- * Apply a finished scenario: path, outcomes, tools, flags, student variables
- * (outcome effects, then studentDelta), needs, cooldowns, phase, XP with
- * anti-farming. The next resume point is the next draw.
+ * Apply a finished scenario (contract §5): outcome-level needs / studentDelta
+ * / triggers in play order, then the scenario's; session flags; cooldowns tick
+ * on draws; arc pointer + budgetDelta + endsOn; tools; XP with anti-farming.
+ * Outcome `effects` only move the rings inside the scene. The next resume
+ * point is the next draw.
  */
-export function completeScenario(s: UState, u: Universe, code: string, r: ScenarioResult, arc: UState['arc']): { state: UState; xpGained: number; newTools: string[] } {
+export function completeScenario(s: UState, u: Universe, code: string, r: ScenarioResult, d: Draw | ArcPos): { state: UState; xpGained: number; newTools: string[] } {
+  const draw: Draw = 'via' in d ? d : { code, arc: d, via: code === u.entry ? 'entry' : 'draw' };
   const sc = scenarioByCode(u, code);
   if (!sc) return { state: s, xpGained: 0, newTools: [] };
   const rewarded = [...s.rewarded];
@@ -257,30 +275,43 @@ export function completeScenario(s: UState, u: Universe, code: string, r: Scenar
   const newTools = r.found.filter((t) => !s.tools.includes(t));
   for (const t of newTools) award(`tool:${t}`, XP_TOOL);
 
+  // Persistent changes: outcome-level (in play order), then scenario-level. Students change only via studentDelta.
   const students: Record<string, StudentVars> = {};
-  for (const [id, v] of Object.entries(s.students)) {
-    const e = r.students[id];
-    students[id] = e ? { ...v, understanding: clamp(e[0]), participation: clamp(e[1]) } : { ...v };
+  for (const [id, v] of Object.entries(s.students)) students[id] = { ...v };
+  let unresolved = [...s.unresolved];
+  const applyNeeds = (opens?: string[], closes?: string[], delta?: Scenario['studentDelta']) => {
+    for (const n of opens ?? []) if (!unresolved.includes(n)) unresolved.push(n);
+    unresolved = unresolved.filter((n) => !(closes ?? []).includes(n));
+    for (const x of delta ?? []) { const v = students[x.id]; if (v) students[x.id] = { ...v, [x.key]: clamp(v[x.key] + x.delta) }; }
+  };
+  let trigger: string | undefined;
+  for (const oid of r.outcomes) {
+    const o = sc.outcomes.find((x) => x.id === oid);
+    if (!o) continue;
+    applyNeeds(o.opensNeeds, o.closesNeeds, o.studentDelta);
+    if (o.triggers) trigger = o.triggers;
   }
-  for (const d of sc.studentDelta ?? []) {
-    const v = students[d.id];
-    if (v) students[d.id] = { ...v, [d.key]: clamp(v[d.key] + d.delta) };
-  }
-  let unresolved = s.unresolved.filter((n) => !(sc.closesNeeds ?? []).includes(n));
-  for (const n of sc.opensNeeds ?? []) if (!unresolved.includes(n)) unresolved = [...unresolved, n];
-  const cooldowns: Record<string, number> = {};
-  for (const [c, n] of Object.entries(s.cooldowns)) if (n - 1 > 0) cooldowns[c] = n - 1;
+  applyNeeds(sc.opensNeeds, sc.closesNeeds, sc.studentDelta);
+  // Cooldowns tick on each draw (not the hub or a triggered scenario), then this one's starts.
+  const cooldowns: Record<string, number> = { ...s.cooldowns };
+  if (draw.via === 'draw') for (const [c, n] of Object.entries(cooldowns)) { if (n - 1 > 0) cooldowns[c] = n - 1; else delete cooldowns[c]; }
   if ((sc.cooldown ?? 0) > 0) cooldowns[code] = sc.cooldown!;
+  // Arc: the draw's pointer, R04's budget change, early end on a reconvergence node.
+  let arc: ArcPos = draw.via === 'draw' ? draw.arc : s.arc;
+  if (sc.budgetDelta && arc.left !== null) arc = { ...arc, left: Math.max(0, arc.left + sc.budgetDelta) };
+  if (draw.via === 'draw' && u.arc[arc.step]?.endsOn?.includes(code)) arc = { step: arc.step + 1, left: null, randomUsed: false };
+  const sessionFlags = Object.fromEntries(Object.entries(r.flags).filter(([k]) => !k.startsWith('need:')));
   const outcomes = { ...s.outcomes, [code]: Array.from(new Set([...(s.outcomes[code] ?? []), ...r.outcomes])) };
   const tools = [...s.tools, ...newTools];
   const state: UState = {
     ...s,
     visited: [...s.visited, code],
     outcomes, tools, unresolved, students, cooldowns, rewarded,
-    flags: { ...s.flags, ...r.flags },
+    flags: { ...s.flags, ...sessionFlags },
     xp: s.xp + xp,
     phase: sc.phase,
-    arc: code === u.entry ? s.arc : arc,
+    arc,
+    trigger,
     resume: { code: '', step: 'next' },
   };
   return { state, xpGained: xp, newTools };
@@ -308,7 +339,7 @@ export function endSession(s: UState, u: Universe, endingId: string): UState {
     history: [...s.history, { session: s.session, path: s.visited, ending: endingId }],
     session,
     seed: sessionSeed(s.key ?? 'anon', u.version, session),
-    visited: [], flags: {}, cooldowns: {}, arc: { step: 0, drawn: 0 }, inSession: false, phase: 'launch', resume: undefined,
+    visited: [], flags: {}, arc: { ...ARC0 }, trigger: undefined, inSession: false, phase: 'launch', resume: undefined,
   };
 }
 
@@ -319,7 +350,7 @@ export function simulatePath(s: UState, u: Universe, play: (sc: Scenario, s: USt
     const cur = currentCode(st, u);
     if (!cur) break;
     const sc = scenarioByCode(u, cur.code)!;
-    st = completeScenario(st, u, cur.code, play(sc, st), cur.arc).state;
+    st = completeScenario(st, u, cur.code, play(sc, st), cur).state;
   }
   const { primary } = pickUniverseEnding(st, u);
   return { path: st.visited, ending: primary.id, state: st };

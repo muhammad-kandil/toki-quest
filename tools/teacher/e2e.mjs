@@ -23,7 +23,7 @@ const { chromium } = require('playwright');
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const SHOTS = join(ROOT, 'tools/teacher/shots');
 mkdirSync(SHOTS, { recursive: true });
-const SEED = Number(process.env.SEED || 41029);
+const SEED = Number(process.env.SEED || 32); // L01 → L04 → R04 → F05 → F03 → E02 → E05 (budgetDelta, endsOn)
 
 /** A port nobody is listening on (never reuse another checkout's preview). */
 async function freePort() {
@@ -73,21 +73,22 @@ async function solve(page, seen) {
   // match
   if (await count(page, '[data-evidence]')) {
     for (const el of await page.locator('[data-evidence]').all()) {
-      const id = await el.getAttribute('data-evidence');
+      const fit = await el.getAttribute('data-fit');
       await el.click();
-      await page.click(`[data-meaning="${id}"]`);
+      await page.click(`[data-meaning="${fit}"]`);
     }
     await page.click('.ts-int-check'); seen.add('match');
   }
-  // sort / plan
+  // sort / plan (plan: distractor evidence, data-fit="", stays in the tray)
   if (await count(page, '.ts-int--buckets')) {
-    for (let i = 0; i < 12 && await count(page, '.ts-tray-cards [data-card]'); i++) {
-      const card = page.locator('.ts-tray-cards [data-card]').first();
+    const sel = '.ts-tray-cards [data-card]:not([data-fit=""])';
+    for (let i = 0; i < 12 && await count(page, sel); i++) {
+      const card = page.locator(sel).first();
       const fit = await card.getAttribute('data-fit');
       await card.click();
       await page.click(`[data-place="${fit}"]`);
     }
-    seen.add((await count(page, '[data-bucket="open"]')) ? 'plan' : 'sort');
+    seen.add((await count(page, '.ts-int--plan')) ? 'plan' : 'sort');
     await page.click('.ts-int-check');
   }
   // order: tap an item, tap its position
@@ -103,18 +104,29 @@ async function solve(page, seen) {
   }
   // pattern
   if (await count(page, '.ts-int--pattern')) {
-    for (const el of await page.locator('.ts-cell[data-fit="1"]').all()) await el.click();
+    for (const chip of await page.locator('[data-pattern]').all()) {
+      const id = await chip.getAttribute('data-pattern');
+      await chip.click();
+      for (const el of await page.locator(`.ts-cell[data-fit="${id}"]`).all()) await el.click();
+    }
     await page.click('.ts-int-check'); seen.add('pattern');
   }
 }
 
-/** Play one scenario: every pulsing hotspot, then "Continue the lesson". */
+/**
+ * Play one scenario: pulsing hotspots (students first; in the L01 hub the
+ * objects are optional, so "Continue the lesson" appears once the students
+ * are done), first offered choice each time, then "Continue the lesson".
+ */
 async function playScenario(page, seen) {
   await page.click('.ts-mission__start');
   await page.waitForSelector('.ts-chips');
-  for (let guard = 0; guard < 10; guard++) {
-    if (!(await count(page, '.t-hot--needs'))) break;
-    await page.locator('.t-hot--needs').first().click();
+  for (let guard = 0; guard < 12; guard++) {
+    if (await count(page, '.ts-scn__continue')) break;
+    const student = '.t-hot--needs:not(.t-hot--object)';
+    const target = (await count(page, student)) ? student : '.t-hot--needs';
+    if (!(await count(page, target))) break;
+    await page.locator(target).first().click();
     await page.waitForTimeout(200);
     // one screenshot per interaction type, as it opens
     for (const t of ['compare', 'hint', 'match', 'buckets', 'order', 'pattern']) {
@@ -133,6 +145,35 @@ async function playScenario(page, seen) {
   }
   await page.click('.ts-scn__continue');
   await page.waitForTimeout(300);
+}
+
+/** Students' notes as data: id -> "understanding,confidence,participation,readiness". */
+const studentVars = (page) => page.locator('[data-student]').evaluateAll((els) => Object.fromEntries(els.map((e) => [e.getAttribute('data-student'), e.getAttribute('data-vars')])));
+
+/** Play scenarios until the ending choice; returns how many were played. */
+async function playToEnding(page, seen, each) {
+  let n = 0;
+  for (let i = 0; i < 12; i++) {
+    await page.waitForSelector('.ts-mission__start, .ts-ending--primary');
+    if (await count(page, '.ts-ending--primary')) break;
+    if (each) await each(i);
+    await playScenario(page, seen);
+    n++;
+  }
+  await page.waitForSelector('.ts-ending--primary');
+  return n;
+}
+
+/** Choose the primary ending; read the closing path, ending and students. */
+async function closeSession(page) {
+  await page.click('.ts-ending--primary');
+  await page.waitForSelector('.ts-closing__actions');
+  const path = await page.locator('.ts-closing .ts-path__chip').evaluateAll((els) => els.map((e) => e.getAttribute('data-code')));
+  const ending = await page.locator('.ts-closing [data-ending]').first().getAttribute('data-ending');
+  const vars = await studentVars(page);
+  console.log(`       path ${path.join(' -> ')} -> ${ending}`);
+  await page.waitForTimeout(400);
+  return { path, ending, vars };
 }
 
 async function run(lang) {
@@ -179,7 +220,14 @@ async function run(lang) {
   await page.click('.ts-back');
   await page.waitForSelector('.ts-campus');
 
-  // Session 1
+  // Notebook before any session: the students' starting notes
+  await page.click('[data-loc="library"]');
+  await page.waitForSelector('[data-student]');
+  const s0 = await studentVars(page);
+  await page.click('.ts-back');
+  await page.waitForSelector('.ts-campus');
+
+  // Session 1: opening film -> card -> seeded session -> ending -> closing
   await page.click('.t-pin--next');
   await page.waitForSelector('.ts-film__next');
   check(await count(page, '.ts-caption') === 1, 'opening narration captioned');
@@ -190,27 +238,16 @@ async function run(lang) {
   await shot('04-session-card');
   await page.click('.ts-session__start');
   const seen = new Set();
-  let scenarios = 0;
-  for (let i = 0; i < 10; i++) {
-    await page.waitForSelector('.ts-mission__start, .ts-ending--primary');
-    if (await count(page, '.ts-ending--primary')) break;
-    if (i === 0) { await shot('05-scenario-card'); }
-    await playScenario(page, seen);
-    scenarios++;
-    if (i === 1) await shot('06-scenario-done');
-  }
-  check(scenarios >= 4, `played ${scenarios} scenarios (L01 + arc draws)`);
-  check(seen.size >= 2, 'interactions used: ' + [...seen].join(', '));
-  await page.waitForSelector('.ts-ending--primary');
+  const n1 = await playToEnding(page, seen, async (i) => {
+    if (i === 0) await shot('05-scenario-card');
+  });
+  check(n1 >= 4 && n1 <= 10, `session 1: played ${n1} scenarios (4-10)`);
   await shot('07-ending-choice');
-  await page.click('.ts-ending--primary');
-  await page.waitForSelector('.ts-closing__actions');
-  const path = await page.locator('.ts-closing .ts-path__chip').evaluateAll((els) => els.map((e) => e.getAttribute('data-code')));
-  const ending = await page.locator('.ts-closing [data-ending]').first().getAttribute('data-ending');
-  console.log(`       path ${path.join(' → ')} → ${ending}`);
-  check(path[0] === 'L01', 'session starts at the L01 hub');
-  check(await count(page, '[data-student]') === 3, 'students shown as story notes');
-  await page.waitForTimeout(400);
+  const one = await closeSession(page);
+  check(one.path[0] === 'L01', 'session starts at the L01 hub');
+  check(one.path.length === n1, 'closing path lists every scenario played');
+  check(Object.keys(one.vars).length === 3, 'students shown as story notes');
+  check(JSON.stringify(one.vars) !== JSON.stringify(s0), `students changed in session 1 (${JSON.stringify(s0)} -> ${JSON.stringify(one.vars)})`);
   await shot('08-closing');
   await page.click('.ts-session__campus');
   await page.waitForSelector('.ts-campus');
@@ -224,15 +261,39 @@ async function run(lang) {
   await page.click('[data-loc="staffroom"]');
   await page.waitForSelector('.t-tool');
   check(await count(page, '.t-tool:not(.t-tool--unfound)') >= 1, 'NCLE tools discovered in the session');
+  check(await count(page, '.ts-status[data-status]') >= 1, 'tool status chip shown');
   await page.click('.ts-back');
   await page.waitForSelector('.ts-campus');
   check(/1\/\d+/.test(await page.locator('.ts-pass-btn').innerText()), 'Term Pass +1 for the session');
 
-  // Session 2: pause after the hub, reload, resume
+  // Reload: students persist (not reset to the start)
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForSelector('.ts-title');
+  await page.click('.ts-title__start');
+  await page.waitForSelector('.ts-campus');
+  await page.click('[data-loc="library"]');
+  await page.waitForSelector('[data-student]');
+  check(JSON.stringify(await studentVars(page)) === JSON.stringify(one.vars), 'after a reload the notebook shows the students as session 1 left them');
+  await page.click('.ts-back');
+  await page.waitForSelector('.ts-campus');
+
+  // Session 2 starts from the persisted students; pause after the hub, reload, resume, play to its ending
   await page.click('.t-pin--next');
-  await page.waitForSelector('.ts-film__skip');
-  await page.click('.ts-film__skip');
+  await page.waitForSelector('.ts-film__skip, .ts-session__start');
+  if (await count(page, '.ts-film__skip')) await page.click('.ts-film__skip');
   await page.click('.ts-session__start');
+  await page.waitForSelector('.ts-mission__start');
+  await page.waitForTimeout(300);
+  const saved = await page.evaluate(() => {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.endsWith('teacher:universe:v1')) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } }
+    }
+    return null;
+  });
+  const savedVars = saved && Object.fromEntries(Object.entries(saved.students).map(([id, v]) => [id, [v.understanding, v.confidence, v.participation, v.readiness].join(',')]));
+  check(!!saved && saved.session === 2 && saved.history.length === 1, 'saved universe: session 2, one session in history');
+  check(JSON.stringify(savedVars) === JSON.stringify(one.vars), 'session 2 starts from the students session 1 left');
   await playScenario(page, seen);
   await page.waitForSelector('.ts-mission__start');
   await page.click('.ts-leave');
@@ -246,6 +307,19 @@ async function run(lang) {
   await page.click('.ts-session__resume');
   await page.waitForSelector('.ts-mission__start');
   check(true, 'resumed session 2 at its next moment after a reload');
+  const n2 = 1 + (await playToEnding(page, seen));
+  check(n2 >= 4 && n2 <= 10, `session 2: played ${n2} scenarios (4-10)`);
+  const two = await closeSession(page);
+  check(two.path.length === n2 && two.path[0] === 'L01', 'session 2 path recorded from the hub');
+  await shot('10-closing-2');
+  await page.click('.ts-session__campus');
+  await page.waitForSelector('.ts-campus');
+  await page.click('[data-loc="library"]');
+  await page.waitForSelector('.ts-page[data-session="2"]');
+  check(await count(page, '.ts-page[data-session]') === 2, 'notebook lists both sessions');
+  await page.click('.ts-back');
+  await page.waitForSelector('.ts-campus');
+  check(seen.size >= 3, 'interactions used: ' + [...seen].join(', '));
 
   // the analytics queue persists across the reload (no PROGRESS_URL here, so nothing is sent)
   const events = await page.evaluate(() => { try { return JSON.parse(localStorage.getItem('toki:teacher:events') || '[]').map((e) => e.name); } catch { return []; } });
@@ -254,7 +328,7 @@ async function run(lang) {
   }
   check(errors.length === 0, 'no console errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await browser.close();
-  return path.join('>') + '>' + ending;
+  return `${one.path.join('>')}>${one.ending} | ${two.path.join('>')}>${two.ending}`;
 }
 
 /** A second seed whose path covers the remaining interaction types (hint, match, order). */
@@ -275,13 +349,11 @@ async function coverage(seed) {
   await page.click('.ts-film__skip');
   await page.click('.ts-session__start');
   const seen = new Set();
-  for (let i = 0; i < 10; i++) {
-    await page.waitForSelector('.ts-mission__start, .ts-ending--primary');
-    if (await count(page, '.ts-ending--primary')) break;
-    await playScenario(page, seen);
-  }
+  await playToEnding(page, seen);
   await page.screenshot({ path: join(SHOTS, `qa-ending-${seed}.png`) });
-  for (const t of ['hint', 'match', 'order']) check(seen.has(t), `interaction played: ${t}`);
+  const qa = await closeSession(page);
+  if (seed === 6) check(qa.path.join('>').includes('F01>R05'), 'F01 triggers R05 Quiet Confidence (not in any pool)');
+  for (const t of ['hint', 'order', 'pattern', 'match', 'sort']) check(seen.has(t), `interaction played: ${t}`);
   check(errors.length === 0, 'no console errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await browser.close();
 }
@@ -309,7 +381,7 @@ try {
   const ar = await run('ar');
   console.log('');
   check(en === ar, `same seed → same path in EN and AR (${en})`);
-  await coverage(Number(process.env.SEED2 || 20));
+  await coverage(Number(process.env.SEED2 || 6)); // … F04 → F05 → F01 → R05 (trigger) …
   await coach();
 } catch (e) {
   failures++;

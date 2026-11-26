@@ -323,6 +323,10 @@ export const S = {
   intPattern: t('Tap the responses that share the pattern.', 'انقري على الإجابات التي تشترك في النمط.'),
   intPatternNudge: t('Not quite the same set yet. Look at each answer again.', 'ليست المجموعة نفسها بعد. انظري في كل إجابة مرة أخرى.'),
   intSelected: t('{n} selected', 'اخترتِ {n}'),
+  intBackToTray: t('Take it back out', 'أعيديها إلى الخارج'),
+  intTagged: t('{n} of {t} responses grouped', 'جُمعت {n} من {t} إجابات'),
+  statusVerified: t('Publicly verified', 'موثّقة علنًا'),
+  statusNeeds: t('To be validated by Alef', 'بانتظار تحقّق ألف'),
   classView: t('Class view', 'عرض الصف'),
   continueLesson: t('Continue the lesson', 'تابعي الدرس'),
   // Universe session

@@ -35,6 +35,8 @@ export interface AlefResource {
   /** Audit trail once Alef signs the card off. */
   confirmedBy?: string;
   confirmedAt?: string;
+  /** Product boundary (GAME_PACKAGE.md): publicly verified capability vs needs Alef's internal validation. */
+  status?: 'verified-public' | 'needs-internal-validation';
 }
 
 /* ------------------------------------------------------------------ */
@@ -98,6 +100,13 @@ export interface Outcome {
   xp?: number;
   /** NCLE tool discovered here (resource id). */
   discover?: string;
+  /** Universe: choice-dependent need changes (persistent). */
+  opensNeeds?: string[];
+  closesNeeds?: string[];
+  /** Universe: persistent student-variable changes (clamped 0–3). */
+  studentDelta?: { id: string; key: keyof StudentVars; delta: number }[];
+  /** Universe: play this scenario next if its `requires` hold (not a draw), e.g. F01 → R05. */
+  triggers?: string;
 }
 
 export interface Choice {
@@ -113,6 +122,34 @@ export interface Choice {
   outcome: string | { ifFlag?: string; outcome: string }[];
   /** Only offered when this flag is set (e.g. the chosen evidence profile). */
   ifFlag?: string;
+  /** Universe: offered only while this need is unresolved (R06 Second Chance). */
+  ifUnresolved?: string;
+}
+
+/** Non-MCQ interaction run before the choices (GAME_PACKAGE.md "Interactions"). */
+export type InteractionType = 'investigate' | 'compare' | 'match' | 'sort' | 'order' | 'hint' | 'pattern' | 'plan';
+
+export interface Card { id: string; label: Text; text: Text }
+
+/**
+ * Interaction data; answers are set by the evidence on the cards.
+ *  compare: `cards` revealed side by side (or the event's investigate clues).
+ *  match:   `cards` → `targets`; `answer[card] = target`.
+ *  sort:    `cards` → `targets` (bins); `answer[card] = bin`.
+ *  order:   `cards` and `order` (the sequence).
+ *  hint:    `hints`, least → most intrusive.
+ *  pattern: `cards` (responses) grouped by `patterns`.
+ *  plan:    `cards` (evidence) → `targets` (slots); `answer[slot] = card`.
+ */
+export interface Task {
+  cards?: Card[];
+  targets?: Card[];
+  answer?: Record<string, string>;
+  order?: string[];
+  hints?: Text[];
+  patterns?: { id: string; label: Text; cards: string[] }[];
+  /** Shown after the interaction: why the evidence points this way. */
+  note?: Text;
 }
 
 export interface ClassEvent {
@@ -131,6 +168,9 @@ export interface ClassEvent {
   eligible?: Eligibility;
   /** Optional investigation before the choices. */
   investigate?: Investigation;
+  /** Non-MCQ interaction before the choices, with its data. */
+  interaction?: InteractionType;
+  task?: Task;
 }
 
 export interface Adventure {
@@ -192,6 +232,8 @@ export interface EvidenceProfile {
   clues: Record<string, Text>;
   /** Flag set when the profile is chosen (e.g. 'sara:prerequisite'). */
   setFlag: string;
+  /** Drawn only when this flag holds (candidates = flagged profiles if any hold, else those without ifFlag). */
+  ifFlag?: string;
 }
 
 /** Tap-to-investigate step before choosing a response. */
@@ -313,6 +355,7 @@ export interface UniverseCondition {
   resolved?: string[];       // these needs are closed
   student?: { id: string; key: keyof StudentVars; min?: number; max?: number }[];
   minXp?: number;
+  anyUnresolved?: string[];  // at least one of these needs is open
 }
 
 /** A scenario (L01…E05) or random event (R01…R06). Reuses Adventure's play model (scene, students, objects, events, outcomes). */
@@ -334,6 +377,8 @@ export interface Scenario extends Omit<Adventure, 'number' | 'lessonMinutes' | '
   closesNeeds?: string[];
   /** Student variable changes applied on completion (outcome effects still apply). */
   studentDelta?: { id: string; key: keyof StudentVars; delta: number }[];
+  /** R04 Time Squeeze: added to the current phase's remaining draws. */
+  budgetDelta?: number;
   /** Optional per-scenario badge/teaser fields carried over from Adventure. */
   badges?: Adventure['badges'];
   communityTopic?: Text;
@@ -362,7 +407,8 @@ export interface Universe {
   scenarios: Scenario[];
   pools: Pool[];
   /** Session structure: how many draws from each pool before moving on. */
-  arc: { pool: PoolId; draws: number }[];
+  /** `draws` counts scenarios (random events are bonus draws, max one per phase); a phase ends early on an `endsOn` node. */
+  arc: { pool: PoolId; draws: number; endsOn?: string[] }[];
   endings: UniverseEnding[];
   students: { id: string; name: Text; start: StudentVars }[];
 }

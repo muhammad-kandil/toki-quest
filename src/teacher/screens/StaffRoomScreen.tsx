@@ -5,7 +5,7 @@ import { sfx } from '../../audio/sfx';
 import { adventures, getTermPass, resource, resources } from '../content';
 import { markTried, toggleSaved, type GameSave } from '../engine/save';
 import { S, fmt } from '../strings';
-import { SubHeader, copyText, useToast } from '../ui';
+import { SubHeader, ToolStatus, copyText, useToast } from '../ui';
 import type { Stage } from '../types';
 
 const STAGES: Stage[] = ['launch', 'facilitate', 'extend'];
@@ -81,7 +81,8 @@ export function StaffRoomScreen({ save, update, onBack }: { save: GameSave; upda
             <div key={r.id} className={`t-tool t-tool--${r.stage}`} data-tool={r.id}>
               <span className="t-tool__tile" aria-hidden="true">{r.icon}</span>
               <span className="t-tool__name">{tx(r.title)}</span>
-              <span className="t-chip">{tx(S.stage[r.stage])}</span>
+              <span className="t-chip">{tx(S.stage[r.stage])}</span>{' '}
+              {r.status && <ToolStatus status={r.status} />}
               <span className="t-tool__what">{tx(r.what)}</span>
               <span className="t-tool__monday"><b>{tx(S.tryMonday)}</b> {tx(r.monday)}</span>
               {w && <span className="t-tool__found">{fmt(tx(S.foundInMission), { n: String(w.a.number).padStart(2, '0') })} · {w.who}</span>}

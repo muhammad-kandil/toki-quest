@@ -60,7 +60,7 @@ function playerKey(): string {
     return k;
   } catch { return 'anon'; }
 }
-/** ?seed=N — QA override for the session seed. */
+/** ?seed=N — QA override: session k plays seed N + k - 1 (deterministic across languages and reloads). */
 function qaSeed(): number | undefined {
   try { const s = new URLSearchParams(window.location.search).get('seed'); return s ? (Number(s) >>> 0) : undefined; } catch { return undefined; }
 }

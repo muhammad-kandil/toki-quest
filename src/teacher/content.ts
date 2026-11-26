@@ -3,7 +3,7 @@
  * dev fixtures only while that data is empty. Content shapes that differ
  * from the engine's (shop, Term Pass) are adapted here, nowhere else.
  */
-import { ADVENTURES, END_OF_TERM, LOCATIONS, RESOURCES, SHOP_ITEMS, TERM_PASS } from './data';
+import { ADVENTURES, END_OF_TERM, LOCATIONS, RESOURCES, SHOP_ITEMS, TERM_PASS, TOOL_STATUS, UNIVERSE } from './data';
 import type { ShopItem as DataShopItem } from './data/shop';
 import type { TermPassStage } from './data/termPass';
 import { FIXTURE_ADVENTURES, FIXTURE_LOCATIONS, FIXTURE_RESOURCES } from './dev/fixture';
@@ -12,7 +12,6 @@ import { SHOP_FIXTURE, type PowerupId, type ShopItem, type ShopSlot } from './de
 import { isSellable } from './engine/shop';
 import { validateAdventure } from './engine/validate';
 import { t } from '../i18n/types';
-import { UNIVERSE_FIXTURE } from './dev/universeFixture';
 import type { Adventure, AlefResource, Location, Universe } from './types';
 
 /**
@@ -27,8 +26,10 @@ export const USING_FIXTURE = ADVENTURES.length === 0;
 
 export const adventures = (): Adventure[] => (USING_FIXTURE ? FIXTURE_ADVENTURES : ADVENTURES);
 export const locations = (): Location[] =>
-  (USING_FIXTURE ? FIXTURE_LOCATIONS : LOCATIONS).filter((l) => ENABLE_CUSTOMISATION || l.kind !== 'shop');
-export const resources = (): AlefResource[] => (USING_FIXTURE || !RESOURCES.length ? FIXTURE_RESOURCES : RESOURCES);
+  (LOCATIONS.length ? LOCATIONS : FIXTURE_LOCATIONS).filter((l) => ENABLE_CUSTOMISATION || l.kind !== 'shop');
+/** NCLE tools with their product-boundary status (TOOL_STATUS). */
+const RESOURCES_WITH_STATUS: AlefResource[] = RESOURCES.map((r) => ({ ...r, status: r.status ?? TOOL_STATUS[r.id]?.status }));
+export const resources = (): AlefResource[] => (RESOURCES.length ? RESOURCES_WITH_STATUS : FIXTURE_RESOURCES);
 export const adventure = (id: string) => adventures().find((a) => a.id === id);
 export const resource = (id: string) => resources().find((r) => r.id === id);
 export const location = (id: string) => locations().find((l) => l.id === id);
@@ -136,13 +137,10 @@ const REAL_PASS = adaptPass();
 export const getTermPass = (): TermPass => REAL_PASS ?? TERM_PASS_FIXTURE;
 
 /* ------------------------------------------------------------------ */
-/* Classroom universe: data/universe.ts (UNIVERSE) when it lands       */
+/* Classroom universe: data/universe.ts (UNIVERSE)                      */
 /* ------------------------------------------------------------------ */
-const universeModule = import.meta.glob<{ UNIVERSE?: Universe }>('./data/universe.ts', { eager: true });
-const DATA_UNIVERSE = universeModule['./data/universe.ts']?.UNIVERSE;
-export const USING_UNIVERSE_FIXTURE = !(DATA_UNIVERSE && DATA_UNIVERSE.scenarios?.length);
-/** The classroom universe: real data, else the dev fixture. */
-export const getUniverse = (): Universe => (USING_UNIVERSE_FIXTURE ? UNIVERSE_FIXTURE : DATA_UNIVERSE!);
+/** The classroom universe (content's kit subtypes are valid Universe values). */
+export const getUniverse = (): Universe => UNIVERSE as unknown as Universe;
 /** The campus classroom that holds the universe (first classroom location). */
 export const universeClassroom = (): Location | undefined => {
   const u = getUniverse();

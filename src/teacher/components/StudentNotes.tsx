@@ -27,7 +27,7 @@ export function StudentNotes({ universe, students }: { universe: Universe; stude
         const v = students[st.id];
         if (!v) return null;
         return (
-          <div key={st.id} className="t-card t-card--inset ts-kid" data-student={st.id}>
+          <div key={st.id} className="t-card t-card--inset ts-kid" data-student={st.id} data-vars={KEYS.map((k) => v[k]).join(',')}>
             <span className="ts-kid__ring" aria-hidden="true">{tx(st.name).charAt(0)}</span>
             <div className="ts-kid__txt">
               <strong>{tx(st.name)}</strong>

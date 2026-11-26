@@ -12,7 +12,7 @@ import { ambience } from '../../audio/ambience';
 import { getTermPass, resource } from '../content';
 import {
   completeScenario, currentCode, endSession, pickUniverseEnding, scenarioAdventure, scenarioByCode, scenarioRand, startSession,
-  type ScenarioResult, type UState,
+  scenarioFlags, type Draw, type ScenarioResult, type UState,
 } from '../engine/universe';
 import type { SimState } from '../engine/sim';
 import { markShared, type GameSave } from '../engine/save';
@@ -67,7 +67,7 @@ export default function SessionScreen({ universe: U, ustate, setU, qaSeed, save,
       track('resume_success', { session: stRef.current.session, at: stRef.current.visited.length });
     } else {
       if (stRef.current.history.length) track('replay_started', { session: stRef.current.session });
-      setU((s) => { const n = startSession(s, U); return qaSeed !== undefined ? { ...n, seed: qaSeed } : n; });
+      setU((s) => { const n = startSession(s, U); return qaSeed !== undefined ? { ...n, seed: (qaSeed + n.session - 1) >>> 0 } : n; });
     }
     startXp.current = stRef.current.xp;
     startTools.current = stRef.current.tools;
@@ -77,14 +77,15 @@ export default function SessionScreen({ universe: U, ustate, setU, qaSeed, save,
   const cur = phase === 'play' ? currentCode(ustate, U) : null;
   useEffect(() => { if (phase === 'play' && !cur) setPhase('ending'); }, [phase, cur]);
 
-  const onScenarioDone = (code: string, arc: UState['arc'], sim: SimState) => {
+  const onScenarioDone = (draw: Draw, sim: SimState) => {
+    const code = draw.code;
     const sc = scenarioByCode(U, code)!;
     const result: ScenarioResult = {
       outcomes: sim.path.map((p) => p.outcome).filter((o) => !o.startsWith('__')),
       outcomeXp: Object.fromEntries(sc.outcomes.map((o) => [o.id, o.xp ?? 0])),
       found: sim.found, flags: sim.flags, students: sim.students, profiles: sim.profiles,
     };
-    const r = completeScenario(stRef.current, U, code, result, arc);
+    const r = completeScenario(stRef.current, U, code, result, draw);
     setU(() => r.state);
     track('scenario_complete', { scenario: code, xp: r.xpGained, tools: r.newTools.length });
     if (r.newTools.length) update((s) => ({ ...s, toolkit: Array.from(new Set([...s.toolkit, ...r.newTools])) }));
@@ -123,9 +124,9 @@ export default function SessionScreen({ universe: U, ustate, setU, qaSeed, save,
       <Suspense fallback={<div className="ts-loading" />}>
         <AdventureScreen key={`${cur.code}-${ustate.visited.length}-${ustate.session}`} adv={adv} save={save} update={update} registerBack={registerBack}
           scenario={{
-            rand: scenarioRand(ustate.seed, cur.code, ustate.visited.length), label, flags: ustate.flags,
+            rand: scenarioRand(ustate.seed, cur.code, ustate.visited.length), label, flags: scenarioFlags(ustate), hub: cur.code === U.entry,
             eyebrow: `${fmt(tx(S.sessionN), { n: ustate.session })} · ${tx(S.stageShort[sc.phase])}`, phaseIndex: PHASE_ORDER.indexOf(sc.phase),
-            onDone: (sim) => onScenarioDone(cur.code, cur.arc, sim),
+            onDone: (sim) => onScenarioDone(cur, sim),
           }}
           onExit={onExit} onReplay={() => {}} onPass={onPass} onOpen={() => {}} />
       </Suspense>
@@ -242,7 +243,7 @@ export default function SessionScreen({ universe: U, ustate, setU, qaSeed, save,
         <div className="ts-adv__top">
           <button type="button" className="t-btn t-btn--icon ts-leave" onClick={onExit} aria-label={tx(S.back)}><span className="ts-chev" aria-hidden="true">‹</span></button>
           <div className="ts-adv__heading">
-            <div className="t-eyebrow ts-on-dark-eyebrow">{fmt(tx(S.sessionN), { n: ustate.session })}</div>
+            <div className="t-eyebrow ts-on-dark-eyebrow">{fmt(tx(S.sessionN), { n: phase === 'closing' ? ustate.session - 1 : ustate.session })}</div>
             <h1 className="ts-adv__title">{tx(S.universeName)}</h1>
           </div>
         </div>

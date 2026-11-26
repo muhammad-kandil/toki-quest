@@ -100,6 +100,7 @@ export function ResourceCard({ r, eyebrow, compact, children }: { r: AlefResourc
         <h3>{tx(r.title)}</h3>
         {!compact && <p>{tx(r.what)}</p>}
         <div className="ts-res__monday"><strong>{tx(S.tryMonday)}</strong> {tx(r.monday)}</div>
+        {r.status && <ToolStatus status={r.status} />}
         {r.placeholder && <span className="t-chip t-chip--placeholder">{tx(S.placeholder)}</span>}
         {children}
       </div>
@@ -110,6 +111,14 @@ export function ResourceCard({ r, eyebrow, compact, children }: { r: AlefResourc
 /* ---------------- note card glyph (Thank-you notes; a folded card drawn in CSS, not a coin) ---------------- */
 export function NoteIcon({ lg }: { lg?: boolean }) {
   return <i className={'t-notes-icon' + (lg ? ' t-notes-icon--lg' : '')} aria-hidden="true" />;
+}
+
+/** Product boundary: publicly verified Alef capability vs needs Alef's internal validation. */
+export function ToolStatus({ status }: { status: NonNullable<AlefResource['status']> }) {
+  const { tx } = useLocale();
+  return <span className={'t-chip ts-status ' + (status === 'verified-public' ? 't-chip--good' : 't-chip--placeholder')} data-status={status}>
+    {tx(status === 'verified-public' ? S.statusVerified : S.statusNeeds)}
+  </span>;
 }
 
 export function LockIcon() {

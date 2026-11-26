@@ -20,6 +20,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Teacher game: check-content (includes check-universe) + engine and universe tests.
+      - run: npm run ci:teacher
       - run: npm run build
         env:
           # Repo variable (Settings → Secrets and variables → Actions → Variables).

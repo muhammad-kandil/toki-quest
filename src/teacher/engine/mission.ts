@@ -70,7 +70,10 @@ export function activeTargets(sim: SimState, adv: Adventure): string[] {
 /** Start an encounter: the evidence profile is picked ONCE by weight and then stays fixed. */
 export function startEncounter(sim: SimState, ev: ClassEvent, rand: Rand): SimState {
   if (!ev.investigate || sim.profiles?.[ev.id]) return sim;
-  const p = pickWeighted(ev.investigate.profiles, (x) => x.weight, rand);
+  // candidates: profiles whose ifFlag holds; if none, those without ifFlag
+  const flagged = ev.investigate.profiles.filter((x) => x.ifFlag && sim.flags[x.ifFlag]);
+  const plain = ev.investigate.profiles.filter((x) => !x.ifFlag);
+  const p = pickWeighted(flagged.length ? flagged : plain.length ? plain : ev.investigate.profiles, (x) => x.weight, rand);
   if (!p) return sim;
   return {
     ...sim,
@@ -99,8 +102,12 @@ export function cluesReady(sim: SimState, ev: ClassEvent): boolean {
 
 /** Choices on offer, with their original index (paths store the index). */
 export function offeredChoices(ev: ClassEvent, flags: Record<string, boolean>): { choice: Choice; index: number }[] {
-  return ev.choices.map((choice, index) => ({ choice, index })).filter(({ choice }) => !choice.ifFlag || flags[choice.ifFlag]);
+  return ev.choices.map((choice, index) => ({ choice, index }))
+    .filter(({ choice }) => (!choice.ifFlag || flags[choice.ifFlag]) && (!choice.ifUnresolved || flags[needFlag(choice.ifUnresolved)]));
 }
+
+/** Session flag mirroring an open need, so choices can read `ifUnresolved` from sim flags. */
+export const needFlag = (need: string) => `need:${need}`;
 
 /* ---------------- XP (once per meaningful action) ---------------- */
 

@@ -74,6 +74,8 @@ export interface ScenarioMode {
   flags: Record<string, boolean>;
   /** Header line, e.g. "Session 2 · Launch". */
   eyebrow: string;
+  /** Entry hub: hotspots in any order, objects optional. Other scenarios: events in order. */
+  hub: boolean;
   /** 0 launch · 1 facilitate · 2 extend (the rail). */
   phaseIndex: number;
   onDone: (sim: SimState) => void;
@@ -282,7 +284,8 @@ export default function AdventureScreen({ scenario, adv: baseAdv, save, update, 
     if (phase !== 'explore' || active) return;
     track('hotspot_tap', { target: id });
     if (untimed && hasSchedule) {
-      const ev = liveOn(sim, adv, id)[0];
+      const firstOpen = liveTargets(sim, adv)[0];
+      const ev = scenario && !scenario.hub && id !== firstOpen ? undefined : liveOn(sim, adv, id)[0];
       if (ev) { openEvent(ev); return; }
       if (adv.puzzle && id === adv.puzzle.id && !solved && !adv.events.some((e) => e.on === id && !sim.done.includes(e.id))) { sfx.play('tap'); setPhase('puzzle'); goStep(4); return; }
     } else if (untimed) {
@@ -401,7 +404,9 @@ export default function AdventureScreen({ scenario, adv: baseAdv, save, update, 
   /* ---------- render pieces ---------- */
   const pulsing = phase === 'explore'
     ? (untimed
-      ? (hasSchedule ? liveTargets(sim, adv) : [...activeTargets(sim, adv), ...(adv.puzzle && !solved ? [adv.puzzle.id] : [])])
+      ? (hasSchedule
+        ? (scenario && !scenario.hub ? liveTargets(sim, adv).slice(0, 1) : liveTargets(sim, adv))
+        : [...activeTargets(sim, adv), ...(adv.puzzle && !solved ? [adv.puzzle.id] : [])])
       : liveEvents(sim).map((e) => findEvent(adv, e)!.on))
     : [];
   const whoName = (on: string) => {
@@ -421,7 +426,9 @@ export default function AdventureScreen({ scenario, adv: baseAdv, save, update, 
   const endingNow = untimed && milestoneReached(sim, adv) ? resolveEnding(adv, sim.flags).primary : undefined;
   /** Scenario milestone: every student hotspot event resolved (no student hotspots: every hotspot). */
   const studentHot = adv.schedule.filter((q) => adv.students.some((st) => st.id === findEvent(adv, q.event)?.on));
-  const scenarioComplete = (studentHot.length ? studentHot : adv.schedule).every((q) => sim.done.includes(q.event));
+  const scenarioComplete = scenario && !scenario.hub
+    ? liveTargets(sim, adv).length === 0
+    : (studentHot.length ? studentHot : adv.schedule).every((q) => sim.done.includes(q.event)) && adv.students.every((st) => liveOn(sim, adv, st.id).length === 0);
   const film = adv.film ?? [];
   const sceneUrl = phase === 'film' && film[shot] ? film[shot].picture : adv.scene;
 
@@ -457,8 +464,9 @@ export default function AdventureScreen({ scenario, adv: baseAdv, save, update, 
     const prof = profileOf(sim, ev);
     const revealed = sim.clues?.[ev.id] ?? [];
     const inter = interactionOf(ev);
+    const usesClues = !!ev.investigate && (!inter || inter === 'investigate' || inter === 'compare');
     const interDone = !!sim.clues?.[ev.id]?.includes('__done');
-    const ready = !inter || inter.type === 'investigate' ? cluesReady(sim, ev) : interDone;
+    const ready = usesClues || !inter || !ev.task ? cluesReady(sim, ev) : interDone;
     const offer = offeredChoices(ev, sim.flags);
     panelBody = (
       <div className="t-stack--3">
@@ -504,8 +512,8 @@ export default function AdventureScreen({ scenario, adv: baseAdv, save, update, 
             </>
           );
         })()}
-        {inter && inter.type !== 'investigate' && (
-          <InteractionView it={inter} done={interDone} rand={rand.current}
+        {inter && !usesClues && ev.task && (
+          <InteractionView type={inter} task={ev.task} done={interDone} rand={rand.current}
             onEvidence={(id) => track('evidence_reveal', { event: ev.id, clue: id })}
             onDone={() => setSim((cur) => revealClue(cur, ev.id, '__done'))} />
         )}

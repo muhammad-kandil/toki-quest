@@ -16,7 +16,8 @@ import { canUse, consume, rewind, withExtraTime, assist, secondLook, parentCallT
 import { validateAdventure } from '../../src/teacher/engine/validate';
 import { pickWeighted, seeded, triggerEvent, activeTargets, meets, startEncounter, profileOf, revealClue, cluesReady, offeredChoices, awardXp, checkPuzzle, resolveEnding } from '../../src/teacher/engine/mission';
 import { drawPool, earnedBadges, isPoolEvent, liveOn, liveTargets, milestoneReached, opensPuzzle, unlockFlags } from '../../src/teacher/engine/mission';
-import { ADVENTURES, RESOURCES } from '../../src/teacher/data';
+import { RESOURCES } from '../../src/teacher/data';
+import { LEGACY_MISSIONS as ADVENTURES } from '../../src/teacher/data/adventures';
 import type { Stage } from '../../src/teacher/types';
 import { FIXTURE_ADVENTURES, FIXTURE_RESOURCES } from './fixture-a1';
 import { FIXTURE_ADVENTURES as MISSIONS, FIXTURE_RESOURCES as NCLE } from '../../src/teacher/dev/fixture';
@@ -390,7 +391,7 @@ test('endings: eligible by flags, most relevant (lowest priority) first, others 
   assert.equal(resolveEnding(M, { readinessChecked: true }).primary!.id, 'ready');
 });
 
-/* ---------------- Real content (Hessa's missions) through the engine ---------------- */
+/* ---------------- Legacy missions (validated, not shown) through the engine ---------------- */
 const R1 = ADVENTURES.find((a) => a.id === 'a1')!;
 
 test('real content validates against the engine (every mission)', () => {
