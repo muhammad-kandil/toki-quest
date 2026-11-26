@@ -290,3 +290,102 @@ export interface TeacherSave {
   /** Outcome/puzzle ids already rewarded (anti-farming). */
   rewarded?: string[];
 }
+
+/* ------------------------------------------------------------------ */
+/* Classroom universe (docs/product/GAME_PACKAGE.md — authoritative)   */
+/* One persistent classroom: scenarios drawn from phase pools.         */
+/* ------------------------------------------------------------------ */
+
+export type Phase = 'launch' | 'facilitate' | 'extend';
+export type PoolId = 'after-launch' | 'mid-lesson' | 'late-lesson';
+
+/** Persistent per-student variables (0–3), evolving across sessions. Fictional game state, never real learning data. */
+export interface StudentVars { readiness: number; confidence: number; participation: number; understanding: number }
+
+/** Universe-level condition on state. */
+export interface UniverseCondition {
+  flags?: string[];          // all set
+  anyFlags?: string[];       // at least one set
+  notFlags?: string[];       // none set
+  visited?: string[];        // scenario ids already played this session
+  notVisited?: string[];
+  unresolved?: string[];     // these needs are open
+  resolved?: string[];       // these needs are closed
+  student?: { id: string; key: keyof StudentVars; min?: number; max?: number }[];
+  minXp?: number;
+}
+
+/** A scenario (L01…E05) or random event (R01…R06). Reuses Adventure's play model (scene, students, objects, events, outcomes). */
+export interface Scenario extends Omit<Adventure, 'number' | 'lessonMinutes' | 'schedule' | 'unlocks' | 'endings' | 'badges' | 'communityTopic' | 'communityExamples' | 'teaser'> {
+  /** 'L01', 'F03', 'R06'… */
+  code: string;
+  kind: 'scenario' | 'random';
+  phase: Phase;
+  /** NCLE tool ids this scenario can reveal. */
+  discovers?: string[];
+  /** Must hold to be eligible. */
+  requires?: UniverseCondition;
+  /** Not eligible again for this many draws after being played. */
+  cooldown?: number;
+  /** Reconvergence node (F03, E01, E05): reachable from many paths. */
+  reconverge?: boolean;
+  /** Needs this scenario opens (unresolved) or closes. */
+  opensNeeds?: string[];
+  closesNeeds?: string[];
+  /** Student variable changes applied on completion (outcome effects still apply). */
+  studentDelta?: { id: string; key: keyof StudentVars; delta: number }[];
+  /** Optional per-scenario badge/teaser fields carried over from Adventure. */
+  badges?: Adventure['badges'];
+  communityTopic?: Text;
+  communityExamples?: Adventure['communityExamples'];
+}
+
+export interface Pool { id: PoolId; entries: { code: string; weight: number }[] }
+
+export interface UniverseEnding {
+  id: 'END-A' | 'END-B' | 'END-C' | 'END-D' | string;
+  title: Text;
+  narration: Text;
+  when: UniverseCondition;
+  /** Lower = chosen first when several hold (END-B first if needs unresolved; END-D strongest). */
+  priority: number;
+  badge?: { id: string; title: Text; icon: string };
+  /** Follow-up the ending generates (e.g. END-B reopens a need for next session). */
+  followUp?: Text;
+}
+
+export interface Universe {
+  version: string;
+  opening: { id: string; picture: string; narration?: Text; who?: string; line?: Text }[];
+  /** Entry hub scenario code (L01). */
+  entry: string;
+  scenarios: Scenario[];
+  pools: Pool[];
+  /** Session structure: how many draws from each pool before moving on. */
+  arc: { pool: PoolId; draws: number }[];
+  endings: UniverseEnding[];
+  students: { id: string; name: Text; start: StudentVars }[];
+}
+
+/** Persistent universe save (replaces mission-based fields for the teacher game). */
+export interface UniverseSave {
+  contentVersion: string;
+  /** Pseudonymous key (from server); never a real name. */
+  key?: string;
+  seed: number;
+  session: number;
+  phase: Phase;
+  visited: string[];                      // this session, in order
+  history: { session: number; path: string[]; ending: string }[];
+  outcomes: Record<string, string[]>;     // scenario code → outcome ids reached (ever)
+  tools: string[];                        // NCLE tools discovered
+  unresolved: string[];
+  students: Record<string, StudentVars>;
+  cooldowns: Record<string, number>;      // code → draws remaining
+  xp: number;
+  rewarded: string[];                     // anti-farming keys
+  collectibles: string[];
+  a11y?: { reducedMotion?: boolean; largeText?: boolean; captions?: boolean };
+  /** Last safe resume point: scenario code + step. */
+  resume?: { code: string; step: string };
+}
