@@ -106,11 +106,37 @@
   --glass-bg: rgba(255, 255, 255, 0.86);
   --glass-border: rgba(255, 255, 255, 0.9);
 
-  /* ---------- MOTION ---------- */
+  /* ---------- MOTION ----------
+     Calm confidence: things arrive decisively and settle softly; nothing
+     loops for attention; UI motion stays under 400 ms. See
+     docs/design/ANIMATION_REVIEW.md for where each token is used.
+
+     Durations: xs feedback (press, toggle) · s small state change ·
+     m a card or beat entering · l a screen-level move · xl only for a
+     character's travel or a reveal moment. */
+  --dur-xs: 120ms;
+  --dur-s: 200ms;
+  --dur-m: 280ms;
+  --dur-l: 400ms;
+  --dur-xl: 560ms;
+  --stagger: 50ms;            /* per item in a list that enters together */
+  /* Easings
+     standard     things that move within the screen
+     enter        things arriving: fast out of the gate, long soft landing
+     exit         things leaving: gentle start, quick finish
+     spring       a single soft overshoot (cards, badges, Toki landing)
+     bounce       a livelier overshoot, kept for celebrations only */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-  --duration-fast: 150ms;
-  --duration-base: 280ms;
+  /* anticipate: a small wind-up before a move — Toki setting off */
+  --ease-anticipate: cubic-bezier(0.36, -0.18, 0.3, 1);
+  /* Legacy names, kept so older rules still resolve. */
+  --ease-smooth: var(--ease-standard);
+  --duration-fast: var(--dur-xs);
+  --duration-base: var(--dur-m);
   --duration-slow: 500ms;
 
   /* ---------- SPACING (4px base scale) ---------- */

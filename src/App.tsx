@@ -316,6 +316,8 @@ function App() {
     <LocaleProvider lang={lang} onChange={setLang}>
       {content}
       {IN_ROOM.includes(screen) && <LeaveRoom onLeave={() => setScreen('world')} />}
+      {/* The hall's teal wipe dissolves into the room instead of cutting. */}
+      {IN_ROOM.includes(screen) && <div key={`wipe-${screen}-${activeLevel}`} className="screen-wipe-out" aria-hidden="true" />}
     </LocaleProvider>
   );
 }

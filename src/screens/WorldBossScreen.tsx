@@ -19,6 +19,7 @@ import { lines } from '../audio/lines';
 import './LevelScreen.css';
 import './BossScreen.css';
 import './WorldBossScreen.css';
+import { useScrollTopOn } from '../hooks/useScrollTopOn';
 
 type Phase = 'intro' | 'scenes' | 'pattern' | 'risk' | 'coaching' | 'reveal';
 type Call = 'fits' | 'clear';
@@ -40,6 +41,7 @@ export function WorldBossScreen({ boss, heldBadges, onComplete }: {
 }) {
   const { tx, lang } = useLocale();
   const [phase, setPhase] = useState<Phase>('intro');
+  useScrollTopOn(phase);
   const [sceneIdx, setSceneIdx] = useState(0);
   const bossScene = useSceneArt(`B${boss.id}`, boss.sceneImage);
   const [sceneWrong, setSceneWrong] = useState<Call | null>(null);

@@ -34,3 +34,12 @@
   line-height: 1.3;
 }
 [dir="rtl"] .leave-room__btn svg { transform: scaleX(-1); }
+.leave-room__note {
+  -webkit-animation: leave-note-in var(--dur-s) var(--ease-enter);
+  animation: leave-note-in var(--dur-s) var(--ease-enter);
+}
+@-webkit-keyframes leave-note-in { from { opacity: 0; -webkit-transform: translateX(calc(var(--dir) * -6px)); } to { opacity: 1; -webkit-transform: none; } }
+@keyframes leave-note-in { from { opacity: 0; transform: translateX(calc(var(--dir) * -6px)); } to { opacity: 1; transform: none; } }
+.leave-room__btn { transition: color var(--dur-xs) var(--ease-standard), border-color var(--dur-xs) var(--ease-standard), -webkit-transform var(--dur-xs) var(--ease-standard); transition: color var(--dur-xs) var(--ease-standard), border-color var(--dur-xs) var(--ease-standard), transform var(--dur-xs) var(--ease-standard); }
+.leave-room__btn:active { -webkit-transform: scale(0.94); transform: scale(0.94); }
+@media (prefers-reduced-motion: reduce) { .leave-room__note { -webkit-animation: none; animation: none; } }

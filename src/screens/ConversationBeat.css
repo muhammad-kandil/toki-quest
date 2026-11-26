@@ -121,3 +121,12 @@
 @media (prefers-reduced-motion: reduce) {
   .bubble, .convo__outcome { animation: none; }
 }
+
+/* Motion pass: a reply arrives after the line it answers (≈ the time it
+   takes to read Toki's line), and the outcome after the reply. */
+.bubble--toki { -webkit-animation-timing-function: var(--ease-enter); animation-timing-function: var(--ease-enter); }
+.bubble--toki + .bubble--teacher { -webkit-animation-delay: 520ms; animation-delay: 520ms; }
+.convo__outcome { -webkit-animation: finding-in var(--dur-l) var(--ease-enter) 820ms backwards; animation: finding-in var(--dur-l) var(--ease-enter) 820ms backwards; }
+@media (prefers-reduced-motion: reduce) {
+  .bubble--toki + .bubble--teacher, .convo__outcome { -webkit-animation: none; animation: none; }
+}

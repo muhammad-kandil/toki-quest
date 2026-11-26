@@ -16,6 +16,7 @@ import { lines } from '../audio/lines';
 import { useEffect } from 'react';
 import './LevelScreen.css';
 import './BossScreen.css';
+import { useScrollTopOn } from '../hooks/useScrollTopOn';
 
 interface BossScreenProps {
   boss: BossDefinition;
@@ -39,6 +40,7 @@ type AuditCall = 'clean' | 'mutation';
 export function BossScreen({ boss, onComplete }: BossScreenProps) {
   const { tx, lang } = useLocale();
   const [phase, setPhase] = useState<Phase>('intro');
+  useScrollTopOn(phase);
   const [auditIndex, setAuditIndex] = useState(0);
   const bossScene = useSceneArt(`B${boss.id}`, boss.sceneImage);
   const voiceCtl = useVoice();

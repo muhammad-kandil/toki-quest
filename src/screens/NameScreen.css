@@ -51,9 +51,9 @@
   position: absolute; top: 3px; inset-inline-start: 3px;
   width: 20px; height: 20px; border-radius: 50%; background: #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,.2);
-  transition: inset-inline-start 160ms, left 160ms, right 160ms;
+  transition: -webkit-transform var(--dur-s) var(--ease-spring); transition: transform var(--dur-s) var(--ease-spring);
 }
 .name-screen__switch input:checked + .name-screen__track { background: var(--toki-teal); }
-.name-screen__switch input:checked + .name-screen__track .name-screen__thumb { inset-inline-start: 21px; }
+.name-screen__switch input:checked + .name-screen__track .name-screen__thumb { -webkit-transform: translateX(calc(var(--dir) * 18px)); transform: translateX(calc(var(--dir) * 18px)); }
 .name-screen__switch input:focus-visible + .name-screen__track { box-shadow: 0 0 0 3px rgba(43, 214, 184, 0.35); }
 .name-screen__cta { margin-top: var(--space-2); width: 100%; }

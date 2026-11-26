@@ -5,6 +5,7 @@ import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
 import { UI } from '../i18n/ui';
 import type { Text } from '../i18n/types';
+import { TokiSprite, type TokiPose } from '../components/TokiSprite';
 import './ReactionToki.css';
 
 export type ReactionKind = 'affirming' | 'thoughtful' | 'celebrating' | null;
@@ -18,10 +19,10 @@ interface ReactionTokiProps {
   trigger: number;
 }
 
-const CONFIG: Record<Exclude<ReactionKind, null>, { image: string; label: Text; holdMs: number }> = {
-  affirming: { image: affirmingToki, label: UI.niceRead, holdMs: 900 },
-  thoughtful: { image: thoughtfulToki, label: UI.lookAgain, holdMs: 1100 },
-  celebrating: { image: celebratingToki, label: UI.restored, holdMs: 1600 },
+const CONFIG: Record<Exclude<ReactionKind, null>, { image: string; pose: TokiPose; label: Text; holdMs: number }> = {
+  affirming: { image: affirmingToki, pose: 'affirm', label: UI.niceRead, holdMs: 1000 },
+  thoughtful: { image: thoughtfulToki, pose: 'think', label: UI.lookAgain, holdMs: 1300 },
+  celebrating: { image: celebratingToki, pose: 'celebrate', label: UI.restored, holdMs: 1700 },
 };
 
 /**
@@ -55,12 +56,16 @@ export function ReactionToki({ kind, trigger }: ReactionTokiProps) {
 
   if (!kind) return null;
 
-  const { image, label } = CONFIG[kind];
+  const { image, pose, label } = CONFIG[kind];
 
+  // key={trigger} remounts the body so its keyframes replay on every
+  // reaction, including two identical ones in a row.
   return (
-    <div className={`reaction-toki ${visible ? 'reaction-toki--visible' : ''} reaction-toki--${kind}`}>
-      <img src={image} alt="" />
-      <span className="reaction-toki__label">{tx(label)}</span>
+    <div className={`reaction-toki ${visible ? 'reaction-toki--visible' : ''} reaction-toki--${kind}`} role="status">
+      <span className="reaction-toki__body" key={trigger}>
+        <TokiSprite pose={pose} fallback={image} />
+      </span>
+      <span className="reaction-toki__label" key={`l${trigger}`}>{tx(label)}</span>
     </div>
   );
 }
