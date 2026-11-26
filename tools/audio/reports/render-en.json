@@ -31,7 +31,7 @@
    "where": [
     "L1"
    ],
-   "err": 0.111,
+   "err": 0.0,
    "dur": 5.58,
    "cps": 16.1,
    "ref": "Did you see them? Every single group was talking. Last year I couldn’t get three hands up.",
@@ -43,7 +43,7 @@
    "where": [
     "L1"
    ],
-   "err": 0.1,
+   "err": 0.0,
    "dur": 5.41,
    "cps": 16.8,
    "ref": "I did, the table by the door didn’t stop once. What did you hear them saying to each other?",
@@ -91,7 +91,7 @@
    "where": [
     "L1"
    ],
-   "err": 0.2,
+   "err": 0.071,
    "dur": 5.43,
    "cps": 15.8,
    "ref": "Lots of talk, but I didn’t hear much reasoning. The discussion lacked academic rigour.",
@@ -103,7 +103,7 @@
    "where": [
     "L1"
    ],
-   "err": 0.176,
+   "err": 0.062,
    "dur": 5.92,
    "cps": 15.5,
    "ref": "Rigour. Right. Last year the complaint was they never spoke. Now it’s that they speak wrong.",
@@ -143,7 +143,7 @@
    "dur": 4.68,
    "cps": 16.9,
    "ref": "\"Convince the other table.\" They would fight for that. I could try it Thursday.",
-   "hyp": "Convince the other table. They would fight for that. I could try it Thursday"
+   "hyp": "convince the other table. They would fight for that. I could try it Thursday."
   },
   {
    "key": "11z6lr7l0rn",
@@ -163,7 +163,7 @@
    "where": [
     "L1"
    ],
-   "err": 0.167,
+   "err": 0.0,
    "dur": 3.55,
    "cps": 16.3,
    "ref": "I have a sentence-stem poster somewhere. I’ll look for it.",
@@ -175,7 +175,7 @@
    "where": [
     "L1"
    ],
-   "err": 0.125,
+   "err": 0.0,
    "dur": 4.88,
    "cps": 16.4,
    "ref": "You need to structure the talk more tightly. I’ll send you a protocol to follow.",
@@ -187,7 +187,7 @@
    "where": [
     "L1"
    ],
-   "err": 0.143,
+   "err": 0.0,
    "dur": 4.21,
    "cps": 15.4,
    "ref": "A protocol. Of course. I’ll add it to the folder with the others.",
@@ -223,11 +223,11 @@
    "where": [
     "L2"
    ],
-   "err": 0.071,
+   "err": 0.0,
    "dur": 5.07,
    "cps": 17.2,
    "ref": "Six stations, forty minutes, nobody sat still. Tell me honestly, what would you change?",
-   "hyp": "Six stations, 40 minutes, nobody sat still. Tell me honestly, what would you change?"
+   "hyp": "Six stations 40 minutes nobody sat still. Tell me honestly what would you change?"
   },
   {
    "key": "1mlcxd307gw",
@@ -235,7 +235,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.056,
+   "err": 0.0,
    "dur": 6.41,
    "cps": 16.4,
    "ref": "Nothing about the energy. Can I ask about station three, what were they meant to walk away understanding?",
@@ -247,7 +247,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.143,
+   "err": 0.0,
    "dur": 4.32,
    "cps": 16.9,
    "ref": "Station three… density, I think. Or was that four. Let me check the plan.",
@@ -271,7 +271,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.4,
+   "err": 0.0,
    "dur": 2.74,
    "cps": 17.1,
    "ref": "That’s what I’m going for. Every minute counts.",
@@ -283,7 +283,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.118,
+   "err": 0.0,
    "dur": 5.13,
    "cps": 15.2,
    "ref": "I’d cut it to three stations. Six is too many for any real learning to happen.",
@@ -295,7 +295,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.125,
+   "err": 0.0,
    "dur": 2.5,
    "cps": 14.8,
    "ref": "Three. So half of what I built. Okay.",
@@ -319,7 +319,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.077,
+   "err": 0.0,
    "dur": 7.2,
    "cps": 17.0,
    "ref": "They did. If a student had to explain density to you at the end of station three, which of the six could they do that for?",
@@ -331,7 +331,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.118,
+   "err": 0.0,
    "dur": 4.56,
    "cps": 19.3,
    "ref": "…Two of them. Maybe. The others are more \"do\", less \"explain\". I see what you’re asking.",
@@ -343,7 +343,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.133,
+   "err": 0.0,
    "dur": 4.85,
    "cps": 16.7,
    "ref": "That’s a good plan. Objectives matter, keep them visible to the students as well.",
@@ -359,7 +359,7 @@
    "dur": 2.87,
    "cps": 14.6,
    "ref": "I can put them on the station cards. Easy.",
-   "hyp": "I can put them on the station cards. Easy."
+   "hyp": "I can put them on the station cards, easy."
   },
   {
    "key": "1iix5yqtsqd",
@@ -367,7 +367,7 @@
    "where": [
     "L2"
    ],
-   "err": 0.154,
+   "err": 0.0,
    "dur": 5.54,
    "cps": 14.8,
    "ref": "\"Explore\" isn’t an objective. The plan needs measurable outcomes for each station.",
@@ -439,7 +439,7 @@
    "where": [
     "L3"
    ],
-   "err": 0.4,
+   "err": 0.118,
    "dur": 5.24,
    "cps": 17.9,
    "ref": "Sara would… she’d tell you about the baking soda. Whether she’d get to pressure, I’m not sure.",
@@ -463,11 +463,11 @@
    "where": [
     "L3"
    ],
-   "err": 0.0,
+   "err": 0.1,
    "dur": 2.76,
    "cps": 17.0,
    "ref": "They work so hard on them. Weeks, some of them.",
-   "hyp": "They work so hard on them. Weeks, some of them."
+   "hyp": "They work so hard on them, weak some of them."
   },
   {
    "key": "1cstz1xouly",
@@ -475,11 +475,11 @@
    "where": [
     "L3"
    ],
-   "err": 0.111,
+   "err": 0.0,
    "dur": 6.69,
    "cps": 16.3,
    "ref": "They look wonderful, but a display isn’t evidence of learning. We need to assess understanding, not products.",
-   "hyp": "They look wonderful, but a display isn't evidence of learning.  We need to assess understanding, not products."
+   "hyp": "They look wonderful but a display isn't evidence of learning.  We need to assess understanding, not products."
   },
   {
    "key": "5jkc0bsyhf",
@@ -511,7 +511,7 @@
    "where": [
     "L3"
    ],
-   "err": 0.135,
+   "err": 0.0,
    "dur": 11.04,
    "cps": 16.6,
    "ref": "What if the project had one more piece, a thirty-second explanation, recorded on the tablet, stuck to the wall with a QR code? The visitors would love it, and you’d know who’s got it.",
@@ -523,7 +523,7 @@
    "where": [
     "L3"
    ],
-   "err": 0.1,
+   "err": 0.0,
    "dur": 5.77,
    "cps": 16.0,
    "ref": "A QR code on each one… that would actually look good. And I’d hear every single one of them.",
@@ -535,7 +535,7 @@
    "where": [
     "L3"
    ],
-   "err": 0.125,
+   "err": 0.0,
    "dur": 5.2,
    "cps": 16.2,
    "ref": "That’s normal in any class. The key is to keep building reflection into the process.",
@@ -559,7 +559,7 @@
    "where": [
     "L3"
    ],
-   "err": 0.211,
+   "err": 0.0,
    "dur": 6.22,
    "cps": 17.4,
    "ref": "Then the grades should reflect that. Visual quality shouldn’t carry a student who can’t explain the science.",
@@ -571,7 +571,7 @@
    "where": [
     "L3"
    ],
-   "err": 0.118,
+   "err": 0.0,
    "dur": 4.77,
    "cps": 17.8,
    "ref": "You want me to lower grades on work the ministry just praised. I’ll think about that.",
@@ -599,7 +599,7 @@
    "dur": 9.87,
    "cps": 16.1,
    "ref": "Lethal Mutation. Assessment has become an end rather than a tool. A great deal is measured, but the evidence rarely changes what happens next in the classroom.",
-   "hyp": "Lethal mutation. Assessment has become an end rather than a tool.  A great deal is measured, but the evidence rarely changes what happens next in the classroom."
+   "hyp": "Lethal mutation. Assessment has become an end rather than a tool. A great deal is measured,  but the evidence rarely changes what happens next in the classroom."
   },
   {
    "key": "g05s39vsur",
@@ -607,7 +607,7 @@
    "where": [
     "L4"
    ],
-   "err": 0.095,
+   "err": 0.0,
    "dur": 6.13,
    "cps": 16.6,
    "ref": "Three quizzes a week, every mark in the system by Thursday. If this is about the data, it’s all there.",
@@ -619,7 +619,7 @@
    "where": [
     "L4"
    ],
-   "err": 0.077,
+   "err": 0.038,
    "dur": 9.19,
    "cps": 15.6,
    "ref": "It is all there, I looked. Can I ask about one number? Question 4 last Tuesday, eleven students wrong the same way. What happened on Wednesday?",
@@ -631,7 +631,7 @@
    "where": [
     "L4"
    ],
-   "err": 0.222,
+   "err": 0.0,
    "dur": 4.35,
    "cps": 17.7,
    "ref": "Wednesday was… the next unit. I didn’t go back. I don’t have time to go back.",
@@ -667,7 +667,7 @@
    "where": [
     "L4"
    ],
-   "err": 0.095,
+   "err": 0.0,
    "dur": 7.38,
    "cps": 15.9,
    "ref": "The data is there, but it isn’t being used. Assessment for learning means acting on results, not just recording them.",
@@ -691,11 +691,11 @@
    "where": [
     "L4"
    ],
-   "err": 0.222,
+   "err": 0.059,
    "dur": 5.68,
    "cps": 17.1,
    "ref": "You want me to reteach every time eleven kids get something wrong? I’d never finish the syllabus.",
-   "hyp": "You want me to retieach every time 11 kids get something wrong?  I'd never finish the syllabus."
+   "hyp": "You want me to retieach every time 11 kids get something wrong, I'd never finish the syllabus."
   },
   {
    "key": "1og99562iy9",
@@ -703,7 +703,7 @@
    "where": [
     "L4"
    ],
-   "err": 0.038,
+   "err": 0.0,
    "dur": 8.93,
    "cps": 15.6,
    "ref": "No, what if one of the three quizzes went, and the time it took became five minutes on Wednesday fixing question 4? Less marking, not more.",
@@ -719,7 +719,7 @@
    "dur": 4.96,
    "cps": 16.1,
    "ref": "Drop a quiz. And just do the one question. …Nobody has ever suggested I do less.",
-   "hyp": "Drop a quiz and just do the one question. Nobody has ever suggested I do less."
+   "hyp": "Drop a quiz and just do the one question, nobody has ever suggested I do less."
   },
   {
    "key": "4lf7cofq1x",
@@ -727,11 +727,11 @@
    "where": [
     "L4"
    ],
-   "err": 0.0,
+   "err": 0.143,
    "dur": 3.7,
    "cps": 15.1,
    "ref": "Not everything, just the big misconceptions. Prioritise.",
-   "hyp": "Not everything, just the big misconceptions, prioritise."
+   "hyp": "Not everything, just the big misconceptions, prioritize."
   },
   {
    "key": "22mdl9n2h1i",
@@ -743,7 +743,7 @@
    "dur": 2.07,
    "cps": 13.1,
    "ref": "Sure. When I find a minute.",
-   "hyp": "Sure, when I find a minute."
+   "hyp": "Sure when I find a minute."
   },
   {
    "key": "1hjqhba6ufi",
@@ -751,7 +751,7 @@
    "where": [
     "L4"
    ],
-   "err": 0.2,
+   "err": 0.0,
    "dur": 5.88,
    "cps": 17.3,
    "ref": "Coverage isn’t the goal, learning is. If they haven’t learned it, moving on is moving on from nothing.",
@@ -763,7 +763,7 @@
    "where": [
     "L4"
    ],
-   "err": 0.25,
+   "err": 0.143,
    "dur": 4.33,
    "cps": 16.6,
    "ref": "I’ll remember that when the inspector asks why we’re on unit six in May.",
@@ -791,7 +791,7 @@
    "dur": 10.7,
    "cps": 16.5,
    "ref": "Lethal Mutation. Winning has become more important than learning. The competition drives engagement, but it rewards speed and performance rather than thinking and understanding.",
-   "hyp": "Lethal Mutation. Winning has become more important than learning.  The competition drives engagement, but it rewards speed and performance rather than thinking and  understanding."
+   "hyp": "Lethal mutation. Winning has become more important than learning. The competition drives engagement,  but it rewards speed and performance rather than thinking and understanding."
   },
   {
    "key": "218kl3u4ptu",
@@ -799,7 +799,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.087,
+   "err": 0.0,
    "dur": 6.8,
    "cps": 17.1,
    "ref": "Did you see Omar? He hates maths and he was first on the buzzer three rounds running. Tell me that isn’t engagement.",
@@ -811,11 +811,11 @@
    "where": [
     "L5"
    ],
-   "err": 0.308,
+   "err": 0.0,
    "dur": 7.99,
    "cps": 16.2,
    "ref": "It’s engagement, nobody could say otherwise. Here’s what I’m curious about: in round two, who got it right but didn’t buzz first?",
-   "hyp": "It's engagement nobody could say otherwise.  Here's what I'm curious about in round two who got it right but didn't buzz first."
+   "hyp": "It's engagement nobody could say otherwise.  Here's what I'm curious about in round two, who got it right but didn't buzz first."
   },
   {
    "key": "1pje12umcks",
@@ -823,7 +823,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.118,
+   "err": 0.0,
    "dur": 4.62,
    "cps": 17.1,
    "ref": "Hind. Hind had it. She always has it, she’s just slow to press. She was fourth.",
@@ -835,7 +835,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.286,
+   "err": 0.0,
    "dur": 5.24,
    "cps": 16.0,
    "ref": "It’s engagement, absolutely. You’ve built something students actually want to be in.",
@@ -859,7 +859,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.111,
+   "err": 0.0,
    "dur": 6.54,
    "cps": 16.2,
    "ref": "It’s engagement with the buzzer, not with maths. Speed games reward the fastest, not the deepest thinkers.",
@@ -871,7 +871,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.286,
+   "err": 0.083,
    "dur": 4.51,
    "cps": 17.7,
    "ref": "And the lecture rewards nobody. I’ve seen the \"deep\" classrooms. They’re asleep.",
@@ -883,7 +883,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.125,
+   "err": 0.067,
    "dur": 3.89,
    "cps": 16.7,
    "ref": "So Hind’s slow. What do you want me to do, give her a head start?",
@@ -931,7 +931,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.455,
+   "err": 0.0,
    "dur": 3.29,
    "cps": 15.5,
    "ref": "I’ve got about twenty games. I’ll rotate them more.",
@@ -943,7 +943,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.059,
+   "err": 0.062,
    "dur": 5.58,
    "cps": 16.1,
    "ref": "I’d drop the leaderboard. Public ranking is doing more damage than the game is doing good.",
@@ -955,7 +955,7 @@
    "where": [
     "L5"
    ],
-   "err": 0.125,
+   "err": 0.0,
    "dur": 4.59,
    "cps": 16.8,
    "ref": "Drop the thing they love most. You should see the Friday I’d have after that.",
@@ -991,7 +991,7 @@
    "where": [
     "L21"
    ],
-   "err": 0.095,
+   "err": 0.0,
    "dur": 7.26,
    "cps": 16.8,
    "ref": "Every lesson, every student, every day, I haven’t missed an exit ticket since September. Most teachers give up by October.",
@@ -1003,11 +1003,11 @@
    "where": [
     "L21"
    ],
-   "err": 0.088,
+   "err": 0.0,
    "dur": 9.8,
    "cps": 16.2,
    "ref": "They do, and you didn’t. Can I show you one from yesterday? Question 2: three of the five in this bundle got it wrong the same way. Did that one come up today?",
-   "hyp": "They do, and you didn't. Can I show you one from yesterday?  Question two. Three of the five in this bundle got it wrong the same way.  Did that one come up today?"
+   "hyp": "They do, and you didn't. Can I show you one from yesterday?  Question two, three of the five in this bundle got it wrong the same way.  Did that one come up today?"
   },
   {
    "key": "9t68k65ncv",
@@ -1015,7 +1015,7 @@
    "where": [
     "L21"
    ],
-   "err": 0.308,
+   "err": 0.091,
    "dur": 3.89,
    "cps": 16.2,
    "ref": "…No. Today was the next topic. I hadn’t opened yesterday’s yet.",
@@ -1039,7 +1039,7 @@
    "where": [
     "L21"
    ],
-   "err": 0.167,
+   "err": 0.0,
    "dur": 2.85,
    "cps": 17.9,
    "ref": "Tell the head that. I’ve been saying it for a year.",
@@ -1051,11 +1051,11 @@
    "where": [
     "L21"
    ],
-   "err": 0.24,
+   "err": 0.0,
    "dur": 8.15,
    "cps": 17.2,
    "ref": "Collecting them isn’t the point, though. An exit ticket is formative assessment, if it doesn’t feed back into teaching, it’s just paperwork.",
-   "hyp": "Collecting them isn't the point though, an exit ticket is formative assessment if it doesn't  feed back into teaching, it's just paperwork."
+   "hyp": "Collecting them isn't the point, though. An exit ticket is formative assessment.  If it doesn't feed back into teaching, it's just paperwork."
   },
   {
    "key": "25ntpjb6gw9",
@@ -1063,7 +1063,7 @@
    "where": [
     "L21"
    ],
-   "err": 0.133,
+   "err": 0.0,
    "dur": 5.17,
    "cps": 16.6,
    "ref": "Paperwork. Right. I’ll remember that next time someone asks me to model good practice.",
@@ -1075,7 +1075,7 @@
    "where": [
     "L21"
    ],
-   "err": 0.115,
+   "err": 0.0,
    "dur": 6.73,
    "cps": 17.7,
    "ref": "I can’t read thirty tickets a night on top of marking. If I stop to go back every time, the scheme of work falls apart.",
@@ -1087,11 +1087,11 @@
    "where": [
     "L21"
    ],
-   "err": 0.212,
+   "err": 0.0,
    "dur": 11.73,
    "cps": 15.9,
    "ref": "Not reading, sorting. Three piles, ninety seconds: got it, nearly, not yet. The \"not yet\" pile is tomorrow’s first five minutes, and nothing else changes. Could you try it with tonight’s?",
-   "hyp": "Not reading, sorting, 3 piles, 90 seconds.  Got it nearly not yet.  The not yet pile is tomorrow's first 5 minutes and nothing else changes.  Could you try it with tonight's?"
+   "hyp": "Not reading, sorting, three piles, 90 seconds.  Got it nearly not yet.  The not yet pile is tomorrow's first five minutes and nothing else changes.  Could you try it with tonight's?"
   },
   {
    "key": "zdv01986h3",
@@ -1099,11 +1099,11 @@
    "where": [
     "L21"
    ],
-   "err": 0.154,
+   "err": 0.0,
    "dur": 4.26,
    "cps": 16.0,
    "ref": "Ninety seconds. Three piles. …That I can do before I leave the room.",
-   "hyp": "90 seconds, 3 piles that I can do before I leave the room."
+   "hyp": "90 seconds, 3 piles, that I can do before I leave the room."
   },
   {
    "key": "1014haljgm9",
@@ -1111,7 +1111,7 @@
    "where": [
     "L21"
    ],
-   "err": 0.083,
+   "err": 0.0,
    "dur": 5.37,
    "cps": 18.1,
    "ref": "You don’t have to read all of them. Just dip into a few now and then to get a feel for the class.",
@@ -1123,7 +1123,7 @@
    "where": [
     "L21"
    ],
-   "err": 0.364,
+   "err": 0.0,
    "dur": 2.19,
    "cps": 19.7,
    "ref": "I’ll have a look when there’s a quiet week.",
@@ -1135,7 +1135,7 @@
    "where": [
     "L21"
    ],
-   "err": 0.192,
+   "err": 0.04,
    "dur": 7.04,
    "cps": 17.1,
    "ref": "If the scheme of work is moving on while three in five don’t get it, the scheme of work is the problem, not the tickets.",
@@ -1159,11 +1159,11 @@
    "where": [
     "L22"
    ],
-   "err": 0.047,
+   "err": 0.023,
    "dur": 14.67,
    "cps": 17.2,
    "ref": "Students receive their marked essays. Scores are written clearly at the top in red, and every student knows at once whether they passed or failed. The marking was fast, consistent, and returned within a day. Toki watches what students do with the paper.",
-   "hyp": "Students received their marked essays. Scores are written clearly at the top in red,  and every student knows at once whether they passed or failed.  The marking was fast, consistent and returned within a day.  TOKY watches what students do with the paper."
+   "hyp": "Students received their marked essays. Scores are written clearly at the top in red,  and every student knows at once whether they passed or failed. The marking was fast, consistent,  and returned within a day. Toki watches what students do with the paper."
   },
   {
    "key": "6eq1pb6avr",
@@ -1183,7 +1183,7 @@
    "where": [
     "L22"
    ],
-   "err": 0.2,
+   "err": 0.0,
    "dur": 15.73,
    "cps": 10.7,
    "ref": "Ninety essays. Every single one has a mark and a circle on the weak paragraph. If you’re here to tell me to write more comments, I’ll be honest, there aren’t more hours.",
@@ -1211,7 +1211,7 @@
    "dur": 6.81,
    "cps": 11.5,
    "ref": "Nothing. He never does anything with the circle. None of them do. I know that.",
-   "hyp": "Nothing, he never does anything with the circle.  None of them do.  I know that."
+   "hyp": "Nothing, he never does anything with the circle. None of them do. I know that."
   },
   {
    "key": "z2wv8fd6od",
@@ -1223,7 +1223,7 @@
    "dur": 6.55,
    "cps": 17.4,
    "ref": "I know how much work that is. The marking in this department is thorough, you should hear how other schools do it.",
-   "hyp": "I know how much work that is. The marking in this department is thorough. You should hear how other schools do it."
+   "hyp": "I know how much work that is.  The marking in this department is thorough.  You should hear how other schools do it."
   },
   {
    "key": "2cn33624sk7",
@@ -1231,7 +1231,7 @@
    "where": [
     "L22"
    ],
-   "err": 0.143,
+   "err": 0.154,
    "dur": 5.81,
    "cps": 10.3,
    "ref": "I’d rather not hear about other schools at 2:40 on a Friday.",
@@ -1243,11 +1243,11 @@
    "where": [
     "L22"
    ],
-   "err": 0.087,
+   "err": 0.0,
    "dur": 7.63,
    "cps": 16.4,
    "ref": "A mark and a circle isn’t feedback, though. Feedback has to be specific and actionable, or the research says it does nothing.",
-   "hyp": "A mark and a circle isn't feedback though, feedback has to be specific and actionable  or the research says it does nothing."
+   "hyp": "A mark and a circle isn't feedback though.  Feedback has to be specific and actionable or the research says it does nothing."
   },
   {
    "key": "28abmzjfr7e",
@@ -1255,7 +1255,7 @@
    "where": [
     "L22"
    ],
-   "err": 0.273,
+   "err": 0.0,
    "dur": 5.81,
    "cps": 11.2,
    "ref": "The research doesn’t mark ninety essays. Was there anything else?",
@@ -1267,7 +1267,7 @@
    "where": [
     "L22"
    ],
-   "err": 0.105,
+   "err": 0.0,
    "dur": 8.74,
    "cps": 11.2,
    "ref": "So what, I stop marking? They’ll ask for the number anyway. Their parents will ask for the number.",
@@ -1279,11 +1279,11 @@
    "where": [
     "L22"
    ],
-   "err": 0.119,
+   "err": 0.0,
    "dur": 13.53,
    "cps": 17.5,
    "ref": "Keep the number, in your markbook. On the paper, one line: \"Next time, start the paragraph with the claim.\" Then give them the first ten minutes of Monday to redo that one paragraph. Same marking time. Would Omar get through ten minutes?",
-   "hyp": "Keep the number in your mark book.  On the paper or one line, next time start the paragraph with the claim.  Then give them the first 10 minutes of Monday to redo that one paragraph.  Same marking time would Omar get through 10 minutes."
+   "hyp": "Keep the number in your markbook. On the paper, one line, next time start the paragraph with the claim.  Then give them the first 10 minutes of Monday to redo that one paragraph.  Same marking time would Omar get through 10 minutes."
   },
   {
    "key": "dy9kjz0kqx",
@@ -1291,7 +1291,7 @@
    "where": [
     "L22"
    ],
-   "err": 0.045,
+   "err": 0.0,
    "dur": 11.65,
    "cps": 10.2,
    "ref": "One line instead of a circle. And ten minutes I was going to spend starting the next essay anyway. …He might, actually.",
@@ -1315,11 +1315,11 @@
    "where": [
     "L22"
    ],
-   "err": 0.125,
+   "err": 0.0,
    "dur": 4.41,
    "cps": 10.7,
    "ref": "Where I can. Which is nowhere, most fortnights.",
-   "hyp": "where I can, which is nowhere most fortnites."
+   "hyp": "where I can, which is nowhere most fortnights."
   },
   {
    "key": "22kczgxgirb",
@@ -1327,7 +1327,7 @@
    "where": [
     "L22"
    ],
-   "err": 0.095,
+   "err": 0.0,
    "dur": 7.48,
    "cps": 16.2,
    "ref": "The number is the problem. Grades without comments actually lower achievement, you’d be better off not giving one at all.",
@@ -1339,7 +1339,7 @@
    "where": [
     "L22"
    ],
-   "err": 0.263,
+   "err": 0.0,
    "dur": 8.01,
    "cps": 11.1,
    "ref": "You go and explain to thirty parents why there’s no mark. I’ll wait here with the essays.",
@@ -1367,7 +1367,7 @@
    "dur": 6.67,
    "cps": 15.6,
    "ref": "High Drift. Tracking has replaced responding. The data is excellent and the teaching is unchanged by it.",
-   "hyp": "High drift, tracking has replaced responding. The data is excellent and the teaching is unchanged by it."
+   "hyp": "High Drift tracking has replaced responding. The data is excellent and the teaching is unchanged by it."
   },
   {
    "key": "4ia6y9yiem",
@@ -1387,11 +1387,11 @@
    "where": [
     "L23"
    ],
-   "err": 0.167,
+   "err": 0.0,
    "dur": 8.04,
    "cps": 17.5,
    "ref": "I wasn’t going to say it, you clearly see it. What I don’t know is what the red is: twelve students, or three? And are they sitting together?",
-   "hyp": "I wasn't going to say it, you clearly see it.  What I don't know is what the red is, 12 students or three,  and are they sitting together?"
+   "hyp": "I wasn't going to say it, you clearly see it.  What I don't know is what the red is, 12 students or three, and are they sitting together?"
   },
   {
    "key": "24c2aeu9712",
@@ -1399,7 +1399,7 @@
    "where": [
     "L23"
    ],
-   "err": 0.222,
+   "err": 0.059,
    "dur": 5.6,
    "cps": 17.3,
    "ref": "Seven, I think. Maybe eight. …They’re where they sat in September. Nobody told me to move anyone.",
@@ -1411,11 +1411,11 @@
    "where": [
     "L23"
    ],
-   "err": 0.065,
+   "err": 0.0,
    "dur": 9.45,
    "cps": 16.0,
    "ref": "I’m not here about strand 3. Honestly, the dashboard is a leadership tool, what matters to me is what I saw in the lesson, and the lesson was well run.",
-   "hyp": "I'm not here about strand 3. Honestly, the dashboard is a leadership tool.  What matters to me is what I saw in the lesson and the lesson was well run."
+   "hyp": "I'm not here about strand 3. Honestly the dashboard is a leadership tool.  What matters to me is what I saw in the lesson and the lesson was well run."
   },
   {
    "key": "1eyen6q7tx6",
@@ -1435,7 +1435,7 @@
    "where": [
     "L23"
    ],
-   "err": 0.083,
+   "err": 0.0,
    "dur": 9.0,
    "cps": 15.4,
    "ref": "The scheme of work is a guide, not a contract. Data-informed teaching means the dashboard overrides the plan when students aren’t learning.",
@@ -1451,7 +1451,7 @@
    "dur": 6.22,
    "cps": 17.7,
    "ref": "Then put that in writing and send it to the head of department, because that is not what I was told in August.",
-   "hyp": "Then put that in writing and send it to the head of department because that is not what I was told in August."
+   "hyp": "then put that in writing and send it to the head of department because that is not what I was told in August."
   },
   {
    "key": "1xrf05stpon",
@@ -1459,7 +1459,7 @@
    "where": [
     "L23"
    ],
-   "err": 0.182,
+   "err": 0.033,
    "dur": 9.22,
    "cps": 16.7,
    "ref": "Fine, say I move those seven. Next month it’s strand 5, and the month after that it’s something else. I can’t rebuild the room every time a cell goes red.",
@@ -1471,11 +1471,11 @@
    "where": [
     "L23"
    ],
-   "err": 0.182,
+   "err": 0.024,
    "dur": 12.27,
    "cps": 16.0,
    "ref": "You shouldn’t have to. What if every red cell got one word next to it, reteach, regroup, or extend, and a name? Then strand 5 isn’t a rebuild, it’s a word. Want to try it on strand 3 now, with me?",
-   "hyp": "You shouldn't have to what if every red cell got one word next to it, retich, regroup, or extend in a name,  then strand 5 isn't a rebuild, it's a word.  Want to try it on strand 3 now with me."
+   "hyp": "You shouldn't have to what if every red cell got one word next to it, retich, regroup, or extend, and a name.  Then strand 5 isn't a rebuild, it's a word.  Want to try it on strand 3 now with me."
   },
   {
    "key": "221w8eikto8",
@@ -1483,7 +1483,7 @@
    "where": [
     "L23"
    ],
-   "err": 0.25,
+   "err": 0.0,
    "dur": 7.16,
    "cps": 17.7,
    "ref": "A word and a name. …Regroup. The seven, Tuesday, while the rest do the extension. That’s, fine, that’s ten minutes of planning.",
@@ -1495,11 +1495,11 @@
    "where": [
     "L23"
    ],
-   "err": 0.158,
+   "err": 0.056,
    "dur": 6.75,
    "cps": 16.4,
    "ref": "Nobody’s asking you to rebuild anything. Just keep an eye on the dashboard and use your professional judgement.",
-   "hyp": "Nobody's asking you to rebuild anything, just keep an eye on the dashboard and use your professional judgment."
+   "hyp": "Nobody's asking you to rebuild anything. Just keep an eye on the dashboard and use your professional judgment."
   },
   {
    "key": "1loemtx707g",
@@ -1507,7 +1507,7 @@
    "where": [
     "L23"
    ],
-   "err": 0.25,
+   "err": 0.091,
    "dur": 3.75,
    "cps": 15.5,
    "ref": "My judgement says week 11. So we’re back where we started.",
@@ -1519,7 +1519,7 @@
    "where": [
     "L23"
    ],
-   "err": 0.087,
+   "err": 0.0,
    "dur": 8.72,
    "cps": 16.1,
    "ref": "If the room needs rebuilding every month, that’s what responsive teaching looks like. Static seating since September is the real issue here.",
@@ -1531,7 +1531,7 @@
    "where": [
     "L23"
    ],
-   "err": 0.211,
+   "err": 0.0,
    "dur": 5.13,
    "cps": 17.5,
    "ref": "Noted. I’ll add \"rebuild the room monthly\" to the list of things I’ve been told this year.",
@@ -1543,7 +1543,7 @@
    "where": [
     "L24"
    ],
-   "err": 0.038,
+   "err": 0.0,
    "dur": 16.59,
    "cps": 16.2,
    "ref": "Most students scored highly on the end-of-unit test, a class average of 86%. The teacher is pleased, the students are relieved, and the plan moves confidently to the next unit on Monday. Toki asks to see the test, and then asks one student a question that isn’t on it.",
@@ -1567,7 +1567,7 @@
    "where": [
     "L24"
    ],
-   "err": 0.13,
+   "err": 0.087,
    "dur": 7.31,
    "cps": 17.7,
    "ref": "Ninety per cent average! I was so worried about this unit. I think the worksheets really worked, we did them every single lesson.",
@@ -1579,7 +1579,7 @@
    "where": [
     "L24"
    ],
-   "err": 0.122,
+   "err": 0.0,
    "dur": 11.81,
    "cps": 16.9,
    "ref": "They clearly did, ninety is real work. Can I tell you about one answer? I asked Hind why the reaction speeds up. She scored ninety-five and she said, \"we didn’t do that one.\" What do you make of that?",
@@ -1603,7 +1603,7 @@
    "where": [
     "L24"
    ],
-   "err": 0.13,
+   "err": 0.0,
    "dur": 7.7,
    "cps": 15.5,
    "ref": "Ninety is wonderful for a first unit. Enjoy it, most new teachers don’t get a result like this until their second year.",
@@ -1615,11 +1615,11 @@
    "where": [
     "L24"
    ],
-   "err": 0.273,
-   "dur": 3.34,
-   "cps": 14.4,
+   "err": 0.0,
+   "dur": 2.92,
+   "cps": 16.4,
    "ref": "Thank you! I’m going to show Ms. Huda right now.",
-   "hyp": "Thank you, I'm going to show MS. Hewda right now."
+   "hyp": "Thank you, I'm going to show Ms. Huda right now."
   },
   {
    "key": "5hiishowpu",
@@ -1627,11 +1627,11 @@
    "where": [
     "L24"
    ],
-   "err": 0.059,
+   "err": 0.118,
    "dur": 6.35,
    "cps": 16.1,
    "ref": "Ninety on a test that copies the worksheet is recall. We should be careful calling that understanding.",
-   "hyp": "90 on a test that copies the worksheet is recall. We should be careful calling that understanding."
+   "hyp": "90 on a test that COP is the worksheet is recall. We should be careful calling that understanding."
   },
   {
    "key": "22ff7uhbm20",
@@ -1639,7 +1639,7 @@
    "where": [
     "L24"
    ],
-   "err": 0.267,
+   "err": 0.0,
    "dur": 4.09,
    "cps": 17.4,
    "ref": "Oh. …I didn’t know I wasn’t supposed to use the worksheet. Nobody said.",
@@ -1651,7 +1651,7 @@
    "where": [
     "L24"
    ],
-   "err": 0.074,
+   "err": 0.0,
    "dur": 7.01,
    "cps": 18.0,
    "ref": "So the test was too easy? Should I rewrite it? We start the new unit Monday, I don’t really have time to redo the whole thing.",
@@ -1663,11 +1663,11 @@
    "where": [
     "L24"
    ],
-   "err": 0.108,
+   "err": 0.0,
    "dur": 11.74,
    "cps": 16.2,
    "ref": "Don’t rewrite it. Add two questions in a context they’ve never seen, a kettle, a rusting gate, and give them tomorrow. Then ask the same two again in three weeks, mid-lesson. Would that fit?",
-   "hyp": "Don't rewrite it, add two questions in a context they've never seen, a kettle, a rusting  gate and give them tomorrow. Then ask the same two again in three weeks, mid lesson. Would that fit?"
+   "hyp": "Don't rewrite it, add two questions in a context they've never seen, a kettle, a rusting gate,  and give them tomorrow. Then ask the same two again in three weeks, mid-lesson. Would that fit?"
   },
   {
    "key": "1ihgpfdcwmq",
@@ -1679,7 +1679,7 @@
    "dur": 6.41,
    "cps": 17.2,
    "ref": "Two questions, tomorrow. And again in three weeks. Yes, that I can do. Can I show you them before I give them?",
-   "hyp": "Two questions tomorrow and again in three weeks. Yes that I can do. Can I show you them before I give them?"
+   "hyp": "Two questions tomorrow and again in three weeks. Yes, that I can do. Can I show you them before I give them?"
   },
   {
    "key": "m2ugpifa11",
@@ -1687,7 +1687,7 @@
    "where": [
     "L24"
    ],
-   "err": 0.174,
+   "err": 0.048,
    "dur": 6.67,
    "cps": 15.7,
    "ref": "Not too easy, just make the next unit’s test a bit more varied. You’ll get a feel for it with experience.",
@@ -1699,11 +1699,11 @@
    "where": [
     "L24"
    ],
-   "err": 0.5,
+   "err": 0.2,
    "dur": 2.23,
    "cps": 12.6,
    "ref": "Okay. More varied. I’ll try.",
-   "hyp": "Ok more varied I'll try"
+   "hyp": "Ok, more varied, I'll try."
   },
   {
    "key": "k568zuunn",
@@ -1711,7 +1711,7 @@
    "where": [
     "L24"
    ],
-   "err": 0.154,
+   "err": 0.0,
    "dur": 8.61,
    "cps": 16.6,
    "ref": "Honestly, the unit shouldn’t close on Monday. If the understanding isn’t there, moving on is moving on from nothing, keep it open another week.",
@@ -1723,11 +1723,11 @@
    "where": [
     "L24"
    ],
-   "err": 0.368,
-   "dur": 5.32,
-   "cps": 16.0,
+   "err": 0.0,
+   "dur": 5.11,
+   "cps": 16.6,
    "ref": "Ms. Huda signed off the scheme of work. I can’t just… not start Monday. I’ll ask her.",
-   "hyp": "MS, Hugh does sign off the scheme of work. I can't just not start Monday. I'll ask her."
+   "hyp": "Ms. Huda signed off the scheme of work. I can't just not start Monday. I'll ask her."
   },
   {
    "key": "1wz8t12nwbf",
@@ -1735,11 +1735,11 @@
    "where": [
     "L31"
    ],
-   "err": 0.146,
+   "err": 0.104,
    "dur": 18.08,
    "cps": 16.3,
    "ref": "Every student has completed the assigned Alef lesson, and the teacher proudly shows Toki the dashboard: 100%, every name green. The class worked quietly and finished with ten minutes to spare. The teacher has been recognised twice this term for completion rates. Toki opens one student’s lesson.",
-   "hyp": "Every student has completed the assigned aleph lesson, and the teacher proudly shows toky the dashboard.  100% every name green.  The class worked quietly and finished with 10 minutes to spare.  The teacher has been recognized twice this term for completion rates.  TOKY opens one students lesson."
+   "hyp": "Every student has completed the assigned aleph lesson, and the teacher proudly shows toky the dashboard.  100% every name green.  The class worked quietly and finished with 10 minutes to spare.  The teacher has been recognized twice this term for completion rates.  Toky opens one students lesson."
   },
   {
    "key": "1zwyg8bsgyl",
@@ -1759,11 +1759,11 @@
    "where": [
     "L31"
    ],
-   "err": 0.08,
+   "err": 0.12,
    "dur": 7.71,
    "cps": 18.9,
    "ref": "Every lesson assigned, every lesson completed, every week since October. The head showed it to the whole staff. Which other class is at a hundred?",
-   "hyp": "Every lesson assigned, every lesson completed every week since October.  The head showed it to the whole staff, which other classes at a hundred."
+   "hyp": "Every lesson assigned, every lesson completed every week since October.  The head showed it to the whole staff, which other classes at 100."
   },
   {
    "key": "22aret32ccl",
@@ -1771,7 +1771,7 @@
    "where": [
     "L31"
    ],
-   "err": 0.121,
+   "err": 0.032,
    "dur": 10.38,
    "cps": 15.9,
    "ref": "None, yours is the only one, and that took work. Can we open one attempt together? Sara’s, maybe. I’d like to see what a completed lesson looks like from the inside.",
@@ -1783,7 +1783,7 @@
    "where": [
     "L31"
    ],
-   "err": 0.25,
+   "err": 0.158,
    "dur": 5.7,
    "cps": 18.6,
    "ref": "Sure. Sara’s… eleven minutes. The video was, hm. She skipped it. At four seconds. Let me open another one.",
@@ -1795,7 +1795,7 @@
    "where": [
     "L31"
    ],
-   "err": 0.118,
+   "err": 0.0,
    "dur": 4.83,
    "cps": 16.8,
    "ref": "Nobody else is close. It’s a real achievement, and the head was right to show it.",
@@ -1819,11 +1819,11 @@
    "where": [
     "L31"
    ],
-   "err": 0.312,
+   "err": 0.1,
    "dur": 11.52,
    "cps": 16.1,
    "ref": "Completion isn’t learning, though. The check average on the same dashboard is 41%. A hundred per cent of students finishing a lesson they didn’t understand isn’t something to celebrate.",
-   "hyp": "Completion isn't learning, though. The check average on the same dashboard is 41%.  100% of students finishing a lesson they didn't understand isn't something to celebrate."
+   "hyp": "Completion isn't learning though, the check average on the same dashboard is 41%.  100% of students finishing a lesson they didn't understand isn't something to celebrate."
   },
   {
    "key": "1i9vbap5la4",
@@ -1835,7 +1835,7 @@
    "dur": 3.7,
    "cps": 19.4,
    "ref": "The head celebrated it. Take it up with him. I did what the target said.",
-   "hyp": "The head celebrated it, take it up with him. I did what the target said."
+   "hyp": "The head celebrated it, take it up with him.  I did what the target said."
   },
   {
    "key": "1blzskjm0jg",
@@ -1843,7 +1843,7 @@
    "where": [
     "L31"
    ],
-   "err": 0.065,
+   "err": 0.0,
    "dur": 8.01,
    "cps": 20.5,
    "ref": "So they skip the video. They still do the questions. The lesson is complete, that’s what the target is. If the target was the check score, someone should have said.",
@@ -1855,11 +1855,11 @@
    "where": [
     "L31"
    ],
-   "err": 0.154,
+   "err": 0.0,
    "dur": 13.52,
    "cps": 16.2,
    "ref": "Nobody said, that’s fair. Here’s what I’d try: tomorrow, open the check column before the completion column, and let the lowest question set the first five minutes. Same lesson, same target. Does that cost you anything?",
-   "hyp": "Nobody said that's fair. Here's what I'd try. Tomorrow, open the check column before the completion  column and let the lowest question set the first five minutes. Same lesson, same target. Does that  cost you anything?"
+   "hyp": "Nobody said that's fair. Here's what I'd try. Tomorrow, open the check column before the completion  column and let the lowest question set the first five minutes. Same lesson, same target. Does that cost  you anything?"
   },
   {
    "key": "2bmrcot7n1n",
@@ -1867,7 +1867,7 @@
    "where": [
     "L31"
    ],
-   "err": 0.105,
+   "err": 0.0,
    "dur": 5.14,
    "cps": 18.5,
    "ref": "Open the other column first. …No, it doesn’t cost me anything. I just never looked at it first.",
@@ -1879,7 +1879,7 @@
    "where": [
     "L31"
    ],
-   "err": 0.091,
+   "err": 0.0,
    "dur": 7.36,
    "cps": 16.3,
    "ref": "You’re right that the target is completion. Maybe just glance at the check scores now and then so nothing surprises you.",
@@ -1891,7 +1891,7 @@
    "where": [
     "L31"
    ],
-   "err": 0.2,
+   "err": 0.0,
    "dur": 3.29,
    "cps": 16.7,
    "ref": "I’ll glance. Nothing surprises me in that class anyway.",
@@ -1903,7 +1903,7 @@
    "where": [
     "L31"
    ],
-   "err": 0.133,
+   "err": 0.034,
    "dur": 10.91,
    "cps": 14.7,
    "ref": "Someone is saying it now. A lesson where students skip the teaching at 0:04 isn’t complete, whatever the column says, and that needs to change before next week.",
@@ -1915,11 +1915,11 @@
    "where": [
     "L31"
    ],
-   "err": 0.333,
+   "err": 0.214,
    "dur": 3.58,
    "cps": 20.9,
    "ref": "Before next week. Right. And when the hundred drops, that’s on you, not me.",
-   "hyp": "Before next week, write and win the 100 drops that's on you, not me."
+   "hyp": "Before next week, write, and win the 100 drops that's on you, not me."
   },
   {
    "key": "1w9td706fer",
@@ -1951,7 +1951,7 @@
    "where": [
     "L32"
    ],
-   "err": 0.097,
+   "err": 0.069,
    "dur": 9.08,
    "cps": 17.5,
    "ref": "I know some coaches want me walking the rows the whole time. I made a choice: they work independently, and I don’t stand over them. They’re fourteen, not nine.",
@@ -1975,7 +1975,7 @@
    "where": [
     "L32"
    ],
-   "err": 0.1,
+   "err": 0.0,
    "dur": 5.43,
    "cps": 17.5,
    "ref": "Four times? …He never asks. He’s one of the quiet ones. I thought he was just slow and careful.",
@@ -1987,11 +1987,11 @@
    "where": [
     "L32"
    ],
-   "err": 0.148,
+   "err": 0.0,
    "dur": 7.95,
    "cps": 16.5,
    "ref": "I think that’s a mature approach. The room was calm and everyone was on the right lesson, that’s more than a lot of classes manage.",
-   "hyp": "I think that's a mature approach.  The room was calm and everyone was on the right lesson.  That's more than a lot of classes manage."
+   "hyp": "I think that's a mature approach. The room was calm and everyone was on the right lesson. That's more than a lot of classes manage."
   },
   {
    "key": "186edarcg5k",
@@ -1999,7 +1999,7 @@
    "where": [
     "L32"
    ],
-   "err": 0.091,
+   "err": 0.2,
    "dur": 3.13,
    "cps": 16.3,
    "ref": "Thank you, I think the calm matters. So we’re good?",
@@ -2011,7 +2011,7 @@
    "where": [
     "L32"
    ],
-   "err": 0.154,
+   "err": 0.0,
    "dur": 10.07,
    "cps": 15.4,
    "ref": "Independence without monitoring isn’t independence, it’s absence. With devices you have to watch the thinking, not the room, the live view exists for that.",
@@ -2023,7 +2023,7 @@
    "where": [
     "L32"
    ],
-   "err": 0.25,
+   "err": 0.056,
    "dur": 6.07,
    "cps": 16.8,
    "ref": "Absence. Okay. I’ll open the live view and watch dots move, if that’s what the observation form wants.",
@@ -2035,11 +2035,11 @@
    "where": [
     "L32"
    ],
-   "err": 0.133,
+   "err": 0.0,
    "dur": 6.5,
    "cps": 18.9,
    "ref": "So I should have gone to him? If I go to Ahmed, I have to go to all of them, and then I’m hovering again. Where’s the line?",
-   "hyp": "So I should have gone to him. If I go to Ahmed, I have to go to all of them and then I'm hovering again.  Where's the line?"
+   "hyp": "So I should have gone to him. If I go to Ahmed, I have to go to all of them and then I'm hovering again. Where's the line?"
   },
   {
    "key": "1ajbxk21shi",
@@ -2059,11 +2059,11 @@
    "where": [
     "L32"
    ],
-   "err": 0.368,
+   "err": 0.0,
    "dur": 5.34,
    "cps": 17.6,
    "ref": "Two, to my desk. That’s not hovering, that’s… office hours. Thursday. I’ll have the view open.",
-   "hyp": "to my desk. That's not hovering. That's office hours. Thursday I'll have the view open."
+   "hyp": "2. To my desk. That's not hovering. That's office hours.  Thursday. I'll have the view open."
   },
   {
    "key": "2c9ll534osj",
@@ -2071,7 +2071,7 @@
    "where": [
     "L32"
    ],
-   "err": 0.1,
+   "err": 0.0,
    "dur": 5.94,
    "cps": 17.2,
    "ref": "There’s no hard line. Use your instincts, you clearly know the class. Maybe check in a bit more often.",
@@ -2095,7 +2095,7 @@
    "where": [
     "L32"
    ],
-   "err": 0.148,
+   "err": 0.0,
    "dur": 8.79,
    "cps": 16.2,
    "ref": "The line is that every student who’s stuck gets help within a minute. If that means circulating the whole lesson, that’s the job with devices.",
@@ -2107,7 +2107,7 @@
    "where": [
     "L32"
    ],
-   "err": 0.182,
+   "err": 0.0,
    "dur": 3.35,
    "cps": 16.4,
    "ref": "The whole lesson. So, hovering. We’ve gone in a circle.",
@@ -2131,7 +2131,7 @@
    "where": [
     "L33"
    ],
-   "err": 0.074,
+   "err": 0.0,
    "dur": 9.04,
    "cps": 17.0,
    "ref": "High Drift. Reviewing has become the practice; responding was meant to be. The teacher knows exactly which group needs what, and teaches as if she didn’t.",
@@ -2143,7 +2143,7 @@
    "where": [
     "L33"
    ],
-   "err": 0.129,
+   "err": 0.0,
    "dur": 9.18,
    "cps": 16.2,
    "ref": "I do the review every Sunday. Two hours, every group, every strand. I don’t think anyone has read it once. So if this is about the review, it’s done.",
@@ -2159,7 +2159,7 @@
    "dur": 11.13,
    "cps": 15.1,
    "ref": "I read it, last three Sundays. The same line each time: \"Group B weak on fractions, again.\" You spotted it before anyone. What happened to Group B on the Mondays after?",
-   "hyp": "I read it last three Sundays, the same line each time, Group B week on fractions, again.  You spotted it before anyone, what happened to Group B on the Mondays after."
+   "hyp": "I read it last three Sundays, the same line each time, Group B week on fractions again.  You spotted it before anyone, what happened to Group B on the Mondays after."
   },
   {
    "key": "1pjxatdacff",
@@ -2167,7 +2167,7 @@
    "where": [
     "L33"
    ],
-   "err": 0.074,
+   "err": 0.0,
    "dur": 8.16,
    "cps": 15.4,
    "ref": "The Mondays… were the plan. Week 5, week 6. The plan doesn’t have fractions in it. I wrote it down and then I taught the plan.",
@@ -2183,7 +2183,7 @@
    "dur": 7.11,
    "cps": 15.3,
    "ref": "Two hours a week on review is more than most people give. The detail in your notes is excellent, I mean that.",
-   "hyp": "Two hours a week on review is more than most people give.  The detail in your notes is excellent, I mean that."
+   "hyp": "Two hours a week on review is more than most people give.  The detail in your notes is excellent. I mean that."
   },
   {
    "key": "2bray673yxl",
@@ -2203,11 +2203,11 @@
    "where": [
     "L33"
    ],
-   "err": 0.083,
+   "err": 0.0,
    "dur": 8.26,
    "cps": 15.7,
    "ref": "The review isn’t the job, though. Reviewing data without acting on it is just reading, the two hours only count if Monday changes.",
-   "hyp": "The review isn't the job, though. Reviewing data without acting on it is just reading. The two hours only count if Monday changes."
+   "hyp": "The review isn't the job though, reviewing data without acting on it is just reading,  the two hours only count if Monday changes."
   },
   {
    "key": "29mlpb9i7mc",
@@ -2239,11 +2239,11 @@
    "where": [
     "L33"
    ],
-   "err": 0.085,
+   "err": 0.043,
    "dur": 15.01,
    "cps": 16.3,
    "ref": "Not the plan, the last line. Each note ends with a verb and a group: \"reteach, B, Tuesday.\" Then Monday morning you check the plan against that one line, not the whole report. That’s two hours becoming two hours and a minute. Try it next Sunday?",
-   "hyp": "Not the plan, the last line, each note ends with a verb and a group.  Reteach, be Tuesday.  Then Monday morning you check the plan against that one line, not the whole report.  That's two hours becoming two hours in a minute.  Try it next Sunday."
+   "hyp": "Not the plan, the last line. Each note ends with a verb and a group.  Reteach, be, Tuesday. Then Monday morning you check the plan against that one line,  not the whole report. That's two hours becoming two hours in a minute. Try it next Sunday."
   },
   {
    "key": "6zrwhtb9hn",
@@ -2263,11 +2263,11 @@
    "where": [
     "L33"
    ],
-   "err": 0.1,
+   "err": 0.0,
    "dur": 6.6,
    "cps": 16.1,
    "ref": "Not every week, just when something stands out. Fractions for Group B stands out. Fit it in where you can.",
-   "hyp": "Not every week, just when something stands out.  Fractions for Group B stands out, fitted in where you can."
+   "hyp": "Not every week, just when something stands out. Fractions for Group B stands out,  fit it in where you can."
   },
   {
    "key": "1818sx6ogbt",
@@ -2275,7 +2275,7 @@
    "where": [
     "L33"
    ],
-   "err": 0.25,
+   "err": 0.091,
    "dur": 2.74,
    "cps": 15.7,
    "ref": "Where I can. I’ll look for a gap in week 8.",
@@ -2287,11 +2287,11 @@
    "where": [
     "L33"
    ],
-   "err": 0.074,
+   "err": 0.0,
    "dur": 9.13,
    "cps": 16.3,
    "ref": "Honestly, the review could be half as long if it ended in decisions. Spend one hour reviewing and one hour planning the response, that’s the balance.",
-   "hyp": "Honestly, the review could be half as long if it ended in decisions.  Spend one hour reviewing and one hour planning the response. That's the balance."
+   "hyp": "Honestly, the review could be half as long if it ended in decisions.  Spend one hour reviewing and one hour planning the response.  That's the balance."
   },
   {
    "key": "4czeabafl5",
@@ -2299,7 +2299,7 @@
    "where": [
     "L33"
    ],
-   "err": 0.211,
+   "err": 0.0,
    "dur": 5.07,
    "cps": 16.2,
    "ref": "So now my review is too long as well. I’ll shorten it. I’ll shorten it to nothing.",
@@ -2315,7 +2315,7 @@
    "dur": 17.06,
    "cps": 16.9,
    "ref": "Students use the AI support to complete their writing tasks. The work comes back quickly, and it is polished, accurate, and well-structured, better than anything this class produced last term. The teacher is thrilled. Toki asks one student to explain the second paragraph of her own essay.",
-   "hyp": "Students use the AI support to complete their writing tasks.  The work comes back quickly, and it is polished, accurate and well structured,  better than anything this class produced last term.  The teacher is thrilled.  Toki asks one student to explain the second paragraph of her own essay."
+   "hyp": "Students use the AI support to complete their writing tasks.  The work comes back quickly, and it is polished, accurate and well-structured,  better than anything this class produced last term.  The teacher is thrilled.  Toki asks one student to explain the second paragraph of her own essay."
   },
   {
    "key": "k03it0050o",
@@ -2323,11 +2323,11 @@
    "where": [
     "L34"
    ],
-   "err": 0.074,
+   "err": 0.0,
    "dur": 9.57,
    "cps": 17.2,
    "ref": "Lethal Mutation. The product improved while the student’s thinking disappeared from it. Ownership, the whole point of a writing task, was quietly handed to the tool.",
-   "hyp": "Lethal mutation. The product improved while the student's thinking disappeared from it.  Ownership, the whole point of a writing task, was quietly handed to the tool."
+   "hyp": "Lethal mutation. The product improved while the student's thinking disappeared from it.  Ownership the whole point of a writing task was quietly handed to the tool."
   },
   {
    "key": "218x8krbw9o",
@@ -2335,7 +2335,7 @@
    "where": [
     "L34"
    ],
-   "err": 0.083,
+   "err": 0.0,
    "dur": 13.27,
    "cps": 14.5,
    "ref": "The school policy allows AI for writing support. I have it right here. If someone wants to ban it, that’s above my pay grade, I am not going to interrogate thirty students about every sentence.",
@@ -2347,7 +2347,7 @@
    "where": [
     "L34"
    ],
-   "err": 0.103,
+   "err": 0.0,
    "dur": 11.57,
    "cps": 17.0,
    "ref": "I’m not here about the policy, it allows it, you’re right. I asked Salma one thing: \"explain this sentence\". She read it aloud twice and said it means what it says. What did she learn writing this?",
@@ -2359,7 +2359,7 @@
    "where": [
     "L34"
    ],
-   "err": 0.167,
+   "err": 0.0,
    "dur": 8.08,
    "cps": 14.7,
    "ref": "…She couldn’t explain her own sentence? Salma? She’s one of my strongest, on paper. On paper. I see what you did there.",
@@ -2371,7 +2371,7 @@
    "where": [
     "L34"
    ],
-   "err": 0.125,
+   "err": 0.0,
    "dur": 6.92,
    "cps": 15.3,
    "ref": "Nobody’s talking about banning anything. The policy is sensible, and honestly the essay reads beautifully.",
@@ -2395,11 +2395,11 @@
    "where": [
     "L34"
    ],
-   "err": 0.138,
+   "err": 0.0,
    "dur": 9.94,
    "cps": 15.5,
    "ref": "The policy allows support, not substitution. A pasted essay with one draft and a one-minute history isn’t support, and it’s your task that let it through.",
-   "hyp": "The policy allows support, not substitution.  A pasted essay with one draft and a one-minute history  isn't support, and it's your task that let it through."
+   "hyp": "The policy allows support not substitution.  A pasted essay with one draft and a one-minute history isn't support and it's your task that let it through."
   },
   {
    "key": "1u0xpjx7d7x",
@@ -2407,7 +2407,7 @@
    "where": [
     "L34"
    ],
-   "err": 0.062,
+   "err": 0.133,
    "dur": 5.9,
    "cps": 14.7,
    "ref": "My task. Of course. Shall I also take responsibility for the internet while we’re here?",
@@ -2419,7 +2419,7 @@
    "where": [
     "L34"
    ],
-   "err": 0.143,
+   "err": 0.0,
    "dur": 8.93,
    "cps": 15.8,
    "ref": "So what do you want, handwritten essays in exam conditions? They’ll use it at home anyway. I can’t see the draft history from my living room.",
@@ -2431,7 +2431,7 @@
    "where": [
     "L34"
    ],
-   "err": 0.039,
+   "err": 0.0,
    "dur": 15.34,
    "cps": 17.9,
    "ref": "Keep the tool, move the thinking. The plan comes first, in Salma’s own words, before she opens anything; the tool gives feedback on that plan; and the last five minutes she defends one paragraph to you out loud. The tool stays in the middle. Would that work with this class?",
@@ -2479,7 +2479,7 @@
    "where": [
     "L34"
    ],
-   "err": 0.172,
+   "err": 0.037,
    "dur": 8.43,
    "cps": 17.2,
    "ref": "Yes, handwritten first drafts in class, no exceptions. If the thinking can’t be seen, it can’t be assessed, and right now none of it can be seen.",
@@ -2491,11 +2491,11 @@
    "where": [
     "L34"
    ],
-   "err": 0.381,
+   "err": 0.13,
    "dur": 9.53,
    "cps": 12.2,
    "ref": "No exceptions. Thirty handwritten essays a fortnight, in 2026. I’ll send you my marking when it’s done, around June.",
-   "hyp": "No exceptions, 30 Handerton essays of Fortnite in 2026.  I'll send you my marking when it's done around June."
+   "hyp": "No exceptions, 30 Handerton essays of Fortnite in 2026. I'll send you my marking when it's done around June."
   },
   {
    "key": "1kjb0l4nrwj",
@@ -2507,7 +2507,7 @@
    "dur": 15.52,
    "cps": 17.1,
    "ref": "The teacher is generous and warm. \"Excellent!\" \"Well done!\" \"Great work!\" land on every answer, every drawing, every attempt. The children glow. The room is one of the happiest Toki has visited, and the teacher is loved. Toki listens for what comes after the praise.",
-   "hyp": "The teacher is generous and warm. Excellent, well done. Great work! Land on every answer, every drawing, every attempt. The children glow.  The room is one of the happiest Toki has visited and the teacher is loved. Toki listens for what comes after the praise."
+   "hyp": "The teacher is generous and warm. Excellent, well done. Great work! Land on every answer, every drawing, every attempt. The children glow. The room is one of the happiest Toki has visited and the teacher is loved.  Toki listens for what comes after the praise."
   },
   {
    "key": "1bds6anxd6e",
@@ -2531,7 +2531,7 @@
    "dur": 9.7,
    "cps": 11.1,
    "ref": "They are so little. If I start picking at their work, half of them stop trying. You saw how happy they were.",
-   "hyp": "They are so little.  If I start picking at their work, half of them stop trying.  You saw how happy they were."
+   "hyp": "They are so little.  If I start picking at their work,  half of them stop trying.  You saw how happy they were."
   },
   {
    "key": "1gz1vyz9lvk",
@@ -2543,7 +2543,7 @@
    "dur": 6.72,
    "cps": 17.4,
    "ref": "I did. And the boy with the house drawing kept looking at you after \"beautiful\". What do you think he wanted to know?",
-   "hyp": "I did, and the boy with the house drawing kept looking at you after beautiful. What do you think he wanted to know?"
+   "hyp": "I did and the boy with the house drawing kept looking at you after beautiful. What do you think he wanted to know?"
   },
   {
    "key": "1n9rvw2qql9",
@@ -2587,11 +2587,11 @@
    "where": [
     "L41"
    ],
-   "err": 0.222,
+   "err": 0.056,
    "dur": 5.37,
    "cps": 16.2,
    "ref": "Twenty-three \"well dones\" in ten minutes. What did any of them tell a child to do next?",
-   "hyp": "23 well-done in 10 minutes. What did any of them tell a child to do next?"
+   "hyp": "23 Well Done's in 10 minutes. What did any of them tell a child to do next?"
   },
   {
    "key": "12ccdi2u58f",
@@ -2675,7 +2675,7 @@
    "dur": 5.9,
    "cps": 15.4,
    "ref": "Use a feedback frame on every piece of work, two stars and a wish. I can send the template.",
-   "hyp": "Use a feedback frame on every piece of work, two stars, and a wish.  I can send the template."
+   "hyp": "Use a feedback frame on every piece of work, two stars and a wish.  I can send the template."
   },
   {
    "key": "1gur4zfmq6h",
@@ -2687,7 +2687,7 @@
    "dur": 5.45,
    "cps": 11.0,
    "ref": "A template. For four-year-olds. Send it, I will laminate it.",
-   "hyp": "a template for four-year-olds. Send it, I will laminate it."
+   "hyp": "a template for four year olds. Send it, I will laminate it."
   },
   {
    "key": "1hxb2fvs9wt",
@@ -2695,11 +2695,11 @@
    "where": [
     "L42"
    ],
-   "err": 0.022,
+   "err": 0.0,
    "dur": 16.03,
    "cps": 16.6,
    "ref": "After each task the teacher gives detailed verbal feedback to the whole class, precise, well-structured, genuinely expert. Students listen quietly and nod. It would make a fine lecture on how to do the task well. Toki watches what students do when the feedback ends.",
-   "hyp": "After each task the teacher gives detailed verbal feedback to the whole class, precise, well-structured, genuinely expert.  Students listen quietly and nod. It would make a fine lecture on how to do the task well.  TOKY watches what students do when the feedback ends."
+   "hyp": "After each task the teacher gives detailed verbal feedback to the whole class, precise, well-structured, genuinely expert.  Students listen quietly and nod. It would make a fine lecture on how to do the task well.  TOKI watches what students do when the feedback ends."
   },
   {
    "key": "pnezo8hstr",
@@ -2711,7 +2711,7 @@
    "dur": 9.25,
    "cps": 16.3,
    "ref": "Moderate Drift. Feedback has become a performance by the teacher rather than an action by the student. Expert advice is delivered, received, and filed.",
-   "hyp": "Moderate drift. Feedback has become a performance by the teacher rather than an action by the student.  Expert advice is delivered, received and filed."
+   "hyp": "Moderate drift, feedback has become a performance by the teacher rather than an action by the student.  Expert advice is delivered, received and filed."
   },
   {
    "key": "1t5jngbztg8",
@@ -2747,7 +2747,7 @@
    "dur": 5.54,
    "cps": 16.1,
    "ref": "Use them. On the next one. Which is a different task, so… no, they could not, could they.",
-   "hyp": "Use them on the next one.  Which is a different task, so, no they could not could they?"
+   "hyp": "Use them on the next one, which is a different task, so, no, they could not, could they?"
   },
   {
    "key": "25fwo779bs6",
@@ -2783,7 +2783,7 @@
    "dur": 5.43,
    "cps": 14.9,
    "ref": "Feedback nobody acts on is a speech, not feedback. The research on this is clear.",
-   "hyp": "Feedback nobody acts on is a speech not feedback. The research on this is clear."
+   "hyp": "Feedback nobody acts on is a speech not feedback.  The research on this is clear."
   },
   {
    "key": "13ui5pn7w4r",
@@ -2791,7 +2791,7 @@
    "where": [
     "L42"
    ],
-   "err": 0.067,
+   "err": 0.0,
    "dur": 5.96,
    "cps": 14.4,
    "ref": "A speech. Fifteen years of speeches, apparently. Send me the research; I will file it.",
@@ -2803,11 +2803,11 @@
    "where": [
     "L42"
    ],
-   "err": 0.158,
+   "err": 0.0,
    "dur": 6.43,
    "cps": 14.6,
    "ref": "So I give them time to fix it. Six points, twenty-six students, that is the whole lesson gone.",
-   "hyp": "So I give them time to fix it.  6 points, 26 students, that is the whole lesson gone."
+   "hyp": "So I give them time to fix it.  Six points, 26 students, that is the whole lesson gone."
   },
   {
    "key": "1x5wc5eq7ih",
@@ -2815,7 +2815,7 @@
    "where": [
     "L42"
    ],
-   "err": 0.208,
+   "err": 0.042,
    "dur": 8.35,
    "cps": 15.1,
    "ref": "One point, not six. \"Fix the units in your table, five minutes.\" Same feedback, but it ends in their hands, not in the folder.",
@@ -2915,7 +2915,7 @@
    "dur": 5.46,
    "cps": 17.8,
    "ref": "I know what you are going to say. Too many comments. But if I write less, they say I do not care.",
-   "hyp": "I know what you are going to say. Too many comments.  But if I write less, they say I do not care."
+   "hyp": "I know what you are going to say. Too many comments. But if I write less, they say I do not care."
   },
   {
    "key": "15fbioo5f30",
@@ -2923,11 +2923,11 @@
    "where": [
     "L43"
    ],
-   "err": 0.071,
+   "err": 0.036,
    "dur": 8.75,
    "cps": 15.5,
    "ref": "I was not going to say that. I watched Hamad get his essay back: grade, back page, grade again, bag. How many of the eleven did he read?",
-   "hyp": "I was not going to say that. I watched Hamid get his essay back.  Grade, back page, grade again, bag, how many of the 11 did he read?"
+   "hyp": "I was not going to say that. I watched Hammett get his essay back.  Grade, back page, grade again, bag, how many of the 11 did he read?"
   },
   {
    "key": "ux3egqhu0i",
@@ -2971,7 +2971,7 @@
    "where": [
     "L43"
    ],
-   "err": 0.071,
+   "err": 0.0,
    "dur": 5.17,
    "cps": 14.9,
    "ref": "Eleven comments is more than anyone can take in. Research says three at most.",
@@ -2983,7 +2983,7 @@
    "where": [
     "L43"
    ],
-   "err": 0.118,
+   "err": 0.0,
    "dur": 5.57,
    "cps": 16.1,
    "ref": "Three. So I spend my Saturday writing three. And when parents ask why the margin is empty?",
@@ -3007,7 +3007,7 @@
    "where": [
     "L43"
    ],
-   "err": 0.08,
+   "err": 0.04,
    "dur": 9.12,
    "cps": 15.9,
    "ref": "What if Monday opened with \"fix the one thing in your margin\" before anyone sees a grade? Three comments, twenty minutes, and your Saturday back.",
@@ -3059,7 +3059,7 @@
    "dur": 6.16,
    "cps": 15.9,
    "ref": "With the next essay due Friday, the comments cannot land anyway. The planning has to change first.",
-   "hyp": "With the next essay due Friday the comments cannot land anyway. The planning has to change first."
+   "hyp": "With the next essay due Friday the comments cannot land anyway.  The planning has to change first."
   },
   {
    "key": "10777b9jp5w",
@@ -3083,7 +3083,7 @@
    "dur": 15.76,
    "cps": 17.2,
    "ref": "This class does everything the feedback books say. Students correct their answers after feedback, in green pen, every time. The books are a model of the policy. And yet the same errors come back on the next task, and the one after. Toki opens one book to three weeks ago.",
-   "hyp": "This class does everything the feedback books say.  Students correct their answers after feedback in green pen every time.  The books are a model of the policy.  And yet the same errors come back on the next task and the one after.  TOKY opens one book to three weeks ago."
+   "hyp": "This class does everything the feedback books say.  Students correct their answers after feedback in green pen every time.  The books are a model of the policy.  And yet the same errors come back on the next task and the one after.  TOKEE opens one book to three weeks ago."
   },
   {
    "key": "1vhnj0ara3a",
@@ -3107,7 +3107,7 @@
    "dur": 6.54,
    "cps": 17.0,
    "ref": "Green pen corrections after every task. Every student, every time. That is the policy and these books prove it.",
-   "hyp": "Green pen corrections after every task, every student every time, that is the policy and these books prove it."
+   "hyp": "Green pen corrections after every task, every student every time, that is the policy and  these books prove it."
   },
   {
    "key": "1eozg39kcyc",
@@ -3260,8 +3260,8 @@
     "L44"
    ],
    "err": 0.0,
-   "dur": 4.03,
-   "cps": 14.6,
+   "dur": 3.99,
+   "cps": 14.8,
    "ref": "Compliance. Put that in your report. \"Mr. Faisal complies.\"",
    "hyp": "Compliance put that in your report, Mr Faisal complies."
   },
@@ -3287,7 +3287,7 @@
    "dur": 8.22,
    "cps": 17.0,
    "ref": "Moderate Drift. Questioning has become a guessing game. Students are engaged in reading the teacher rather than reasoning about the content.",
-   "hyp": "Moderate drift, questioning has become a guessing game.  Students are engaged in reading the teacher rather than reasoning about the content."
+   "hyp": "Moderate Drift, questioning has become a guessing game.  Students are engaged in reading the teacher, rather than reasoning about the content."
   },
   {
    "key": "19q22hqha1o",
@@ -3343,7 +3343,7 @@
    "where": [
     "L51"
    ],
-   "err": 0.222,
+   "err": 0.0,
    "dur": 4.54,
    "cps": 10.8,
    "ref": "Fourteen! I counted. The course said aim for ten.",
@@ -3391,11 +3391,11 @@
    "where": [
     "L51"
    ],
-   "err": 0.1,
+   "err": 0.067,
    "dur": 9.65,
    "cps": 16.4,
    "ref": "Keep every one. Change the shape of three: \"what is it called?\" becomes \"what is going on in this diagram, and how can you tell?\" Same plan, nothing to guess.",
-   "hyp": "Keep everyone changed the shape of three, what is it called, becomes what is going on in this diagram,  and how can you tell, same plan, nothing to guess."
+   "hyp": "Keep everyone change the shape of three, what is it called, becomes what is going on in this diagram and how can you tell, same plan, nothing to guess."
   },
   {
    "key": "1olydrdy8xg",
@@ -3439,7 +3439,7 @@
    "where": [
     "L51"
    ],
-   "err": 0.167,
+   "err": 0.0,
    "dur": 5.61,
    "cps": 15.0,
    "ref": "Fewer questions, better questions. Fourteen in ten minutes is quantity over quality.",
@@ -3463,11 +3463,11 @@
    "where": [
     "L52"
    ],
-   "err": 0.14,
+   "err": 0.048,
    "dur": 15.63,
    "cps": 16.8,
    "ref": "The teacher asks thoughtful, genuinely open questions, the best Toki has heard this week. And three confident students answer nearly all of them, brilliantly. The discussion is rich. The teacher is delighted with how it’s going. Toki counts the other twenty-two.",
-   "hyp": "The teacher asks thoughtful genuinely open questions, the best toky has heard this week.  And three confident students answer nearly all of them brilliantly.  The discussion is rich.  The teacher is delighted with how it's going.  Toky counts the other 22."
+   "hyp": "The teacher asks thoughtful, genuinely open questions, the best toky has heard this week.  And three confident students answer nearly all of them brilliantly.  The discussion is rich.  The teacher is delighted with how it's going.  Toky counts the other 22."
   },
   {
    "key": "zqjsnr1ir0",
@@ -3499,11 +3499,11 @@
    "where": [
     "L52"
    ],
-   "err": 0.156,
+   "err": 0.094,
    "dur": 10.87,
    "cps": 15.4,
    "ref": "It was. I counted: nineteen of the last twenty-one answers came from Noor, Saif and Maha. Can I tell you what Yousef said when I asked him the last question privately?",
-   "hyp": "It was, I counted, 19 of the last 21 answers came from Noor, Safe, and Maha.  Can I tell you what Yaosef said when I asked him the last question privately?"
+   "hyp": "It was, I counted, 19 of the last 21 answers came from Nor, Safe, and Maha.  Can I tell you what Yausef said when I asked him the last question privately?"
   },
   {
    "key": "15sheo1t70s",
@@ -3539,7 +3539,7 @@
    "dur": 3.36,
    "cps": 14.6,
    "ref": "They raise it themselves. I just choose the text.",
-   "hyp": "They raise it themselves.  I just choose the text."
+   "hyp": "They raise it themselves. I just choose the text."
   },
   {
    "key": "29fw3k87ng8",
@@ -3547,7 +3547,7 @@
    "where": [
     "L52"
    ],
-   "err": 0.125,
+   "err": 0.0,
    "dur": 5.55,
    "cps": 16.6,
    "ref": "Three students had a discussion. Twenty-two watched it. That is a performance, not a lesson.",
@@ -3559,7 +3559,7 @@
    "where": [
     "L52"
    ],
-   "err": 0.25,
+   "err": 0.125,
    "dur": 6.07,
    "cps": 14.8,
    "ref": "A performance. The other twenty-two are welcome to join any time. Nobody is stopping them.",
@@ -3571,11 +3571,11 @@
    "where": [
     "L52"
    ],
-   "err": 0.1,
+   "err": 0.15,
    "dur": 6.83,
    "cps": 15.2,
    "ref": "Fine, Yousef had something. He never puts his hand up. What am I supposed to do, ban Noor from speaking?",
-   "hyp": "Fine, Yausef had something. He never puts his hand up.  What am I supposed to do? Ban Nor from speaking."
+   "hyp": "Fine, Yausef had something. He never puts his hand up. What am I supposed to do? Bann Nor from speaking."
   },
   {
    "key": "1yv5932j4vc",
@@ -3583,7 +3583,7 @@
    "where": [
     "L52"
    ],
-   "err": 0.129,
+   "err": 0.097,
    "dur": 9.96,
    "cps": 16.6,
    "ref": "Keep Noor. Before any hand goes up: thirty seconds to write, one minute with a partner, then you pick who shares. Yousef has a sentence ready; Noor has a better one.",
@@ -3679,11 +3679,11 @@
    "where": [
     "L53"
    ],
-   "err": 0.091,
+   "err": 0.0,
    "dur": 6.8,
    "cps": 16.2,
    "ref": "Ten questions, ten answers, nobody drifting off. If I slow down I lose the back row in a minute. I have tried.",
-   "hyp": "10 questions 10 answers nobody drifting off. If I slow down I lose the back row in a minute I have tried."
+   "hyp": "10 questions 10 answers nobody drifting off. If I slow down I lose the back row in a minute, I have tried."
   },
   {
    "key": "11o210c6551",
@@ -3707,7 +3707,7 @@
    "dur": 4.85,
    "cps": 16.3,
    "ref": "…I do not know. I did not ask. I heard \"negative\" and it was right, so I moved.",
-   "hyp": "I do not know I did not ask. I heard negative and it was right so I moved."
+   "hyp": "I do not know, I did not ask. I heard negative and it was right so I moved."
   },
   {
    "key": "oql2ji34j9",
@@ -3799,11 +3799,11 @@
    "where": [
     "L53"
    ],
-   "err": 0.067,
+   "err": 0.0,
    "dur": 4.58,
    "cps": 16.8,
    "ref": "Keep all ten, maybe add a short written explanation at the end of the lesson.",
-   "hyp": "Keep all 10 maybe add a short written explanation at the end of the lesson."
+   "hyp": "Keep all 10, maybe add a short written explanation at the end of the lesson."
   },
   {
    "key": "1px71avitbq",
@@ -3823,11 +3823,11 @@
    "where": [
     "L53"
    ],
-   "err": 0.053,
+   "err": 0.0,
    "dur": 6.1,
    "cps": 16.1,
    "ref": "Three seconds of wait time before every answer would fix most of it. It is a well-known technique.",
-   "hyp": "3 seconds of wait time before every answer would fix most of it. It is a well-known technique."
+   "hyp": "Three seconds of wait time before every answer would fix most of it. It is a well-known technique."
   },
   {
    "key": "2e1iluqe35y",
@@ -3863,7 +3863,7 @@
    "dur": 8.65,
    "cps": 17.3,
    "ref": "High Drift. The question has become a race, and most students have stopped entering. Speed is being rewarded in a practice designed to reward thought.",
-   "hyp": "High drift, the question has become a race, and most students have stopped entering.  Speed is being rewarded in a practice designed to reward thought."
+   "hyp": "High drift, the question has become a race and most students have stopped entering.  Speed is being rewarded in a practice designed to reward thought."
   },
   {
    "key": "1hg0bbbd235",
@@ -3943,11 +3943,11 @@
    "where": [
     "L54"
    ],
-   "err": 0.067,
+   "err": 0.0,
    "dur": 5.18,
    "cps": 14.9,
    "ref": "A reflex test. Twelve years. Write that down for the file with the other two.",
-   "hyp": "A reflex test, 12 years, write that down for the file with the other two."
+   "hyp": "a reflex test, 12 years, write that down for the file with the other two."
   },
   {
    "key": "1f6toqb4bkw",
@@ -4031,7 +4031,7 @@
    "dur": 4.85,
    "cps": 16.1,
    "ref": "I know what a question is for. I will take the feedback from the file, thanks.",
-   "hyp": "I know what a question is for. I will take the feedback from the file. Thanks."
+   "hyp": "I know what a question is for.  I will take the feedback from the file, thanks."
   },
   {
    "key": "2559uzicw5i",
@@ -4075,11 +4075,11 @@
    "where": [
     "L61"
    ],
-   "err": 0.083,
+   "err": 0.0,
    "dur": 11.64,
    "cps": 14.9,
    "ref": "I saw why they use it, nobody was lost for a second. I sat with Omar on bronze: he was stuck on question 1 for twelve minutes. What is question 1 asking him to already know?",
-   "hyp": "I saw why they use it. Nobody was lost for a second.  I sat with Omar on bronze. He was stuck on question one for 12 minutes.  What is question one asking him to already know?"
+   "hyp": "I saw why they use it. Nobody was lost for a second. I sat with Omar on bronze. He was stuck on question one for 12 minutes  What is question one asking him to already know?"
   },
   {
    "key": "1tyyh1yc422",
@@ -4231,11 +4231,11 @@
    "where": [
     "L62"
    ],
-   "err": 0.047,
+   "err": 0.023,
    "dur": 14.28,
    "cps": 17.5,
    "ref": "The whole class works through the same task at the same pace. The teacher moves everyone on together, every eight minutes, like clockwork, it keeps the lesson orderly and nobody is left behind the schedule. Toki watches two students at the same desk.",
-   "hyp": "The whole class works through the same task at the same pace.  The teacher moves everyone on together, every 8 minutes like clockwork, it keeps the lesson  orderly and nobody is left behind the schedule.  TOKY watches two students at the same desk."
+   "hyp": "The whole class works through the same task at the same pace.  The teacher moves everyone on together, every 8 minutes like clockwork,  it keeps the lesson orderly and nobody is left behind the schedule.  TOKY watches two students at the same desk."
   },
   {
    "key": "29c8femrclq",
@@ -4267,11 +4267,11 @@
    "where": [
     "L62"
    ],
-   "err": 0.074,
+   "err": 0.0,
    "dur": 9.38,
    "cps": 15.5,
    "ref": "I heard about September. The structure is why I could watch one desk for forty minutes. Can I tell you about that desk? Two students, same timer.",
-   "hyp": "I heard about September, the structure is why I could watch one desk for 40 minutes.  Can I tell you about that desk to students same timer?"
+   "hyp": "I heard about September, the structure is why I could watch one desk for 40 minutes.  Can I tell you about that desk two students same timer?"
   },
   {
    "key": "dlgk0xi4wo",
@@ -4283,7 +4283,7 @@
    "dur": 5.97,
    "cps": 18.8,
    "ref": "Which desk. …Fahad and Ali. Fahad finishes in three minutes and Ali never finishes anything. I know. I see them.",
-   "hyp": "Which desk, Fahed and Ollie?  Fahed finishes in three minutes and Ollie never finishes anything.  I know I see them."
+   "hyp": "Which desk? Fahed and Ollie. Fahed finishes in three minutes and Ollie never finishes anything. I know I see them."
   },
   {
    "key": "j4145jfyop",
@@ -4319,7 +4319,7 @@
    "dur": 7.33,
    "cps": 15.6,
    "ref": "The schedule is fine. The students are not. One is bored and one is lost, and the timer cannot see either of them.",
-   "hyp": "The schedule is fine, the students are not.  One is bored and one is lost and the timer cannot see either of them."
+   "hyp": "The schedule is fine, the students are not. One is bored and one is lost and the timer cannot see either of them."
   },
   {
    "key": "1z2i6oqc5ap",
@@ -4355,7 +4355,7 @@
    "dur": 12.7,
    "cps": 16.8,
    "ref": "Keep the steps and the timer. Two changes: each step gets a \"finished? do this\" line for Fahad, and you press next when most of the room is done, not when the clock says. You are still in charge; the clock is not.",
-   "hyp": "Keep the steps and the timer. Two changes. Each step gets a finished.  Do this line for Fahad and you press next when most of the room is done,  not when the clock says, you are still in charge. The clock is not."
+   "hyp": "Keep the steps and the timer. Two changes. Each step gets a finished.  Do this line for FAHAD and you press next when most of the room is done,  not when the clock says, you are still in charge. The clock is not."
   },
   {
    "key": "krz3xrzlph",
@@ -4367,7 +4367,7 @@
    "dur": 7.3,
    "cps": 19.6,
    "ref": "I press next. Not the clock. …That is what I did in September, before the timer. It was losing the room that was the problem, not the pressing.",
-   "hyp": "I press next, not the clock. That is what I did in September before the timer. It was losing the room that was the problem, not the pressing."
+   "hyp": "I press next, not the clock. That is what I did in September before the timer.  It was losing the room that was the problem, not the pressing."
   },
   {
    "key": "heahlcf6ei",
@@ -4375,7 +4375,7 @@
    "where": [
     "L62"
    ],
-   "err": 0.176,
+   "err": 0.0,
    "dur": 5.2,
    "cps": 16.4,
    "ref": "Keep the timer. Maybe set each step from last week’s average instead of a flat eight.",
@@ -4387,7 +4387,7 @@
    "where": [
     "L62"
    ],
-   "err": 0.385,
+   "err": 0.308,
    "dur": 3.46,
    "cps": 17.9,
    "ref": "I have the data. I can average it. Seven and a half, probably.",
@@ -4399,11 +4399,11 @@
    "where": [
     "L62"
    ],
-   "err": 0.188,
+   "err": 0.125,
    "dur": 6.2,
    "cps": 14.2,
    "ref": "Pair Fahad with Ali. Fahad has five spare minutes every step and Ali needs exactly that.",
-   "hyp": "Pair Fahad with Oli. Fahad has 5 spare minutes every step and Oli needs exactly that."
+   "hyp": "Pair Fahad with Ollie. Fahad has 5 spare minutes every step and Ollie needs exactly that."
   },
   {
    "key": "22hn8v6lduv",
@@ -4415,7 +4415,7 @@
    "dur": 6.33,
    "cps": 16.4,
    "ref": "So Fahad becomes the teacher and Ali becomes his problem. That is the September I am trying not to have.",
-   "hyp": "So Fahd becomes the teacher and Ali becomes his problem.  That is the September I am trying not to have."
+   "hyp": "So Fahed becomes the teacher and Ali becomes his problem.  That is the September I am trying not to have."
   },
   {
    "key": "188ftxwrura",
@@ -4463,7 +4463,7 @@
    "dur": 11.89,
    "cps": 15.0,
    "ref": "They do, nobody wasted a second finding a seat. One child introduced herself to me as \"I am in the low group\". She scored above two Eagles last month. How does the chart find out?",
-   "hyp": "They do, nobody wasted a second finding a seat.  One child introduced herself to me as I am in the low group.  She scored above two Eagles last month. How does the chart find out?"
+   "hyp": "They do, nobody wasted a second finding a seat. One child introduced herself to me as I am in  the low group. She scored above two Eagles last month. How does the chart find out?"
   },
   {
    "key": "48ugh7w5ds",
@@ -4475,7 +4475,7 @@
    "dur": 5.47,
    "cps": 18.3,
    "ref": "Which child? …Maitha. \"The low group.\" She said that? It does not find out. I would have to tell it.",
-   "hyp": "Which child, Mather, the low group, she said that it does not find out I would have to tell it."
+   "hyp": "Which child, Matha, the low group, she said that it does not find out I would have to tell it."
   },
   {
    "key": "494ncp9cpv",
@@ -4487,7 +4487,7 @@
    "dur": 6.63,
    "cps": 15.2,
    "ref": "The routine is impressive. Four tasks every lesson is more planning than most people manage with one.",
-   "hyp": "The routine is impressive.  Four tasks every lesson is more planning than most people manage with one."
+   "hyp": "The routine is impressive. Four tasks every lesson is more planning than most people manage with one."
   },
   {
    "key": "8pb2cxrotd",
@@ -4583,7 +4583,7 @@
    "dur": 4.19,
    "cps": 14.6,
    "ref": "Two moves now, a new baseline in April. I can live with that.",
-   "hyp": "Two moves now a new baseline in April. I can live with that."
+   "hyp": "Two moves now a new baseline in April, I can live with that."
   },
   {
    "key": "26bxfu7vk2b",
@@ -4615,7 +4615,7 @@
    "where": [
     "L64"
    ],
-   "err": 0.062,
+   "err": 0.085,
    "dur": 16.99,
    "cps": 17.3,
    "ref": "The teacher spends almost the whole lesson at one table, working intensively with the students who struggle most. It is patient, skilful support, and those students are making real progress. The confident students work independently at the other tables. Toki goes to look at what they’re doing.",
@@ -4627,7 +4627,7 @@
    "where": [
     "L64"
    ],
-   "err": 0.067,
+   "err": 0.0,
    "dur": 9.57,
    "cps": 18.0,
    "ref": "High Drift. Differentiation has come to mean \"help for those who struggle.\" The support is superb, and the students who could go furthest haven’t been asked to go anywhere.",
@@ -4643,7 +4643,7 @@
    "dur": 9.12,
    "cps": 17.5,
    "ref": "That table has moved two levels since October. Nobody else in the school managed that with them. If the price is that the strong ones work alone, I will pay it.",
-   "hyp": "That table has moved two levels since October.  Nobody else in the school managed that with them.  If the price is that the strong ones work alone I will pay it."
+   "hyp": "That table has moved two levels since October.  Nobody else in the school managed that with them.  If the price is that the strong ones work alone, I will pay it."
   },
   {
    "key": "1ccat0ah91w",
@@ -4651,11 +4651,11 @@
    "where": [
     "L64"
    ],
-   "err": 0.079,
+   "err": 0.027,
    "dur": 12.36,
    "cps": 15.5,
    "ref": "Two levels, I saw the books, and I would not touch a minute of that table. I also saw Alia’s book. Every page since October is the same difficulty. What was she doing at minute thirteen today?",
-   "hyp": "Two levels, I saw the books and I would not touch a minute of that table.  I also saw Aelia's book. Every page since October is the same difficulty.  What was she doing at minute 13 today?"
+   "hyp": "Two levels I saw the books and I would not touch a minute of that table.  I also saw Aelia's book. Every page since October is the same difficulty.  What was she doing at minute 13 today?"
   },
   {
    "key": "45mk913i1g",
@@ -4663,7 +4663,7 @@
    "where": [
     "L64"
    ],
-   "err": 0.053,
+   "err": 0.0,
    "dur": 5.67,
    "cps": 18.5,
    "ref": "Minute thirteen. …Copying it out again. Neatly. She does that. I thought it was nice that she takes care.",
@@ -4679,7 +4679,7 @@
    "dur": 5.43,
    "cps": 15.5,
    "ref": "Two levels is remarkable. That table is the best support work I have seen this term.",
-   "hyp": "Two levels is remarkable. That table is the best support work I have seen this term."
+   "hyp": "Two levels is remarkable.  That table is the best support work I have seen this term."
   },
   {
    "key": "p6mgy185vd",
@@ -4711,7 +4711,7 @@
    "where": [
     "L64"
    ],
-   "err": 0.05,
+   "err": 0.0,
    "dur": 5.62,
    "cps": 18.3,
    "ref": "Invisible. I teach thirty students with one of me. Tell me which half you would like me to stop seeing.",
@@ -4735,7 +4735,7 @@
    "where": [
     "L64"
    ],
-   "err": 0.079,
+   "err": 0.053,
    "dur": 12.06,
    "cps": 15.9,
    "ref": "Stay at the table. Change the task the others get: one open problem with a \"prove it\" line at the end. It cannot be finished in twelve minutes or copied out neatly. They work; you do not move.",
@@ -4751,7 +4751,7 @@
    "dur": 6.48,
    "cps": 18.4,
    "ref": "\"Prove it.\" One problem. I do not have to be there for that. …I could write one of those tonight, if that is all it is.",
-   "hyp": "Prove it, one problem I do not have to be there for that.  I could write one of those tonight if that is all it is."
+   "hyp": "prove it, one problem I do not have to be there for that.  I could write one of those tonight if that is all it is."
   },
   {
    "key": "98o7ohrglo",
@@ -4795,7 +4795,7 @@
    "where": [
     "L64"
    ],
-   "err": 0.071,
+   "err": 0.0,
    "dur": 4.79,
    "cps": 15.7,
    "ref": "Hand my table to the fifteen-year-olds. After October. No. We are finished.",
@@ -4811,7 +4811,7 @@
    "dur": 21.86,
    "cps": 16.9,
    "ref": "Toki steps into the most impressive classroom yet. The objectives are crystal clear on the board. Students are engaged, on-task, and producing beautiful work. The teacher circulates expertly, questioning, checking, adjusting. By every measure Toki has learned to use, this room is flawless. So Toki does what a good coach does, and looks closer, dimension by dimension.",
-   "hyp": "Toki steps into the most impressive classroom yet, the objectives are crystal clear on the board.  Students are engaged on task and producing beautiful work.  The teacher circulates expertly, questioning, checking, adjusting.  By every measure Toki has learned to use this room is flawless.  So Toki does what a good coach does and looks closer, dimension by dimension."
+   "hyp": "Toki steps into the most impressive classroom yet, the objectives are crystal clear on the board,  students are engaged on task, and producing beautiful work.  The teacher circulates expertly, questioning, checking, adjusting.  By every measure Toki has learned to use this room is flawless.  So Toki does what a good coach does and looks closer, dimension by dimension."
   },
   {
    "key": "1mg3hpaqgdt",
@@ -4823,7 +4823,7 @@
    "dur": 22.22,
    "cps": 17.2,
    "ref": "A week of visits is over. Toki has seen exit tickets, markbooks, dashboards, and unit tests in every corridor of the school. Assessment is everywhere, frequent, organised, and documented. The principal is proud of it. Toki lays the week out scene by scene and asks one question of each: is assessment changing what happens next, or has it become something the school does to itself?",
-   "hyp": "A week of visits is over.  TOKY has seen exit tickets, markbooks, dashboards and unit tests in every corridor of the school.  Assessment is everywhere, frequent, organized and documented.  The principal is proud of it.  TOKY lays the week out scene by scene and asks one question of each.  Is assessment changing what happens next, or has it become something the school does to itself?"
+   "hyp": "A week of visits is over.  TOKY has seen exit tickets, markbooks, dashboards and unit tests in every corridor of the school.  Assessment is everywhere, frequent, organized and documented.  The principal is proud of it.  TOKY lays the week out scene by scene and asks one question of each.  Is assessment changing what happens next, or has it become something the school does  to itself?"
   },
   {
    "key": "h5hr2mnij",
@@ -4831,11 +4831,11 @@
    "where": [
     "B25"
    ],
-   "err": 0.062,
+   "err": 0.0,
    "dur": 9.08,
    "cps": 17.5,
    "ref": "Notice what you had to do here: two scenes looked like the pattern and weren’t. The coach who sees drift everywhere is as blind as the one who sees it nowhere.",
-   "hyp": "Notice what you had to do here. Two scenes looked like the pattern and weren't.  The coach who sees drift everywhere is as blind as the one who sees it nowhere."
+   "hyp": "Notice what you had to do here. Two scenes looked like the pattern and weren't.  The coach who sees Drift everywhere is as blind as the one who sees it nowhere."
   },
   {
    "key": "k0s18243yd",
@@ -4847,7 +4847,7 @@
    "dur": 20.83,
    "cps": 17.0,
    "ref": "The school is a showcase for Alef. Every classroom has devices out, every teacher has the dashboard open, completion is in the high nineties, and visitors are brought here to see technology done right. Toki is one of those visitors, and spends the day asking, in each room, a quieter question: is the technology carrying the thinking, or carrying it away?",
-   "hyp": "The school is a showcase for Aleph.  Every classroom has devices out, every teacher has the dashboard open, completion is in the  high 90s, and visitors are brought here to see technology done right.  TOKEE is one of those visitors, and spends the day asking in each room a quieter question.  Is the technology carrying the thinking or carrying it away?"
+   "hyp": "The school is a showcase for Aleph.  Every classroom has devices out, every teacher has the dashboard open, completion is in the  high 90s, and visitors are brought here to see technology done right.  TOKEE is one of those visitors, and spends the day asking in each room a quieter question,  is the technology carrying the thinking or carrying it away?"
   },
   {
    "key": "run163cqrs",
@@ -4891,11 +4891,11 @@
    "where": [
     "B55"
    ],
-   "err": 0.048,
+   "err": 0.016,
    "dur": 21.28,
    "cps": 18.0,
    "ref": "Questioning is this school’s signature. It is in the vision statement, on the lesson-plan template, and in every observation rubric: \"frequent, varied questioning.\" Observers tally questions per lesson and the numbers are superb. Toki is handed the tally sheet, puts it in his pocket, and spends the day counting something else: how many students, in each room, actually had to think.",
-   "hyp": "Questioning is this school's signature. It is in the vision statement on the lesson plan template  and in every observation rubric. Frequent varied questioning. Observers tally questions per lesson  and the numbers are superb. Toke is handed the tally sheet, puts it in his pocket,  and spends the day counting something else. How many students in each room actually had to think?"
+   "hyp": "Questioning is this school's signature. It is in the vision statement on the lesson plan template  and in every observation rubric. Frequent varied questioning. Observers tally questions per lesson  and the numbers are superb. Toki has handed the tally sheet, puts it in his pocket,  and spends the day counting something else. How many students in each room actually had to think?"
   },
   {
    "key": "1icwsamz8vn",
@@ -4903,7 +4903,7 @@
    "where": [
     "B55"
    ],
-   "err": 0.171,
+   "err": 0.0,
    "dur": 10.08,
    "cps": 17.9,
    "ref": "Forty-one questions and four questions were both on the tally sheet. Only one of those rooms was thinking. A number that can’t tell them apart isn’t measuring what you think it is.",
@@ -4939,11 +4939,11 @@
    "where": [
     "B75"
    ],
-   "err": 0.074,
+   "err": 0.038,
    "dur": 17.59,
    "cps": 17.7,
    "ref": "The Academy’s final test is a school where nothing is visibly wrong. Every practice Toki has learned to look for is present and polished. He is given five scenes and one instruction: look beyond appearance, and decide in each case whether the practice is still achieving the impact it was introduced to achieve.",
-   "hyp": "The academy's final test is a school where nothing is visibly wrong.  Every practice Toki has learned to look for is present and polished.  He's given five scenes and one instruction.  Look beyond appearance, and decide in each case whether the practice is still  achieving the impact it was introduced to achieve."
+   "hyp": "The academy's final test is a school where nothing is visibly wrong.  Every practice Toki has learned to look for is present and polished.  He's given five scenes and one instruction.  Look beyond appearance, and decide in each case whether the practice is still achieving the impact it was introduced to achieve."
   },
   {
    "key": "6gvbganhms",
@@ -4963,11 +4963,11 @@
    "where": [
     "A71"
    ],
-   "err": 0.064,
+   "err": 0.043,
    "dur": 17.7,
    "cps": 16.2,
    "ref": "Clear objectives on the board. Strong routines. Group work that runs itself. Alef on every device, a visible exit ticket, confident students. The principal calls it the model classroom and sends new teachers here to watch. Toki watches too, and then asks the only question that matters.",
-   "hyp": "clear objectives on the board, strong routines, group work that runs itself.  Aleph on every device a visible exit ticket confidence students,  the principal calls at the model classroom and sends new teachers here to watch.  Toki watches too, and then asks the only question that matters."
+   "hyp": "clear objectives on the board, strong routines, group work that runs itself,  aleph on every device a visible exit ticket, confident students,  the principal calls at the model classroom and sends new teachers here to watch.  TOKI watches too, and then asks the only question that matters."
   },
   {
    "key": "1zpsdp54kk3",
@@ -4999,7 +4999,7 @@
    "where": [
     "A71"
    ],
-   "err": 0.27,
+   "err": 0.086,
    "dur": 11.27,
    "cps": 14.0,
    "ref": "They’re right to ask, I’ve never seen a room run like that. Can I ask you the question nobody asks? What can they do now, at 8:45, that they couldn’t at 8:00?",
@@ -5011,11 +5011,11 @@
    "where": [
     "A71"
    ],
-   "err": 0.154,
+   "err": 0.0,
    "dur": 9.33,
    "cps": 14.5,
    "ref": "Solve two-step equations. That was the objective. …Nine of twenty-four on the exit ticket. I saw it. I’ve been thinking about it since.",
-   "hyp": "Solve two step equations. That was the objective.  Nine of 24 on the exit ticket. I saw it. I've been thinking about it since."
+   "hyp": "Solve two step equations. That was the objective.  9 of 24 on the exit ticket. I saw it. I've been thinking about it since."
   },
   {
    "key": "jlubo5y9zj",
@@ -5023,7 +5023,7 @@
    "where": [
     "A71"
    ],
-   "err": 0.286,
+   "err": 0.0,
    "dur": 3.62,
    "cps": 17.4,
    "ref": "I’d send them here too. Honestly, there isn’t much I could add.",
@@ -5035,7 +5035,7 @@
    "where": [
     "A71"
    ],
-   "err": 0.333,
+   "err": 0.0,
    "dur": 2.27,
    "cps": 11.9,
    "ref": "That’s kind. Come any time.",
@@ -5047,7 +5047,7 @@
    "where": [
     "A71"
    ],
-   "err": 0.1,
+   "err": 0.0,
    "dur": 6.32,
    "cps": 16.2,
    "ref": "Routines are the surface. The impact on learning is what matters, and I’m not sure this lesson had it.",
@@ -5075,7 +5075,7 @@
    "dur": 4.47,
    "cps": 14.8,
    "ref": "Nine. I know. But the lesson was good, you saw it. So what was it?",
-   "hyp": "Nine I know, but the lesson was good you saw it. So what was it?"
+   "hyp": "Nine I know, but the lesson was good you saw it, so what was it?"
   },
   {
    "key": "dtqjdmo9f6",
@@ -5083,7 +5083,7 @@
    "where": [
     "A71"
    ],
-   "err": 0.207,
+   "err": 0.0,
    "dur": 7.47,
    "cps": 17.5,
    "ref": "I don’t know yet, and that’s the interesting part. The nine who got it: what did they do in the group task that the fifteen didn’t?",
@@ -5107,7 +5107,7 @@
    "where": [
     "A71"
    ],
-   "err": 0.1,
+   "err": 0.0,
    "dur": 6.3,
    "cps": 15.4,
    "ref": "Sometimes a lesson is good and the exit ticket is just hard. Don’t read too much into one number.",
@@ -5119,7 +5119,7 @@
    "where": [
     "A71"
    ],
-   "err": 0.2,
+   "err": 0.0,
    "dur": 2.91,
    "cps": 15.4,
    "ref": "Maybe. I’ll make the next one easier and see.",
@@ -5131,11 +5131,11 @@
    "where": [
     "A71"
    ],
-   "err": 0.278,
+   "err": 0.059,
    "dur": 5.9,
    "cps": 17.0,
    "ref": "The group work. Four groups with leaders means four students did the thinking. That’s a design flaw.",
-   "hyp": "The group work for groups with leaders means for students to the thinking that's a design flaw."
+   "hyp": "The group work for groups with leaders means four students did the thinking.  That's a design flaw."
   },
   {
    "key": "1jczf0q7tj0",
@@ -5143,7 +5143,7 @@
    "where": [
     "A71"
    ],
-   "err": 0.133,
+   "err": 0.0,
    "dur": 5.05,
    "cps": 14.3,
    "ref": "A design flaw. In the lesson the whole school copies. I’ll pass that on.",
@@ -5159,7 +5159,7 @@
    "dur": 16.18,
    "cps": 16.4,
    "ref": "No music. No group roles. No devices on the desks. The teacher explains for twelve minutes while students listen, then the room goes quiet for half an hour of writing. A visiting leader has already noted \"low engagement, no technology\". Toki is asked to confirm it.",
-   "hyp": "no music, no group roles, no devices on the desks. The teacher explains for 12 minutes while  students listen, then the room goes quiet for half an hour of writing. A visiting leader has  already noted low engagement, no technology. Toki is asked to confirm it."
+   "hyp": "no music, no group roles, no devices on the desks. The teacher explains for 12 minutes  while students listen, then the room goes quiet for half an hour of writing.  A visiting leader has already noted low engagement, no technology.  TOKY IS ASKED TO CONFIRM IT"
   },
   {
    "key": "1iwdgbsipzp",
@@ -5167,7 +5167,7 @@
    "where": [
     "A72"
    ],
-   "err": 0.087,
+   "err": 0.0,
    "dur": 7.37,
    "cps": 16.3,
    "ref": "No Drift. No findings. The hardest diagnosis to file, and the one that earns a teacher’s trust for the next five visits.",
@@ -5183,7 +5183,7 @@
    "dur": 4.92,
    "cps": 16.5,
    "ref": "I know what the note says. Low engagement. So, what should I add? Groups? A game?",
-   "hyp": "I know what the note says. Low engagement, so what should I add? Groups, a game."
+   "hyp": "I know what the note says. Low engagement. So what should I add? Groups. A game."
   },
   {
    "key": "1ljzdkh4i1u",
@@ -5191,7 +5191,7 @@
    "where": [
     "A72"
    ],
-   "err": 0.235,
+   "err": 0.0,
    "dur": 11.04,
    "cps": 15.8,
    "ref": "Nothing. Twenty-six whiteboards went up three times and you changed the next example after the second one. That’s the most engagement I’ve seen this week. I’m going to say so.",
@@ -5215,7 +5215,7 @@
    "where": [
     "A72"
    ],
-   "err": 0.231,
+   "err": 0.083,
    "dur": 4.49,
    "cps": 16.9,
    "ref": "I wouldn’t worry about the note. Your lesson was solid, strong fundamentals.",
@@ -5227,11 +5227,11 @@
    "where": [
     "A72"
    ],
-   "err": 0.154,
+   "err": 0.0,
    "dur": 4.21,
    "cps": 17.1,
    "ref": "Solid. That’s what they said last year, before the \"low engagement\" bit.",
-   "hyp": "Solid, that's what they said last year before the low engagement bit."
+   "hyp": "Solid, that's what they said last year, before the low engagement bit."
   },
   {
    "key": "1wu4k0yepvi",
@@ -5239,11 +5239,11 @@
    "where": [
     "A72"
    ],
-   "err": 0.133,
+   "err": 0.0,
    "dur": 5.49,
    "cps": 16.9,
    "ref": "A short collaborative task wouldn’t hurt, it would make the engagement visible for observers.",
-   "hyp": "A short collaborative task wouldn't hurt.  It would make the engagement visible for observers."
+   "hyp": "A short collaborative task wouldn't hurt. It would make the engagement visible for observers."
   },
   {
    "key": "ltrxzwdrs5",
@@ -5251,11 +5251,11 @@
    "where": [
     "A72"
    ],
-   "err": 0.273,
+   "err": 0.0,
    "dur": 3.38,
    "cps": 15.1,
    "ref": "For observers. Right. I’ll put on a show next time.",
-   "hyp": "For observers, write, I'll put on a show next time."
+   "hyp": "For observers, right, I'll put on a show next time."
   },
   {
    "key": "osb2fd7qgk",
@@ -5299,7 +5299,7 @@
    "where": [
     "A72"
    ],
-   "err": 0.167,
+   "err": 0.0,
    "dur": 4.3,
    "cps": 17.0,
    "ref": "Keep doing what you’re doing. Good teaching speaks for itself eventually.",
@@ -5311,7 +5311,7 @@
    "where": [
     "A72"
    ],
-   "err": 0.2,
+   "err": 0.0,
    "dur": 3.83,
    "cps": 16.2,
    "ref": "Eventually. I’ve been waiting for \"eventually\" for four years.",
@@ -5339,7 +5339,7 @@
    "dur": 2.57,
    "cps": 17.5,
    "ref": "Tick the boxes. I thought you were different.",
-   "hyp": "Tick the boxes. I thought you were different."
+   "hyp": "Tick the boxes, I thought you were different."
   },
   {
    "key": "sbxs1z3864",
@@ -5351,7 +5351,7 @@
    "dur": 17.04,
    "cps": 16.3,
    "ref": "An announced observation. The lesson has been rehearsed: a hook video, a timed carousel, Alef as the prize for early finishers, a feelings-faces exit ticket. The teacher is talented and nervous. Toki has one visit to see what is real underneath, and one conversation afterwards.",
-   "hyp": "An announced observation. The lesson has been rehearsed. A hook video, a timed carousel,  aleph as the prize for early finishers, a feelings faces exit ticket. The teacher is talented and  nervous. Toki has won visit to see what is real underneath, and won conversation afterwards."
+   "hyp": "An announced observation. The lesson has been rehearsed. A hook video, a timed carousel,  Aleph as the prize for early finishers, a feelings faces exit ticket. The teacher is  talented and nervous. Toki has won visit to see what is real underneath, and won conversation afterwards."
   },
   {
    "key": "23tsgdwofrc",
@@ -5383,7 +5383,7 @@
    "where": [
     "A73"
    ],
-   "err": 0.167,
+   "err": 0.034,
    "dur": 10.96,
    "cps": 15.1,
    "ref": "The hook was fine, ninety seconds and it set up the question. Here’s the thing I actually noticed: Omar, Hind, Sara. Eleven questions. Do you know who answered them?",
@@ -5395,7 +5395,7 @@
    "where": [
     "A73"
    ],
-   "err": 0.133,
+   "err": 0.0,
    "dur": 4.75,
    "cps": 15.2,
    "ref": "…Those three. Every time. I didn’t even, I was so focused on the timing.",
@@ -5431,11 +5431,11 @@
    "where": [
     "A73"
    ],
-   "err": 0.211,
+   "err": 0.222,
    "dur": 6.09,
    "cps": 17.2,
    "ref": "There were three issues: the questioning, the Alef-as-reward, and the exit ticket. Let’s go through them.",
-   "hyp": "There were three issues the questioning the ALEFAS reward and the exit ticket.  Let's go through them."
+   "hyp": "There were three issues that questioned the ALEFAS reward and the exit ticket. Let's go through them."
   },
   {
    "key": "1hh20tyz24r",
@@ -5443,11 +5443,11 @@
    "where": [
     "A73"
    ],
-   "err": 0.111,
+   "err": 0.0,
    "dur": 3.07,
    "cps": 13.7,
    "ref": "Three. Okay. Can I get a pen. Sorry. Okay.",
-   "hyp": "3. Okay, can I get a pen? Sorry, okay."
+   "hyp": "3. Okay. Can I get a pen? Sorry. Okay."
   },
   {
    "key": "1puogvzu338",
@@ -5467,7 +5467,7 @@
    "where": [
     "A73"
    ],
-   "err": 0.111,
+   "err": 0.074,
    "dur": 10.29,
    "cps": 16.5,
    "ref": "Give everyone thirty seconds and a whiteboard before anyone speaks. Then you pick who reads theirs. Nobody freezes, because everybody already has an answer in their hand.",
@@ -5479,11 +5479,11 @@
    "where": [
     "A73"
    ],
-   "err": 0.25,
+   "err": 0.133,
    "dur": 5.34,
    "cps": 15.3,
    "ref": "Whiteboards first, then I pick. That’s… one change. I can do one change by Monday.",
-   "hyp": "White boards first, then I pick. That's one change. I can do one change by Monday."
+   "hyp": "White boards first then I pick. That's one change. I can do one change by Monday."
   },
   {
    "key": "1kyy7ub1qos",
@@ -5503,7 +5503,7 @@
    "where": [
     "A73"
    ],
-   "err": 0.375,
+   "err": 0.143,
    "dur": 4.25,
    "cps": 15.3,
    "ref": "A tally. I’ll try. I lose track when it gets going, but I’ll try.",
@@ -5527,7 +5527,7 @@
    "where": [
     "A73"
    ],
-   "err": 0.143,
+   "err": 0.0,
    "dur": 4.61,
    "cps": 16.7,
    "ref": "About my classroom culture. Right. I’ll… note that down with the other three.",
@@ -5543,7 +5543,7 @@
    "dur": 13.71,
    "cps": 16.4,
    "ref": "A strong teacher, a strong lesson. Success criteria are shared at the start, work is checked, feedback lands. Toki notices one thing. The question is not whether he is right. The question is what a finding this size deserves.",
-   "hyp": "A strong teacher, a strong lesson.  Success criteria are shared at the start, work is checked, feedback lands.  Toki notices one thing, the question is not whether he is right.  The question is what a finding this size deserves."
+   "hyp": "A strong teacher, a strong lesson. Success criteria are shared at the start, work is checked, feedback lands.  Toki notices one thing, the question is not whether he is right.  The question is what a finding this size deserves."
   },
   {
    "key": "a4okse4eof",
@@ -5563,7 +5563,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.333,
+   "err": 0.125,
    "dur": 2.64,
    "cps": 16.7,
    "ref": "Go on, then. What’s the programme this term?",
@@ -5575,7 +5575,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.214,
+   "err": 0.038,
    "dur": 7.73,
    "cps": 17.6,
    "ref": "No programme. Your feedback loop is the one I’d show other people. I have one thirty-second thing, and then I’ll leave you to the books.",
@@ -5587,7 +5587,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.25,
+   "err": 0.0,
    "dur": 1.86,
    "cps": 11.8,
    "ref": "Thirty seconds. Go on.",
@@ -5611,7 +5611,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.2,
+   "err": 0.0,
    "dur": 3.68,
    "cps": 15.5,
    "ref": "\"Nothing major.\" So there’s something minor. Go on, then.",
@@ -5623,7 +5623,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.125,
+   "err": 0.043,
    "dur": 7.01,
    "cps": 16.0,
    "ref": "Not a programme as such, but I’d like to set a goal around success criteria and do a couple of follow-up visits.",
@@ -5635,7 +5635,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.188,
+   "err": 0.067,
    "dur": 4.96,
    "cps": 16.3,
    "ref": "A goal and follow-up visits. For the lesson you just watched. That’s a programme.",
@@ -5647,7 +5647,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.25,
+   "err": 0.0,
    "dur": 1.96,
    "cps": 12.8,
    "ref": "Fine. The thirty seconds.",
@@ -5659,7 +5659,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.146,
+   "err": 0.0,
    "dur": 12.05,
    "cps": 16.3,
    "ref": "At the door two students couldn’t say what they got better at today. The criteria from 10:02, what if the last question of the lesson was \"which one did we meet?\" That’s it. That’s the whole thing.",
@@ -5671,7 +5671,7 @@
    "where": [
     "A74"
    ],
-   "err": 0.235,
+   "err": 0.0,
    "dur": 4.79,
    "cps": 16.1,
    "ref": "\"Which one did we meet.\" …That’s it? That’s a question. I can ask a question.",
@@ -5695,11 +5695,11 @@
    "where": [
     "A74"
    ],
-   "err": 0.25,
+   "err": 0.0,
    "dur": 2.59,
    "cps": 15.0,
    "ref": "Closure. Yes. I know. The bell doesn’t.",
-   "hyp": "closure yes i know the bell doesn't"
+   "hyp": "Closure. Yes, I know the bell doesn't."
   },
   {
    "key": "qk5cs0onm0",
@@ -5707,11 +5707,11 @@
    "where": [
     "A74"
    ],
-   "err": 0.174,
+   "err": 0.0,
    "dur": 9.5,
    "cps": 15.5,
    "ref": "The success criteria were shared and then never revisited, so students couldn’t articulate the learning intention. I’d recommend a plenary routine.",
-   "hyp": "The success criteria were shared and then never revisited,  so students couldn't articulate the learning intention.  I'd recommend a plenary routine."
+   "hyp": "The success criteria were shared and then never revisited  so students couldn't articulate the learning intention.  I'd recommend a plenary routine."
   },
   {
    "key": "21gknjy0lgh",
@@ -5731,11 +5731,11 @@
    "where": [
     "V85"
    ],
-   "err": 0.044,
+   "err": 0.06,
    "dur": 23.01,
    "cps": 17.3,
    "ref": "Toki’s last visit is a whole school. It is, by every visible measure, committed: teachers use Alef daily, leaders review the reports every week, students complete their lessons, and every classroom Toki passes looks active. The principal is proud and a little puzzled, because learning impact is uneven, and nobody can say why. Toki has one day, six doors, and a folder of evidence behind each one.",
-   "hyp": "Toki's last visit is a whole school. It is by every visible measure committed.  Teachers use Aleph daily, leaders review the reports every week, students complete their  lessons and every classroom Toki passes looks active. The principal is proud and a little  puzzled because learning impact is uneven, and nobody can say why.  Toki has one day, six doors and a folder of evidence behind each one."
+   "hyp": "Tokyo's last visit is a whole school. It is by every visible measure committed.  Teachers use Aleph daily, leaders review the reports every week, students complete their  lessons and every classroom Tokyo passes looks active. The principal is proud and a little  puzzled because learning impact is uneven, and nobody can say why.  Tokyo has one day, six doors and a folder of evidence behind each one."
   },
   {
    "key": "s2su1p6hqd",
@@ -5755,7 +5755,7 @@
    "where": [
     "V85"
    ],
-   "err": 0.25,
+   "err": 0.0,
    "dur": 3.81,
    "cps": 15.2,
    "ref": "Congratulations. You have completed Toki’s Coaching Quest.",
@@ -5783,7 +5783,7 @@
    "dur": 8.97,
    "cps": 17.4,
    "ref": "The most dangerous instructional drifts are not always visible. They often preserve the appearance of effective teaching while quietly changing its purpose.",
-   "hyp": "The most dangerous instructional drifts are not always visible.  They often preserve the appearance of effective teaching while quietly changing its purpose."
+   "hyp": "The most dangerous instructional drifts are not always visible.  They often preserve the appearance of effective teaching, while quietly changing its purpose."
   },
   {
    "key": "v1t3pfilcr",
@@ -5795,7 +5795,7 @@
    "dur": 4.24,
    "cps": 15.3,
    "ref": "Spot the drift. Protect the purpose. Prevent the lethal mutation.",
-   "hyp": "Spot the drift, protect the purpose, prevent the lethal mutation."
+   "hyp": "Spot the drift protect the purpose, prevent the lethal mutation."
   }
  ]
 }

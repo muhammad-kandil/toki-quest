@@ -1,0 +1,130 @@
+{
+ "class-lively": {
+  "id": "258094",
+  "author": "joedeshon",
+  "title": "258094",
+  "url": "https://freesound.org/people/joedeshon/sounds/258094/",
+  "license": "CC0",
+  "seconds": 45.0,
+  "score": 0.035,
+  "labels": [
+   "Writing",
+   "Speech",
+   "Inside, small room",
+   "Animal",
+   "Domestic animals, pets"
+  ]
+ },
+ "class-working": {
+  "id": "417041",
+  "author": "okieactor",
+  "title": "417041",
+  "url": "https://freesound.org/people/okieactor/sounds/417041/",
+  "license": "CC0",
+  "seconds": 33.4,
+  "score": 0.834,
+  "labels": [
+   "Speech",
+   "Male speech, man speaking",
+   "Conversation",
+   "Chuckle, chortle",
+   "Inside, large room or hall"
+  ]
+ },
+ "class-quiet": {
+  "id": "444479",
+  "author": "parkersenk",
+  "title": "444479",
+  "url": "https://freesound.org/people/parkersenk/sounds/444479/",
+  "license": "CC0",
+  "seconds": 21.2,
+  "score": 0.974,
+  "labels": [
+   "Writing",
+   "Inside, small room",
+   "Rub",
+   "Scratch",
+   "Hands"
+  ]
+ },
+ "corridor": {
+  "id": "455779",
+  "author": "kyles",
+  "title": "455779",
+  "url": "https://freesound.org/people/kyles/sounds/455779/",
+  "license": "CC0",
+  "seconds": 45.0,
+  "score": 0.042,
+  "labels": [
+   "Speech",
+   "Children playing",
+   "Child speech, kid speaking",
+   "Inside, large room or hall",
+   "Chatter"
+  ]
+ },
+ "playground": {
+  "id": "96348",
+  "author": "markystar",
+  "title": "96348",
+  "url": "https://freesound.org/people/markystar/sounds/96348/",
+  "license": "CC0",
+  "seconds": 50.0,
+  "score": 0.162,
+  "labels": [
+   "Speech",
+   "Children playing",
+   "Child speech, kid speaking",
+   "Outside, urban or manmade",
+   "Slam"
+  ]
+ },
+ "staffroom": {
+  "id": "261469",
+  "author": "joedeshon",
+  "title": "261469",
+  "url": "https://freesound.org/people/joedeshon/sounds/261469/",
+  "license": "CC0",
+  "seconds": 35.1,
+  "score": 0.939,
+  "labels": [
+   "Speech",
+   "Inside, public space",
+   "Inside, large room or hall",
+   "Music",
+   "Male speech, man speaking"
+  ]
+ },
+ "bell": {
+  "id": "378394",
+  "author": "deleted_user_7020630",
+  "title": "378394",
+  "url": "https://freesound.org/people/deleted_user_7020630/sounds/378394/",
+  "license": "CC0",
+  "seconds": 3.5,
+  "score": 0.678,
+  "labels": [
+   "Telephone bell ringing",
+   "Ringtone",
+   "Alarm clock",
+   "Telephone",
+   "Music"
+  ]
+ },
+ "chair": {
+  "id": "153098",
+  "author": "Albaaa3",
+  "title": "153098",
+  "url": "https://freesound.org/people/Albaaa3/sounds/153098/",
+  "license": "CC0",
+  "seconds": 1.2,
+  "score": 0.356,
+  "labels": [
+   "Scrape",
+   "Roar",
+   "Sound effect",
+   "Speech",
+   "Zipper (clothing)"
+  ]
+ }
+}
