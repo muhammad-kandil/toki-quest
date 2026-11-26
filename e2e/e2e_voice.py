@@ -50,9 +50,11 @@ def pick(pg, idx, wait=700):
 
 
 def play_level1(pg, lang, voice_on):
+    # This suite checks the device-voice fallback; recorded clips are covered by clip_check().
+    pg.route('**/audio/voice/**', lambda r: r.fulfill(status=404, body=''))
     pg.add_init_script(STUB)
     pg.goto(BASE, wait_until='networkidle'); pg.wait_for_timeout(600)
-    pg.evaluate("(l)=>{localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:true,unlockedLevel:1,bestScores:{},badges:[],selectedSkinId:'teal-classic',lang:l})); localStorage.removeItem('toki:voice');}", lang)
+    pg.evaluate("(l)=>{localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:true,unlockedLevel:1,bestScores:{},badges:[],selectedSkinId:'teal-classic',lang:l})); localStorage.setItem('toki:voice','off');}", lang)
     pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
     assert pg.locator('.topbar__btn--voice').count() == 1, 'voice toggle not shown although voices exist'
     if voice_on:
@@ -89,6 +91,7 @@ with sync_playwright() as p:
     b = p.chromium.launch()
     for lang in ['en', 'ar']:
         pg = b.new_page(viewport={'width': 390, 'height': 844}, locale='ar' if lang == 'ar' else 'en')
+        pg.route('**/audio/voice/**', lambda r: r.fulfill(status=404, body=''))
         errs = []; pg.on('pageerror', lambda e: errs.append(str(e)))
         spoken, scenario, teacher_first, toki_line, options = play_level1(pg, lang, voice_on=True)
         import re as _re
@@ -119,6 +122,7 @@ with sync_playwright() as p:
 
         # Toggle off: zero utterances, no errors.
         pg = b.new_page(viewport={'width': 390, 'height': 844})
+        pg.route('**/audio/voice/**', lambda r: r.fulfill(status=404, body=''))
         errs = []; pg.on('pageerror', lambda e: errs.append(str(e)))
         spoken, *_ = play_level1(pg, lang, voice_on=False)
         assert spoken == [], f'spoke with toggle off: {spoken[:2]}'
@@ -127,12 +131,14 @@ with sync_playwright() as p:
 
     # No engine: toggle hidden.
     pg = b.new_page(viewport={'width': 390, 'height': 844})
+    pg.route('**/audio/voice/**', lambda r: r.fulfill(status=404, body=''))
     pg.add_init_script("Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: undefined });")
     pg.goto(BASE, wait_until='networkidle'); pg.wait_for_timeout(600)
     assert pg.locator('.topbar__btn--voice').count() == 0, 'toggle shown without an engine'
     print('[no engine] toggle hidden ✓')
     # Engine without an Arabic voice: toggle hidden in AR, shown in EN.
     pg = b.new_page(viewport={'width': 390, 'height': 844})
+    pg.route('**/audio/voice/**', lambda r: r.fulfill(status=404, body=''))
     pg.add_init_script(STUB.replace("{ name: 'Maged', lang: 'ar-SA', localService: true, default: false, voiceURI: 'm' },", ""))
     pg.goto(BASE, wait_until='networkidle'); pg.wait_for_timeout(600)
     pg.evaluate("localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:false,unlockedLevel:1,bestScores:{},badges:[],selectedSkinId:'teal-classic',lang:'ar'}))")
@@ -142,3 +148,23 @@ with sync_playwright() as p:
     assert pg.locator('.topbar__btn--voice').count() == 1, 'toggle hidden in EN although an English voice exists'
     print('[no ar voice] hidden in AR, shown in EN ✓')
     b.close()
+
+
+def clip_check():
+    """With recorded clips present, lines play from clips (sfxdebug exposes the counter)."""
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        pg = b.new_page(viewport={'width': 390, 'height': 844})
+        pg.goto(BASE + '?sfxdebug', wait_until='networkidle'); pg.wait_for_timeout(500)
+        pg.evaluate("localStorage.setItem('toki:save',JSON.stringify({hasPlayedBefore:true,unlockedLevel:1,bestScores:{},badges:[],selectedSkinId:'teal-classic',lang:'en',playerName:'T'})); localStorage.removeItem('toki:voice');")
+        pg.reload(wait_until='networkidle'); pg.wait_for_timeout(600)
+        on = pg.get_attribute('.topbar__btn--voice', 'aria-pressed')
+        pg.click('.title-screen__cta'); pg.wait_for_timeout(900)
+        pg.click('.map__node--current'); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
+        pg.locator('.door--available').first.click(); pg.wait_for_timeout(4000)
+        v = pg.evaluate("window.__tokiVoice")
+        print(f'[clips] voice on by default={on} clips_played={v and v["clips"]} synth={v and v["synth"]}')
+        assert on == 'true' and v and v['clips'] >= 1, 'recorded clip did not play'
+        b.close()
+
+clip_check()
