@@ -1,5 +1,5 @@
 /**
- * Adventure 1 — Different Needs, Same Classroom (Grade 5 Math, adding fractions).
+ * INTERNAL SAMPLE (not registered in ADVENTURES) — Different Needs, Same Classroom (Grade 5 Math, adding fractions).
  * Port of the approved demo (scratchpad teacher-demo/index.html), plus:
  *  - Omar has a peek (a crossed-out fraction bar) that changes "Give him a role".
  *  - Flags are namespaced `a1.*` and read by later adventures (a2 Omar, a4/a8 Sara).
@@ -8,9 +8,10 @@
 import type { Adventure } from '../../types';
 import { t } from '../../../i18n/types';
 
-export const A1: Adventure = {
-  id: 'a1',
-  number: 1,
+/* Kept as the approved demo's reference port; resources mapped to the nearest NCLE tool where one fits. */
+export const SAMPLE_G5: Adventure = {
+  id: 'sample-g5',
+  number: 0,
   title: t('Different Needs, Same Classroom', 'احتياجات مختلفة في صف واحد'),
   meta: t('Grade 5 · Math', 'الصف الخامس · الرياضيات'),
   location: 'grade5',
@@ -51,7 +52,7 @@ export const A1: Adventure = {
       ),
       peek: {
         text: t('Sara\'s page: 1/4 + 2/4 = 3/8. Interesting…', 'في ورقة سارة: ١/٤ + ٢/٤ = ٣/٨. مثير للاهتمام…'),
-        setFlag: 'a1.peekedSara',
+        setFlag: 'g5.peekedSara',
       },
     },
     {
@@ -84,7 +85,7 @@ export const A1: Adventure = {
           'In the margin of Omar\'s page: a neat fraction bar split into quarters, crossed out.',
           'على هامش ورقة عمر: شريط كسور مرتّب مقسوم إلى أرباع، وقد شطب عليه.',
         ),
-        setFlag: 'a1.peekedOmar',
+        setFlag: 'g5.peekedOmar',
       },
     },
   ],
@@ -127,14 +128,14 @@ export const A1: Adventure = {
           label: t('Show her how', 'أريها الطريقة'),
           sub: t('Support', 'دعم'),
           minutes: 5,
-          resource: 'worked-example',
-          outcome: [{ ifFlag: 'a1.peekedSara', outcome: 'misconception' }, { outcome: 'ready' }],
+          resource: 'need-help',
+          outcome: [{ ifFlag: 'g5.peekedSara', outcome: 'misconception' }, { outcome: 'ready' }],
         },
         {
           label: t('See why', 'اعرفي السبب'),
           sub: t('Explanation', 'شرح'),
           minutes: 4,
-          resource: 'explain-thinking',
+          resource: 'see-why',
           outcome: 'misconception',
         },
         {
@@ -156,14 +157,14 @@ export const A1: Adventure = {
           label: t('Go further', 'انطلق أبعد'),
           sub: t('Practice', 'تدريب'),
           minutes: 2,
-          resource: 'extension-task',
+          resource: 'assign',
           outcome: 'ahmedDeep',
         },
         {
           label: t('Help a classmate', 'ساعد زميلًا'),
           sub: t('Teams', 'عمل جماعي'),
           minutes: 2,
-          resource: 'team-roles',
+          resource: 'teams',
           outcome: 'ahmedPeer',
         },
       ],
@@ -182,14 +183,14 @@ export const A1: Adventure = {
           label: t('Give him a role', 'أعطيه دورًا'),
           sub: t('Teams', 'عمل جماعي'),
           minutes: 3,
-          resource: 'team-roles',
-          outcome: [{ ifFlag: 'a1.peekedOmar', outcome: 'omarDrawer' }, { outcome: 'omarRole' }],
+          resource: 'teams',
+          outcome: [{ ifFlag: 'g5.peekedOmar', outcome: 'omarDrawer' }, { outcome: 'omarRole' }],
         },
         {
           label: t('Quick game', 'لعبة سريعة'),
           sub: t('Game', 'لعبة'),
           minutes: 4,
-          resource: 'launch-game',
+          resource: 'gamification',
           outcome: 'gameLoud',
         },
       ],
@@ -205,7 +206,6 @@ export const A1: Adventure = {
           label: t('Switch to paper', 'انتقلي إلى الورق'),
           sub: t('Printed backup', 'نسخة ورقية'),
           minutes: 2,
-          resource: 'printed-backup',
           outcome: 'paperOk',
         },
         {
@@ -228,14 +228,14 @@ export const A1: Adventure = {
           label: t('Harder problem', 'مسألة أصعب'),
           sub: t('Extension task', 'مهمة إثرائية'),
           minutes: 2,
-          resource: 'extension-task',
+          resource: 'assign',
           outcome: 'saraStretch',
         },
         {
           label: t('Let her explain to Omar', 'دعيها تشرح لعمر'),
           sub: t('Teams', 'عمل جماعي'),
           minutes: 3,
-          resource: 'team-roles',
+          resource: 'teams',
           outcome: 'saraTeaches',
         },
       ],
@@ -251,7 +251,7 @@ export const A1: Adventure = {
           label: t('Fraction strips: same-size pieces', 'شرائط الكسور: أجزاء متساوية'),
           sub: t('Targeted practice set', 'تدريبات موجّهة'),
           minutes: 4,
-          resource: 'targeted-practice',
+          resource: 'practice',
           outcome: 'fixed',
         },
         {
@@ -279,7 +279,6 @@ export const A1: Adventure = {
           label: t('Pull them to a side table', 'اجمعيهم على طاولة جانبية'),
           sub: t('Small-group reteach', 'إعادة شرح لمجموعة صغيرة'),
           minutes: 5,
-          resource: 'small-group-reteach',
           outcome: 'caughtUp',
         },
         {
@@ -301,7 +300,7 @@ export const A1: Adventure = {
           label: t('"Ask her a question instead"', '«اسألها سؤالًا بدلًا من ذلك»'),
           sub: t('Coach the helper', 'وجّهي المساعد'),
           minutes: 2,
-          resource: 'explain-thinking',
+          resource: 'see-why',
           outcome: 'goodPeer',
         },
         {
@@ -326,7 +325,7 @@ export const A1: Adventure = {
           label: t('Pause: "Why that answer?"', 'توقّفي: «لماذا هذه الإجابة؟»'),
           sub: t('Explain your thinking', 'اشرح تفكيرك'),
           minutes: 2,
-          resource: 'explain-thinking',
+          resource: 'see-why',
           outcome: 'gameFocused',
         },
         {
@@ -345,7 +344,7 @@ export const A1: Adventure = {
       title: t('Sara is ready to progress', 'سارة مستعدة للتقدّم'),
       body: t('She follows the model, then solves the next one alone.', 'تتابع النموذج، ثم تحلّ المسألة التالية وحدها.'),
       effects: [{ student: 'sara', understanding: 2, engagement: 1 }],
-      setFlag: 'a1.ready',
+      setFlag: 'g5.ready',
       next: { event: 'enrich', after: 4 },
     },
     {
@@ -357,7 +356,7 @@ export const A1: Adventure = {
         'وهي تتكلّم، تسمعينه بوضوح: إنها تجمع المقامات أيضًا.',
       ),
       effects: [{ student: 'sara', understanding: 1, engagement: 1 }],
-      setFlag: 'a1.misconception',
+      setFlag: 'g5.misconception',
       next: { event: 'targeted', after: 2 },
     },
     {
@@ -392,7 +391,7 @@ export const A1: Adventure = {
         'عليه أن يخبر الصف بما توصّلت إليه طاولته، فيبدأ بالإصغاء.',
       ),
       effects: [{ student: 'omar', understanding: 1, engagement: 3 }],
-      setFlag: 'a1.omarIn',
+      setFlag: 'g5.omarIn',
     },
     {
       id: 'omarDrawer',
@@ -403,7 +402,7 @@ export const A1: Adventure = {
         'رأيتِ شريط الكسور الذي شطب عليه، فصارت مهمته أن يرسم إجابة الطاولة. رسمه هو الأوضح في الصف.',
       ),
       effects: [{ student: 'omar', understanding: 2, engagement: 3 }],
-      setFlag: 'a1.omarIn',
+      setFlag: 'g5.omarIn',
     },
     {
       id: 'gameLoud',
@@ -458,7 +457,7 @@ export const A1: Adventure = {
         { student: 'sara', understanding: 1, engagement: 1 },
         { student: 'omar', understanding: 1, engagement: 1 },
       ],
-      setFlag: 'a1.saraTaught',
+      setFlag: 'g5.saraTaught',
     },
     {
       id: 'fixed',
@@ -469,7 +468,7 @@ export const A1: Adventure = {
         '«آه! الأجزاء تبقى أرباعًا.» وتصحّح إجاباتها الثلاث الأخيرة.',
       ),
       effects: [{ student: 'sara', understanding: 2, engagement: 1 }],
-      setFlag: 'a1.fixed',
+      setFlag: 'g5.fixed',
     },
     {
       id: 'repeated',
@@ -490,7 +489,7 @@ export const A1: Adventure = {
         'خمس دقائق على الطاولة الجانبية، وبقية الصف يواصل العمل.',
       ),
       effects: [{ student: 'sara', understanding: 2, engagement: 1 }],
-      setFlag: 'a1.caughtUp',
+      setFlag: 'g5.caughtUp',
     },
     {
       id: 'wholeReteach',
@@ -504,7 +503,7 @@ export const A1: Adventure = {
         { student: 'sara', understanding: 2 },
         { student: 'ahmed', engagement: -2 },
       ],
-      setFlag: 'a1.caughtUp',
+      setFlag: 'g5.caughtUp',
     },
     {
       id: 'goodPeer',
@@ -518,7 +517,7 @@ export const A1: Adventure = {
         { student: 'sara', understanding: 2, engagement: 1 },
         { student: 'ahmed', engagement: 1 },
       ],
-      setFlag: 'a1.helperCoached',
+      setFlag: 'g5.helperCoached',
     },
     {
       id: 'copied',
@@ -539,7 +538,7 @@ export const A1: Adventure = {
         'سؤال «لماذا» واحد حوّل اللعبة إلى نقاش حقيقي. وعمر يشرح اختياره.',
       ),
       effects: [{ student: 'omar', understanding: 2 }],
-      setFlag: 'a1.omarIn',
+      setFlag: 'g5.omarIn',
     },
     {
       id: 'gameGuess',
@@ -568,7 +567,7 @@ export const A1: Adventure = {
         'وجدتِ الخطأ الحقيقي وراء «لم أفهم».',
       ),
       icon: '◆',
-      when: { flag: 'a1.misconception' },
+      when: { flag: 'g5.misconception' },
     },
     {
       id: 'a1-first-lesson',
@@ -597,7 +596,7 @@ export const A1: Adventure = {
   ],
   teaser: [
     {
-      ifFlag: 'a1.omarIn',
+      ifFlag: 'g5.omarIn',
       text: t(
         'Omar spoke up today. Tomorrow, the quiet table across the room doesn\'t.',
         'تكلّم عمر اليوم. أما غدًا، فالطاولة الهادئة في الطرف الآخر من الصف لن تتكلّم.',
@@ -610,5 +609,4 @@ export const A1: Adventure = {
       ),
     },
   ],
-  unlocks: 'a2',
 };

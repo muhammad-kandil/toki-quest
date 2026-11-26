@@ -1,273 +1,224 @@
-# Teacher content: Ms. Mariam's School
+# Teacher content: "Every Classroom Has a Story"
 
-Owner: Hessa (game & learning design). Source of truth for the content in
-`src/teacher/data/**`. Validate with `npx vite-node tools/teacher/check-content.ts`.
+Owner: Hessa (game & learning design). Source of truth for `src/teacher/data/**`.
+Authority: `docs/product/ALEF_PROPOSAL.md` wins over every earlier brief.
+Validate with `npx vite-node tools/teacher/check-content.ts` (static checks
+plus 8,000 simulated plays per mission).
 
-## How the content is built
+## Principles applied
 
-- **The player is a real UAE public-school teacher playing Ms. Mariam**, an
-  Emirati homeroom teacher who teaches Grade 5 Math and Science, covers
-  Grade 6 English, and teaches Grade 4 Arabic reading. Same person as in
-  Coach mode.
-- **No points, no currencies.** What changes is the story, where each student
-  lands (understanding/engagement 0–3) and the teacher's toolkit.
-- **Every choice is a real trade-off.** It costs lesson minutes; there is no
-  option a real teacher would not consider. Good intentions can backfire
-  (calling on a quiet student cold; sending the helper to help; reassuring a
-  parent mid-lesson). Outcome titles describe what happened, never judge the
-  teacher. `poor` outcomes say what the student did, not what the teacher
-  did wrong.
-- **Nonlinear.** Outcomes open different follow-up events; peeks set flags
-  that change later outcomes (peeking at Sara's page turns *Show her how*
-  into *Misconception discovered*); flags carry across adventures (Omar's
-  role in A1 changes A2; Sara's fix in A1 changes her quiz in A4).
-- **Resources** are plain teaching moves, all `placeholder: true` until Alef
-  maps each to a real feature (see the last section).
+- The player helps **Ms. Mariam**, a UAE public-school teacher. No mentor or
+  DLIS character appears in mission content.
+- **Investigate, then decide.** Each student is an investigation: one coherent
+  evidence profile is drawn (weighted) when the encounter opens, every clue
+  agrees with it, and the choices offered depend on it. Outcomes follow the
+  teacher's choice, never a random draw, so a supportive choice is never
+  "ineffective" by luck.
+- **No countdown.** Missions are `timed: false`; "five minutes" is the story.
+  Choice `minutes` are 0–1 narrative values only.
+- **Randomness varies events, it never judges teaching**: profiles and pool
+  events change what happens; outcome tones depend only on choices.
+- **XP** (illustrative): 30 per resolved investigation (on the outcome), 50
+  per first discovery of an NCLE tool (engine, from `discover`), 100 for the
+  planning puzzle (`puzzle.xp`). Once per meaningful action. XP is never
+  described as competence or achievement.
+- **No fixed-ability labels** in player text ("strong", "weak", "low group"
+  never appear; profile ids are internal).
+- Every choice is a real option a teacher would consider; deferring is
+  allowed and honest ("Noted, not yet solved"), never shamed.
 
-### What the content assumes the engine does
+## Engine contract (what the content assumes)
 
-The validator plays every adventure 6,000 times against this model:
+1. Untimed missions: every `schedule` event is a hotspot, open from the start.
+   The player chooses the order and may skip objects.
+2. An event with `investigate` draws one profile by `weight` when opened and
+   sets its `setFlag`. Clue texts come from `profile.clues[clue.id]`;
+   `clue.text` is the neutral prompt shown before the tap. Choices show when
+   their `ifFlag` is unset or set.
+3. **Pool events** have `category` + `weight` (+ optional `eligible`) and are
+   neither scheduled nor opened by an outcome. After each student encounter
+   resolves, the engine draws one among the eligible unseen ones (weights
+   normalised); none eligible → back to exploration. A pool event pulses on
+   its `on` hotspot; if that hotspot's own event is still open, it comes first.
+   Weights follow the proposal: learning 35 · collaboration 25 ·
+   misconception 20 · management 15 · bonus 5.
+4. A choice whose outcome id equals `puzzle.id` opens the puzzle; the outcome
+   shows after it. `puzzle.badge` and `puzzle.xp` are awarded on completion.
+5. Milestone: every student hotspot event is resolved. The player may finish
+   open events, then the mission closes with the eligible ending of lowest
+   `priority`; other eligible endings are offered as choices.
+6. `Ending.opens` and any flag `unlock:<missionId>` unlock missions.
+7. `badges[]` is the mission's badge catalogue and end-of-run rule list (first
+   match); `Ending.badge` and `puzzle.badge` award from the same catalogue.
+8. Choice `resource` is not used in missions; tools are discovered through
+   `Outcome.discover`.
 
-1. The lesson clock starts at 0. `schedule` events open at their minute.
-2. A choice costs `minutes`; the outcome's `next` opens `after` minutes later.
-3. An event opened at or after `lessonMinutes` is not played; it can appear
-   in the debrief as "not reached before the bell".
-4. Effects clamp to 0–3. A student counts as "good" when understanding +
-   engagement ≥ 5, "partly there" at ≥ 3 (as in the demo). `all-good` = all
-   students good at the bell.
-5. A peek is offered only before that student's first event is answered.
-6. Flags live in `TeacherSave.flags` and persist across adventures. All flag
-   names are namespaced `aN.name`.
-7. Conditional outcomes: first entry whose `ifFlag` is set wins; the last
-   entry has no `ifFlag` and is the default.
+## Arabic conventions
 
-### Arabic conventions
+Natural MSA as a Gulf teacher writes it; Arabic-Indic digits and `٪`; «» for
+quotes; Ms. Mariam addressed in the feminine (اختاري، انظري); "Try it Monday"
+lines in the generic masculine imperative used by Arabic teacher guides;
+short childlike student lines (أستاذة، خلّصت). «ألف» in guillemets. NCLE tool
+names are translated descriptively (وضع العرض، اعرف السبب) and must be
+replaced by Alef's official Arabic names once verified.
 
-Natural MSA as a Gulf teacher writes it: Arabic-Indic digits, «» quotes,
-Ms. Mariam addressed in the feminine (أنتِ، اختاري); "Try it Monday" lines
-addressed to the real teacher in the generic masculine imperative
-(جرّب، أعطِ), as Arabic teacher guides do. Students speak short, childlike
-lines (خلّصت، أستاذة). Glossary follows `docs/content/ARABIC_REVIEW.md`
-(engagement = التفاعل, participation = المشاركة, exit ticket = بطاقة الخروج,
-success criteria = معايير النجاح, cold call = النداء بالاسم).
+## NCLE tools (`resources.ts`, all `placeholder: true`)
 
-### Cross-adventure flags
-
-| Flag | Set in | Read in | Effect |
+| Tool | Stage (proposed) | First mission | What the game says it does (proposal only) |
 |---|---|---|---|
-| `a1.omarIn` | A1: Omar's role / drawing / game "why?" | A2 *Let Omar report* | Omar reports Noura's idea, crediting her (vs his own guess) |
-| `a1.fixed`, `a1.caughtUp` | A1: fraction strips / reteach | A4 *Show Sara her questions* | Her quiz proves the fix stuck (vs partial) |
+| Present Mode | Launch | M01 | share the learning intention; open a prior-knowledge discussion |
+| Gamification | Launch | M05 | game elements used on purpose |
+| Need Help | Facilitate | M01 | task guidance for a student |
+| See Why | Facilitate | M01 | question the reasoning behind an answer |
+| AI Helper | Facilitate | M01 | another source of task guidance |
+| Practice | Facilitate | M01 | reinforcement |
+| Teams | Facilitate | M01 | collaboration |
+| Assign | Extend | M01 | give work matched to where the student is (e.g. extension) |
+| Class Progress | Extend | M06 | a view of class progress |
+| Exit Ticket | Extend | M06 | a short end-of-lesson check |
+| Show My Learning | Extend | M07 | students show what they learned |
+| Exam Prep Assessment | Extend | M07 | assessment for exam preparation |
+| Pathways | Extend | M07 | different routes through learning |
 
-## Alef resources (16)
+## To verify (every product claim in the content)
 
-| Stage | Resource | First appears |
-|---|---|---|
-| Launch | Launch game · Printed backup task · Think, pair, share · Success criteria · Results-based groups | A1 · A1 · A2 · A3 · A4 |
-| Facilitate & Synthesise | Worked example · Explain-your-thinking prompt · Team roles · Small-group reteach · Warned call · Show-me boards · Own-part check · Sentence starters | A1 · A1 · A1 · A1 · A2 · A2 · A3 · A3 |
-| Extend & Assess | Extension task · Targeted practice set · Question-by-question results | A1 · A1 · A4 |
+Alef product specialists sign off each line; until then `placeholder: true`.
 
----
+**General**
+- V1. Official English and Arabic names of all 13 NCLE tools.
+- V2. The stage each tool belongs to (Launch / Facilitate & Synthesize / Extend & Assess).
+- V3. "Build Your Learning Journey" is labelled a simplified illustration; confirm the three stage names and that no real screen is implied.
 
-<a id="a1"></a>
-## A1 · Different Needs, Same Classroom (Grade 5 Math)
-
-**Teacher's learning goal:** "I don't understand" hides different needs. Diagnose
-before you fix (explain-your-thinking, a look at the page), give early
-finishers depth rather than a job, and coach helpers to ask instead of tell.
-
-**Port notes:** faithful to the approved demo (same events, costs, outcomes,
-positions, scene). Improvements: Omar has a peek (a crossed-out fraction bar);
-with it, *Give him a role* becomes *Omar draws it for his table* (u+2). Flags
-now record the result for later adventures. "Need help" relabelled *Show her
-how* so the action, not the student, is named.
-
-```mermaid
-flowchart LR
-  S[3' Sara: still don't understand] -->|Show her how| R{peeked page?}
-  R -->|no| Ready[Ready to progress] --> En[Enrichment: harder / explain to Omar]
-  R -->|yes| Mis
-  S -->|See why| Mis[Misconception discovered] --> Tg[Targeted practice: strips / worksheet / video]
-  S -->|Move on| Per[Difficulty persists] --> Int[Intervention: side table / whole class]
-  A[6' Ahmed finished] -->|Go further| Deep[Thinking hard]
-  A -->|Help a classmate| Peer[Moves next to Sara] --> PA[Unexpected: gives answers: coach / let go]
-  O[9' Omar: what are we doing?] -->|Role| Role{peeked margin?} --> Rep[Reporter] & Draw[Drawer]
-  O -->|Quick game| Loud[Class lights up] --> L[Unexpected: loud game: why? / keep playing]
-  T[22' Tablets drop] --> Paper[Paper backup] & Wait[Seven minutes lost]
-```
-
-**Resources:** worked example, explain-your-thinking (3 places), extension
-task (2), team roles (3), launch game, targeted practice, small-group
-reteach, printed backup.
-
-**Scene:** existing `story/busy-classroom/w1-open-4.jpg` (positions from the demo).
-
-**Badges:** Every Learner In (all-good) · Misconception Hunter (`a1.misconception`) · First Lesson Logged.
-
-**Claims Alef must verify:** that Alef lessons include (or pair with) a launch
-game, a worked example, an extension ("go further") task and a targeted
-practice set chosen by mistake type; that a printed version of a lesson task
-can be produced; whether Alef has any explain-your-thinking prompt or it is a
-teacher move only.
+**Mission 01**
+- V4. Assign can be used to give one student more challenging (extension) work.
+- V5. Present Mode can show a lesson's learning intention to the class from the board.
+- V6. Present Mode can open a prior-knowledge discussion.
+- V7. See Why supports questioning a student's reasoning / surfacing a misconception.
+- V8. Need Help gives a student guidance on the task in front of them.
+- V9. AI Helper can explain what a question is asking, in the student's words.
+- V10. Practice gives short reinforcement before moving on.
+- V11. Teams supports pairing two students with roles (explain / check).
+- V12. Grade 7 Math ratios / unit rates is a suitable NCLE lesson context (subject not given in the proposal; content designer's choice).
 
 ---
 
-<a id="a2"></a>
-## A2 · The Quiet Table (Grade 5 Science)
+<a id="m01"></a>
+## Mission 01 · The First Five Minutes (MVP)
 
-**Teacher's learning goal:** volunteers are not the class. Structures that
-give every student thinking time (think-pair-share, show-me boards) and a
-*warned* call get quiet students' ideas into the room; a cold call on a
-silent child backfires unless you already know what she wrote.
+`a1` · Grade 7 · Math (yesterday: equivalent ratios; today: unit rates) ·
+Ahmed, Sara, Omar · laptop, board, bookshelf · 5–8 min, untimed.
 
-**Story:** sugar in hot vs cold water. Noura (capable, silent) has the best
-reason in the room in her notebook. Khalid believes the sugar "melted and is
-gone" (in Arabic the trap is ذاب = melt *and* dissolve, so the misconception
-is written as اختفى, vanished). Omar sits at the quiet table; Ahmed's hand is
-always up.
+**Teacher's learning goal:** in the first minutes, find each student's real
+starting point from evidence (answer, reasoning, application; notebook,
+tablet, words; desk, attention, reply) before choosing a response, and match
+the response to the need.
+
+**Opening film** (7 beats over 5 pictures): arrival → students arrive →
+Ahmed / Sara / Omar lines (verbatim) on one picture → "Five minutes before we
+begin. Where should I start?" → pull back into the classroom. Opening screen:
+"MISSION 01 | The First Five Minutes · Your classroom. Your decisions. Your
+adventure." (the UI adds "Start Playing").
+
+### Evidence profiles
+
+| Student | Profile (weight) | Flag | Choices → outcome |
+|---|---|---|---|
+| Ahmed · Confidence Detective (answer / explanation / application) | strong (35) | `a1.ahmed:strong` | Assign a challenge → *Ready for more* (Assign, `unlock:m2`) · start main task → *Finishes first again* |
+| | correct, weak reasoning (25) | `a1.ahmed:shallow` | "Why does that rule work?" → *The rule cracks* (See Why) · harder task anyway → *Rule will break later* (`a1.gap`) |
+| | can't apply prior knowledge (20) | `a1.ahmed:prior` | 2-min decimals refresher → *One step back* · note for later → *Noted* (`a1.gap`) |
+| | strong + peer question (20) | `a1.ahmed:peer` | pair them (Teams) → *A pair, on purpose* (`a1.peerVoice`) · "Let Omar try first" → *Helping, not telling* (`a1.peerVoice`) |
+| Sara · Find the Missing Piece (notebook / tablet / bubble) | missing prerequisite (30) | `a1.sara:prerequisite` | simplify together → *The missing piece* (`unlock:m4`) · start new topic → *Gap goes with her* (`a1.gap`) |
+| | repeated misconception (25) | `a1.sara:misconception` | "Show me how you got 4:5" → *Adding, not multiplying* (See Why) · rule again → *The rule, again* (`a1.gap`) |
+| | needs task guidance (25) | `a1.sara:task` | Need Help → *Guidance on the task* · AI Helper → *She asks what it means* |
+| | needs reinforcement (20) | `a1.sara:practice` | Practice → *A little more* · encourage → *Still unsure* |
+| Omar · What's Behind the Silence? (desk / attention / reply) | unclear goal (30) | `a1.omar:goal` | Present Mode → *Now he knows* (`a1.intention`) · tell him quietly → *His table doesn't* |
+| | missing prior knowledge (25) | `a1.omar:prior` | yesterday's example → *Yesterday in two minutes* · note for later (`a1.gap`) |
+| | low confidence (25) | `a1.omar:confidence` | "One guess, no names" → opens **Omar's guess** investigation · tell a partner (Teams, `a1.peerVoice`) |
+| | distraction (20) | `a1.omar:distracted` | sports-day hook → *metres per second* · move closer → *still elsewhere* |
+
+Omar's guess (2:3 = 3:4, additive) is the proposal's "a student response may
+reveal a misconception and open a new investigation": See Why, or a class
+discussion (`a1.peerVoice`).
+
+### Map
 
 ```mermaid
 flowchart LR
-  Q[3' Board: hot or cold?] -->|Take Ahmed| AA[Quick, nearly right] --> QD[Tower of beakers: boards / stand close]
-  Q -->|Think-pair-share| PT[Table whispers] --> OH[Overhear Noura: share for her / ask her]
-  Q -->|Show-me boards| BU[Every answer at once: sets sawNoura]
-  QD -->|boards| BL[sets sawNoura]
-  OH -->|share for her| SH[sets sawNoura]
-  N[9' Noura's moment] -->|Call on her| C{peeked or sawNoura?}
-  C -->|yes| NR[Reads her sentence: nouraSpoke]
-  C -->|no| NF[Freezes]
-  N -->|Warned call| WC[Two minutes to get ready: nouraSpoke]
-  N -->|Omar reports| OR{a1.omarIn?} --> ORy[Credits Noura] & ORn[Own guess]
-  N -->|Leave her| NS[Right on paper, unheard]
-  K[14' Khalid: it melted] -->|Where did it go?| MI[Melting idea] --> TT[Can I taste it? evaporate / rule]
-  K -->|Sit with Noura| KP{nouraSpoke?} --> NT[Noura explains] & SP[Silent pair]
-  SP2[24' Spill] --> MG[Ahmed's table takes over] & RR[Restart with roles]
+  F[Film] --> C((Classroom))
+  C --> A[Ahmed: 3 evidence cards] --> AP{profile}
+  AP -->|strong| AS[Assign / main task]
+  AP -->|shallow| AW[See Why / harder anyway: gap]
+  AP -->|prior| AR[refresher / note: gap]
+  AP -->|peer| AT[Teams / coach: peerVoice]
+  C --> S[Sara: notebook, tablet, bubble] --> SP{profile}
+  SP -->|prerequisite| SB[simplify: unlock m4 / defer: gap]
+  SP -->|misconception| SW[See Why / rule again: gap]
+  SP -->|task| SN[Need Help / AI Helper]
+  SP -->|practice| SR[Practice / encourage]
+  C --> O[Omar: desk, attention, reply] --> OP{profile}
+  OP -->|goal| OI[Present Mode: intention]
+  OP -->|prior| OC[catch-up / note: gap]
+  OP -->|confidence| OG[one guess] --> OGI[Omar's guess: See Why / class vote]
+  OP -->|distracted| OH[hook / move]
+  C --> L[Laptop: Build Your Learning Journey: Instructional Architect +100]
+  C --> B[Board: Present Mode / prior-knowledge talk]
+  C --> K[Bookshelf: recipe card]
+  A & S & O -.after each.-> POOL[(Pool: link 35 · pair 25 · ratio≠fraction 20 · batteries 15 · luqaimat note 5)]
+  C ==>|all three found| E{Endings}
+  E -->|a1.gap, p1| U[The Unfinished Puzzle → m4 Bridging the Gap]
+  E -->|a1.peerVoice, p2| X[An Unexpected Opportunity → m5 Everyone Has a Voice]
+  E -->|no gap, p3| R[Ready to Learn · Purposeful Launch → m3 Bring Learning to Life]
 ```
 
-**Resources:** think-pair-share, show-me boards (2), warned call, team roles
-(2), explain-your-thinking, extension task.
+Pool eligibility: the speed-in-science link skips Ahmed's "shallow" profile;
+the ratio-is-a-fraction misconception skips Sara's "misconception" profile so
+the same morning never stacks two near-identical misconceptions.
 
-**Scene picture brief (`public/teacher/scenes/a2.jpg`, portrait 2:3):**
-Grade 5 science lesson in a UAE public school classroom, girls in school
-dress with white shaylas and boys in kandura-style uniform (as in the
-existing art), seen from the front. A window on the left. **Quiet table**
-front-left, lower half: Khalid (boy, 16/58) at the window end turning a
-beaker, Noura (girl, 30/64) writing in a small notebook, head down, Omar
-(boy, 42/56) looking towards other tables. **Experiment tray** with two
-beakers, sugar cubes and a timer on the quiet table's front edge (30/78).
-**Ahmed** (boy, 72/42) at a busier table back-right, hand half raised. The
-**board** top-centre (50/16) with the question in Arabic and English. Other
-students soft in the background, 3–4 visible hands up on the right side only.
+**Simulated play (random choices):** XP 90–220, median 190; top ending
+Unfinished 46 %, Opportunity 43 %, Ready 12 % (random play defers often; a
+deliberate player reaches Ready by resolving every need).
 
-**Badges:** The Whole Table In (all-good) · Room for Quiet Voices (`a2.nouraSpoke`) · Listened Closely.
+### Picture briefs
 
-**Claims Alef must verify:** that Alef science lessons have a prediction /
-launch question stage; whether Alef has a digital "show-me" response (all
-students answer at once, teacher sees all) or this stays a mini-whiteboard
-move; whether any Alef tool supports choosing (or randomising) who answers.
+Scene `public/teacher/scenes/m01.jpg` (portrait 2:3): a Grade 7 classroom in
+a UAE public school, morning light from a window on the left, students in
+school uniform (boys' white kandura-style uniform, girls' uniform with white
+shayla, consistent with the existing art). **Omar** by the window (18/44),
+sitting back, pen down. **Sara** front-left (34/58) with an open notebook and
+tablet, flicking back pages. **Ahmed** centre-right (64/50), tablet already
+on today's lesson, half turning to talk. **Board** top-centre (50/16), clean.
+**Laptop** open on the teacher's desk lower-right (82/64). **Bookshelf** on
+the left wall upper area (10/30) with an atlas and globe. Keep the bottom
+30 % calm (sheet area). No text on the board.
+
+Film `public/teacher/film/m01-1…5.jpg` (portrait 2:3, same art style):
+1. Ms. Mariam (Emirati, abaya and shayla, lanyard, tote bag) at the classroom
+   door, morning corridor behind her.
+2. Students coming in, bags going down, the room filling.
+3. Close group shot of Ahmed (eager, hand half up), Sara (worried, notebook
+   held up) and Omar (quiet, looking at the window); used for all three lines.
+4. Ms. Mariam at her desk, looking out over the room, a beat of thought.
+5. Wide pull-back: the whole classroom as in the scene picture.
 
 ---
 
-<a id="a3"></a>
-## A3 · The Group That Copies (Grade 6 English)
+## Shop and Term Pass (customisation)
 
-**Teacher's learning goal:** a finished group page can hide who learned.
-Make individual contributions visible (own-part check), give the strong
-student a different job (checker), use success criteria to settle disputes,
-and scaffold language (sentence starters, home-language bridge) for the
-student who copies because he can't yet write it.
+`shop.ts`: 10 outfits, 14 accessories, 5 power-ups; prices in thank-you
+notes, earned only from the Term Pass (`termPass.ts`, 12 steps, one per
+finished mission or replay) and the end-of-term bundle. One term earns 54
+notes plus 5 gifted items; the 24 cosmetics cost 56 after gifts, so a full
+term buys most cosmetics and about three power-ups, never everything.
+Professional rewards (NCLE tool cards, story chapters, planner pages,
+spotlights) are never priced.
 
-**Story:** Ms. Mariam covers Ms. Fatima's Grade 6 English: a group
-persuasive paragraph, "Should our school have a longer break?" Reem does
-everything; Saeed is charming and presents; Maitha's ideas get crossed out;
-Yousef copies because his English is the weakest (his peek: a real reason,
-written in Arabic). At minute 24 Reem is called to the office for ten
-minutes: the group copes only if the work was shared (`a3.rolesShared`,
-`a3.criteria` or `a3.saeedOwn`).
+Open issue: the shop includes Toki outfits and accessories (per the earlier
+shop brief), but the proposal says the teacher game needs no Toki. Product
+to decide: keep Toki as a cosmetic-only companion, or retarget those items
+to Ms. Mariam / the classroom.
 
-```mermaid
-flowchart LR
-  R[4' Reem: we're done] -->|Next task| RR[Races ahead alone] --> CP[Three identical pages: underline / accept]
-  CP -->|underline| UL[Nobody can] --> YS
-  R -->|One sentence each| OS[See who can] --> YS[Yousef: I don't know the words]
-  YS -->|starters| ST{peeked Yousef?} --> BR[Idea first, English second] & YW[Half a sentence]
-  YS -->|Arabic bridge| BR
-  YS -->|copy| CO[Complete on paper]
-  R -->|Who wrote what?| HA[Reem did, she's the best] --> RT[Reem: not fair: roles / alone]
-  S[8' Saeed: can I read it?] --> SP[Presents] & SA[Adds own reason] & RD[Reem reads]
-  M[12' Maitha crossed out] --> TO[Teacher overrides] & CJ[Success criteria] & SO[Reem wins]
-  D[24' Reem called away] -->|carry on| G{roles / criteria / Saeed's reason?} --> GC[They manage] & GS[Group stops]
-  D -->|Sit with them| TS[They work, for you]
-```
+## Internal sample
 
-**Resources:** extension task, own-part check (2), team roles (2), success
-criteria, sentence starters.
-
-**Scene picture brief (`public/teacher/scenes/a3.jpg`, portrait 2:3):**
-Grade 6 English classroom, mixed-gender UAE public school (uniforms as in the
-existing art). One **group table** fills the lower two-thirds, seen at a
-slight high angle. Reem (girl, 56/60) has the single **group sheet** pulled
-towards her and is writing; Saeed (boy, 74/54) at the right end mid-joke,
-leaning back; Yousef (boy, 30/56) at the left end copying carefully from
-Reem's side; Maitha (girl, 42/70) nearest the viewer, pen lifted, about to
-speak. The sheet itself near the front edge (50/80). The classroom **door**
-top-right (88/30), slightly open onto a corridor. A whiteboard behind with
-"Should our school have a longer break?" in English.
-
-**Badges:** Everyone Holds the Pen (all-good) · A Team Without Its Star (`a3.coped`) · Looked Behind the Page.
-
-**Claims Alef must verify:** whether Alef English has group-writing tasks
-where individual contributions are tracked; whether success criteria /
-checklists are shown with Alef writing tasks; whether sentence starters or
-language scaffolds exist in Alef English for lower-proficiency students.
-
----
-
-<a id="a4"></a>
-## A4 · Data Day (Grade 5 Math)
-
-**Teacher's learning goal:** use last week's results to start the lesson,
-look at the questions behind a score before acting on it, and let groups
-move when students show more. Talk to parents with evidence, after class.
-
-**Story:** three groups from last week's fractions quiz. Hamdan is in
-Reteach with 3/10, but every answer he gave was right; he ran out of time on
-long word problems. Sara has moved up and doesn't believe it (her quiz
-depends on A1). Omar finishes the reteach sheet early. At minute 24 Hamdan's
-father messages: "Why is my son in the weak group?"
-
-```mermaid
-flowchart LR
-  G[2' Quiz groups] -->|Use as is| GA{peeked Hamdan?}
-  GA -->|no| AS[Mostly right] --> HF[Hamdan stops writing: explain / next sheet]
-  HF -->|explain| HE[I just didn't finish] --> HT
-  GA -->|yes| MH[One change] --> HT[Hamdan: long words: go further + reader / short problems]
-  G -->|Question view| HS[Different story] --> HT
-  G -->|Mixed as usual| MX[Blurry] --> SL[Sara leans on partner: reteach table / coach helper]
-  S[7' Sara: Nearly there?] -->|Show questions| SQ{a1.fixed or caughtUp?} --> PR[The fix stuck] & PA[Right on some]
-  S -->|Encourage| SU[Not sure]
-  O[12' Omar finished] --> OM[Move him] & OC[Harder question] & OS[Stays: pencil on nose]
-  P[24' Father's message] -->|after class| E{hamdanSeen?} --> EV[More time, not easier work] & SC[Only the score]
-  P -->|Reply now| QR[Calmer father, two tables stop]
-```
-
-**Resources:** results-based groups (3), question-by-question results (2),
-explain-your-thinking (3), targeted practice, small-group reteach.
-
-**Scene picture brief (`public/teacher/scenes/a4.jpg`, portrait 2:3):**
-the same Grade 5 classroom as A1/A2, rearranged into three group tables with
-small coloured table signs (no "high/low" words). Hamdan (boy, 26/62) at the
-left table, finger under a line of a worksheet, reading slowly; Omar (boy,
-44/70) front-centre at the same table, pen moving fast; Sara (girl, 64/56)
-at the middle table, half turned to look at the board. Ms. Mariam's **tablet
-with quiz results** on her desk top-right (82/30); her **phone** face-up at
-the desk edge lower-right (88/64). Board top-left with three group colours
-and names.
-
-**Badges:** Everyone in the Right Place (all-good) · Behind the Score (`a4.hamdanSeen`) · Read the Data.
-
-**Claims Alef must verify (highest priority):** that Alef reports
-question-level results per student, including blank vs wrong; whether Alef
-suggests groups from results and under what names (the game avoids "weak"
-everywhere except the father's message); whether parents can see group
-names in any Alef or school app (the father's message assumes they can: if
-not, rewrite it as "Hamdan told me he's in the weak group").
+`adventures/sample-g5-fractions.ts` is the approved Grade 5 fractions demo
+ported to the schema (timed). Not registered in `ADVENTURES`; validated as a
+sample. Flags renamed `g5.*`; resources mapped to the nearest NCLE tool.

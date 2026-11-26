@@ -24,7 +24,7 @@ export const TERM_PASS: TermPassStage[] = [
   {
     stage: 2,
     classroom: { kind: 'notes', notes: 3 },
-    professional: { kind: 'resource', id: 'think-pair-share', label: t('Resource: Think, pair, share', 'مورد: فكّر، ناقش زميلك، شارك') },
+    professional: { kind: 'resource', id: 'teams', label: t('NCLE tool: Teams', 'أداة NCLE: الفرق') },
   },
   {
     stage: 3,
@@ -44,7 +44,7 @@ export const TERM_PASS: TermPassStage[] = [
   {
     stage: 6,
     classroom: { kind: 'notes', notes: 5 },
-    professional: { kind: 'resource', id: 'hinge-question', label: t('Resource: Hinge question', 'مورد: سؤال المفصل') },
+    professional: { kind: 'resource', id: 'exit-ticket', label: t('NCLE tool: Exit Ticket', 'أداة NCLE: بطاقة الخروج') },
   },
   {
     stage: 7,
@@ -64,7 +64,7 @@ export const TERM_PASS: TermPassStage[] = [
   {
     stage: 10,
     classroom: { kind: 'notes', notes: 7 },
-    professional: { kind: 'resource', id: 'progress-over-time', label: t('Resource: Progress over time', 'مورد: التقدّم عبر الزمن') },
+    professional: { kind: 'resource', id: 'class-progress', label: t('NCLE tool: Class Progress', 'أداة NCLE: تقدّم الصف') },
   },
   {
     stage: 11,

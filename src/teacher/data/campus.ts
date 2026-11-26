@@ -17,6 +17,7 @@ export const LOCATIONS: Location[] = [
   { id: 'grade4', kind: 'classroom', name: t('Grade 4 classroom', 'فصل الصف الرابع'), x: 18, y: 42 },
   { id: 'grade5', kind: 'classroom', name: t('Grade 5 classroom', 'فصل الصف الخامس'), x: 50, y: 38 },
   { id: 'grade6', kind: 'classroom', name: t('Grade 6 classroom', 'فصل الصف السادس'), x: 82, y: 42 },
+  { id: 'grade7', kind: 'classroom', name: t('Grade 7 classroom', 'فصل الصف السابع'), x: 50, y: 52 },
   { id: 'yard', kind: 'yard', name: t('Yard', 'الساحة'), x: 46, y: 64 },
   /* The contract has no 'canteen' kind; it is an ambient place like the yard. */
   { id: 'canteen', kind: 'yard', name: t('Canteen', 'المقصف'), x: 80, y: 72 },

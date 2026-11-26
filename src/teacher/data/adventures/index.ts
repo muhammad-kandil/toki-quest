@@ -1,8 +1,9 @@
-/** All adventures in play order. Owned by the content designer. Each unlocks the next. */
+/** All missions in play order. Owned by the content designer. Endings (and `unlock:<id>` flags) open later missions. */
 import type { Adventure } from '../../types';
-import { A1 } from './a1-different-needs';
-import { A2 } from './a2-quiet-table';
-import { A3 } from './a3-group-copies';
-import { A4 } from './a4-data-day';
+import { A1 } from './a1-first-five-minutes';
+import { SAMPLE_G5 } from './sample-g5-fractions';
 
-export const ADVENTURES: Adventure[] = [A1, A2, A3, A4];
+export const ADVENTURES: Adventure[] = [A1];
+
+/** Internal samples: validated, never shown to players. */
+export const SAMPLE_ADVENTURES: Adventure[] = [SAMPLE_G5];
