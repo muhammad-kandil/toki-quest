@@ -101,11 +101,14 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screen]);
 
-  // The world bed plays on the map and in the hub, keyed to the world the
-  // player is on; classrooms are quiet so the evidence has the room.
+  // The score: the title theme on the title, the travel piece on the map,
+  // the world's own mood in its hall. Classrooms have no music, so the
+  // room (and the evidence) has the space.
   useEffect(() => {
-    if (screen === 'map') sfx.music(sfx.moodFor(findCurrentWorld(save.bestScores).number));
+    if (screen === 'title') sfx.music('title');
+    else if (screen === 'map') sfx.music('map');
     else if (screen === 'world') sfx.music(sfx.moodFor(getWorld(activeWorld)?.number ?? 1));
+    else if (screen === 'skins' || screen === 'badges' || screen === 'board' || screen === 'name') { /* keep what was playing */ }
     else sfx.music(null);
     // The room under it: the yard outside on the title and map, the
     // corridor in a world's hall. Rooms set their own sound.

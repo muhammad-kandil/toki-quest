@@ -1,4 +1,4 @@
-name: Render audio (voices + room recordings)
+name: Render audio (voices + room recordings + music)
 on:
   workflow_dispatch:
     inputs:
@@ -22,6 +22,10 @@ on:
         default: "gemini"
       force:
         description: "Re-render every voice clip"
+        type: boolean
+        default: false
+      music:
+        description: "Compose and render the score (tools/audio/music/compose.py)"
         type: boolean
         default: false
 permissions:
@@ -134,8 +138,25 @@ jobs:
             public/audio/items
             tools/audio/out/items-report.md
 
+  music:
+    if: inputs.music
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install FluidSynth + FluidR3_GM (MIT)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fluidsynth fluid-soundfont-gm >/dev/null
+          ls -la /usr/share/sounds/sf2/
+          pip install -q numpy soundfile pretty_midi pyfluidsynth pyloudnorm
+      - run: python tools/audio/music/compose.py --sf2 /usr/share/sounds/sf2/FluidR3_GM.sf2 --out public/audio/music
+      - uses: actions/upload-artifact@v4
+        with: { name: music, path: public/audio/music }
+
   commit:
-    needs: [voice, ambience, items]
+    needs: [voice, ambience, items, music]
     if: always() && !cancelled()
     runs-on: ubuntu-latest
     steps:
@@ -150,13 +171,14 @@ jobs:
           done
           if [ -d art/ambience/public/audio/amb ]; then mkdir -p public/audio/amb; cp -r art/ambience/public/audio/amb/. public/audio/amb/; mkdir -p tools/audio/reports; cp art/ambience/tools/audio/out/ambience-report.md tools/audio/reports/; fi
           if [ -d art/items/public/audio/items ]; then mkdir -p public/audio/items; cp -r art/items/public/audio/items/. public/audio/items/; mkdir -p tools/audio/reports; cp art/items/tools/audio/out/items-report.md tools/audio/reports/; fi
+          if [ -d art/music ]; then rm -rf public/audio/music; mkdir -p public/audio; cp -r art/music public/audio/music; fi
           du -sh public/audio/* || true
       - name: Commit
         run: |
           git config user.name "toki-audio[bot]"; git config user.email "toki-audio@users.noreply.github.com"
           git add public/audio tools/audio/reports
           git diff --cached --quiet && { echo "no audio changes"; exit 0; }
-          git commit -qm "audio: render voices and room recordings (workflow run ${{ github.run_id }})"
+          git commit -qm "audio: render voices, room recordings and music (workflow run ${{ github.run_id }})"
           git pull --rebase -q origin main && git push -q origin main
           gh workflow run deploy.yml --ref main
         env: { GH_TOKEN: "${{ github.token }}" }

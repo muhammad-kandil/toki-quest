@@ -8,9 +8,13 @@
  *
  * Structure
  *   master ─ destination
- *   ├─ music bus   the "world bed": a quiet, slowly evolving pad on the
- *   │              map and hub, one mood per world group. Never stacks.
- *   └─ sfx bus     the cues. Important cues briefly duck the music bus.
+ *   ├─ music bus   fallback "world bed": a synthesized pad, used only when
+ *   │              the recorded score can't load.
+ *   └─ sfx bus     the cues. Important cues briefly duck the music.
+ *   score bus ─ destination
+ *                  the recorded score (public/audio/music, composed by
+ *                  tools/audio/music/compose.py): title, map, one loop per
+ *                  world mood, and stingers for a room, a badge, a world.
  *
  * Platform rules
  *   - iOS / Telegram: audio starts only after a user gesture. The context
@@ -31,6 +35,8 @@ export type Cue =
   | 'door' | 'wipe' | 'travel' | 'gallery';
 
 export type Mood = 'warm' | 'thoughtful' | 'serious';
+/** What plays: a world mood, or the title / map pieces of the score. */
+export type Track = Mood | 'title' | 'map';
 
 export interface PlayOpts {
   /** For 'risk': 0 minor … 3 lethal — pitch falls with severity. */
@@ -46,6 +52,10 @@ let master: GainNode | null = null;
 let musicBus: GainNode | null = null;
 let sfxBus: GainNode | null = null;
 let voiceBus: GainNode | null = null;
+let scoreBus: GainNode | null = null;
+/** Recorded score sits under speech (−18 LUFS) and room sound (−24…−32). */
+const SCORE_GAIN = 0.42;
+const STINGER_GAIN = 0.55;
 let ambBus: GainNode | null = null;
 const AMB_GAIN = 0.9;
 let enabled = readPref();
@@ -56,7 +66,7 @@ const reducedMotion = (): boolean => {
 };
 
 /** Debug counter for E2E: window.__tokiSfx = { cues: {name: n}, music: mood|null }. */
-const debug: { cues: Record<string, number>; music: Mood | null } | null =
+const debug: { cues: Record<string, number>; music: Track | null } | null =
   typeof window !== 'undefined' && (import.meta.env.DEV || /sfxdebug/.test(window.location.search))
     ? ((window as any).__tokiSfx = { cues: {}, music: null })
     : null;
@@ -90,6 +100,9 @@ function ensureCtx(): AudioContext | null {
     voiceBus = ctx!.createGain();
     voiceBus.gain.value = 1;
     voiceBus.connect(ctx!.destination);
+    scoreBus = ctx!.createGain();
+    scoreBus.gain.value = SCORE_GAIN;
+    scoreBus.connect(ctx!.destination);
     ambBus = ctx!.createGain();
     ambBus.gain.value = AMB_GAIN;
     ambBus.connect(ctx!.destination);
@@ -104,8 +117,9 @@ const runningListeners = new Set<() => void>();
 function unlock() {
   const c = ensureCtx();
   const fire = () => runningListeners.forEach((fn) => { try { fn(); } catch { /* ignore */ } });
-  if (c && c.state === 'suspended') c.resume().then(() => { if (pendingMood) startBed(pendingMood); fire(); }).catch(() => {});
-  else if (c) fire();
+  const resumeMusic = () => { if (pendingTrack) void playTrack(pendingTrack); else if (pendingMood) startBed(pendingMood); };
+  if (c && c.state === 'suspended') c.resume().then(() => { resumeMusic(); preloadStingers(); fire(); }).catch(() => {});
+  else if (c) { resumeMusic(); preloadStingers(); fire(); }
 }
 
 if (typeof window !== 'undefined') {
@@ -184,10 +198,12 @@ function hiss(start: number, dur: number, o: { gain?: number; type?: BiquadFilte
 function duck(seconds: number, depth = 0.35) {
   if (!musicBus || !ctx) return;
   const now = ctx.currentTime;
-  const g = musicBus.gain;
-  g.cancelScheduledValues(now);
-  g.setTargetAtTime(MUSIC_GAIN * depth, now, 0.04);
-  g.setTargetAtTime(MUSIC_GAIN, now + seconds, 0.35);
+  for (const [g, full] of [[musicBus.gain, MUSIC_GAIN], [scoreBus?.gain, SCORE_GAIN]] as [AudioParam | undefined, number][]) {
+    if (!g) continue;
+    g.cancelScheduledValues(now);
+    g.setTargetAtTime(full * depth, now, 0.04);
+    g.setTargetAtTime(full, now + seconds, 0.35);
+  }
 }
 
 /** Hold the room down while someone speaks; release when they stop. */
@@ -345,8 +361,6 @@ const BEDS: Record<Mood, { chords: number[][]; cutoff: number; every: number; ty
 interface Bed { mood: Mood; gain: GainNode; filter: BiquadFilterNode; lfo: OscillatorNode; timer: number; voices: OscillatorNode[]; stopped: boolean }
 let bed: Bed | null = null;
 let pendingMood: Mood | null = null;
-/** What the app last asked for — restored when sound is re-enabled. */
-let requestedMood: Mood | null = null;
 
 function startBed(mood: Mood) {
   const c = ensureCtx();
@@ -428,6 +442,134 @@ function stopBed(fadeSec = 1) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Recorded score                                                      */
+/* ------------------------------------------------------------------ */
+
+type Stinger = 'level-complete' | 'badge' | 'world-complete';
+const MUSIC_BASE = (import.meta.env.BASE_URL || '/') + 'audio/music/';
+const STINGER_FOR: Partial<Record<Cue, Stinger>> = { reveal: 'level-complete', badge: 'badge', world: 'world-complete', quest: 'world-complete' };
+const musicCache = new Map<string, Promise<AudioBuffer | null>>();
+const decoded = new Map<string, AudioBuffer>();
+let loopsInfo: Promise<Record<string, { loopStart: number; period: number }>> | null = null;
+
+function loadMusic(name: string): Promise<AudioBuffer | null> {
+  const hit = musicCache.get(name);
+  if (hit) return hit;
+  const c = ensureCtx();
+  if (!c) return Promise.resolve(null);
+  const p = (async () => {
+    try {
+      const res = await fetch(MUSIC_BASE + name + '.mp3');
+      if (!res.ok) return null;
+      const data = await res.arrayBuffer();
+      // iOS 12: callback form only.
+      const buf = await new Promise<AudioBuffer | null>((resolve) => {
+        try {
+          const r = c.decodeAudioData(data, (b) => resolve(b), () => resolve(null));
+          if (r && typeof (r as Promise<AudioBuffer>).catch === 'function') (r as Promise<AudioBuffer>).catch(() => resolve(null));
+        } catch { resolve(null); }
+      });
+      if (buf) decoded.set(name, buf);
+      return buf;
+    } catch {
+      return null;
+    }
+  })();
+  musicCache.set(name, p);
+  p.then((b) => { if (!b) musicCache.delete(name); });
+  return p;
+}
+
+function loadLoops() {
+  if (!loopsInfo) {
+    loopsInfo = fetch(MUSIC_BASE + 'loops.json')
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((j: { loops?: Record<string, { loopStart: number; period: number }> }) => (j && j.loops) || {})
+      .catch(() => ({} as Record<string, { loopStart: number; period: number }>));
+  }
+  return loopsInfo;
+}
+
+function preloadStingers() {
+  (['level-complete', 'badge', 'world-complete'] as Stinger[]).forEach((n) => { void loadMusic(n); });
+}
+
+/** Play a recorded stinger if it is already decoded; false = use the synth cue. */
+function playStinger(name: Stinger): boolean {
+  const buf = decoded.get(name);
+  if (!buf || !ctx || ctx.state !== 'running') { void loadMusic(name); return false; }
+  const src = ctx.createBufferSource();
+  const g = ctx.createGain();
+  g.gain.value = STINGER_GAIN;
+  src.buffer = buf;
+  src.connect(g);
+  g.connect(ctx.destination);
+  src.start();
+  duck(Math.min(buf.duration, 4.5), 0.25);
+  return true;
+}
+
+let score: { track: Track; src: AudioBufferSourceNode; gain: GainNode } | null = null;
+let pendingTrack: Track | null = null;
+let requestedTrack: Track | null = null;
+let trackToken = 0;
+
+const fallbackMood = (t: Track): Mood => (t === 'title' || t === 'map' ? 'warm' : t);
+
+function stopScore(fadeSec = 1.2) {
+  pendingTrack = null;
+  if (!score || !ctx) return;
+  const s = score;
+  score = null;
+  const now = ctx.currentTime;
+  s.gain.gain.cancelScheduledValues(now);
+  s.gain.gain.setValueAtTime(Math.max(s.gain.gain.value, 0.0001), now);
+  s.gain.gain.linearRampToValueAtTime(0.0001, now + fadeSec);
+  window.setTimeout(() => {
+    try { s.src.stop(); } catch { /* already stopped */ }
+    try { s.gain.disconnect(); } catch { /* ignore */ }
+  }, fadeSec * 1000 + 80);
+}
+
+async function playTrack(track: Track) {
+  const my = ++trackToken;
+  const c = ensureCtx();
+  if (!c || !scoreBus || c.state !== 'running') { pendingTrack = track; return; }
+  pendingTrack = null;
+  if (score && score.track === track) return;
+  const [buf, loops] = await Promise.all([loadMusic(track), loadLoops()]);
+  if (my !== trackToken || !enabled) return;
+  if (!buf) {
+    // No recording (offline, or not rendered yet): the synthesized pad.
+    stopScore(1.2);
+    startBed(fallbackMood(track));
+    if (debug) debug.music = track;
+    return;
+  }
+  stopBed(1.2);
+  stopScore(1.2);
+  const src = c.createBufferSource();
+  src.buffer = buf;
+  src.loop = true;
+  // Loop one exact period inside the file (pre-roll before, post-roll
+  // after), which stays seamless whatever priming the MP3 decoder adds.
+  const li = loops[track];
+  if (li && li.loopStart + li.period <= buf.duration + 0.01) {
+    src.loopStart = li.loopStart;
+    src.loopEnd = li.loopStart + li.period;
+  }
+  const gain = c.createGain();
+  const now = c.currentTime;
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.linearRampToValueAtTime(1, now + 1.2);
+  src.connect(gain);
+  gain.connect(scoreBus);
+  src.start(0, 0);
+  score = { track, src, gain };
+  if (debug) debug.music = track;
+}
+
+/* ------------------------------------------------------------------ */
 /* Public API                                                          */
 /* ------------------------------------------------------------------ */
 
@@ -441,17 +583,18 @@ export const sfx = {
       if (c.state === 'suspended') return; // still locked: skip silently
     }
     try {
-      CUES[cue](opts);
+      const st = STINGER_FOR[cue];
+      if (!(st && playStinger(st))) CUES[cue](opts);
       if (debug) debug.cues[cue] = (debug.cues[cue] ?? 0) + 1;
     } catch {
       /* never let audio break the game */
     }
   },
-  /** Start (or switch) the world bed; null fades it out. Idempotent per mood. */
-  music(mood: Mood | null) {
-    requestedMood = mood;
-    if (!enabled || mood == null) { stopBed(1.2); return; }
-    startBed(mood);
+  /** Start (or crossfade to) a piece of the score; null fades it out. Idempotent per track. */
+  music(track: Track | null) {
+    requestedTrack = track;
+    if (!enabled || track == null) { trackToken++; stopScore(1.2); stopBed(1.2); if (debug) debug.music = null; return; }
+    void playTrack(track);
   },
   /** Mood for a world number: 1–3 warm, 4–6 thoughtful, 7+ serious. */
   moodFor(worldNumber: number): Mood {
@@ -484,8 +627,10 @@ export const sfx = {
     if (on) {
       unlock();
       sfx.play('tap');
-      if (requestedMood) startBed(requestedMood);
+      if (requestedTrack) void playTrack(requestedTrack);
     } else {
+      trackToken++;
+      stopScore(0.4);
       stopBed(0.4);
     }
     listeners.forEach((fn) => fn(on));

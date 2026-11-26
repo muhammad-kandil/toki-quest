@@ -5,3 +5,4 @@ dist
 .claude/
 tools/audio/out/
 tools/art/out/
+__pycache__/
