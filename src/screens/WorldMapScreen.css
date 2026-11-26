@@ -316,3 +316,40 @@
 }
 @keyframes map-people-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 0.95; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .map__people { animation: none; } }
+
+/* ---------- World complete: the journey to the next school ---------- */
+/* The finished school takes a bow... */
+.map__node--celebrate .map__school { animation: school-bow 900ms var(--ease-bounce); }
+@keyframes school-bow {
+  0% { transform: scale(1); }
+  35% { transform: translateY(-8px) scale(1.18); }
+  70% { transform: translateY(0) scale(0.96); }
+  100% { transform: scale(1); }
+}
+.map__node--celebrate::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 40%;
+  width: 70px; height: 70px;
+  margin: -35px 0 0 -35px;
+  border-radius: 50%;
+  border: 3px solid var(--toki-orange);
+  animation: school-burst 900ms ease-out forwards;
+  pointer-events: none;
+}
+@keyframes school-burst { from { transform: scale(0.4); opacity: 0.9; } to { transform: scale(1.6); opacity: 0; } }
+/* ...Toki hops on arrival... */
+.map__toki-inner--hop img { animation: toki-arrive-hop 600ms var(--ease-bounce); }
+@keyframes toki-arrive-hop {
+  0% { transform: translateY(0) scale(1, 1); }
+  30% { transform: translateY(-14px) scale(0.96, 1.05); }
+  60% { transform: translateY(0) scale(1.06, 0.94); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+/* ...and the new school lights up. */
+.map__node--fresh .map__school { filter: drop-shadow(0 0 10px rgba(29, 214, 187, 0.95)); animation: school-fresh 1.2s ease-in-out 2; }
+@keyframes school-fresh { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+@media (prefers-reduced-motion: reduce) {
+  .map__node--celebrate .map__school, .map__node--fresh .map__school, .map__toki-inner--hop img { animation: none; }
+  .map__node--celebrate::after { display: none; }
+}

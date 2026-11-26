@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { WORLDS, type WorldDefinition } from '../data/worlds';
 import { getSkinById } from '../data/skins';
 import { isWorldComplete, isWorldUnlocked, currentWorld as findCurrent } from '../data/progression';
@@ -18,6 +18,11 @@ interface WorldMapScreenProps {
   onOpenBadges: () => void;
   onOpenBoard?: () => void;
   onBack: () => void;
+  /** World Toki last stood at on the map. When it is a world just
+   *  completed and the current world is a new one, Toki walks over. */
+  walkFrom?: string;
+  /** Called once Toki stands at the current world (walk done or skipped). */
+  onArrived?: (worldId: string) => void;
 }
 
 type WorldState = 'locked' | 'current' | 'done' | 'soon';
@@ -29,13 +34,18 @@ type WorldState = 'locked' | 'current' | 'done' | 'soon';
  * as the road ahead — visible, named, locked — so the quest reads as
  * a journey with a horizon rather than a list that ends.
  */
-export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpenSkins, onOpenBadges, onOpenBoard, onBack }: WorldMapScreenProps) {
+export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpenSkins, onOpenBadges, onOpenBoard, onBack, walkFrom, onArrived }: WorldMapScreenProps) {
   const { tx, dir } = useLocale();
   const skin = getSkinById(skinId);
   const pathRef = useRef<SVGPathElement>(null);
   const [travelTo, setTravelTo] = useState<string | null>(null);
   const [tokiPos, setTokiPos] = useState<{ x: number; y: number } | null>(null);
   const [entering, setEntering] = useState<string | null>(null);
+  // World-complete journey: celebrate the finished school, walk the road
+  // to the new one, hop, and light it up.
+  const [journey, setJourney] = useState<null | 'celebrate' | 'walk' | 'arrived'>(null);
+  const [hop, setHop] = useState(false);
+  const skipRef = useRef<() => void>(() => {});
 
   const worldState = (w: WorldDefinition): WorldState => {
     if (w.comingSoon) return 'soon';
@@ -112,6 +122,68 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
     requestAnimationFrame(tick);
   };
 
+  useEffect(() => {
+    const from = WORLDS.find((w) => w.id === walkFrom);
+    const to = currentWorld;
+    if (!from || from.id === to.id || !isWorldComplete(from, bestScores)) {
+      if (walkFrom !== to.id) onArrived?.(to.id);
+      return;
+    }
+    let cancelled = false;
+    let raf = 0;
+    const timers: number[] = [];
+    const finish = () => {
+      if (cancelled) return;
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      timers.forEach((t) => window.clearTimeout(t));
+      setTokiPos(null);
+      setJourney('arrived');
+      setHop(true);
+      window.setTimeout(() => setHop(false), 650);
+      window.setTimeout(() => setJourney(null), 2600);
+      onArrived?.(to.id);
+    };
+    skipRef.current = finish;
+    if (reducedMotion()) { finish(); return () => { cancelled = true; }; }
+    setTokiPos(restOf(from.node));
+    setJourney('celebrate');
+    sfx.play('world');
+    timers.push(window.setTimeout(() => {
+      if (cancelled) return;
+      const path = pathRef.current;
+      if (!path) { finish(); return; }
+      setJourney('walk');
+      const total = path.getTotalLength();
+      const f0 = fractionAt(path, total, from.node);
+      const f1 = fractionAt(path, total, to.node);
+      const ms = Math.min(2400, 1600 + Math.abs(f1 - f0) * 1600);
+      const rest = restOf(from.node);
+      const arrive = restOf(to.node);
+      const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+      const start = performance.now();
+      let lastStep = 0;
+      const tick = (now: number) => {
+        if (cancelled) return;
+        const k = Math.min(1, (now - start) / ms);
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        const p = path.getPointAtLength(total * (f0 + (f1 - f0) * e));
+        const inK = Math.min(1, k / 0.15);
+        const outK = Math.max(0, (k - 0.85) / 0.15);
+        setTokiPos({ x: lerp(lerp(rest.x, p.x, inK), arrive.x, outK), y: lerp(lerp(rest.y, p.y, inK), arrive.y, outK) });
+        if (now - lastStep > 200) { sfx.play('step'); lastStep = now; }
+        if (k < 1) { raf = requestAnimationFrame(tick); return; }
+        sfx.play('discover');
+        finish();
+      };
+      raf = requestAnimationFrame(tick);
+    }, 1000));
+    return () => { cancelled = true; cancelAnimationFrame(raf); timers.forEach((t) => window.clearTimeout(t)); };
+    // Runs once per visit to the map.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const journeyFrom = journey && journey !== 'arrived' ? walkFrom : null;
+
   const unlockedCount = WORLDS.filter((w) => states[w.id] !== 'soon').length;
   const doneCount = WORLDS.filter((w) => states[w.id] === 'done').length;
 
@@ -125,7 +197,8 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
       </header>
 
       <div
-        className={`map__stage ${travelTo ? 'map__stage--travelling' : ''}`}
+        className={`map__stage ${travelTo || journey === 'celebrate' || journey === 'walk' ? 'map__stage--travelling' : ''}`}
+        onClickCapture={(e) => { if (journey === 'celebrate' || journey === 'walk') { e.stopPropagation(); skipRef.current(); } }}
         style={{ '--par': (restNode.x - 50) / 50 } as React.CSSProperties}
       >
         {/* Sky + far hills: the slowest parallax layer. */}
@@ -172,7 +245,7 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
           return (
             <button
               key={w.id}
-              className={`map__node map__node--${st} ${travelTo === w.id ? 'map__node--target' : ''} ${entering === w.id ? 'map__node--entering' : ''}`}
+              className={`map__node map__node--${st} ${travelTo === w.id ? 'map__node--target' : ''} ${entering === w.id ? 'map__node--entering' : ''} ${journeyFrom === w.id && journey === 'celebrate' ? 'map__node--celebrate' : ''} ${journey === 'arrived' && w.id === currentWorld.id ? 'map__node--fresh' : ''}`}
               style={{ left: `${w.node.x}%`, top: `${w.node.y}%` }}
               onClick={() => handleWorld(w)}
               disabled={st === 'soon'}
@@ -189,7 +262,7 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
         })}
 
         <div className={`map__toki ${entering ? 'map__toki--entering' : ''}`} style={{ left: `${restNode.x}%`, top: `${restNode.y}%` }}>
-          <div className={`map__toki-inner ${entering ? '' : travelTo ? 'map__toki-inner--walking' : 'map__toki-inner--idle'}`}>
+          <div className={`map__toki-inner ${entering ? '' : travelTo || journey === 'walk' ? 'map__toki-inner--walking' : hop ? 'map__toki-inner--hop' : 'map__toki-inner--idle'}`}>
             <img src={skin.image} alt="" />
           </div>
         </div>
