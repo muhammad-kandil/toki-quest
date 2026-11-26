@@ -32,6 +32,9 @@ export interface AlefResource {
   monday: Text;
   /** true until the Alef team confirms the name/description. */
   placeholder?: boolean;
+  /** Audit trail once Alef signs the card off. */
+  confirmedBy?: string;
+  confirmedAt?: string;
 }
 
 /* ------------------------------------------------------------------ */
@@ -147,6 +150,8 @@ export interface Adventure {
   teaser: { ifFlag?: string; text: Text }[];
   /** Adventure that unlocks after this one. */
   unlocks?: string;
+  /** One line: what this lesson was about (notebook + share post). */
+  takeaway?: Text;
 }
 
 /* ------------------------------------------------------------------ */
@@ -184,4 +189,15 @@ export interface TeacherSave {
   unlocked: string[];
   toolkit: string[];
   flags: Record<string, boolean>;
+  /** Resource ids the teacher marked "Try it Monday". */
+  saved?: string[];
+  /** Resource ids marked as tried in a real lesson (Term Pass stage, max one per day). */
+  tried?: { id: string; day: number }[];
+  /** Finished runs per adventure. */
+  runs?: Record<string, number>;
+  /** Every outcome id ever reached per adventure (notebook shows unexplored branches). */
+  seenOutcomes?: Record<string, string[]>;
+  lang?: 'en' | 'ar';
+  /** Term Pass: stage reached and reward ids claimed. Free for everyone; no paid lane. */
+  pass?: { stage: number; claimed: string[]; sharedFor: string[]; replayedFor: string[] };
 }
