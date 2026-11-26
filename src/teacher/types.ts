@@ -94,6 +94,10 @@ export interface Outcome {
   setFlag?: string;
   /** Event this outcome opens, `after` lesson-minutes from now. */
   next?: { event: string; after: number };
+  /** XP for a meaningful action (awarded once per outcome id per run). */
+  xp?: number;
+  /** NCLE tool discovered here (resource id). */
+  discover?: string;
 }
 
 export interface Choice {
@@ -107,6 +111,8 @@ export interface Choice {
   resource?: string;
   /** Outcome id; or a list checked in order, first whose `ifFlag` is set wins, last is the default. */
   outcome: string | { ifFlag?: string; outcome: string }[];
+  /** Only offered when this flag is set (e.g. the chosen evidence profile). */
+  ifFlag?: string;
 }
 
 export interface ClassEvent {
@@ -119,6 +125,12 @@ export interface ClassEvent {
   /** The situation, one sentence. */
   ask: Text;
   choices: Choice[];
+  /** Weighted pick among eligible events at each trigger. */
+  category?: EventCategory;
+  weight?: number;
+  eligible?: Eligibility;
+  /** Optional investigation before the choices. */
+  investigate?: Investigation;
 }
 
 export interface Adventure {
@@ -154,6 +166,68 @@ export interface Adventure {
   unlocks?: string;
   /** One line: what this lesson was about (notebook + share post). */
   takeaway?: Text;
+  /** false = the clock is narrative only (proposal: no countdown). */
+  timed?: boolean;
+  /** Laptop puzzle, board, bookshelf etc. */
+  puzzle?: SequencePuzzle;
+  /** Endings chosen by priority among eligible ones. */
+  endings?: Ending[];
+  /** Opening film: shots shown before play (picture + narration + optional line). */
+  film?: { picture: string; narration?: Text; who?: string; line?: Text }[];
+}
+
+
+/* ------------------------------------------------------------------ */
+/* Proposal mechanics (docs/product/ALEF_PROPOSAL.md)                  */
+/* ------------------------------------------------------------------ */
+
+/** One clue a teacher taps during an investigation (notebook, tablet, bubble, evidence card…). */
+export interface Clue { id: string; label: Text; text: Text }
+
+/** A coherent evidence profile, chosen once (weighted) when the encounter starts. */
+export interface EvidenceProfile {
+  id: string;
+  weight: number;
+  /** Clue texts for this profile, keyed by Clue id; every clue must agree. */
+  clues: Record<string, Text>;
+  /** Flag set when the profile is chosen (e.g. 'sara:prerequisite'). */
+  setFlag: string;
+}
+
+/** Tap-to-investigate step before choosing a response. */
+export interface Investigation {
+  clues: Clue[];
+  profiles: EvidenceProfile[];
+  /** Clues to reveal before choices unlock (default: all). */
+  minClues?: number;
+}
+
+export type EventCategory = 'learning' | 'collaboration' | 'misconception' | 'management' | 'bonus';
+
+export interface Eligibility { flags?: string[]; notFlags?: string[] }
+
+/** Drag/tap sequencing puzzle (the laptop: Build Your Learning Journey). */
+export interface SequencePuzzle {
+  id: string;
+  title: Text;
+  intro: Text;
+  cards: { id: string; text: Text; stages: Stage[] }[];
+  badge: string;
+  xp: number;
+  note: Text;
+}
+
+export interface Ending {
+  id: string;
+  title: Text;
+  narration: Text;
+  /** Eligible when all flags set / none of notFlags set. */
+  when: Eligibility;
+  /** Lower = more relevant (unresolved needs first). */
+  priority: number;
+  badge?: string;
+  /** Mission ids this ending opens. */
+  opens?: string[];
 }
 
 /* ------------------------------------------------------------------ */
@@ -211,4 +285,8 @@ export interface TeacherSave {
   placed?: Record<string, string>;
   /** Owned power-up counts by id. */
   powerups?: Record<string, number>;
+  /** XP: once per meaningful action; never shown as competence. */
+  xp?: number;
+  /** Outcome/puzzle ids already rewarded (anti-farming). */
+  rewarded?: string[];
 }
