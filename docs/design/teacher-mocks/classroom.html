@@ -9,27 +9,31 @@
 <style>
 /* Scene: 2:3 picture full-bleed at the top (390 x 585); the event sheet rises over its floor. */
 .scene { position: absolute; left: 0; top: 0; width: 390px; height: 585px; overflow: hidden; background: var(--t-indigo-deep); }
-.scene img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.scene .pic { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: url(../../../public/art/scenes/L1.jpg) 64% center / cover no-repeat; }
 .scene .dim { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: var(--t-scrim-soft); }
 .top { position: absolute; z-index: var(--t-z-hud); left: 0; right: 0; top: 0; padding: calc(10px + var(--t-safe-top)) var(--t-gutter) 26px; background: var(--t-top-fade); }
 .bar { position: relative; height: 44px; }
 .bar .t-btn--icon { position: absolute; left: 0; top: 0; }
-.bar .ttl { position: absolute; left: 54px; right: 112px; top: 2px; color: #fff; }
+.bar .ttl { position: absolute; left: 54px; right: 126px; top: 2px; color: #fff; }
 .bar .ttl .t-eyebrow { color: var(--t-teal); text-shadow: 0 1px 2px rgba(0,0,0,.4); }
 .bar .ttl h1 { color: #fff; font-size: 17px; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0,0,0,.45); }
-.clock { position: absolute; right: 0; top: 2px; width: 104px; padding: 5px 10px 7px; }
-.clock .t-num { display: block; font-size: 16px; font-weight: 800; line-height: 1.1; color: var(--t-orange); }
+.clock { position: absolute; right: 0; top: 2px; width: 118px; padding: 5px 10px 7px; text-align: center; }
+.clock .moment { display: block; font-family: var(--t-display); font-size: 14px; font-weight: 800; line-height: 1.2; color: var(--t-orange); white-space: nowrap; }
 .clock .t-num small { font-size: 12px; color: var(--t-on-dark-muted); font-weight: 600; }
-.clock .t-meter { height: 5px; margin-top: 4px; background: rgba(255,255,255,.2); }
-.t-rail { margin-top: 8px; }
+.clock .found { margin-top: 4px; --t-energy-pip-w: 22px; --t-energy-pip-h: 6px; --t-energy-off: rgba(255,255,255,.2); }
+.t-rail { margin-top: 16px; }
 
 .bubble { position: absolute; z-index: var(--t-z-bubble); max-width: 170px; padding: 7px 11px; border-radius: 14px; background: #fffaf0; color: var(--t-ink); font-size: var(--t-fs-sm); font-weight: 600; line-height: 1.3; box-shadow: var(--t-elev-2); }
 .bubble b { display: block; font-size: var(--t-fs-2xs); color: var(--t-rose-deep); letter-spacing: var(--t-track-eyebrow); text-transform: var(--t-case-eyebrow); }
-.bubble:after { content: ""; position: absolute; right: 22px; bottom: -7px; width: 14px; height: 14px; background: #fffaf0; -webkit-transform: rotate(45deg); transform: rotate(45deg); }
+.bubble:after { content: ""; position: absolute; left: 22px; bottom: -7px; width: 14px; height: 14px; background: #fffaf0; -webkit-transform: rotate(45deg); transform: rotate(45deg); }
 
-.t-sheet { top: 496px; padding-top: 10px; }
+.t-sheet { top: 596px; padding-top: 10px; }
+.explore h2 { margin-top: 2px; font-size: var(--t-fs-lg); color: var(--t-ink); }
+.explore p { margin: 4px 0 0; font-size: var(--t-fs-sm); color: var(--t-muted); }
+.seen { margin-top: 10px; }
+.seen .t-chip { margin: 0 6px 6px 0; }
 .head { position: relative; }
-.head .t-chip--time { position: absolute; right: 0; top: 0; }
+.head .t-chip--insight { position: absolute; right: 0; top: 0; }
 .head h2 { margin-top: 8px; font-size: var(--t-fs-lg); color: var(--t-ink); }
 .head p { margin: 2px 0 0; font-size: var(--t-fs-sm); color: var(--t-muted); line-height: 1.4; }
 .choices { margin-top: 12px; }
@@ -49,54 +53,35 @@
 <body>
 <div class="phone teacher-app">
   <div class="scene">
-    <img src="../../../public/story/busy-classroom/w1-open-4.jpg" alt="Ms. Mariam's Grade 5 classroom: three group tables, Ms. Mariam by the window">
+    <div class="pic" role="img" aria-label="Ms. Mariam's Grade 7 classroom before the lesson: group tables, the board, Ms. Mariam at the front"></div>
     <div class="dim"></div>
 
-    <button class="t-hot t-hot--poor t-hot--quiet" style="left:20%;top:47%"><span class="t-hot__ring">O</span><span class="t-hot__name">Omar</span></button>
-    <button class="t-hot t-hot--good t-hot--quiet" style="left:55%;top:52%"><span class="t-hot__ring">A</span><span class="t-hot__name">Ahmed</span></button>
-    <button class="t-hot t-hot--mixed t-hot--needs t-hot--active" style="left:79%;top:53%"><span class="t-hot__ring">S</span><span class="t-hot__flag">!</span><span class="t-hot__name">Sara</span></button>
-    <button class="t-hot t-hot--object t-hot--quiet" style="left:70%;top:40%"><span class="t-hot__ring">&#9636;</span><span class="t-hot__name">Tablets</span></button>
 
-    <div class="bubble" style="left:192px;top:146px"><b>Sara</b>"Miss, I still don't understand."</div>
+    <button class="t-hot t-hot--needs" style="left:15%;top:63%" aria-label="Sara, needs you"><span class="t-hot__ring">S</span><span class="t-hot__flag">!</span><span class="t-hot__name">Sara</span></button>
+    <button class="t-hot" style="left:65%;top:55%" aria-label="Ahmed, wants to talk"><span class="t-hot__ring">A</span><span class="t-hot__flag">!</span><span class="t-hot__name">Ahmed</span></button>
+    <button class="t-hot t-hot--good" style="left:57%;top:41%" aria-label="Omar, looked into"><span class="t-hot__ring">O</span><span class="t-hot__name">Omar</span></button>
+    <button class="t-hot t-hot--object t-hot--good" style="left:47%;top:24%"><span class="t-hot__ring">&#9645;</span><span class="t-hot__name">Board</span></button>
+    <button class="t-hot t-hot--object" style="left:11%;top:34%"><span class="t-hot__ring">&#9636;</span><span class="t-hot__name">Laptop</span></button>
+    <button class="t-hot t-hot--object" style="left:90%;top:27%"><span class="t-hot__ring">&#9638;</span><span class="t-hot__name">Bookshelf</span></button>
+    <div class="bubble" style="left:26px;top:244px"><b>Sara</b>"Miss, I still don't understand what we learned yesterday."</div>
   </div>
 
   <div class="top">
     <div class="bar">
       <button class="t-btn t-btn--icon" aria-label="Back to campus">&#8592;</button>
-      <div class="ttl"><div class="t-eyebrow">Adventure 1 · Grade 5 Math</div><h1>Different Needs, Same Classroom</h1></div>
-      <div class="t-hud-card t-hud-card--dark clock"><span class="t-num">12:00 <small>/ 40</small></span><div class="t-meter t-meter--time"><i class="t-meter__fill" style="width:30%"></i></div></div>
+      <div class="ttl"><div class="t-eyebrow">Mission 01 · Grade 7</div><h1>The First Five Minutes</h1></div>
+      <div class="t-hud-card t-hud-card--dark clock"><span class="moment">Before the bell</span><span class="t-meter--pips t-meter found" aria-label="Met 2 of 3 students"><i class="on"></i><i class="on"></i><i></i></span></div>
     </div>
-    <ol class="t-rail"><li class="is-done">Watch</li><li class="is-now">Decide</li><li>Discover</li><li>Challenge</li><li>Share</li><li>Reward</li><li>Unlock</li></ol>
+    <ol class="t-rail"><li class="is-done">Watch</li><li class="is-now">Explore</li><li>Investigate</li><li>Respond</li><li>Plan</li><li>Ending</li></ol>
   </div>
 
-  <!-- power-up tray: only kinds the teacher owns; one use of each per lesson -->
-  <div class="t-powerup-tray" style="top:382px" role="toolbar" aria-label="Power-ups">
-    <button class="t-powerup t-powerup--rewind is-used" disabled aria-label="Rewind, used this lesson"><b>&#8634;</b><span class="t-powerup__count">&#10003;</span></button>
-    <button class="t-powerup t-powerup--time" aria-label="Extra 5 minutes, 2 left"><b>+5</b><span class="t-powerup__count">2</span></button>
-    <button class="t-powerup t-powerup--look" aria-label="Second look, 1 left"><b>&#9678;</b><span class="t-powerup__count">1</span></button>
-    <button class="t-powerup t-powerup--assistant" aria-label="Teaching assistant, 1 left"><b>TA</b><span class="t-powerup__count">1</span></button>
-  </div>
 
-  <!-- class status strip: each student's ring colour + understanding / engagement -->
-  <div class="kids">
-    <div class="t-hud-card t-hud-card--pill kid" style="--c:var(--t-mixed)"><i class="dot"></i><span>Sara</span><span class="bars"><i><b style="width:10%"></b></i><i><b style="width:66%"></b></i></span></div>
-    <div class="t-hud-card t-hud-card--pill kid" style="--c:var(--t-good)"><i class="dot"></i><span>Ahmed</span><span class="bars"><i><b style="width:100%"></b></i><i><b style="width:33%"></b></i></span></div>
-    <div class="t-hud-card t-hud-card--pill kid" style="--c:var(--t-poor)"><i class="dot"></i><span>Omar</span><span class="bars"><i><b style="width:33%"></b></i><i><b style="width:10%"></b></i></span></div>
-  </div>
-
-  <section class="t-sheet" aria-label="Classroom event">
+  <section class="t-sheet explore" aria-label="Where to start">
     <div class="t-sheet__grip"></div>
-    <div class="head">
-      <span class="t-chip t-chip--poor t-chip--dot">Student needs help</span>
-      <span class="t-chip t-chip--time">28 min left</span>
-      <h2>Sara is stuck on adding fractions.</h2>
-      <p>She has written 1/4 + 2/4 = 3/8. What do you do first?</p>
-    </div>
-    <div class="choices t-stack">
-      <button class="t-btn t-btn--choice"><span><strong>Need help</strong><small>Support · work beside her</small></span><span class="t-chip t-chip--time">5 min</span></button>
-      <button class="t-btn t-btn--choice"><span><strong>See why</strong><small>Explanation · ask her to talk it through</small></span><span class="t-chip t-chip--time">4 min</span></button>
-      <button class="t-btn t-btn--choice"><span><strong>Move on</strong><small>Continue · come back later</small></span><span class="t-chip t-chip--time">0 min</span></button>
-    </div>
+    <div class="t-eyebrow">Ms. Mariam</div>
+    <h2>&ldquo;Five minutes before we begin. Where should I start?&rdquo;</h2>
+    <p>Tap a student or something in the room. Look before you decide.</p>
+    <div class="seen"><span class="t-chip t-chip--good t-chip--dot">Omar · looked into</span><span class="t-chip t-chip--good t-chip--dot">Board · used</span><span class="t-chip t-chip--placeholder">Sara · new</span><span class="t-chip t-chip--placeholder">Ahmed · new</span><span class="t-chip t-chip--placeholder">Laptop · puzzle</span></div>
   </section>
 </div>
 </body>

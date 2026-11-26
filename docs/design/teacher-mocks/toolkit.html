@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: NCLE toolkit</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.phone { background: var(--t-bg); }
+.bar { position: relative; height: 44px; margin: calc(10px + var(--t-safe-top)) var(--t-gutter) 0; }
+.bar .t-btn--icon { position: absolute; left: 0; top: 0; }
+.bar .ttl { position: absolute; left: 56px; right: 0; top: 1px; }
+.bar h1 { font-size: var(--t-fs-xl); line-height: 1.1; }
+.bar .t-chip { position: absolute; right: 0; top: 10px; }
+.filters { margin: 12px var(--t-gutter) 0; white-space: nowrap; }
+.filters .t-chip { padding: 7px 12px; margin-right: 6px; font-size: var(--t-fs-sm); }
+.filters .on { background: var(--t-indigo); color: #fff; }
+.list { margin: 12px var(--t-gutter) 0; }
+.sec { margin: 14px 0 6px; font-size: var(--t-fs-xs); font-weight: 600; color: var(--t-muted); }
+.t-tool .t-chip { position: absolute; right: 12px; top: 12px; font-size: 10px; padding: 1px 8px; }
+.t-tool .t-tool__name { padding-right: 70px; }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="bar">
+    <button class="t-btn t-btn--icon" aria-label="Back">&#8592;</button>
+    <div class="ttl"><div class="t-eyebrow">New Core Learning Experience</div><h1>NCLE Toolkit</h1></div>
+    <span class="t-chip t-chip--good">3 of 6 found</span>
+  </div>
+  <div class="filters"><span class="t-chip t-chip--placeholder" style="display:block;margin:0 0 8px;text-align:center">Names and descriptions to be verified by Alef</span><span class="t-chip on">All</span><span class="t-chip">Launch</span><span class="t-chip">Facilitate</span><span class="t-chip">Extend</span></div>
+
+  <div class="list t-stack">
+    <div class="t-tool t-tool--extend">
+      <span class="t-tool__tile">&#8599;</span><span class="t-chip t-chip--mixed">Extend</span>
+      <span class="t-tool__name">Assign</span>
+      <span class="t-tool__what">Send a student a task matched to where they are, like a stretch problem for Ahmed.</span>
+      <span class="t-tool__monday"><b>Try it Monday:</b> keep one "go further" task ready for early finishers.</span>
+      <span class="t-tool__found">Found in Mission 01 · Ahmed</span>
+    </div>
+    <div class="t-tool t-tool--facilitate">
+      <span class="t-tool__tile">&#8756;</span><span class="t-chip t-chip--good">Facilitate</span>
+      <span class="t-tool__name">See Why</span>
+      <span class="t-tool__what">Shows the reasoning behind a step, so a misconception surfaces instead of repeating.</span>
+      <span class="t-tool__found">Found in Mission 01 · Sara</span>
+    </div>
+    <div class="t-tool t-tool--launch">
+      <span class="t-tool__tile">&#9654;</span><span class="t-chip t-chip--insight">Launch</span>
+      <span class="t-tool__name">Present Mode</span>
+      <span class="t-tool__what">Put the learning intention on the board so everyone knows what today is for.</span>
+      <span class="t-tool__found">Found in Mission 01 · Omar</span>
+    </div>
+
+    <div class="sec">Still to discover in Mission 01</div>
+    <div class="t-tool t-tool--unfound"><span class="t-tool__tile">?</span><span class="t-tool__name">Need Help</span><span class="t-tool__what">Look closer at a student who's stuck on the task.</span></div>
+    <div class="t-tool t-tool--unfound"><span class="t-tool__tile">?</span><span class="t-tool__name">AI Helper</span><span class="t-tool__what">A hint is waiting on Sara's tablet.</span></div>
+    <div class="t-tool t-tool--unfound"><span class="t-tool__tile">?</span><span class="t-tool__name">Practice</span><span class="t-tool__what">For a student who understands but needs it to stick.</span></div>
+    <div class="t-tool t-tool--unfound t-tool--later"><span class="t-tool__tile">+</span><span class="t-tool__name">Teams · Exit Ticket · more</span><span class="t-tool__what">In later missions.</span></div>
+  </div>
+</div>
+</body>
+</html>

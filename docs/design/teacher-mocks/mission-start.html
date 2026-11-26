@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Mission start</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+/* The last shot of the opening film holds here: the camera has pulled back to the classroom. */
+.shot { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: var(--t-indigo-deep) url(../../../public/art/scenes/L1.jpg) 64% center / cover no-repeat; }
+.top { position: absolute; z-index: var(--t-z-hud); left: var(--t-gutter); right: var(--t-gutter); top: calc(12px + var(--t-safe-top)); }
+.brand { float: left; padding: 6px 12px; font-size: var(--t-fs-xs); font-weight: 600; color: var(--t-ink-2); }
+.brand b { font-family: var(--t-display); font-weight: 800; color: var(--t-indigo); }
+.lang { float: right; }
+.lang .t-chip { padding: 8px 12px; background: var(--t-glass); box-shadow: var(--t-elev-1); }
+.film { position: absolute; z-index: var(--t-z-hud); left: 0; right: 0; top: 300px; text-align: center; }
+.film .t-chip { background: rgba(35,27,69,.72); color: #fff; padding: 6px 12px; }
+.where { display: inline-block; padding: 8px 16px; border-radius: 16px; background: rgba(35,27,69,.62); margin: 0 auto 10px; font-family: var(--t-display); font-weight: 700; font-size: 18px; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+.t-mission .t-btn--ghost { margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="shot" role="img" aria-label="Ms. Mariam's Grade 7 classroom a few minutes before the lesson"></div>
+  <div class="top">
+    <div class="t-hud-card t-hud-card--pill brand"><b>Alef</b> · Every Classroom Has a Story</div>
+    <div class="lang"><span class="t-chip">EN · عربي</span></div>
+  </div>
+  <div class="film"><p class="where">&ldquo;Five minutes before we begin.<br>Where should I start?&rdquo;</p><br><span class="t-chip">&#9654; Watch the opening again</span></div>
+
+  <section class="t-mission">
+    <span class="t-mission__tag">Mission 01</span>
+    <h1 class="t-mission__title">The First Five Minutes</h1>
+    <ul class="t-mission__lines"><li>Your classroom.</li><li>Your decisions.</li><li>Your adventure.</li></ul>
+    <div class="t-mission__meta">Grade 7 · about 5–8 minutes · pause and replay any time</div>
+    <button class="t-btn t-btn--block">Start Playing</button>
+    <button class="t-btn t-btn--ghost t-btn--block t-btn--on-dark">How it works</button>
+  </section>
+</div>
+</body>
+</html>

@@ -8,6 +8,16 @@ Data: `src/teacher/types.ts`.
 Engineers: use only `--t-*` variables and `t-*` classes. If something is
 missing, ask for a token; don't add hex codes in screens.
 
+> **Priority: Alef proposal (`docs/product/ALEF_PROPOSAL.md`).** Build
+> **§10 Mission 01** first. Where §2 differs from §10, §10 wins:
+> - no lesson countdown or minute costs;
+> - no mentor character;
+> - Grade 7;
+> - the rail is Watch, Explore, Investigate, Respond, Plan, Ending.
+>
+> Term Pass (§7), the shop and power-ups (§8) are **later, not MVP**. Their
+> classes stay in theme.css but are not used in Mission 01.
+
 ## 1. Look
 
 A sunlit painted campus. The painted art follows `ART_BIBLE.md`: warm sand
@@ -108,7 +118,7 @@ Every screen sits inside `.teacher-app`. Respect `--t-safe-top` and
 - The top bar is the same as in the simulation, with the rail on "Watch".
   A "Skip" ghost chip sits top-end.
 
-### Adventure: simulation (Decide) (mock: `classroom.png`)
+### Adventure: simulation (Decide). For Mission 01, see §10: no clock and no minutes.
 - **Top bar** over `--t-top-fade` holds the back button, then the eyebrow
   (adventure number and meta) and the title (17px, one line, ellipsis).
   At the end is the **lesson clock**, a `t-hud-card--dark` showing "12:00 / 40"
@@ -510,13 +520,174 @@ Rewind can only be used while an outcome card is showing. Extra 5 minutes
 can only be used in the last 10 minutes of the lesson. Outside those times
 the disc is `[disabled]` without the ✓.
 
-## 9. Mock files
+## 10. Mission 01: The First Five Minutes (Alef proposal, MVP)
+
+**Rules that shape the UI:**
+- The "five minutes" is a story frame. Nothing ticks, counts down or costs
+  minutes. The top-end HUD card says where we are in the story ("Before the
+  bell"), and its pips count **students met**, not time.
+- There is no mentor or guide character. Ms. Mariam speaks in the first
+  person in the sheets ("Where should I start?").
+- Students never carry a fixed-ability label. A hotspot ring stays **white
+  until investigated**, and only then takes a state colour.
+- XP is modest and secondary. It is a small `t-xp` chip, never a headline,
+  never a bar to fill, and always paired with "XP marks what you explored,
+  not a score of your teaching."
+- Pause and replay are always one tap away. There are no streaks and no
+  penalties.
+
+**Rail** (`t-rail`, 6 steps): Watch · Explore · Investigate · Respond · Plan ·
+Ending.
+
+### Mission start (mock: `mission-start.png`)
+- The last opening-film shot holds full-bleed (`public/art/scenes/L1.jpg`
+  stand-in: Ms. Mariam at the front, students arriving).
+- Top: a brand pill "Alef · Every Classroom Has a Story" and a language chip.
+- Mid-screen: Ms. Mariam's line "Five minutes before we begin. Where should
+  I start?" on a soft dark plate, with "▶ Watch the opening again" under it.
+- Bottom, on `t-mission` (a strong indigo fade, so text never sits on busy
+  paint):
+  - the tag `t-mission__tag` "MISSION 01" in orange caps;
+  - the title "The First Five Minutes" (Baloo 38/800, white);
+  - the three lines "Your classroom. · Your decisions. · Your adventure.",
+    with the last in teal;
+  - the meta line "Grade 7 · about 5–8 minutes · pause and replay any
+    time";
+  - **Start Playing** (`t-btn--block`) and "How it works" (ghost on dark).
+- In Arabic the lock-up centres the same way. Use Baloo Bhaijaan 2 for the
+  title, and turn off caps and tracking on the tag (the tokens handle this).
+
+### Explore (classroom hub) (mock: `classroom.png`)
+- The scene is full-bleed 2:3 at the top. The top bar holds the eyebrow
+  "Mission 01 · Grade 7", the title, and the "Before the bell" card.
+- **Hotspots**: three students and three objects (Board, Laptop, Bookshelf;
+  `t-hot--object`, dashed).
+  - Unvisited students show the "!" flag. Only the student who is speaking
+    pulses (`--needs`), with their speech bubble.
+  - Resolved hotspots turn `--good`. Objects that have been used get a teal
+    dashed ring.
+- **Where-to-start sheet**: a short `t-sheet` holding Ms. Mariam's line, the
+  hint "Look before you decide", and a row of chips:
+  - visited items in green (`t-chip--good t-chip--dot` "Omar · looked
+    into");
+  - unvisited items with a dashed outline (`t-chip--placeholder` "Sara ·
+    new").
+
+  The sheet's job is orientation, not a checklist score.
+
+### Investigation (mocks: `investigation-ahmed.png`, `investigation-sara.png`)
+- **Layout**:
+  - A scene band (268px) zoomed on the student, with their line in a speech
+    bubble.
+  - A sand panel rising over it: the question ("What's behind Ahmed's
+    confidence?") and one line of instruction.
+  - Three **clue cards** (`t-clue`, 104×148), then progress, then the
+    response choices.
+- **Clue kinds and glyphs**:
+  - `--notebook` is orange.
+  - `--tablet` is blue.
+  - `--bubble` (what they say) is teal, with a speech-tail corner.
+  - `--evidence` is indigo: Ahmed's three cards, *Correct answer ✓ ·
+    Explanation ∴ · Application ↗*.
+- **Card states**:
+  - **Back**: indigo gradient, glyph disc, label and "Tap to look".
+  - **`.is-next`**: only the next unopened card gets an orange halo.
+  - **`.is-open`**: the card flips on Y over 480ms (`--t-dur-flip`). The
+    face is white with a kind-coloured border, the kind label in caps, and
+    the clue text at 12px.
+
+  With reduced motion the flip becomes an instant swap.
+- **Progress**: "2 of 3 clues" plus orange pips (`t-clue-progress`).
+- **Choices**:
+  - Choices use the existing `t-btn--choice`, title plus "approach ·
+    purpose", with **no minutes**.
+  - Until `minClues` are open, the list has `.t-choices-locked` (45% and
+    `disabled`), and a `t-lock-note` explains why ("More evidence, better
+    decisions").
+  - The NCLE tool a choice reveals is **not** shown on the choice. It is
+    discovered in the outcome (`Outcome.discover`) with the resource card
+    reveal.
+- Clue texts in one encounter always come from one `EvidenceProfile`, so they
+  agree. The UI never hints which profile was drawn.
+
+### Laptop puzzle: Build Your Learning Journey (mock: `journey.png`)
+- Wrapper: `t-laptop` (indigo bezel, base lip) containing
+  `t-laptop__screen`, a **simplified Alef-style** screen in cooler app
+  white.
+  - The chrome bar holds the window dots and "Lesson planner".
+  - It always carries **`t-sim-label` "Simulation · not the real Alef
+    platform"**. This is the honesty requirement from the proposal, and it
+    must not be removed.
+- **Stage columns** (`t-journey`, three table cells):
+  - the head is in the stage colour (Launch blue, Facilitate & Synthesize
+    teal, Extend & Assess orange), with "Stage n";
+  - the drop zone is dashed in the stage colour on its soft tint, and
+    turns solid white while a card is dragged over it (`.is-over`).
+- **Practice cards** (`t-practice`): white, 11/600, with grip dots on the
+  start edge. Placed cards get a stage-coloured start border.
+  - **Drag**: long-press 150ms lifts the card (`.is-dragging`: −3°, 1.04×,
+    elev-3). Columns highlight as targets.
+  - **Tap alternative**: a tap selects the card (`.is-selected`, orange
+    halo). The tray hint names it ("Selected: … · choose a stage above"),
+    and every column shows a `t-journey__target` "+ Place here" button
+    (44px). Tapping a placed card selects it to move it.
+  - **Check**: "Check my journey" stays disabled until every card is placed
+    ("· 4 cards left").
+  - **After Check**: fitting cards get `.is-fit`. Cards that also fit
+    another stage get `.is-also` with a small "also Launch" tag, because
+    practices recur. Nothing is ever marked red or wrong; a card in an
+    unexpected stage gets a one-line "why it usually sits in …" note.
+- **Under the laptop**: "The order is illustrative…" and the badge preview
+  chip "Instructional Architect".
+
+### Ending (mock: `ending.png`)
+- **Top**: the classroom picture with `--t-caption-fade`, the eyebrow
+  "Ending · Ready to Learn" (orange), and the **closing narration** in
+  `t-narration` (Baloo 17, white).
+- **Panel**:
+  - The badge is an 86px `t-medal` with the badge title ("Purposeful
+    Launch") and why it was earned.
+  - Next to it is the **modest XP** chip (`t-xp` "+210 XP") with its
+    disclaimer.
+  - "Added to your NCLE toolkit": chips, with new ones in `--good` marked
+    "· new".
+- **Missions opened**: `t-open-mission` rows (number tile, title, why it
+  opened, chevron).
+  - The most relevant one is `--first` (teal ring).
+  - When several endings were eligible, the other missions they open
+    follow, each with its reason ("Omar's starting point is still
+    unclear").
+- **Footer**: "Replay Mission 01" and "Open toolkit" (ghost).
+- The three endings use the same layout and change only the eyebrow,
+  narration, badge and missions.
+
+### NCLE toolkit (mock: `toolkit.png`)
+- The title is "NCLE Toolkit" with "3 of 6 found", plus a
+  `t-chip--placeholder` "Names and descriptions to be verified by Alef". Stage
+  filter chips sit under it.
+- **Found tools** (`t-tool --launch/--facilitate/--extend`) show:
+  - a 48px tile in the stage colour (glyphs: Assign ↗, Present Mode ▶,
+    See Why ∴, Need Help ?, AI Helper "AI", Practice ✎);
+  - the name, the stage chip and what it does;
+  - the "Try it Monday" box, when written;
+  - "Found in Mission 01 · Ahmed".
+- **Not found yet** (`--unfound`): a dashed sand card with a "?" tile, the
+  name and a hint at where it is ("A hint is waiting on Sara's tablet").
+- **Later tools** (Teams, Exit Ticket…): `--later`, at 70% opacity.
+
+## 11. Mock files
 
 | File | Shows |
 |---|---|
 | `teacher-mocks/campus.html` → `campus.png` | campus, all pin states, Ms. Mariam and route, full HUD with Term Pass and notes |
 | `campus.html?ar` → `campus-ar.png` | the same in Arabic / RTL |
-| `classroom.html` → `classroom.png` | simulation: rail, clock, hotspot states, power-up tray (one used), class strip, event sheet |
+| `mission-start.html` → `mission-start.png` | Mission 01 opening screen (§10) |
+| `classroom.html` → `classroom.png` | Mission 01 explore hub: 3 students + 3 objects, no countdown, where-to-start sheet (§10) |
+| `investigation.html` → `investigation-ahmed.png` | Ahmed's evidence cards, 2 of 3 flipped, choices locked |
+| `investigation.html?sara` → `investigation-sara.png` | Sara's notebook / tablet / bubble clues, all open, choices ready |
+| `journey.html` → `journey.png` | laptop puzzle, tap-to-place mode |
+| `ending.html` → `ending.png` | ending: narration, badge, modest XP, missions opened |
+| `toolkit.html` → `toolkit.png` | NCLE toolkit: found, to discover, later |
 | `term-pass.html` → `term-pass.png` | Term Pass with all card and node states |
 | `certificate.html` → `certificate.png` | end-of-term certificate |
 | `shop.html` → `shop.png` | Campus Shop (Accessories), item states, buy moment (frozen mid-animation) |

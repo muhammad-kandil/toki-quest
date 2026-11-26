@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Build Your Learning Journey</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.phone { background: var(--t-bg); background-image: radial-gradient(ellipse at 50% 30%, #fffaf0 0%, rgba(255,250,240,0) 70%); }
+.bar { position: relative; height: 44px; margin: calc(10px + var(--t-safe-top)) var(--t-gutter) 0; }
+.bar .t-btn--icon { position: absolute; left: 0; top: 0; }
+.bar .ttl { position: absolute; left: 56px; right: 0; top: 1px; }
+.bar h1 { font-size: 19px; line-height: 1.1; }
+.intro { margin: 10px var(--t-gutter) 0; font-size: var(--t-fs-sm); color: var(--t-muted); line-height: 1.4; }
+.t-laptop { margin: 14px var(--t-gutter) 0; }
+.lesson { padding: 8px 10px 6px; font-size: var(--t-fs-2xs); color: var(--t-muted); }
+.lesson b { display: block; font-family: var(--t-display); font-size: var(--t-fs-sm); color: var(--t-ink); }
+.t-journey { margin-left: -2px; width: 100%; }
+.t-journey__drop { min-height: 230px; }
+.tray-hint { font-size: var(--t-fs-2xs); font-weight: 600; color: var(--t-muted); margin-bottom: 6px; }
+.tray-hint b { color: var(--t-orange-deep); }
+.foot { position: absolute; left: var(--t-gutter); right: var(--t-gutter); bottom: calc(16px + var(--t-safe-bottom)); }
+.foot .note { margin-top: 8px; text-align: center; font-size: var(--t-fs-2xs); color: var(--t-muted); }
+.foot .t-chip { margin-left: 6px; }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="bar">
+    <button class="t-btn t-btn--icon" aria-label="Back to the classroom">&#8592;</button>
+    <div class="ttl"><div class="t-eyebrow">The laptop · planning puzzle</div><h1>Build Your Learning Journey</h1></div>
+  </div>
+  <p class="intro">Place today's practices into the three stages of the lesson. There is more than one good journey.</p>
+
+  <div class="t-laptop">
+    <div class="t-laptop__screen">
+      <div class="t-laptop__bar"><i></i><i></i><i></i> Lesson planner &nbsp;<span class="t-sim-label">Simulation · not the real Alef platform</span></div>
+      <div class="lesson"><b>Grade 7 Math · Dividing fractions</b>Drag a card into a stage, or tap a card and then a stage.</div>
+      <div class="t-journey" role="group" aria-label="Lesson stages">
+        <div class="t-journey__col t-journey__col--launch">
+          <div class="t-journey__head">Launch<small>Stage 1</small></div>
+          <div class="t-journey__drop">
+            <div class="t-practice is-placed">Share the learning intention</div>
+            <button class="t-journey__target">+ Place here</button>
+          </div>
+        </div>
+        <div class="t-journey__col t-journey__col--facilitate">
+          <div class="t-journey__head">Facilitate &amp; Synthesize<small>Stage 2</small></div>
+          <div class="t-journey__drop">
+            <div class="t-practice is-placed">Guided practice in pairs</div>
+            <div class="t-practice is-placed">Quick check: who's ready?</div>
+            <button class="t-journey__target">+ Place here</button>
+          </div>
+        </div>
+        <div class="t-journey__col t-journey__col--extend">
+          <div class="t-journey__head">Extend &amp; Assess<small>Stage 3</small></div>
+          <div class="t-journey__drop">
+            <div class="t-practice is-placed">Exit ticket</div>
+            <button class="t-journey__target">+ Place here</button>
+          </div>
+        </div>
+      </div>
+      <div class="t-practice-tray">
+        <div class="tray-hint"><b>Selected:</b> "Discuss: why does it work?" · choose a stage above</div>
+        <button class="t-practice is-selected" aria-pressed="true">Discuss: why does it work?</button>
+        <button class="t-practice">Extension task for early finishers</button>
+        <button class="t-practice">Prior-knowledge warm-up</button>
+        <button class="t-practice">Targeted practice set</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <button class="t-btn t-btn--block" disabled>Check my journey · 4 cards left</button>
+    <div class="note">The order is illustrative: a practice can belong to more than one stage.<br><span class="t-chip t-chip--insight" style="margin-top:6px">Badge: Instructional Architect</span></div>
+  </div>
+</div>
+</body>
+</html>

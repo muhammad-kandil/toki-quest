@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Mission ending</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.phone { background: var(--t-bg); }
+.band { position: absolute; left: 0; top: 0; right: 0; height: 290px; background: var(--t-indigo-deep) url(../../../public/art/scenes/L1.jpg) 60% 30% / 700px auto no-repeat; }
+.band:after { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: var(--t-caption-fade); }
+.say { position: absolute; z-index: var(--t-z-bubble); left: var(--t-gutter); right: var(--t-gutter); bottom: 584px; }
+.say .t-eyebrow { color: var(--t-orange); }
+.panel { position: absolute; left: 0; right: 0; top: 270px; bottom: 0; padding: 18px var(--t-gutter) calc(16px + var(--t-safe-bottom)); background: var(--t-bg); border-top-left-radius: var(--t-r-xl); border-top-right-radius: var(--t-r-xl); }
+.win { position: relative; min-height: 88px; padding-left: 100px; }
+.win .t-medal { position: absolute; left: 0; top: 0; width: 86px; height: 86px; border-width: 4px; font-size: 32px; line-height: 78px; }
+.win h2 { font-size: var(--t-fs-xl); color: var(--t-ink); }
+.win p { margin: 2px 0 6px; font-size: var(--t-fs-sm); color: var(--t-muted); line-height: 1.35; }
+.xpnote { display: inline-block; margin-left: 6px; font-size: var(--t-fs-2xs); color: var(--t-muted); vertical-align: middle; width: 170px; line-height: 1.3; }
+.found { margin-top: 14px; padding: 10px 12px; }
+.found .t-eyebrow { color: var(--t-muted); }
+.found .t-chip { margin: 6px 4px 0 0; }
+.opened { margin-top: 16px; }
+.opened h3 { font-size: var(--t-fs-md); color: var(--t-ink); margin-bottom: 8px; }
+.row { margin-top: 12px; }
+.row .t-btn { width: 48.5%; font-size: var(--t-fs-sm); }
+.row .t-btn + .t-btn { margin-left: 3%; }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="band" role="img" aria-label="The classroom as the lesson begins"></div>
+  <div class="say">
+    <div class="t-eyebrow">Ending · Ready to Learn</div>
+    <p class="t-narration" style="margin:4px 0 0">The bell rings. Sara knows where to start, Ahmed has a real question to chew on, and Omar knows what today is for.</p>
+  </div>
+
+  <section class="panel">
+    <div class="win">
+      <span class="t-medal">&#9733;</span>
+      <h2>Purposeful Launch</h2>
+      <p>You checked who was ready before teaching, and gave each student a next step.</p>
+      <span class="t-xp">+210 XP</span><span class="xpnote">XP marks what you explored. It is not a score of your teaching.</span>
+    </div>
+
+    <div class="t-card t-card--inset found">
+      <div class="t-eyebrow">Added to your NCLE toolkit</div>
+      <span class="t-chip t-chip--good t-chip--dot">Assign · new</span><span class="t-chip t-chip--good t-chip--dot">See Why · new</span><span class="t-chip">Present Mode</span>
+    </div>
+
+    <div class="opened">
+      <h3>Missions opened</h3>
+      <div class="t-stack">
+        <button class="t-open-mission t-open-mission--first"><span class="t-open-mission__num">02</span><strong>Bring Learning to Life</strong><small>Your ending opened this one</small></button>
+        <button class="t-open-mission"><span class="t-open-mission__num">03</span><strong>Bridging the Gap</strong><small>Omar's starting point is still unclear</small></button>
+      </div>
+    </div>
+
+    <div class="row"><button class="t-btn t-btn--ghost">Replay Mission 01</button><button class="t-btn t-btn--ghost">Open toolkit</button></div>
+  </section>
+</div>
+</body>
+</html>
