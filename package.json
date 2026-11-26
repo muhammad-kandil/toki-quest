@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:teacher": "vite-node tools/teacher/engine.test.ts",
+    "e2e:teacher": "node tools/teacher/e2e.mjs"
   },
   "dependencies": {
     "@fontsource/baloo-2": "^5.2.7",
