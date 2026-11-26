@@ -1,0 +1,8 @@
+/* Teacher game design tokens. Owned by the UI designer; the engine uses only these variables. */
+.teacher-app {
+  --t-bg: #f3efe6; --t-ink: #231b45; --t-muted: #6b6290; --t-panel: #ffffff; --t-line: #e2dcef;
+  --t-indigo: #3b2a78; --t-teal: #2ad7be; --t-orange: #f5a623; --t-rose: #e8566b; --t-blue: #4a8fe0;
+  --t-radius: 16px; --t-shadow: 0 6px 18px rgba(35,27,69,.12);
+  --t-display: "Baloo 2", "Baloo Bhaijaan 2", system-ui, sans-serif;
+  --t-body: Inter, "IBM Plex Sans Arabic", system-ui, sans-serif;
+}
