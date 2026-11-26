@@ -321,3 +321,51 @@ V19 Present Mode can show a student's example (photo + sentence) · V20 AI
 Helper can explain a science word (mass) to a student · V21 Need Help can
 offer task guidance such as a vocabulary card or a one-line recap · V22
 Assign can give one student an extension question mid-lesson.
+
+---
+
+<a id="m04"></a>
+## Mission 04 · Bridging the Gap
+
+`m4` · Grade 7 · Math (proportions) · Sara, Omar, Maitha · opened by M01
+"The Unfinished Puzzle" or `unlock:m4` (Sara's bridge in M01).
+
+**Teacher's learning goal:** a gap is a specific missing step. Check
+readiness before the new topic, identify the exact step (simplifying? times
+tables? the task's wording? confidence?), then match the support: Need Help
+for task guidance, AI Helper for explaining wording or an idea, Practice for
+reinforcement.
+
+**Continuity:** if Sara was bridged in M01 (`unlock:m4`), her Practice
+choice gives *Yesterday's bridge holds* (u+2); otherwise *The first step,
+five times* (u+1).
+
+| Student | Profiles (weight) → choices |
+|---|---|
+| Sara (warm-up / yesterday's page / words) | still stuck on simplifying 35 → Practice · hint (Need Help, `m4.gap`) — times-table facts 35 → Practice facts · grid for today (`m4.gap`) — gap closed 30 → Assign today's task · check again |
+| Omar (desk / attempt / words) | task wording 40 → Need Help · AI Helper — missed ratios 30 → AI Helper catch-up · pair with Sara (good if `m4.closed`, else both stuck) — confidence 30 → Practice 3+1 · "your first answer was right" |
+| Maitha (tablet / notebook / words) | English wording 40 → AI Helper · simplify the question (`m4.gap`) — repeated adding 30 → See Why · show quick method — ahead 30 → Assign stretch · check with Sara (Teams) |
+
+Objects: laptop (three-question readiness check vs skip, `m4.gap`), board
+(bridge yesterday's question into today's intention, Present Mode),
+bookshelf (times-table chart). Pool: Sara sees the bridge (learning 35,
+not when stuck) · Maitha explains to Omar (collaboration 25) · "just
+cross-multiply" (misconception 20) · login trouble (management 15).
+
+Endings: **The Gap Is Smaller** (`m4.gap`, p1) → m6 · **A Bridge, Shared**
+(`m4.peerVoice`, p2) → m7 · **The Bridge Is Built** (no gap, p3, badge
+Bridge Builder) → m6, m7.
+
+**Scene brief (`teacher/scenes/m04.jpg`):** Grade 7 room. Sara front-left
+(34/58) with two notebooks open side by side; Omar by the window (18/44)
+staring at a tablet; Maitha centre-right (64/52) underlining a long word
+problem. "2 : 3 = 6 : ?" on the board. Folded chart between dictionaries on
+the shelf. **Film** `m04-1…3`: (1) the board with yesterday's ratio and
+today's title; (2) the three students, each with their own worry; (3) Ms.
+Mariam looking from one to the next.
+
+**To verify:** V23 Need Help can give a hint for the current question · V24
+AI Helper can explain an English word in a maths question · V25 AI Helper
+can explain a previous lesson's idea to a student who missed it · V26
+Practice can target a specific prerequisite (simplifying, times-table facts)
+· V27 Assign can give one student today's task or a stretch problem.
