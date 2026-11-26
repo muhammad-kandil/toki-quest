@@ -1,0 +1,45 @@
+name: Render story stills (Gemini)
+on:
+  workflow_dispatch:
+    inputs:
+      worlds:
+        description: "World ids, comma separated (empty = all)"
+        default: ""
+      force:
+        description: "Re-render existing stills"
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  actions: write
+concurrency: { group: story-art, cancel-in-progress: false }
+jobs:
+  stills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx vite-node tools/art/export-story.ts
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q pillow
+      - name: Render
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_IMAGE_MODEL: ${{ vars.GEMINI_IMAGE_MODEL }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then echo "::error::GEMINI_API_KEY secret is not set"; exit 1; fi
+          python tools/art/story.py ${{ inputs.worlds != '' && format('--worlds {0}', inputs.worlds) || '' }} ${{ inputs.force && '--force' || '' }}
+      - name: Commit
+        if: always()
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          git config user.name "toki-art[bot]"; git config user.email "toki-art@users.noreply.github.com"
+          git add public/story 2>/dev/null || true
+          git diff --cached --quiet && { echo "no new stills"; exit 0; }
+          git commit -qm "story: render stills (workflow run ${{ github.run_id }})"
+          git pull --rebase -q origin main && git push -q origin main
+          gh workflow run deploy.yml --ref main

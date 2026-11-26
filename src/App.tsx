@@ -15,6 +15,9 @@ import { SkinPickerScreen } from './screens/SkinPickerScreen';
 import { BadgesScreen } from './screens/BadgesScreen';
 import { NameScreen } from './screens/NameScreen';
 import { BoardScreen } from './screens/BoardScreen';
+import { StoryScreen } from './screens/StoryScreen';
+import { StoriesScreen } from './screens/StoriesScreen';
+import { storyById, storyFor } from './data/story';
 import { getLevel, getWorldBoss, getAcademyLevel, getSchoolVisit, ensureWorldLoaded, BOSS, BOSS_ID } from './data/levels';
 import { WORLDS, getWorld } from './data/worlds';
 import { completedCount as countDone, currentWorld as findCurrentWorld } from './data/progression';
@@ -36,6 +39,8 @@ interface SaveData {
   attempts?: Record<number, Record<string, number>>;
   /** Per level: how the coaching conversation ended, from the best-scoring run. */
   outcomes?: Record<number, 'restored' | 'partial' | 'unchanged'>;
+  /** Picture-stories already watched (ids from src/data/story.ts). */
+  storiesSeen?: string[];
   /** The name the player chose (asked once before the first world). */
   playerName?: string;
   /** The player's choice to appear by name on the ranking. */
@@ -53,13 +58,14 @@ const DEFAULT_SAVE: SaveData = {
   selectedSkinId: DEFAULT_SKIN_ID,
 };
 
-type Screen = 'loading' | 'title' | 'name' | 'map' | 'world' | 'classroom' | 'boss' | 'worldboss' | 'academy' | 'visit' | 'skins' | 'badges' | 'board';
+type Screen = 'loading' | 'title' | 'name' | 'map' | 'world' | 'classroom' | 'boss' | 'worldboss' | 'academy' | 'visit' | 'skins' | 'badges' | 'board' | 'story' | 'stories';
 
 const IN_ROOM: Screen[] = ['classroom', 'boss', 'worldboss', 'academy', 'visit'];
 /** Where the hardware / browser Back button goes from each screen.
  *  'return' = wherever the overlay was opened from. Playtest finding:
  *  Back used to leave the app entirely (about:blank). */
 const BACK_TARGET: Partial<Record<Screen, Screen | 'return'>> = {
+  story: 'map', stories: 'map',
   map: 'title', world: 'map', skins: 'return', badges: 'return', board: 'map', name: 'return',
   classroom: 'world', boss: 'world', worldboss: 'world', academy: 'world', visit: 'world',
 };
@@ -184,6 +190,23 @@ function App() {
     setScreen(returnTo === 'board' ? 'board' : 'map');
   };
 
+  // The picture-story: an opening the first time a world is entered, a
+  // closing after its challenge. `next` is where the player goes after.
+  const [activeStory, setActiveStory] = useState<string | null>(null);
+  const [storyNext, setStoryNext] = useState<Screen>('map');
+  const playStory = (id: string, next: Screen) => {
+    setActiveStory(id);
+    setStoryNext(next);
+    setScreen('story');
+  };
+  const handleStoryDone = async () => {
+    const id = activeStory;
+    if (id && !(save.storiesSeen ?? []).includes(id)) {
+      await persist({ ...save, storiesSeen: [...(save.storiesSeen ?? []), id] });
+    }
+    setScreen(storyNext);
+  };
+
   const handleEnterClassroom = (id: number) => {
     setActiveLevel(id);
     if (id === BOSS_ID) setScreen('boss');
@@ -207,7 +230,11 @@ function App() {
     }
     await persist({ ...save, bestScores, badges: newBadges, attempts, outcomes });
     reportProgress({ bestScores, badges: newBadges, lang, attempts, outcomes });
-    setScreen('world');
+    // First completion of a world's challenge: its closing story, then the map.
+    const finishedWorld = save.bestScores[result.levelId] == null ? WORLDS.find((w) => w.bossId === result.levelId) : undefined;
+    const closing = finishedWorld ? storyFor(finishedWorld.id, 'close') : undefined;
+    if (closing) playStory(closing.id, 'map');
+    else setScreen('world');
   };
 
   const handleResetProgress = async () => {
@@ -242,6 +269,12 @@ function App() {
         onBack={save.playerName ? () => setScreen(returnTo) : undefined}
       />
     );
+  } else if (screen === 'story') {
+    const st = activeStory ? storyById(activeStory) : undefined;
+    content = st ? <StoryScreen key={st.id} story={st} onDone={handleStoryDone} /> : null;
+    if (!st) setTimeout(() => setScreen('map'), 0);
+  } else if (screen === 'stories') {
+    content = <StoriesScreen seen={save.storiesSeen ?? []} onPlay={(id) => playStory(id, 'stories')} onBack={() => setScreen('map')} />;
   } else if (screen === 'board') {
     content = <BoardScreen myName={save.playerName ?? ''} onEditName={() => go('name', 'board')} onBack={() => setScreen('map')} />;
   } else if (screen === 'map') {
@@ -254,8 +287,11 @@ function App() {
           const w = WORLDS.find((x) => x.id === id);
           if (w) await ensureWorldLoaded(w.number);
           setActiveWorld(id);
-          setScreen('world');
+          const opening = storyFor(id, 'open');
+          if (opening && !(save.storiesSeen ?? []).includes(opening.id)) playStory(opening.id, 'world');
+          else setScreen('world');
         }}
+        onOpenStories={() => setScreen('stories')}
         onOpenSkins={() => go('skins', 'map')}
         onOpenBadges={() => go('badges', 'map')}
         onOpenBoard={() => setScreen('board')}

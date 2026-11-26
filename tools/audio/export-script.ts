@@ -10,6 +10,8 @@ import { lines, type SpokenLine } from '../../src/audio/lines';
 import { clipKey, cleanForSpeech, voiceSlot } from '../../src/audio/voiceKey';
 import { RISK_META, type RiskLevel } from '../../src/data/levelTypes';
 import { t } from '../../src/i18n/types';
+import { STORIES } from '../../src/data/story';
+import { storyAll } from '../../src/audio/storyLines';
 
 const NO_DRIFT = t('No Drift', 'لا انحراف'); // must match AcademyScreen S.noDriftBadge
 
@@ -34,6 +36,8 @@ async function main() {
     if (a.conversation) add(`A${a.id}`, lines.conversationAll(a.conversation));
   }
   for (const v of Object.values(SCHOOL_VISITS)) { add(`V${v.id}`, lines.visitIntro(v)); add(`V${v.id}`, lines.visitFinal(v)); }
+  // The picture-story between worlds: narrator per shot + quotes in the speaker's voice.
+  for (const s of STORIES) add(`S:${s.id}`, storyAll(s));
 
   const clips = new Map<string, { key: string; lang: string; slot: string; text: string; where: string[]; mood?: string; teacher?: string }>();
   for (const { line, where } of spoken) {

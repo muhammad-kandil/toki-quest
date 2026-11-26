@@ -17,7 +17,7 @@ with sync_playwright() as p:
     pg.click('.map__node--done >> nth=3'); pg.wait_for_timeout(2500)   # world 4 → thoughtful
     print('hub world 4: music =', dbg()['music'])
     pg.click('.topbar__btn >> nth=0'); pg.wait_for_timeout(1200)
-    pg.click('.map__node--current'); pg.wait_for_timeout(2500); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)         # world 8 → serious
+    pg.click('.map__node--current'); pg.wait_for_timeout(2500); pg.wait_for_selector('.door, .story__btn--skip', timeout=8000); (pg.click('.story__btn--skip'), pg.wait_for_selector('.door', timeout=8000)) if pg.locator('.story__btn--skip').count() else None; pg.wait_for_timeout(500)         # world 8 → serious
     print('hub world 8: music =', dbg()['music'])
     pg.click('.door--boss'); pg.wait_for_timeout(2200); pg.click('.beat__cta'); pg.wait_for_timeout(500)
     for i, c in enumerate([2, 0, 1, 0, 1, 2]):

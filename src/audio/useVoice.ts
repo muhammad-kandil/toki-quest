@@ -19,7 +19,9 @@ export function useVoice() {
     on: voice.isEnabled(lang),
     toggle: () => voice.setEnabled(!voice.isEnabled(lang)),
     speak: (text: string, who: Speaker = 'narrator', teacher?: string) => voice.speak(text, lang, who, teacher),
-    speakSequence: (lines: Line[]) => voice.speakSequence(lines, lang),
+    speakSequence: (lines: Line[], onDone?: () => void) => voice.speakSequence(lines, lang, onDone),
+    /** Voice will actually speak now (switch on, sound on). */
+    active: voice.isActive(lang),
     cancel: voice.cancel,
   };
 }

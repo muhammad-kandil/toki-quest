@@ -18,7 +18,7 @@ def run(lang):
         pg.click('.topbar__btn--text >> nth=0'); pg.wait_for_timeout(900)
         pg.screenshot(path=f'{OUT}/{prefix}-{lang}-6-badges.png')
         pg.click('.badges__back'); pg.wait_for_timeout(600)
-        pg.click('.map__node--current'); pg.wait_for_timeout(2000); pg.wait_for_selector('.door', timeout=8000); pg.wait_for_timeout(500)
+        pg.click('.map__node--current'); pg.wait_for_timeout(2000); pg.wait_for_selector('.door, .story__btn--skip', timeout=8000); (pg.click('.story__btn--skip'), pg.wait_for_selector('.door', timeout=8000)) if pg.locator('.story__btn--skip').count() else None; pg.wait_for_timeout(500)
         pg.screenshot(path=f'{OUT}/{prefix}-{lang}-3-hub.png')
         pg.click('.topbar__btn >> nth=0'); pg.wait_for_timeout(900)
         pg.click('.map__node--done >> nth=0'); pg.wait_for_timeout(2000)
