@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Place it in your classroom</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.scene { position: absolute; left: 0; top: 0; width: 390px; height: 585px; overflow: hidden; }
+.scene img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.scene .dim { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: rgba(35, 27, 69, 0.38); }
+.top { position: absolute; z-index: var(--t-z-hud); left: 0; right: 0; top: 0; padding: calc(10px + var(--t-safe-top)) var(--t-gutter) 24px; background: var(--t-top-fade); }
+.top .t-btn--icon { float: left; }
+.top .ttl { margin-left: 56px; color: #fff; }
+.top .t-eyebrow { color: var(--t-teal); }
+.top h1 { color: #fff; font-size: var(--t-fs-md); }
+/* the item preview drawn into the selected slot (stand-in for its sprite) */
+.lamp { position: absolute; left: 50%; bottom: 8px; width: 44px; height: 70px; margin-left: -22px; }
+.lamp:before { content: ""; position: absolute; left: 4px; top: 0; width: 36px; height: 22px; border-radius: 18px 18px 4px 4px; background: var(--t-orange); box-shadow: 0 10px 24px 8px rgba(255, 214, 120, 0.55); }
+.lamp:after { content: ""; position: absolute; left: 20px; top: 22px; width: 4px; height: 44px; background: var(--t-indigo); }
+.lamp i { position: absolute; left: 8px; bottom: 0; width: 28px; height: 6px; border-radius: 3px; background: var(--t-indigo); }
+.t-sheet { top: 560px; background: var(--t-panel); }
+.t-sheet h2 { font-size: var(--t-fs-lg); color: var(--t-ink); }
+.t-sheet p { margin: 2px 0 0; font-size: var(--t-fs-sm); color: var(--t-muted); }
+.spots { margin-top: 12px; white-space: nowrap; }
+.spots .t-chip { padding: 8px 12px; margin-right: 6px; font-size: var(--t-fs-sm); border: 1.5px solid transparent; }
+.spots .on { background: var(--t-teal-soft); color: var(--t-teal-deep); border-color: var(--t-teal); }
+.btns { margin-top: 14px; }
+.btns .t-btn { width: 63%; }
+.btns .t-btn--ghost { width: 33%; margin-left: 4%; }
+.later { margin-top: 8px; font-size: var(--t-fs-2xs); color: var(--t-muted); text-align: center; }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="scene">
+    <img src="../../../public/story/busy-classroom/w1-open-4.jpg" alt="">
+    <div class="dim"></div>
+    <div class="t-shop-slot" style="left:21%;top:31%;width:92px;height:116px"><span class="t-shop-slot__label">Book shelf</span></div>
+    <div class="t-shop-slot is-on" style="left:66%;top:40%;width:86px;height:96px"><span class="lamp"><i></i></span><span class="t-shop-slot__label">By the window</span></div>
+    <div class="t-shop-slot" style="left:46%;top:24%;width:64px;height:64px"><span class="t-shop-slot__label">Back wall</span></div>
+    <div class="t-shop-slot" style="left:86%;top:76%;width:72px;height:90px"><span class="t-shop-slot__label">Teacher's desk</span></div>
+  </div>
+  <div class="top">
+    <button class="t-btn t-btn--icon" aria-label="Back">&#8592;</button>
+    <div class="ttl"><div class="t-eyebrow">Your Grade 5 classroom</div><h1>Place the reading lamp</h1></div>
+  </div>
+  <section class="t-sheet">
+    <div class="t-sheet__grip"></div>
+    <h2>By the window</h2>
+    <p>Tap a glowing spot or choose one here.</p>
+    <div class="spots"><span class="t-chip on">By the window</span><span class="t-chip">Book shelf</span><span class="t-chip">Back wall</span></div>
+    <div class="btns"><button class="t-btn">Put it here</button><button class="t-btn t-btn--ghost">Cancel</button></div>
+    <div class="later">Move or swap it any time from the Shop.</div>
+  </section>
+</div>
+</body>
+</html>

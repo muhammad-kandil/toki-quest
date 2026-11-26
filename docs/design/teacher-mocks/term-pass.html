@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Term Pass</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.phone { background: var(--t-bg); }
+.sky { position: absolute; left: 0; right: 0; top: 0; height: 260px; background: radial-gradient(ellipse at 50% 0%, #fff6dd 0%, rgba(255, 246, 221, 0) 70%); }
+.head { position: relative; z-index: var(--t-z-hud); padding: calc(10px + var(--t-safe-top)) var(--t-gutter) 0; }
+.head .t-btn--icon { position: absolute; left: var(--t-gutter); top: calc(14px + var(--t-safe-top)); }
+.head .t-notes-chip { position: absolute; right: var(--t-gutter); top: calc(20px + var(--t-safe-top)); }
+.head .t-pass-banner { margin: 4px 64px 0; }
+.prog { margin: 14px 0 0; text-align: center; font-size: var(--t-fs-xs); font-weight: 600; color: var(--t-muted); }
+.prog .t-meter { width: 180px; margin: 4px auto 0; }
+.lanes { position: relative; z-index: 2; padding: 10px var(--t-gutter) 6px; }
+.track { position: absolute; left: var(--t-gutter); right: var(--t-gutter); top: 150px; bottom: 0; overflow: hidden; }
+
+.fade { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: 170px; background: linear-gradient(180deg, rgba(243,239,230,0) 0%, var(--t-bg) 45%); }
+.end { position: absolute; z-index: 4; left: var(--t-gutter); right: var(--t-gutter); bottom: calc(14px + var(--t-safe-bottom)); padding-left: 84px; min-height: 104px; }
+.end .t-certificate__seal { position: absolute; left: 12px; top: 14px; width: 60px; height: 60px; font-size: 24px; line-height: 52px; margin: 0; }
+.end .t-eyebrow { color: var(--t-gold-light); }
+.end .t-meter { margin-top: 8px; background: rgba(255,255,255,.18); }
+.end .t-meter__fill { background: var(--t-gold); }
+.toki { position: relative; display: block; height: 40px; margin: 0 auto 3px; }
+.toki img { height: 40px; margin: 0 auto; }
+.t-pass-card--locked .toki { opacity: .45; }
+.mid-label { display: block; margin-top: 10px; font-size: 9px; font-weight: 700; color: var(--t-muted); }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="sky"></div>
+  <div class="head">
+    <button class="t-btn t-btn--icon" aria-label="Back">&#8592;</button>
+    <span class="t-notes-chip" aria-label="4 thank-you notes"><span class="t-notes-icon"></span>4</span>
+    <div class="t-pass-banner"><h1>Term Pass</h1><small>Term 1 · one step per lesson</small></div>
+    <div class="prog">6 of 12 lessons finished<div class="t-meter"><i class="t-meter__fill" style="width:50%"></i></div></div>
+  </div>
+
+  <div class="track">
+    <div class="t-pass-lanes lanes" style="padding:0 0 8px">
+      <div><div class="t-pass-lane-head t-pass-lane-head--classroom">Classroom<small>your room &amp; Toki</small></div></div>
+      <div class="t-pass-mid"></div>
+      <div><div class="t-pass-lane-head t-pass-lane-head--pro">Professional<small>for Monday's lesson</small></div></div>
+    </div>
+    <div class="t-pass-rail">
+      <i class="t-pass-rail__fill" style="height:340px"></i>
+
+      <div class="t-pass-row">
+        <div><div class="t-pass-card t-pass-card--classroom t-pass-card--claimed"><span class="t-pass-card__state">&#10003;</span><span class="t-pass-card__art">&#9638;</span><span class="t-pass-card__title">Reading-corner rug</span><span class="t-pass-card__note">In your room</span></div></div>
+        <div class="t-pass-mid"><span class="t-pass-node t-pass-node--reached"><span>4</span></span></div>
+        <div><div class="t-pass-card t-pass-card--pro t-pass-card--claimed"><span class="t-pass-card__state">&#10003;</span><span class="t-pass-card__art">&#9670;</span><span class="t-pass-card__title">Alef resource: Exit ticket</span><span class="t-pass-card__note">In your toolkit</span></div></div>
+      </div>
+
+      <div class="t-pass-row">
+        <div><div class="t-pass-card t-pass-card--classroom t-pass-card--claimed"><span class="t-pass-card__state">&#10003;</span><span class="toki"><img src="../../../src/assets/skins/skin-cap-orange.png" alt=""></span><span class="t-pass-card__title">Toki: orange cap</span><span class="t-pass-card__note">Owned</span></div></div>
+        <div class="t-pass-mid"><span class="t-pass-node t-pass-node--reached"><span>5</span></span></div>
+        <div><div class="t-pass-card t-pass-card--pro t-pass-card--reachable" role="button" tabindex="0"><span class="t-pass-card__art">&#10070;</span><span class="t-pass-card__title">Story chapter 2: The visit</span><button class="t-pass-claim">Claim</button></div></div>
+      </div>
+
+      <div class="t-pass-row">
+        <div><div class="t-pass-card t-pass-card--classroom t-pass-card--reachable" role="button" tabindex="0"><span class="t-pass-card__art">&#10047;</span><span class="t-pass-card__title">Window plant shelf</span><button class="t-pass-claim">Claim</button></div></div>
+        <div class="t-pass-mid"><span class="t-pass-node t-pass-node--current"><span>6</span></span></div>
+        <div><div class="t-pass-card t-pass-card--pro t-pass-card--reachable" role="button" tabindex="0"><span class="t-pass-card__art">&#9998;</span><span class="t-pass-card__title">Try-it-Monday planner page</span><button class="t-pass-claim">Claim</button></div></div>
+      </div>
+
+      <div class="t-pass-row">
+        <div><div class="t-pass-card t-pass-card--classroom t-pass-card--locked"><span class="t-pass-card__state">7</span><span class="t-pass-card__art"><span class="t-notes-icon"></span></span><span class="t-pass-card__title">3 thank-you notes</span><span class="t-pass-card__note">After lesson 7</span></div></div>
+        <div class="t-pass-mid"><span class="t-pass-node"><span>7</span></span></div>
+        <div><div class="t-pass-card t-pass-card--pro t-pass-card--locked"><span class="t-pass-card__state">7</span><span class="t-pass-card__art">&#9733;</span><span class="t-pass-card__title">Community spotlight</span><span class="t-pass-card__note">After lesson 7</span></div></div>
+      </div>
+
+      <div class="t-pass-row">
+        <div><div class="t-pass-card t-pass-card--classroom t-pass-card--locked"><span class="t-pass-card__state">8</span><span class="toki"><img src="../../../src/assets/skins/skin-headwrap-a.png" alt=""></span><span class="t-pass-card__title">Toki: explorer wrap</span><span class="t-pass-card__note">After lesson 8</span></div></div>
+        <div class="t-pass-mid"><span class="t-pass-node"><span>8</span></span></div>
+        <div><div class="t-pass-card t-pass-card--pro t-pass-card--locked"><span class="t-pass-card__state">8</span><span class="t-pass-card__art">&#9670;</span><span class="t-pass-card__title">Alef resource: Team roles</span><span class="t-pass-card__note">After lesson 8</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="fade"></div>
+
+  <div class="t-pass-end end">
+    <span class="t-certificate__seal">&#9733;</span>
+    <div class="t-eyebrow">End of term · lesson 12</div>
+    <h3>Your Term Certificate</h3>
+    <p>What you tried and how your students moved, plus the end-of-term bundle: 5 thank-you notes and a class banner.</p>
+    <div class="t-meter"><i class="t-meter__fill" style="width:50%"></i></div>
+  </div>
+</div>
+</body>
+</html>

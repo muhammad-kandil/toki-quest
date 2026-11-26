@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mock: Campus Shop, power-ups</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="../../../src/teacher/theme.css">
+<style>
+.phone { background: var(--t-bg); }
+.bar { position: relative; height: 44px; margin: calc(10px + var(--t-safe-top)) var(--t-gutter) 0; }
+.bar .t-btn--icon { position: absolute; left: 0; top: 0; }
+.bar h1 { position: absolute; left: 56px; top: 0; font-size: var(--t-fs-xl); line-height: 44px; }
+.bar .t-notes-chip { position: absolute; right: 0; top: 6px; }
+.intro { margin: 6px var(--t-gutter) 0; font-size: var(--t-fs-xs); color: var(--t-muted); line-height: 1.4; }
+.t-shop-tabs { margin: 10px var(--t-gutter) 0; }
+.t-shop-grid { margin: 12px var(--t-gutter) 0; }
+.t-shop-card__art img { position: absolute; left: 50%; bottom: 6px; height: 88px; margin-left: -40px; }
+.short { display: block; margin-top: 3px; font-size: var(--t-fs-2xs); color: var(--t-muted); text-align: center; line-height: 1.2; }
+.t-shop-buy--short { height: 36px; line-height: 36px; }
+.flying { left: 50%; top: 12px; margin-left: 4px; }
+/* mock only: freeze the hand-over mid-flight so the screenshot shows it */
+.flying { -webkit-animation: none; animation: none; opacity: .9; -webkit-transform: rotate(10deg) scale(.8); transform: rotate(10deg) scale(.8); }
+.done { position: absolute; z-index: var(--t-z-sheet); left: 0; right: 0; bottom: 0; padding: 12px var(--t-gutter) calc(16px + var(--t-safe-bottom)); background: var(--t-panel); border-top-left-radius: var(--t-r-xl); border-top-right-radius: var(--t-r-xl); box-shadow: 0 -8px 30px rgba(35,27,69,.2); }
+.done .t-sheet__grip { margin-bottom: 8px; }
+.done .who { position: relative; padding-left: 64px; min-height: 52px; }
+.done .who .thumb { position: absolute; left: 0; top: 0; width: 52px; height: 52px; border-radius: var(--t-r-sm); background: var(--t-lane-classroom-soft); text-align: center; line-height: 52px; font-size: 26px; color: var(--t-orange-deep); font-family: var(--t-display); font-weight: 800; }
+.done h3 { font-size: var(--t-fs-md); color: var(--t-ink); }
+.done p { margin: 0; font-size: var(--t-fs-sm); color: var(--t-muted); line-height: 1.35; }
+.done .btns { margin-top: 12px; }
+.done .btns .t-btn { width: 63%; }
+.done .btns .t-btn--ghost { width: 33%; margin-left: 4%; }
+.list { margin: 12px var(--t-gutter) 0; }
+.need { position: absolute; right: 12px; bottom: 50px; width: 84px; text-align: center; font-size: var(--t-fs-2xs); color: var(--t-muted); }
+</style>
+</head>
+<body>
+<div class="phone teacher-app">
+  <div class="bar"><button class="t-btn t-btn--icon" aria-label="Back">&#8592;</button><h1>Campus Shop</h1><span class="t-notes-chip " aria-label="2 thank-you notes"><span class="t-notes-icon"></span>2</span></div>
+  <p class="intro">Thank-you notes come from your Term Pass. Lessons, story chapters and Alef resources are never for sale.</p>
+
+  <div class="t-shop-tabs" role="tablist">
+    <button class="t-shop-tab" role="tab">Outfits</button>
+    <button class="t-shop-tab" role="tab">Accessories</button>
+    <button class="t-shop-tab is-on" role="tab" aria-selected="true">Power-ups</button>
+  </div>
+
+  <div class="list t-stack--3">
+    <div class="t-shop-card t-shop-card--powerup"><span class="t-powerup t-powerup--lg t-powerup--rewind"><b>&#8634;</b><span class="t-powerup__count">1</span></span><span class="t-shop-card__name">Rewind</span><span class="t-shop-card__what">Take back your last choice and see the moment again.</span><span class="t-shop-card__meta">You have 1 · one use per lesson</span><button class="t-shop-buy"><span class="t-notes-icon"></span>3</button></div>
+    <div class="t-shop-card t-shop-card--powerup"><span class="t-powerup t-powerup--lg t-powerup--time"><b>+5</b><span class="t-powerup__count">2</span></span><span class="t-shop-card__name">Extra 5 minutes</span><span class="t-shop-card__what">Five more lesson minutes, once, when the clock runs short.</span><span class="t-shop-card__meta">You have 2 · one use per lesson</span><button class="t-shop-buy"><span class="t-notes-icon"></span>2</button></div>
+    <div class="t-shop-card t-shop-card--powerup"><span class="t-powerup t-powerup--lg t-powerup--look"><b>&#9678;</b><span class="t-powerup__count">1</span></span><span class="t-shop-card__name">Second look</span><span class="t-shop-card__what">Look closer at one student before you choose.</span><span class="t-shop-card__meta">You have 1 · one use per lesson</span><button class="t-shop-buy"><span class="t-notes-icon"></span>2</button></div>
+    <div class="t-shop-card t-shop-card--powerup"><span class="t-powerup t-powerup--lg t-powerup--assistant"><b>TA</b><span class="t-powerup__count">1</span></span><span class="t-shop-card__name">Teaching assistant</span><span class="t-shop-card__what">Another adult sits with one table while you handle the event.</span><span class="t-shop-card__meta">You have 1 · one use per lesson</span><button class="t-shop-buy"><span class="t-notes-icon"></span>3</button></div>
+    <div class="t-shop-card t-shop-card--powerup"><span class="t-powerup t-powerup--lg t-powerup--parent"><b>&#9990;</b></span><span class="t-shop-card__name">Parent call</span><span class="t-shop-card__what">A short call home that lifts one student's engagement next lesson.</span><span class="t-shop-card__meta">None yet · 2 more notes to go</span><button class="t-shop-buy t-shop-buy--short" disabled><span class="t-notes-icon"></span>4</button></div>
+  </div>
+</div>
+</body>
+</html>
