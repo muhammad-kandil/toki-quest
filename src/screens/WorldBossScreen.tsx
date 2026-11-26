@@ -9,6 +9,7 @@ import { BadgeIcon } from '../components/BadgeIcon';
 import { FeedbackCard } from '../components/FeedbackCard';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
+import { useSceneArt } from '../assets/art';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
 import { ambience } from '../audio/ambience';
@@ -39,6 +40,7 @@ export function WorldBossScreen({ boss, heldBadges, onComplete }: {
   const { tx, lang } = useLocale();
   const [phase, setPhase] = useState<Phase>('intro');
   const [sceneIdx, setSceneIdx] = useState(0);
+  const bossScene = useSceneArt(`B${boss.id}`, boss.sceneImage);
   const [sceneWrong, setSceneWrong] = useState<Call | null>(null);
   const [sceneShown, setSceneShown] = useState(false);
   const voiceCtl = useVoice();
@@ -127,7 +129,7 @@ export function WorldBossScreen({ boss, heldBadges, onComplete }: {
 
       {phase === 'intro' && (
         <div className="beat beat--observe">
-          {boss.sceneImage && <SceneHeader image={boss.sceneImage} alt={tx(boss.title)} />}
+          {bossScene && <SceneHeader image={bossScene} alt={tx(boss.title)} />}
           <p className="beat__eyebrow boss__eyebrow">{tx(UI.worldBoss)} · {tx(boss.theme)}</p>
           <h2 className="beat__title">{tx(boss.title)}</h2>
           <p className="beat__scenario">{tx(boss.scenario)}</p>

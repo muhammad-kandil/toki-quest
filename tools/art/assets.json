@@ -1,0 +1,183 @@
+{
+  "_doc": "Art generated with Gemini (see docs/design/ART_BIBLE.md). Scenes come from the level data (tools/art/export-scenes.ts) plus the notes below; poses, schools and map are listed here. Run via .github/workflows/art-assets.yml. Output lands in public/art/ and is listed in public/art/manifest.json; the game falls back to bundled art for anything missing.",
+  "scenes": {
+    "aspect": "4:3",
+    "size": [
+      1200,
+      900
+    ],
+    "max_kb": 150,
+    "hotspot_objects": {
+      "_doc": "How an abstract hotspot label becomes something visible in the picture. First matching keyword wins (lowercase); otherwise the region decides (upper = wall/board display, lower = students at desks, middle = a teacher or a shelf).",
+      "group table": "a group table of four students talking at once",
+      "board": "the interactive whiteboard on the front wall, showing only abstract shapes",
+      "teacher": "the teacher standing, mid-gesture",
+      "station": "a hands-on science station with trays and kits",
+      "objective": "a small panel on the wall with abstract lines suggesting a lesson objective",
+      "tracker": "a wall chart of coloured ticks",
+      "poster": "a colourful student poster on the wall",
+      "artist": "a student holding up their artwork",
+      "rubric": "a printed rubric pinned beside the board, abstract lines only",
+      "gradebook": "an open laptop with a spreadsheet-like grid of coloured cells on the teacher's desk",
+      "planner": "a teacher's planner book open on a desk",
+      "quiz": "a stack of quiz papers on a desk",
+      "leaderboard": "a big screen showing a points leaderboard as coloured bars",
+      "round": "students with hands shooting up in a quiz round",
+      "back row": "the back row of students",
+      "front row": "the front row of students",
+      "pile": "a neat pile of small paper exit tickets on a tray",
+      "ticket": "a single paper exit ticket on a desk",
+      "plan": "a lesson plan sheet on the teacher's desk",
+      "essay": "a marked essay with red pen marks on a desk",
+      "author": "a student writing at a desk",
+      "student": "a student at their desk",
+      "chart": "a data chart on the screen with coloured bars and lines",
+      "seating": "a seating plan sheet pinned to the wall",
+      "test": "a test paper on a desk",
+      "monday": "a wall calendar with abstract marks",
+      "dashboard": "a large screen showing a dashboard of green progress bars",
+      "screen": "a student's tablet screen",
+      "report": "an annotated printed report on the desk",
+      "assignment": "a tablet showing an assignment list as abstract rows",
+      "draft": "a laptop showing a document's version history as abstract rows",
+      "drawing": "a child's crayon drawing on a small table",
+      "wrong answer": "a small child holding up a card",
+      "tally": "a clipboard with tally marks held by Toki",
+      "feedback": "the teacher speaking to the whole class from the front",
+      "margin": "an essay with handwritten comments in the margin",
+      "green pen": "an exercise book with green pen corrections",
+      "weeks": "a stack of exercise books",
+      "question": "the teacher asking the class a question",
+      "front three": "three confident students at the front with hands up",
+      "middle rows": "quiet middle rows of students",
+      "quiet student": "a quiet student by the window",
+      "stopwatch": "a stopwatch timer on the board screen",
+      "why": "a student mid-explanation",
+      "hands": "several hands raised quickly",
+      "late hand": "one student raising a hand late",
+      "first answer": "the first student answering",
+      "sheets": "three trays of worksheets in bronze, silver and gold colours",
+      "bronze": "a student with a bronze-coloured worksheet",
+      "gold": "a student with a gold-coloured worksheet",
+      "fast one": "a student who has finished early",
+      "struggling": "a student stuck on the task",
+      "timer": "a countdown timer on the board screen",
+      "sparrow": "a table group labelled only by a small bird picture",
+      "eagle": "another table group with an eagle picture",
+      "support table": "the teacher sitting at one table helping a few students",
+      "independent tables": "other tables of students working alone",
+      "book": "an open exercise book",
+      "whiteboards": "students holding up mini whiteboards",
+      "exercise books": "a stack of exercise books",
+      "twelve minutes": "the teacher explaining at the front",
+      "early finishers": "two students who finished early on tablets",
+      "task cards": "two task cards on a desk",
+      "success criteria": "a short panel of abstract lines on the wall beside the board",
+      "checking": "the teacher looking at students' work",
+      "books": "a pile of exercise books on the teacher's desk",
+      "group work": "students working in groups",
+      "exit": "small paper exit tickets"
+    },
+    "notes": {
+      "_doc": "Extra direction per scene id where the scenario alone is not enough.",
+      "L5": "Energetic, competitive mood, but adult-tasteful.",
+      "L41": "Kindergarten classroom: five-year-olds, low tables, bright soft colours, drawings drying on a line.",
+      "L72": "A calm, quiet classroom with no devices on the desks; students writing.",
+      "B6": "The Perfect Classroom: a flawless, polished modern classroom with everything in place: objectives on the board, tidy groups, devices, displays. Wide shot from the doorway.",
+      "B25": "A school assessment office and corridor with stacks of tests and a data wall of colourful charts.",
+      "B35": "A technology-rich school: a corridor of classrooms seen through glass, tablets glowing in each room.",
+      "B45": "A staffroom table piled with marked exercise books and red and green pens.",
+      "B55": "A school assembly hall with a teacher at the front and many raised hands.",
+      "B65": "A school with classrooms of many different groupings seen from the corridor.",
+      "B75": "An immaculate, perfect-looking school corridor where everything is polished; a subtle sense that something is off.",
+      "V85": "A UAE school entrance courtyard in the morning, palm trees, a shaded walkway, the principal waiting at the entrance.",
+      "V85-math": "A maths classroom, Grade 8, students on tablets and paper.",
+      "V85-science": "A science lab, Grade 9, students in lab coats at benches.",
+      "V85-english": "An English classroom, Grade 6, reading corner and group tables.",
+      "V85-arabic": "An Arabic language classroom, Grade 5, calligraphy displays shown as abstract shapes.",
+      "V85-kg": "A kindergarten room, small children on a carpet with the teacher.",
+      "V85-leadership": "A school leadership meeting room, a small team at a table with laptops and coffee, data on a screen as abstract charts."
+    }
+  },
+  "toki": {
+    "size_px": 512,
+    "poses": {
+      "walk": {
+        "frames": 6,
+        "aspect": "1:1",
+        "prompt": "Side view facing right, walking cycle frame {n} of 6: {phase}. Same scale and baseline in every frame.",
+        "phases": [
+          "right foot forward, left arm forward",
+          "passing position, body slightly raised",
+          "left foot forward, right arm forward",
+          "left foot planted, body lowest",
+          "passing position, body slightly raised",
+          "right foot about to land"
+        ]
+      },
+      "walk-away": {
+        "frames": 3,
+        "aspect": "1:1",
+        "prompt": "Back view, walking away from the viewer into the distance, frame {n} of 3: {phase}. Hair tuft visible from behind.",
+        "phases": [
+          "left foot forward",
+          "feet together mid-step",
+          "right foot forward"
+        ]
+      },
+      "point": {
+        "frames": 1,
+        "aspect": "1:1",
+        "prompt": "Three-quarter view, pointing with the right glove toward the upper right, friendly encouraging face."
+      },
+      "think": {
+        "frames": 1,
+        "aspect": "1:1",
+        "prompt": "Three-quarter view, thinking: one glove to his chin, eyes looking up, small thoughtful smile."
+      },
+      "celebrate": {
+        "frames": 1,
+        "aspect": "1:1",
+        "prompt": "Front view, celebrating: both gloves up, small jump, big smile, eyes closed happily."
+      },
+      "affirm": {
+        "frames": 1,
+        "aspect": "1:1",
+        "prompt": "Front view, affirming: a thumbs-up with the right glove, warm nod."
+      },
+      "idle": {
+        "frames": 2,
+        "aspect": "1:1",
+        "prompt": "Front view, relaxed idle stance, frame {n} of 2: {phase}.",
+        "phases": [
+          "eyes open",
+          "eyes closed in a blink, everything else identical"
+        ]
+      }
+    }
+  },
+  "schools": {
+    "aspect": "1:1",
+    "size_px": 512,
+    "prompt": "A single small UAE school building shown in a gentle 3/4 isometric view from above, like a detailed diorama piece, isolated on a plain flat pure green (#00FF00) background with no ground beyond a small paved base. Sand and white facade, shaded walkway, a palm tree, {detail}. No text, no signs, no flags with writing.",
+    "worlds": {
+      "1": "lively windows with group tables visible, a busy feel",
+      "2": "a small observatory-like dome with a magnifying-glass motif shaped into the roof",
+      "3": "glass walls showing tablets glowing inside, solar panels on the roof",
+      "4": "a covered courtyard with benches where pairs of students talk",
+      "5": "a round auditorium wing with tall windows",
+      "6": "several connected wings of different heights",
+      "7": "an elegant academy building with columns and a small tower",
+      "8": "a grand central school with a wide entrance plaza"
+    }
+  },
+  "map": {
+    "aspect": "2:3",
+    "size": [
+      1080,
+      1620
+    ],
+    "max_kb": 220,
+    "prompt": "A gentle 3/4 aerial painted map of a sunny UAE town district seen from high above: soft sand terrain, patches of green parks, palm trees, a calm blue creek, low buildings at the edges, and one winding empty road from the bottom left to the top centre with open plots along it where schools will be placed (leave those plots empty). Morning light, soft haze toward the top. No buildings on the road's plots, no text, no labels."
+  }
+}

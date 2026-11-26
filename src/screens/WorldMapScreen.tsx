@@ -3,6 +3,7 @@ import { WORLDS, type WorldDefinition } from '../data/worlds';
 import { getSkinById } from '../data/skins';
 import { isWorldComplete, isWorldUnlocked, currentWorld as findCurrent } from '../data/progression';
 import { useLocale } from '../i18n/LocaleContext';
+import { schoolArt, mapArt, useArt } from '../assets/art';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
 import { TopBar } from '../components/TopBar';
@@ -35,6 +36,7 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
   const pathRef = useRef<SVGPathElement>(null);
   const [travelTo, setTravelTo] = useState<string | null>(null);
   const [tokiPos, setTokiPos] = useState<{ x: number; y: number } | null>(null);
+  useArt();
   const [entering, setEntering] = useState<string | null>(null);
 
   const worldState = (w: WorldDefinition): WorldState => {
@@ -125,8 +127,8 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
       </header>
 
       <div
-        className={`map__stage ${travelTo ? 'map__stage--travelling' : ''}`}
-        style={{ '--par': (restNode.x - 50) / 50 } as React.CSSProperties}
+        className={`map__stage ${travelTo ? 'map__stage--travelling' : ''} ${mapArt() ? 'map__stage--art' : ''}`}
+        style={{ '--par': (restNode.x - 50) / 50, ...(mapArt() ? { backgroundImage: `url(${mapArt()})` } : {}) } as React.CSSProperties}
       >
         {/* Sky + far hills: the slowest parallax layer. */}
         <svg className="map__layer map__layer--far" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
@@ -179,7 +181,7 @@ export function WorldMapScreen({ bestScores, badges, skinId, onEnterWorld, onOpe
               aria-label={`${tx(w.title)}${st === 'soon' ? ` (${tx(UI.locked)})` : ''}`}
             >
               <span className="map__school" aria-hidden="true">
-                <SchoolGlyph state={st} />
+                {schoolArt(w.number) ? <img className="map__school-art" src={schoolArt(w.number)!} alt="" /> : <SchoolGlyph state={st} />}
                 <span className="map__num">{w.number}</span>
                 {st === 'done' && <span className="map__people"><PeoplePair lit size={14} /></span>}
               </span>

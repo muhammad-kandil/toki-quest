@@ -316,3 +316,17 @@
 }
 @keyframes map-people-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 0.95; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .map__people { animation: none; } }
+
+/* Generated school art (public/art/schools), when the art manifest lists it. */
+.map__school-art {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 6px rgba(31, 27, 58, 0.25));
+}
+.map__node--locked .map__school-art, .map__node--soon .map__school-art { filter: grayscale(0.7) opacity(0.65); }
+/* Generated map background sits under the CSS layers' tint. */
+.map__stage--art { background-size: cover; background-position: center; }
+.map__stage--art .map__layer--far { opacity: 0; }
+.map__stage--art .map__layer:not(.map__layer--far) { opacity: 0.35; }

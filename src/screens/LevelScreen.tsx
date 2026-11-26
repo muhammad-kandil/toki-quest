@@ -19,6 +19,7 @@ import { BeatIcon } from '../components/PeopleGlyphs';
 import { ConversationBeat, OUTCOME_LABEL } from './ConversationBeat';
 import { OUTCOME_CREDIT, type ConversationOutcome } from '../data/conversationTypes';
 import { useLocale } from '../i18n/LocaleContext';
+import { useSceneArt } from '../assets/art';
 import { useVoice } from '../audio/useVoice';
 import { ambience } from '../audio/ambience';
 import { roomSound } from '../data/ambience';
@@ -242,12 +243,13 @@ function LevelProgress({ current, total, beats }: { current: number; total: numb
  * only once all have been examined does Toki have "seen enough" to
  * make a call. Reading becomes looking.
  */
-export type ObservableScene = Pick<LevelDefinition, 'title' | 'theme' | 'scenario' | 'sceneImage' | 'evidence'> & { subject?: LevelDefinition['subject'] };
+export type ObservableScene = Pick<LevelDefinition, 'title' | 'theme' | 'scenario' | 'sceneImage' | 'evidence'> & { subject?: LevelDefinition['subject']; id?: number };
 
 export function ObserveBeat({ level, onContinue, ctaLabel }: { level: ObservableScene; onContinue: () => void; ctaLabel?: string }) {
   const { tx } = useLocale();
   const voiceCtl = useVoice();
   const spots = level.evidence ?? [];
+  const sceneImage = useSceneArt(`L${level.id ?? 0}`, level.sceneImage);
   const [inspected, setInspected] = useState<Set<string>>(new Set());
   const [activeClue, setActiveClue] = useState<string | null>(null);
   const allDone = spots.length === 0 || inspected.size >= spots.length;
@@ -272,8 +274,8 @@ export function ObserveBeat({ level, onContinue, ctaLabel }: { level: Observable
 
   return (
     <div className="beat beat--observe">
-      {level.sceneImage ? (
-        <SceneHeader image={level.sceneImage} alt={`${tx(level.title)} classroom`} evidence={spots} inspected={inspected} onInspect={inspect} />
+      {sceneImage ? (
+        <SceneHeader image={sceneImage} alt={`${tx(level.title)} classroom`} evidence={spots} inspected={inspected} onInspect={inspect} />
       ) : (
         <img src={tealHero} alt="" className="beat__toki-avatar" />
       )}

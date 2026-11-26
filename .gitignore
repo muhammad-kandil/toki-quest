@@ -4,3 +4,4 @@ dist
 *.log
 .claude/
 tools/audio/out/
+tools/art/out/

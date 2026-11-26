@@ -5,6 +5,7 @@ import { SceneHeader } from './SceneHeader';
 import { ReactionToki, type ReactionKind } from './ReactionToki';
 import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import { useLocale } from '../i18n/LocaleContext';
+import { useSceneArt } from '../assets/art';
 import { UI, fmt } from '../i18n/ui';
 import { sfx } from '../audio/sfx';
 import { ambience } from '../audio/ambience';
@@ -38,6 +39,7 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
   const { tx, lang } = useLocale();
   const [phase, setPhase] = useState<Phase>('intro');
   const [auditIndex, setAuditIndex] = useState(0);
+  const bossScene = useSceneArt(`B${boss.id}`, boss.sceneImage);
   const voiceCtl = useVoice();
   useEffect(() => { ambience.set(phase === 'reveal' ? 'class-quiet' : roomSound(boss.id).lesson); }, [phase, boss.id]);
   useEffect(() => {
@@ -158,8 +160,8 @@ export function BossScreen({ boss, onComplete }: BossScreenProps) {
 
       {phase === 'intro' && (
         <div className="beat beat--observe">
-          {boss.sceneImage && (
-            <SceneHeader image={boss.sceneImage} alt={tx(boss.title)} />
+          {bossScene && (
+            <SceneHeader image={bossScene} alt={tx(boss.title)} />
           )}
           <p className="beat__eyebrow boss__eyebrow">{tx(UI.finalVisit)} · {tx(boss.theme)}</p>
           <h2 className="beat__title">{tx(boss.title)}</h2>
