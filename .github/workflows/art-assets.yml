@@ -1,0 +1,50 @@
+name: Generate art (Gemini)
+on:
+  workflow_dispatch:
+    inputs:
+      groups:
+        description: "scenes,toki,schools,map (any subset)"
+        default: "scenes,toki,schools,map"
+      only:
+        description: "Only these items, e.g. L1,B25,toki:walk,school:3,map (empty = everything missing)"
+        default: ""
+      force:
+        description: "Regenerate items that already exist"
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  actions: write
+concurrency: { group: art-assets, cancel-in-progress: false }
+jobs:
+  art:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Picture briefs from the level data
+        run: npx vite-node tools/art/export-scenes.ts
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q pillow
+      - name: Generate
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_IMAGE_MODEL: ${{ vars.GEMINI_IMAGE_MODEL }}
+        run: >
+          python tools/art/assets.py --groups "${{ inputs.groups }}" --budget-min 120
+          ${{ inputs.only != '' && format('--only "{0}"', inputs.only) || '' }}
+          ${{ inputs.force && '--force' || '' }}
+      - name: Commit and redeploy
+        if: always()
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          git config user.name "toki-art[bot]"; git config user.email "toki-art@users.noreply.github.com"
+          git add public/art tools/art/reports 2>/dev/null || true
+          git diff --cached --quiet && { echo "no art changes"; exit 0; }
+          git commit -qm "art: Gemini assets (workflow run ${{ github.run_id }})"
+          git pull --rebase -q origin main && git push -q origin main
+          gh workflow run deploy.yml --ref main

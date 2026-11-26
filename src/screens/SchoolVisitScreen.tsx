@@ -11,6 +11,7 @@ import celebratingToki from '../assets/raw/toki-reaction-celebrating.png';
 import tokiHero from '../assets/raw/toki-face-teal-hero.png';
 import { TokiAvatar } from '../components/TokiAvatar';
 import { useLocale } from '../i18n/LocaleContext';
+import { useSceneArt, useArt, sceneArt } from '../assets/art';
 import { useVoice } from '../audio/useVoice';
 import { ambience } from '../audio/ambience';
 import { items } from '../audio/items';
@@ -81,6 +82,8 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
   const voiceCtl = useVoice();
   const [phase, setPhase] = useState<Phase>('intro');
   const [activeId, setActiveId] = useState<string | null>(null);
+  const visitScene = useSceneArt(`V${visit.id}`, visit.sceneImage);
+  useArt();
   useEffect(() => {
     ambience.set(activeId ? VISIT_SOUND[activeId] ?? 'class-working' : 'corridor');
     if (activeId) items.enterRoom(`${visit.id}:${activeId}`); else items.leave();
@@ -97,6 +100,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
   const fire = (k: ReactionKind) => { setReaction(k); setTrigger((n) => n + 1); };
 
   const active = visit.contexts.find((c) => c.id === activeId) ?? null;
+  const activeScene = active ? sceneArt(`V${visit.id}-${active.id}`, active.sceneImage) : undefined;
   const doneCount = visit.contexts.filter((c) => calls[c.id]?.done).length;
   const allDone = doneCount === visit.contexts.length;
 
@@ -177,7 +181,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
 
       {phase === 'intro' && (
         <div className="beat beat--observe">
-          {visit.sceneImage && <SceneHeader image={visit.sceneImage} alt={tx(visit.title)} />}
+          {visitScene && <SceneHeader image={visitScene} alt={tx(visit.title)} />}
           <p className="beat__eyebrow boss__eyebrow">{tx(S.final)} · {tx(visit.theme)}</p>
           <h2 className="beat__title">{tx(visit.title)}</h2>
           <p className="beat__scenario">{tx(visit.scenario)}</p>
@@ -216,7 +220,7 @@ export function SchoolVisitScreen({ visit, heldBadges, onComplete }: {
 
       {phase === 'context' && active && (
         <div className="beat beat--choice visit__context" key={active.id}>
-          {active.sceneImage && <SceneHeader image={active.sceneImage} alt={tx(active.name)} />}
+          {activeScene && <SceneHeader image={activeScene} alt={tx(active.name)} />}
           <p className="beat__eyebrow">{tx(active.tag)}</p>
           <h3 className="beat__heading">{tx(active.name)}</h3>
           <p className="visit__folder-label">{tx(S.evidenceFolder)}</p>
