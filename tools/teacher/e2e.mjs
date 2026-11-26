@@ -63,9 +63,9 @@ async function run(lang) {
   page.on('pageerror', (e) => errors.push(String(e)));
   const shot = (n) => page.screenshot({ path: join(SHOTS, `${lang}-${n}.png`) });
 
-  await page.goto(BASE + '?seed=3', { waitUntil: 'networkidle' });
+  await page.goto(BASE + '?mode=teacher&seed=3', { waitUntil: 'networkidle' });
   await page.evaluate(() => { try { localStorage.clear(); } catch { /* ignore */ } });
-  await page.goto(BASE + '?seed=3', { waitUntil: 'networkidle' });
+  await page.goto(BASE + '?mode=teacher&seed=3', { waitUntil: 'networkidle' });
   await page.waitForSelector('.ts-title');
   if (lang === 'ar') await page.click('.ts-lang__btn[lang="ar"]');
   else await page.click('.ts-lang__btn >> text=EN');
