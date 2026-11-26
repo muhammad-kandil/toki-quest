@@ -1,0 +1,274 @@
+{
+ "current": {
+  "game": {
+   "en-narrator": {
+    "file": "current/game/en-narrator.mp3",
+    "err": 0.0,
+    "hyp": "Lethal mutation. Assessment has become an end rather than a tool. A great deal is measured,  but the evidence rarely changes what happens next.",
+    "secs": 4.1
+   },
+   "en-teacher-f": {
+    "file": "current/game/en-teacher-f.mp3",
+    "err": 0.0,
+    "hyp": "Did you see them?  Every single group was talking.  Last year I couldn't get three hands up.",
+    "secs": 1.5
+   },
+   "en-teacher-m": {
+    "file": "current/game/en-teacher-m.mp3",
+    "err": 0.0,
+    "hyp": "Three quizzes a week, every mark in the system by Thursday.  If this is about the data, it's all there.",
+    "secs": 1.8
+   },
+   "en-toki": {
+    "file": "current/game/en-toki.mp3",
+    "err": 0.091,
+    "hyp": "It is all there I looked. Can I ask about one number? Question for last Tuesday, 11 students wrong the same way.",
+    "secs": 3.3
+   },
+   "ar-narrator": {
+    "file": "current/game/ar-narrator.mp3",
+    "err": 0.072,
+    "hyp": "يزور تكيصفاً شديد التنظيم يخضع الطلاب الاختبارات قصيرة وتقييمات بانتظام وتسجل النتائج أسبوعياً",
+    "secs": 0.5
+   },
+   "ar-teacher-f": {
+    "file": "current/game/ar-teacher-f.mp3",
+    "err": 0.233,
+    "hyp": "هل رأيتوا أهم؟  كل المجبوات كانت تحدث  في العام الماضي  ما كنت أرى ثلاثة  أيضاً مرفوعاتين",
+    "secs": 0.3
+   },
+   "ar-teacher-m": {
+    "file": "current/game/ar-teacher-m.mp3",
+    "err": 0.021,
+    "hyp": "ثلاثة اختبارات أسبوعيا وكل درجة في النغام بحلول الخميس إن كان الموضوع عن البيانات فكلها موجودة",
+    "secs": 0.4
+   },
+   "ar-toki": {
+    "file": "current/game/ar-toki.mp3",
+    "err": 0.05,
+    "hyp": "كلها هناك اطلعت عليها  هل لأن أسأل عن رقم واحد  السؤال الرابع يوم الثلاثاء الماضي  أحد عشر طالبا أخطأ بالطريقة نفسها",
+    "secs": 0.6
+   }
+  }
+ },
+ "chatterbox": {
+  "default": {
+   "ar-narrator": {
+    "file": "chatterbox/default/ar-narrator.mp3",
+    "err": 0.103,
+    "hyp": "يزور توكي صفن شديد التنظيم يخضع الطلاب الاختبارات قصيرة وتقييمات من جظام وتسجل النتائج أسبوعياً",
+    "secs": 40.3
+   },
+   "ar-teacher-f": {
+    "file": "chatterbox/default/ar-teacher-f.mp3",
+    "err": 0.041,
+    "hyp": "هل رأيتهم كل مجموعة كانت تتحدث في العام الماضي ما كنت أرى ثلاثة أيض مرفوعا؟",
+    "secs": 29.6
+   },
+   "ar-teacher-m": {
+    "file": "chatterbox/default/ar-teacher-m.mp3",
+    "err": 0.011,
+    "hyp": "ثلاثة اختبارات أسبوعياً  وكل درجة في النظام بحلول الخميس  إن كان الموضوع عن البيانات  فكلها موجودة",
+    "secs": 39.4
+   },
+   "ar-toki": {
+    "file": "chatterbox/default/ar-toki.mp3",
+    "err": 0.126,
+    "hyp": "كلها هناك أطلعت عليها  هل أن أزأل عن رقم واحد  السؤال الرابع يوم الثلاثاء الماضي  11 طالبا أخطأ بالطريقة نفسها",
+    "secs": 49.4
+   },
+   "en-narrator": {
+    "file": "chatterbox/default/en-narrator.mp3",
+    "err": 0.0,
+    "hyp": "Lethal mutation. Assessment has become an end rather than a tool. A great deal is measured,  but the evidence rarely changes what happens next.",
+    "secs": 34.6
+   },
+   "en-teacher-f": {
+    "file": "chatterbox/default/en-teacher-f.mp3",
+    "err": 0.0,
+    "hyp": "Did you see them?  Every single group was talking.  Last year I couldn't get three hands up.",
+    "secs": 19.9
+   },
+   "en-teacher-m": {
+    "file": "chatterbox/default/en-teacher-m.mp3",
+    "err": 0.0,
+    "hyp": "Three quizzes a week.  Every mark in the system by Thursday.  If this is about the data, it's all there.",
+    "secs": 24.0
+   },
+   "en-toki": {
+    "file": "chatterbox/default/en-toki.mp3",
+    "err": 0.136,
+    "hyp": "It is all there, I looked.  Can I ask about one number?  Question 4.  Last Tuesday, 11 students wronged the same way.",
+    "secs": 32.5
+   }
+  },
+  "cast": {
+   "ar-narrator": {
+    "file": "chatterbox/cast/ar-narrator.mp3",
+    "err": 0.082,
+    "hyp": "يزور توكي صفن شديد التنظيم  يخضع الطلاب الاختبارات قصيرة وتقييمات باندظام  وتسجر النتائج اسبوعيا",
+    "secs": 36.9
+   },
+   "ar-teacher-f": {
+    "file": "chatterbox/cast/ar-teacher-f.mp3",
+    "err": 0.123,
+    "hyp": "هل رأيتهم؟  كنوا مجموعة كنت تتحدث  في عام الماضي ما كنت أرى ثلاثة أي دن مرفوعه",
+    "secs": 32.8
+   },
+   "ar-teacher-m": {
+    "file": "chatterbox/cast/ar-teacher-m.mp3",
+    "err": 0.0,
+    "hyp": "ثلاثة اختبارات اسبوعيًا وكل درجة في النظام بحلول الخميس  إن كان الموضوع عن البيانات فكلها موجودة",
+    "secs": 43.3
+   },
+   "ar-toki": {
+    "file": "chatterbox/cast/ar-toki.mp3",
+    "err": 0.176,
+    "hyp": "كلها هناك، أطلعت عليها  هل لأن أسأل عن رقم واحد؟  السؤال الرابع يوم ثائل ماضي  11 طالبا أخطأ بالطريقة نفسها",
+    "secs": 38.0
+   },
+   "en-narrator": {
+    "file": "chatterbox/cast/en-narrator.mp3",
+    "err": 0.0,
+    "hyp": "Lethal mutation. Assessment has become an end rather than a tool.  A great deal is measured, but the evidence rarely changes what happens next.",
+    "secs": 35.9
+   },
+   "en-teacher-f": {
+    "file": "chatterbox/cast/en-teacher-f.mp3",
+    "err": 0.0,
+    "hyp": "Did you see them?  Every single group was talking.  Last year I couldn't get three hands up.",
+    "secs": 23.2
+   },
+   "en-teacher-m": {
+    "file": "chatterbox/cast/en-teacher-m.mp3",
+    "err": 0.05,
+    "hyp": "free quizzes a week, every mark in the system by Thursday.  If this is about the data, it's all there.",
+    "secs": 29.5
+   },
+   "en-toki": {
+    "file": "chatterbox/cast/en-toki.mp3",
+    "err": 0.091,
+    "hyp": "It is all there, I looked. Can I ask about one number?  Question 4. Last Tuesday, 11 students wrong the same way.",
+    "secs": 32.3
+   }
+  }
+ },
+ "qwen": {
+  "customvoice": {
+   "en-narrator": {
+    "file": "qwen/customvoice/en-narrator.mp3",
+    "err": 0.042,
+    "hyp": "Level mutation. Assessment has become an end, rather than a tool. A great deal is measured,  but the evidence rarely changes what happens next.",
+    "secs": 58.9
+   },
+   "en-teacher-f": {
+    "file": "qwen/customvoice/en-teacher-f.mp3",
+    "err": 0.0,
+    "hyp": "Did you see them?  Every single group was talking.  Last year, I couldn't get three hands up.",
+    "secs": 39.0
+   },
+   "en-teacher-m": {
+    "file": "qwen/customvoice/en-teacher-m.mp3",
+    "err": 0.0,
+    "hyp": "Three quizzes a week.  Every mark in the system by Thursday.  If this is about the data, it's all there.",
+    "secs": 34.3
+   },
+   "en-toki": {
+    "file": "qwen/customvoice/en-toki.mp3",
+    "err": 0.091,
+    "hyp": "It IS all there. I looked. Can I ask about one number?  Question 4 last Tuesday. 11 students wrong the same way.",
+    "secs": 52.7
+   },
+   "ar-narrator": {
+    "error": "Unsupported languages: ['Arabic']. Supported: ['auto', 'chinese', 'english', 'french', 'german', 'italian', 'japanese', 'korean', 'portuguese', 'russian', 'spanish']"
+   },
+   "ar-teacher-f": {
+    "error": "Unsupported languages: ['Arabic']. Supported: ['auto', 'chinese', 'english', 'french', 'german', 'italian', 'japanese', 'korean', 'portuguese', 'russian', 'spanish']"
+   },
+   "ar-teacher-m": {
+    "error": "Unsupported languages: ['Arabic']. Supported: ['auto', 'chinese', 'english', 'french', 'german', 'italian', 'japanese', 'korean', 'portuguese', 'russian', 'spanish']"
+   },
+   "ar-toki": {
+    "error": "Unsupported languages: ['Arabic']. Supported: ['auto', 'chinese', 'english', 'french', 'german', 'italian', 'japanese', 'korean', 'portuguese', 'russian', 'spanish']"
+   }
+  }
+ },
+ "gemini": {
+  "gemini-2.5-pro-preview-tts": {
+   "ar-narrator": {
+    "error": "gemini failed"
+   },
+   "ar-teacher-f": {
+    "error": "gemini failed"
+   },
+   "ar-teacher-m": {
+    "error": "gemini failed"
+   },
+   "ar-toki": {
+    "error": "gemini failed"
+   },
+   "en-narrator": {
+    "error": "gemini failed"
+   },
+   "en-teacher-f": {
+    "error": "gemini failed"
+   },
+   "en-teacher-m": {
+    "error": "gemini failed"
+   },
+   "en-toki": {
+    "error": "gemini failed"
+   }
+  },
+  "gemini-2.5-flash-preview-tts": {
+   "ar-narrator": {
+    "file": "gemini/gemini-2.5-flash-preview-tts/ar-narrator.mp3",
+    "err": 0.062,
+    "hyp": "يزور توكي صفاً شديد التنظيم  يخضع الطلاب الاختبارات قصيرة وتقيمات بانتظام  وتسجل النتائج أسبوعياً",
+    "secs": 6.8
+   },
+   "ar-teacher-f": {
+    "file": "gemini/gemini-2.5-flash-preview-tts/ar-teacher-f.mp3",
+    "err": 0.014,
+    "hyp": "هل رأيتهم كل مجموعة كانت تتحدث  في العام الماضي ما كنت أرى ثلاث أيدي مرفوعة",
+    "secs": 5.1
+   },
+   "ar-teacher-m": {
+    "file": "gemini/gemini-2.5-flash-preview-tts/ar-teacher-m.mp3",
+    "err": 0.011,
+    "hyp": "ثلاثة اختبارات اسبوعيا وكل درجة في النظام بحلول الخميس إن كان الموضوع عن البيانات فكلها موجودة",
+    "secs": 5.6
+   },
+   "ar-toki": {
+    "file": "gemini/gemini-2.5-flash-preview-tts/ar-toki.mp3",
+    "err": 0.076,
+    "hyp": "كلها هناك  اطلحت عليها  هل لي أنا أسأل عن رقم واحد  السؤال الرابع يوم الثلثة الماضي  أحد عشر طالبا أخطأ بالطريقة نفسها",
+    "secs": 5.3
+   },
+   "en-narrator": {
+    "file": "gemini/gemini-2.5-flash-preview-tts/en-narrator.mp3",
+    "err": 0.0,
+    "hyp": "Lethal mutation. Assessment has become an end rather than a tool.  A great deal is measured, but the evidence rarely changes what happens next.",
+    "secs": 6.5
+   },
+   "en-teacher-f": {
+    "file": "gemini/gemini-2.5-flash-preview-tts/en-teacher-f.mp3",
+    "err": 0.0,
+    "hyp": "Did you see them? Every single group was talking.  Last year I couldn't get three hands up.",
+    "secs": 3.8
+   },
+   "en-teacher-m": {
+    "file": "gemini/gemini-2.5-flash-preview-tts/en-teacher-m.mp3",
+    "err": 0.0,
+    "hyp": "Three quizzes a week, every mark in the system by Thursday.  If this is about the data, it's all there.",
+    "secs": 10.2
+   },
+   "en-toki": {
+    "file": "gemini/gemini-2.5-flash-preview-tts/en-toki.mp3",
+    "err": 0.091,
+    "hyp": "It is all there. I looked. Can I ask about one number?  Question 4 last Tuesday. 11 students wrong the same way.",
+    "secs": 5.0
+   }
+  }
+ }
+}
