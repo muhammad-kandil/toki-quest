@@ -14,23 +14,34 @@ export const USING_FIXTURE = ADVENTURES.length === 0;
 
 export const adventures = (): Adventure[] => (USING_FIXTURE ? FIXTURE_ADVENTURES : ADVENTURES);
 export const locations = (): Location[] =>
-  (USING_FIXTURE ? FIXTURE_LOCATIONS : LOCATIONS).filter((l) => SHOP_ENABLED || l.kind !== 'shop');
+  (USING_FIXTURE ? FIXTURE_LOCATIONS : LOCATIONS).filter((l) => ENABLE_CUSTOMISATION || l.kind !== 'shop');
 export const resources = (): AlefResource[] => (USING_FIXTURE ? FIXTURE_RESOURCES : RESOURCES);
 export const adventure = (id: string) => adventures().find((a) => a.id === id);
 export const resource = (id: string) => resources().find((r) => r.id === id);
 export const location = (id: string) => locations().find((l) => l.id === id);
 export const adventuresAt = (locId: string) => adventures().filter((a) => a.location === locId);
 
-/** Term Pass stages/rewards. Content can move this into data/ later; only this getter changes. */
-export const getTermPass = (): TermPass => TERM_PASS_FIXTURE;
-
 /**
- * Campus Shop (client decision, 2026-11-26). One switch: false removes the
- * shop place, the notes balance, the power-up tray and every "notes" mention.
+ * Customisation (Term Pass, Campus Shop, Thank-you notes, power-ups).
+ * Client decision 2026-11-26: ships. false removes all of it from the UI
+ * (the shop place, the notes balance, the power-up tray, the Term Pass).
  */
-export const SHOP_ENABLED: boolean = true;
-/** Shop items; anything not decor/outfit is filtered out (guardrail). */
-export const getShop = (): ShopItem[] => SHOP_FIXTURE.filter(isSellable);
+export const ENABLE_CUSTOMISATION: boolean = true;
+
+
+/** No mentor character in the teacher game (Alef proposal): Toki outfits stay out of the shop. */
+export const TOKI_IN_TEACHER_GAME: boolean = false;
+
+/** Optional content modules: src/teacher/data/shop.ts (export SHOP) and termPass.ts (export TERM_PASS). */
+const optional = import.meta.glob<{ SHOP?: ShopItem[]; TERM_PASS?: TermPass }>(['./data/shop.ts', './data/termPass.ts'], { eager: true });
+const dataShop = optional['./data/shop.ts']?.SHOP;
+const dataPass = optional['./data/termPass.ts']?.TERM_PASS;
+
+/** Term Pass stages/rewards: data/termPass.ts when present, else the dev fixture. */
+export const getTermPass = (): TermPass => (dataPass && dataPass.stages?.length ? dataPass : TERM_PASS_FIXTURE);
+/** Shop items: data/shop.ts when present, else the fixture. Guardrail: only outfits/accessories/power-ups. */
+export const getShop = (): ShopItem[] =>
+  (dataShop && dataShop.length ? dataShop : SHOP_FIXTURE).filter((i) => isSellable(i) && (TOKI_IN_TEACHER_GAME || !i.skin));
 export const shopItem = (id: string) => getShop().find((i) => i.id === id);
 
 /** Community link from Alef. Empty until Alef shares it → "coming soon". */

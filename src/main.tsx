@@ -26,9 +26,28 @@ import '@fontsource/ibm-plex-sans-arabic/arabic-700.css';
 
 import './styles/global.css';
 import App from './App.tsx';
+import TeacherApp from './teacher/TeacherApp.tsx';
+
+/**
+ * Two games, one app. `?mode=coach` or the saved choice (localStorage
+ * 'toki:mode' = 'coach') opens Toki's Coaching Quest exactly as before;
+ * everything else opens Ms. Mariam's School. `?mode=teacher` clears the
+ * saved choice.
+ */
+function pickMode(): 'coach' | 'teacher' {
+  let q: string | null = null;
+  try { q = new URLSearchParams(window.location.search).get('mode'); } catch { /* ignore */ }
+  try {
+    if (q === 'coach') { window.localStorage.setItem('toki:mode', 'coach'); return 'coach'; }
+    if (q === 'teacher') { window.localStorage.removeItem('toki:mode'); return 'teacher'; }
+    return window.localStorage.getItem('toki:mode') === 'coach' ? 'coach' : 'teacher';
+  } catch {
+    return q === 'coach' ? 'coach' : 'teacher';
+  }
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    {pickMode() === 'coach' ? <App /> : <TeacherApp />}
   </StrictMode>,
 );

@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import legacy from '@vitejs/plugin-legacy'
 import type { Plugin } from 'vite'
+import { existsSync } from 'node:fs'
 
 // GitHub Pages sends no CORS headers; a `crossorigin` script tag is then
 // blocked by strict webviews (Telegram iOS) => blank page. Strip it.
@@ -33,5 +34,9 @@ export default defineConfig({
   ],
   build: {
     target: 'es2015',
+  },
+  // Teacher game: use the painted campus only if it exists (else an SVG fallback, no 404).
+  define: {
+    __TEACHER_CAMPUS_ART__: JSON.stringify(existsSync('public/art/campus.jpg')),
   },
 })
