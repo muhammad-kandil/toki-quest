@@ -415,3 +415,51 @@ choosing the game format.
 (not only first-to-buzz) · V29 Gamification can include a reasoning ("why")
 step · V30 Present Mode can show a picture word bank or a talk rule · V31
 Teams supports roles such as reporter, summariser, leader.
+
+---
+
+<a id="m06"></a>
+## Mission 06 · Reading the Evidence
+
+`m6` · Grade 7 · Math (ratios and proportions, end of lesson) · Ahmed,
+Sara, Omar · opened by endings of M02–M05.
+
+**Teacher's learning goal:** the last five minutes mirror the first five.
+Get individual evidence (Exit Ticket), read it before trusting a feeling or
+a self-rating, and plan tomorrow from it (Class Progress): one shared
+mistake, two starting points, or move on with a few in mind.
+
+The **laptop is an investigation of the class** (Class Progress): who
+finished / most-missed question / time, with profiles *one shared mistake*
+40 · *class split* 35 · *mostly secure* 25.
+
+| Student (ticket) | Profiles (weight) → choices |
+|---|---|
+| Ahmed (answers / reasoning / self-rating) | secure 40 → Assign tomorrow's challenge · "see you tomorrow" — sure and wrong 30 → "explain question 2" (See Why) · trust the rating (`m6.gap`) — careless slip 30 → estimate then check (Practice) · let it go |
+| Sara (answers / working / self-rating) | improving 40 → Practice for tomorrow's start · "done" — old adding idea back 30 → See Why · mark wrong (`m6.gap`) — ran out of time 30 → "how far did you get?" · score blank as wrong (`m6.gap`) |
+| Omar (answers / working / face) | right by luck 35 → See Why · tick it (`m6.gap`) — secure 35 → specific feedback · just collect — not handed in 30 → one question aloud · chase tomorrow (`m6.gap`) |
+
+Board: two-question exit ticket (Exit Ticket, `m6.ticket`) vs "any
+questions?" (`m6.gap`). Bookshelf: last year's sorted tickets. Pool: Sara
+asks to see her own progress (learning 35, Class Progress, own data only) ·
+peer marking (collaboration 25) · "5 out of 5" on wrong answers
+(misconception 20) · bell in two minutes (management 15).
+
+Endings (all open m7): **Loose Ends** (`m6.gap`, p1) · **Tomorrow,
+Planned** (`m6.plan`, p2, badge Evidence Reader) · **The Evidence, Read**
+(no gap, p3).
+
+**Scene brief (`teacher/scenes/m06.jpg`):** the Grade 7 room at the end of a
+lesson, afternoon light. Ahmed centre-right (62/50) packing up, ticket on
+the desk; Sara front-left (34/58) re-reading her ticket; Omar by the window
+(18/44) looking at the wall clock. Laptop open on a class overview
+(stylised, no real UI). Thin folder on the shelf. **Film** `m06-1…3`: (1)
+a busy, happy lesson in its last minutes; (2) the three students with their
+tickets; (3) the wall clock and Ms. Mariam with a pile of tickets.
+
+**To verify:** V32 Exit Ticket can be a short (two-question) individual
+check at the end of a lesson · V33 Exit Ticket can include a self-rating ·
+V34 Class Progress shows who completed a task and which questions were
+most missed · V35 Class Progress can show one student their own progress
+over time (no comparison with others) · V36 Assign can give a student
+tomorrow's task before they leave.

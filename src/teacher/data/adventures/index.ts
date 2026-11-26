@@ -5,9 +5,10 @@ import { M2 } from './m2-beyond-the-expected';
 import { M3 } from './m3-bring-learning-to-life';
 import { M4 } from './m4-bridging-the-gap';
 import { M5 } from './m5-everyone-has-a-voice';
+import { M6 } from './m6-reading-the-evidence';
 import { SAMPLE_G5 } from './sample-g5-fractions';
 
-export const ADVENTURES: Adventure[] = [A1, M2, M3, M4, M5];
+export const ADVENTURES: Adventure[] = [A1, M2, M3, M4, M5, M6];
 
 /** Internal samples: validated, never shown to players. */
 export const SAMPLE_ADVENTURES: Adventure[] = [SAMPLE_G5];
