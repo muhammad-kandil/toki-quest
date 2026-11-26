@@ -1,4 +1,8 @@
-/** All missions in play order. Owned by the content designer. Endings (and `unlock:<id>` flags) open later missions. */
+/**
+ * Mission-based content (superseded by the universe in ../universe.ts, per
+ * docs/product/GAME_PACKAGE.md). Kept for reference and recut material;
+ * no longer exported for players.
+ */
 import type { Adventure } from '../../types';
 import { A1 } from './a1-first-five-minutes';
 import { M2 } from './m2-beyond-the-expected';
@@ -9,7 +13,11 @@ import { M6 } from './m6-reading-the-evidence';
 import { M7 } from './m7-ready-for-the-test';
 import { SAMPLE_G5 } from './sample-g5-fractions';
 
-export const ADVENTURES: Adventure[] = [A1, M2, M3, M4, M5, M6, M7];
+/** Player-facing missions: none. The teacher game plays UNIVERSE. */
+export const ADVENTURES: Adventure[] = [];
+
+/** The seven missions of the previous structure, validated but not shown to players. */
+export const LEGACY_MISSIONS: Adventure[] = [A1, M2, M3, M4, M5, M6, M7];
 
 /** Internal samples: validated, never shown to players. */
 export const SAMPLE_ADVENTURES: Adventure[] = [SAMPLE_G5];

@@ -1,7 +1,8 @@
 /**
- * NCLE (New Core Learning Experience) tools, as named in Alef's proposal
- * (docs/product/ALEF_PROPOSAL.md, "NCLE content map"). Owned by the content
- * designer.
+ * NCLE (New Core Learning Experience) tools, as named in Alef's proposal and
+ * design package (docs/product/GAME_PACKAGE.md, "Product boundary"). Owned by
+ * the content designer. TOOL_STATUS (end of file) records which capabilities
+ * are publicly verified and which need Alef's internal validation.
  *
  * Every `what` line says only what the proposal states about the tool: the
  * classroom need it answers in the missions. No screens, buttons or
@@ -36,8 +37,8 @@ export const RESOURCES: AlefResource[] = [
     icon: '▶',
     title: t('Gamification', 'التلعيب'),
     what: t(
-      'Game elements in a lesson. In the missions it is used on purpose: to pull a student into the learning question, not as a reward.',
-      'عناصر اللعب داخل الدرس. وفي المهمات يُستخدم عن قصد: لجذب الطالب إلى سؤال التعلّم، لا كمكافأة.',
+      'Gamified assessment and game elements in a lesson. In the game it is used on purpose: to pull students into the learning question, not as a reward.',
+      'تقييم بطابع اللعب وعناصر لعب داخل الدرس. وفي اللعبة يُستخدم عن قصد: لجذب الطلاب إلى سؤال التعلّم، لا كمكافأة.',
     ),
     monday: t(
       'Try it Monday: after any game, stop on one answer and ask "Why is that right?"',
@@ -145,8 +146,8 @@ export const RESOURCES: AlefResource[] = [
     icon: '▦',
     title: t('Class Progress', 'تقدّم الصف'),
     what: t(
-      'A view of how the class is progressing, used in the missions to decide what to do next.',
-      'عرض لتقدّم الصف، يُستخدم في المهمات لتقرير الخطوة التالية.',
+      'Live classroom analytics: a view of how the class is progressing, used in the game to decide what to do next.',
+      'تحليلات صفّية مباشرة: عرض لتقدّم الصف، يُستخدم في اللعبة لتقرير الخطوة التالية.',
     ),
     monday: t(
       'Try it Monday: before the lesson, choose the three students you will check on first, and why.',
@@ -215,3 +216,26 @@ export const RESOURCES: AlefResource[] = [
     placeholder: true,
   },
 ];
+
+/**
+ * Evidence status per tool (GAME_PACKAGE.md "Product boundary").
+ * 'verified-public': the capability is publicly documented by Alef (the game
+ * may name the capability; the exact label/UI may still need validation).
+ * 'needs-internal-validation': name and behaviour need Alef SMEs before any
+ * teacher-facing release. Never describe screens either way.
+ */
+export const TOOL_STATUS: Record<string, { status: 'verified-public' | 'needs-internal-validation'; publicCapability?: string }> = {
+  'present-mode': { status: 'verified-public', publicCapability: 'Present Mode' },
+  assign: { status: 'verified-public', publicCapability: 'flexible assignment (the "Assign" label/UI needs validation)' },
+  'class-progress': { status: 'verified-public', publicCapability: 'live classroom analytics (the "Class Progress" label needs validation)' },
+  gamification: { status: 'verified-public', publicCapability: 'gamified assessments' },
+  pathways: { status: 'verified-public', publicCapability: 'Alef Pathways' },
+  teams: { status: 'needs-internal-validation' },
+  'exit-ticket': { status: 'needs-internal-validation' },
+  'show-my-learning': { status: 'needs-internal-validation' },
+  'exam-prep': { status: 'needs-internal-validation' },
+  'ai-helper': { status: 'needs-internal-validation' },
+  'need-help': { status: 'needs-internal-validation' },
+  'see-why': { status: 'needs-internal-validation' },
+  practice: { status: 'needs-internal-validation' },
+};
