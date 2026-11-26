@@ -87,8 +87,8 @@ jobs:
         with: { python-version: "3.11" }
       - run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
-          pip install -q numpy soundfile torch --index-url https://download.pytorch.org/whl/cpu
-          pip install -q transformers
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q numpy soundfile transformers
       - run: python tools/audio/ambience.py --out public/audio/amb ${{ inputs.ambience != 'all' && format('--only {0}', inputs.ambience) || '' }}
       - uses: actions/upload-artifact@v4
         with:
